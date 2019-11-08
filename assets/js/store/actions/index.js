@@ -1,3 +1,4 @@
 export {
-    login
+    login,
+    logout
 } from './main'

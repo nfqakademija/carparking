@@ -1,14 +1,19 @@
 import React from 'react';
-import { NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-const layout = () => (
+const layout = (props) => (
+    <>
     <header>
         <nav>
-            <NavLink to='/home' exact> Home </NavLink>
-            <NavLink to='/users'> Users </NavLink>
-            <NavLink to='/logout'> Logout </NavLink>
+            <Link to='/home' > Home </Link>
+            <Link to='/users'> Users </Link>
+            <Link to='/logout'> Logout </Link>
         </nav>
     </header>
+    <main>
+        {props.children}
+    </main>
+    </>
 )
 
 export default layout;
