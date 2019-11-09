@@ -4,8 +4,6 @@
     }
   }
 
-$basepx: 16px;
-
 .Background_container {
     position: absolute;
     top: 0;
@@ -34,8 +32,7 @@ $basepx: 16px;
 .Background_ground {
     position: absolute;
     bottom: 0;
-    // margin-bottom: em(-30px, $basepx);
-    height: 35%;
+    height: 25%;
     width: 100%;
     background: #c1b9b9;
     z-index: -1;

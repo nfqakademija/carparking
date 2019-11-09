@@ -1,0 +1,45 @@
+.Reservation_container {
+    width:26%;
+    min-width: 300px;
+    height:37.5%;
+    box-shadow: 5px 10px 10px 0px grey;
+    margin-top:2rem; //this needs to be changed
+    display: flex;
+    flex-direction: column;
+}
+
+.Reservation_header {
+    padding:1rem;
+    background-color:#f1a177;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    font-size: 1.25rem;
+    text-align: center;
+    justify-content: center;
+    color: white;
+}
+ 
+.Reservation_body {
+    width: 100%;
+    background-color: #fadfd1;
+    flex-grow: 1;
+ }
+
+ .Reservation_svg {
+     width: 75%;
+     height: 75%;
+ }
+
+ .Reservation_circleGreen{
+     fill: none;
+     stroke: #95D195;
+     stroke-width: 5%;
+     stroke-linecap: round;
+ }
+
+ .Reservation_circleRed{
+    fill: none;
+    stroke: #C8302C;
+    stroke-width: 5%;
+    stroke-linecap: round;
+}
