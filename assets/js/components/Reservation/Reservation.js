@@ -10,11 +10,13 @@ const reservation = (props) => {
                 {/* {props.date} */}
             </div>
             <div className='Reservation_body'>
-                    <svg className='Reservation_svg' viewBox='0 0 100% 100%'>
+                    <svg className='Reservation_svg'>
                         <circle className='Reservation_circleGreen' cx="50%" cy="50%" r="30%"/>
                         <circle className='Reservation_circleRed' cx="50%" cy="50%" r="30%"
-                            stroke-dasharray="94.2% 188.4%" />
+                            strokeDasharray="60% 188.4%" />
+                        <text className='Reservation_text' x="50%" y="50%">A34</text>
                     </svg>
+                    <span>Button should be here</span>
             </div>
         </div>
     )

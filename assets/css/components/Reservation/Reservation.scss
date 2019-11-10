@@ -23,23 +23,49 @@
     width: 100%;
     background-color: #fadfd1;
     flex-grow: 1;
+    display:flex;
+    flex-direction: column;
  }
 
  .Reservation_svg {
-     width: 75%;
+     width: 95%;
      height: 75%;
+     margin: auto;
+     transform: rotate(-90deg);
  }
 
- .Reservation_circleGreen{
+ .Reservation_circleGreen {
      fill: none;
      stroke: #95D195;
-     stroke-width: 5%;
-     stroke-linecap: round;
+     stroke-width: 7.5%;
  }
-
- .Reservation_circleRed{
+ 
+ .Reservation_circleRed {
     fill: none;
-    stroke: #C8302C;
-    stroke-width: 5%;
+    stroke: #E87C86;
+    stroke-width: 7.5%;
     stroke-linecap: round;
+    animation: Reservation_circleRed 2s ease-out forwards;
+}
+
+.Reservation_text {
+    transform: rotate(90deg);
+    transform-origin: center;
+    text-anchor: middle;
+    font-size: 2rem;
+    opacity:0;
+    animation: Reservation_textFadeIn 1s linear forwards;
+    animation-delay: 1s;
+}
+
+@keyframes Reservation_circleRed {
+    from {
+        stroke-dasharray: 0% 188.4%;
+    }
+}
+
+@keyframes Reservation_textFadeIn {
+    to {
+        opacity: 1
+    }
 }
