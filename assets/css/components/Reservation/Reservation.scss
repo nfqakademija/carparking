@@ -16,7 +16,7 @@
     font-size: 1.25rem;
     text-align: center;
     justify-content: center;
-    color: white;
+    color: #f8f3f0;
 }
  
 .Reservation_body {
@@ -28,10 +28,12 @@
  }
 
  .Reservation_svg {
-     width: 95%;
+     width: 75%;
      height: 75%;
      margin: auto;
+     margin-top: 1rem;
      transform: rotate(-90deg);
+     min-height: 160px;
  }
 
  .Reservation_circleGreen {

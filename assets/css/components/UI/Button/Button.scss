@@ -1,0 +1,47 @@
+.Button_base {
+    margin: 1rem auto;
+    font-size: 1.25rem;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    color: #f8f3f0;
+    font-weight: 900;
+    box-shadow: 5px 5px 10px -5px grey;
+    text-transform: uppercase;
+    cursor: progress;
+    z-index: 100;
+    &:active {
+        position:relative;
+        top:2px;
+        left:1px;
+    }
+    &:focus {
+        outline: none;
+    }
+}
+
+.Button_success {
+    background-color: #95D195;
+    border: 3px solid #95D195;
+    &:hover {
+        background-color: #71c271;
+        border: 3px solid #71c271;
+    }
+}
+
+.Button_danger {
+    background-color: #E87C86;
+    border: 3px solid #E87C86;
+    &:hover {
+        background-color: #E0515E;
+        border: 3px solid #E0515E;
+    }
+}
+
+.Button_neutral {
+    background-color: #F5CA8B;
+    border: 3px solid #F5CA8B;
+    &:hover {
+        background-color: #F1B55C;
+        border: 3px solid #F1B55C;
+    }
+}
