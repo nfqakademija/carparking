@@ -58,6 +58,8 @@
     opacity:0;
     animation: Reservation_textFadeIn 1s linear forwards;
     animation-delay: 1s;
+    fill: #71c271; // need to pick color here and think about visualization
+    font-weight: 900;
 }
 
 @keyframes Reservation_circleRed {

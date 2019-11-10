@@ -1,6 +1,8 @@
 import * as actionTypes from '../actions/actionTypes';
+import registrationData from "../../containers/Home/fakeReservationData.json"
 
 const initialState = {
+    registrationData: registrationData,
     token: null
 }
 
