@@ -55,18 +55,18 @@ class Users
     private $userRole;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ParkSpaces", inversedBy="feedback", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\ParkSpaces", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $userParkSpace;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Reservations", mappedBy="userId")
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservations", mappedBy="userReservation")
      */
     private $reservations;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\UserAway", mappedBy="userId")
+     * @ORM\OneToMany(targetEntity="App\Entity\UserAway", mappedBy="awayUser")
      */
     private $userAways;
 
