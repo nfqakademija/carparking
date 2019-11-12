@@ -5,9 +5,12 @@ $primary: darken(#428bca, 20%);
 @import "~bootstrap/scss/bootstrap";
 
 #root {
-  margin: 20px auto;
+  margin:auto;
   text-align: center;
-  font-size: 96px;
-  font-weight: 100;
-  font-family: 'Lato', serif;
+  height:100vh;
+  // font-size: 96px;
+  // font-weight: 100;
+  // font-family: 'Lato', serif;
 }
+
+// color palette now #f1a177 (orange); #fadfd1 (creamy); #f8f3f0 (almost white); #c1b9b9 (grey)
