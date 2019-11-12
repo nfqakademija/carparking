@@ -1,0 +1,52 @@
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+
+.nav-item{
+    width: 100%;
+    background-color: #fadfd1;
+}
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+.hide-text {
+    text-overflow: clip;
+    white-space: nowrap;
+}
+
+.navheight {
+    height: 70px;
+}
+
+.mainheight {
+    /* Firefox */
+    height: -moz-calc(100% - 70px);
+    /* WebKit */
+    height: -webkit-calc(100% - 70px);
+    /* Opera */
+    height: -o-calc(100% - 70px);
+    /* Standard */
+    height: calc(100% - 70px);
+}
+
+.dddd {
+    z-index: 9999;
+}
+
+.asd {
+    left: -4em;
+}

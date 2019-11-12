@@ -1,31 +1,31 @@
 .bg_orange{
-    background-color: #f1a177;
+    background-color: #f1a177 !important;
 }
 
 .textOrange{
-    color: #f1a177;
+    color: #f1a177 !important;
 }
 
 .bg_lightOrange{
-    background-color: #fadfd1;
+    background-color: #fadfd1 !important;
 }
 
 .textLightOrange{
-    color: #fadfd1;
+    color: #fadfd1 !important;
 }
 
 .bg_grey{
-    background-color: #c1b9b9;
+    background-color: #c1b9b9 !important;
 }
 
 .textGrey{
-    color: #c1b9b9;
+    color: #c1b9b9 !important;
 }
 
 .bg_lightGrey{
-    background-color: #f8f3f0;
+    background-color: #f8f3f0 !important;
 }
 
 .textLightGrey{
-    color: #f8f3f0;
+    color: #f8f3f0 !important;
 }
