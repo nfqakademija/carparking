@@ -62,6 +62,7 @@ class Users
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Reservations", mappedBy="userReservation")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $reservations;
 

@@ -16,20 +16,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class UsersController extends AbstractController
 {
     /**
-     * @Route("/api/users", name="users")
+     * @Route("/users", name="users")
      * @param EntityManagerInterface $entityManager
-     * @return JsonResponse
+     * @return Response
      */
     public function index(EntityManagerInterface $entityManager)
     {
-        $repository = $this->getDoctrine()->getRepository(Users::class);
-        $data = $repository->findAll();
+        $repository = $this->getDoctrine()->getRepository(Reservations::class);
+//        $data = $repository->findAll();
 //
-//        $response = new Response($data);
-//        $response->headers->set('Content-Type', 'application/json');
-//        return var_dump($response);
+        return new JsonResponse($repository->findAll());
 
-        return new JsonResponse($data);
+//        return $this->render('users/index.html.twig');
+
 
     }
 }
