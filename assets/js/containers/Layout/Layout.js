@@ -89,7 +89,7 @@ const layout = (props) => (
                         <div className="d-none d-md-block col-0 col-md-4 col-lg-3 position-fixed p-0">{meniu}</div>
                 </div>
                 <div className="col-12 col-md-8 col-lg-9">
-                    <div className="container-fluid">
+                    <div className="container-fluid h-100">
                         {props.children}
                     </div>
                 </div>
