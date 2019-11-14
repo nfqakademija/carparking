@@ -21,7 +21,7 @@ const usersTable = (props) => {
                         <span>S</span>
                     </div>
                 </div>
-                <div className='UserTable_userContainer sticky'>
+                <div className='UserTable_userContainerMain'>
                     <div>Vardenis Pavardenis</div>
                     <div>
                         <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
