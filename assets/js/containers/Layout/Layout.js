@@ -5,16 +5,20 @@ import {Link} from "react-router-dom";
 import Background from '../../components/UI/Background/Background';
 
 const meniu =
-    <div className="hide-text ml-2">
-        <div className="nav-item">
-            <a className="nav-link" href="#services">My Profile</a>
+    <div className="hide-text">
+        <hr class="m-0"/>
+        <div className="m-0 p-2 text-left h6">
+            <a className=" text-dark" href="#services">My Profile</a>
         </div>
-        <div className="nav-item">
-            <a className="nav-link" href="#contact">Reserve</a>
+        <hr class="m-0"/>
+        <div className="m-0 p-2 text-left h6">
+            <a className=" text-dark" href="#contact">Reserve</a>
         </div>
-        <div className="nav-item ">
-            <a className="nav-link" href="#contact">Watch Users</a>
+        <hr class="m-0"/>
+        <div className="m-0 p-2 text-left h6">
+            <a className="text-dark" href="#contact">Watch Users</a>
         </div>
+        <hr class="m-0"/>
     </div>;
 
 const openMeniu = () => {
@@ -61,8 +65,8 @@ const layout = (props) => (
                                     <div className="container-fluid w-100 p-0 p-2">
                                         <div className="d-flex justify-content-between">
                                             <div className="align-self-center">
-                                                <p className="m-0 pl-0 h4">
-                                                    Menu
+                                                <p className="m-0 pl-0 h4 align-self-center">
+                                                    <b>Menu</b>
                                                 </p>
                                             </div>
                                             <div>
@@ -72,6 +76,10 @@ const layout = (props) => (
                                                 >×</a
                                                 >
                                             </div>
+                                        </div>
+
+                                        <div className="text-left mt-4">
+                                            <b>Jonas Jonaitis</b>
                                         </div>
                                     </div>
                                     {meniu}
@@ -85,8 +93,16 @@ const layout = (props) => (
 
         <div className="container-fluid mainheight">
             <div className="row h-100">
-                <div className="bg_grey d-none d-md-block col-0 col-md-4 col-lg-3 p-0 ">
-                        <div className="d-none d-md-block col-0 col-md-4 col-lg-3 position-fixed p-0">{meniu}</div>
+                <div className="bg_lightGrey d-none d-md-block col-0 col-md-4 col-lg-3 p-0 ">
+
+                    <div className="d-none d-md-block col-0 col-md-4 col-lg-3 position-fixed p-0 mt-2">
+                        <div className="py-2">
+                            <p className=" m-0 h3">
+                                <b>Menu</b>
+                            </p>
+                        </div>
+                        {meniu}
+                    </div>
                 </div>
                 <div className="col-12 col-md-8 col-lg-9">
                     <div className="container-fluid h-100">
