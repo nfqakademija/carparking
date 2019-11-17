@@ -9,7 +9,7 @@
 
 .UsersTable_header {
     padding:1rem;
-    background-color:#f1a177;
+    background-color:#343a40;
     color: #f8f3f0;
     border-top-left-radius: 0.25rem;
     border-top-right-radius: 0.25rem;
@@ -20,7 +20,7 @@
 
 .UsersTable_body {
     width:100%;
-    background-color: #fadfd1;
+    background-color: #f8f3f0;
     flex-grow: 1;
     overflow: auto;
     scroll-snap-type: y proximity;
@@ -33,11 +33,11 @@
     padding-bottom: 1rem;
     font-size: 1.5rem;
     box-shadow: 0px -5px 10px 0px grey; 
-    color: hsl(21, 73%, 65%);
+    color: #343a40;
     font-weight: 900;
     position: sticky;
     top: 0;
-    background-color: #fadfd1;
+    background-color: #f8f3f0;
     z-index: 5;
 }
 .itemUsers {
@@ -77,7 +77,7 @@
     scroll-snap-align: end;
     position: sticky;
     top: 5.5rem;
-    background-color: #fadfd1;
+    background-color: #f8f3f0;
     z-index: 3;
     padding-top:1rem;
     font-weight: 900;
@@ -92,3 +92,22 @@
     width: 0px; 
     background: transparent;
 } // param for each browser will be added later
+
+@media(max-width:1600px){
+    .UsersTable_container {
+        width: 100%;
+    }
+}
+
+@media(max-width:950px){
+    .UserTable_tableHead {
+        font-size:1rem;
+    }
+    .UserTable_userContainer {
+        font-size:1rem;
+    }
+    .UserTable_userContainerMain{
+        font-size:1rem;
+        top: 4rem;
+    }
+}
