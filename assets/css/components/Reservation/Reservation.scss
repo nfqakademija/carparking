@@ -1,6 +1,7 @@
 .Reservation_container {
     width:26%;
     min-width: 350px;
+    min-height:400px;
     height:37.5%;
     box-shadow: 5px 5px 10px 0px #343a40;
     margin-top:2rem; //this needs to be changed
@@ -80,7 +81,8 @@
     }
 }
 @media(max-width:400px){
-    .Reservation_container {
+    .Reservation_container  {
         min-width: 300px;
     }
+
 }

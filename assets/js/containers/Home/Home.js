@@ -52,7 +52,7 @@ class Home extends Component {
     render (){
 
         return (
-            <div style={{display:'flex', justifyContent:'space-around', flexWrap:'wrap', height:'100%', alignContent:'flex-start'}}>
+            <div style={{display:'flex', justifyContent:'space-around', flexWrap:'wrap', height:'100%', alignContent:'flex-start', overflow:"scroll"}}>
                 {this.props.registrationData.reservationStatus.map( day => (
                     <Reservation
                         key={day.date}
