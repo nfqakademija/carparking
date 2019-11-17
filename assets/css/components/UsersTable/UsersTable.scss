@@ -1,6 +1,6 @@
 .UsersTable_container {
     width: 75%;
-    height: 75%;
+    height: 85%;
     margin-top: 3rem;
     box-shadow: 5px 5px 10px 0px #343a40;
     display: flex;
@@ -38,6 +38,7 @@
     position: sticky;
     top: 0;
     background-color: #f8f3f0;
+    color: #343a40;
     z-index: 5;
 }
 .itemUsers {
@@ -57,11 +58,12 @@
 }
 
 .UserTable_userContainer {
-    margin-bottom:1rem;
+    margin-bottom:1.5rem;
     display:flex;
     flex-direction: row;
     font-size: 1.5rem;
-    scroll-snap-align: end;
+    color: #343a40;
+    scroll-snap-align: start;
     & div {
         width: 50%;
         display: flex;
@@ -70,7 +72,7 @@
 }
 
 .UserTable_userContainerMain {
-    margin-bottom:1rem;
+    margin-bottom:1.5rem;
     display:flex;
     flex-direction: row;
     font-size: 1.5rem;
@@ -78,8 +80,10 @@
     position: sticky;
     top: 5.5rem;
     background-color: #f8f3f0;
+    color: #343a40;
     z-index: 3;
     padding-top:1rem;
+    padding-bottom: 1.5rem;
     font-weight: 900;
     & div {
         width: 50%;
@@ -109,5 +113,18 @@
     .UserTable_userContainerMain{
         font-size:1rem;
         top: 4rem;
+    }
+}
+
+@media(max-width: 350px){
+    .UserTable_tableHead {
+        font-size:0.9rem;
+    }
+    .UserTable_userContainer {
+        font-size:0.9rem;
+    }
+    .UserTable_userContainerMain{
+        font-size:0.9rem;
+        top: 3.6rem;
     }
 }
