@@ -3,7 +3,7 @@ import React from 'react';
 import Menu from '../Menu/Menu';
 
 const header = (props) => (
-        <div className="container-fluid" style={{boxShadow: '5px 10px 10px 0px grey'}}>
+        <div className="container-fluid box-shadow" >
             <div className="row">
                 <div className="col-12 navheight">
                     <div className="fixed-top">
