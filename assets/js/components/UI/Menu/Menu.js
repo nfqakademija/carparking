@@ -1,20 +1,21 @@
 import React from 'react';
+import {NavLink} from "react-router-dom";
 
 const menu = () => (
     <div className="hide-text">
         <hr className="m-0"/>
         <div className="m-0 p-2 text-left h6">
-            <a className=" text-dark" href="#services">My Profile</a>
+            <NavLink className=" text-dark" to='/home'>Reserve</NavLink>
         </div>
         <hr className="m-0"/>
         <div className="m-0 p-2 text-left h6">
-            <a className=" text-dark" href="#contact">Reserve</a>
+            <NavLink className=" text-dark" to="/users">Watch Users</NavLink>
         </div>
         <hr className="m-0"/>
-        <div className="m-0 p-2 text-left h6">
-            <a className="text-dark" href="#contact">Watch Users</a>
+        {/* <div className="m-0 p-2 text-left h6">
+            <NavLink className="text-dark" href="#users">a</NavLink>
         </div>
-        <hr className="m-0"/>
+        <hr className="m-0"/> */}
     </div>
 )
 

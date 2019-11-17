@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import {Link} from "react-router-dom";
-
 
 import Background from '../../components/UI/Background/Background';
 import Header from '../../components/UI/Header/Header';
@@ -12,7 +10,7 @@ class Layout extends Component {
         document.getElementById("mySidenav").style.width = "100%";
     }
 
-    closeManuHandler () {
+    closeMenuHandler () {
         document.getElementById("mySidenav").style.width = "0%";
     }
     // in this case it is working, but usualy we are not using ids in react. Like React.fowardRef and then use ref instead

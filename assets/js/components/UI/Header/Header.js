@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Menu from '../Menu/Menu';
 
@@ -11,9 +12,9 @@ const header = (props) => (
                             <div className="w-100">
                                 <div className="d-flex justify-content-between">
                                     <div>
-                                        <a className="h1 textLightGrey">
+                                        <span className="h1 textLightGrey">
                                             NFQ parking
-                                        </a>
+                                        </span>
                                     </div>
                                     <div className="align-self-center d-flex">
                                         <div className="d-none d-md-block align-self-center">
@@ -22,9 +23,11 @@ const header = (props) => (
                                             </i>
                                         </div>
                                         <div>
-                                            <i
-                                                className="icono-power textLightGrey mx-4"
-                                            > </i>
+                                            <Link to='/logout' style={{color:"#f8f3f0"}}>
+                                                <i className="icono-power textLightGrey mx-4"> 
+                                                </i>
+                                            </Link>
+                                            
                                         </div>
                                         <div onClick={props.openMenu}>
                                             <i
