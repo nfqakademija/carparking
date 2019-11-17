@@ -11,7 +11,7 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    background: #f1a177;
+    background: #c1b9b9;
     z-index: -5;
     opacity: 0.75; 
 }
@@ -22,7 +22,7 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: #fadfd1;
+    background: #f8f3f0;
     z-index:-1;
     @include prefix(animation, bgIn 6s 1s linear infinite);
     @include prefix(transform, skewX(10deg));
@@ -34,7 +34,7 @@
     bottom: 0;
     height: 25%;
     width: 100%;
-    background: #c1b9b9;
+    background: #343a40;
     z-index: -1;
 }
 
