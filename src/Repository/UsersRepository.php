@@ -27,8 +27,6 @@ class UsersRepository extends ServiceEntityRepository
     {
     }
 
-
-
 //    public function findOneBySomeField($value): ?Users
 //    {
 //        return $this->createQueryBuilder('u')

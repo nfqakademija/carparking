@@ -12,27 +12,41 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class AppFixtures extends Fixture
 {
-    public const PARK_SPACE = 'parkspace';
-    public const ROLE_ADMIN = 'role_admin';
-    public const ROLE_USER = 'role_user';
-    public const ROLE_GUEST = 'role_guest';
-    public const USER = 'name';
+    private const PARK_SPACE = 'parkspace';
+    private const ROLE_ADMIN = 'role_admin';
+    private const ROLE_USER = 'role_user';
+    private const ROLE_GUEST = 'role_guest';
+    private const USER = 'name';
+    private $faker;
+
+    /**
+     * @var \Faker\Factory
+     */
+    public function __construct()
+    {
+        $this->faker = \Faker\Factory::create();
+    }
 
     public function load(ObjectManager $manager)
     {
         $this->makeParkSpaces(20, $manager);
         $this->makeRoles($manager);
-        $this->makeUsers(30, $manager);
-        $this->makeReservations(30, $manager);
-        $this->makeUserAwayPeriods(6, $manager);
+        $this->makeUsers(25, $manager);
+        $this->makeReservations(20,5, $manager);
+        $this->makeUserAwayPeriods(5, $manager);
     }
 
     private function makeParkSpaces($number, ObjectManager $manager)
     {
         for ($i = 1; $i <= $number; $i++) {
             $product = new ParkSpaces();
-            $product->setNumber($i);
-            $product->setAvailable(0);
+            if ($i < 10) {
+                $stringNumber = "A00" . $i;
+            } else {
+                $stringNumber = "A0" . $i;
+            }
+            $product->setNumber($stringNumber);
+            $product->setAvailable(false);
             $manager->persist($product);
             $this->addReference(self::PARK_SPACE . $i, $product);
         }
@@ -68,12 +82,20 @@ class AppFixtures extends Fixture
     {
         for ($i = 1; $i <= $number; $i++) {
             $user = new Users();
-            $user->setName("Name.$i");
-            $user->setSurname("Surname.$i");
+            $name = $this->faker->firstName;
+            $user->setName($name);
+            $surname = $this->faker->lastName;
+            $user->setSurname($surname);
             $user->setStatus(1);
             $user->setAwayStatus(0);
-            $user->setLicencePlate("AAA0$i");
-            $user->setEmail("user.$i.@mail.com");
+            if ($i < 10) {
+                $stringNumber = "AAA00" . $i;
+            } else {
+                $stringNumber = "AAA0" . $i;
+            }
+            $user->setLicencePlate($stringNumber);
+
+            $user->setEmail($name . $surname . "@mail.com");
             if ($i <= 20) {
                 if ($i == 1) {
                     $user->setUserRole($this->getReference(self::ROLE_ADMIN));
@@ -90,14 +112,17 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    private function makeReservations($number, ObjectManager $manager)
+    private function makeReservations($number,$daysPerUser, ObjectManager $manager)
     {
-        $date = new \DateTime(date('Y-m-d H:i:s'));
         for ($i = 1; $i <= $number; $i++) {
-            $reservations = new Reservations();
-            $reservations->setReservationUser($this->getReference(self::USER . $i));
-            $reservations->setReservationDate($date);
-            $manager->persist($reservations);
+            for ($j = 0; $j < $daysPerUser; $j++) {
+                $date = new \DateTime('now');
+                $reservations = new Reservations();
+                $reservations->setUser($this->getReference(self::USER . $i));
+                $date->modify("+" . $j . " day");
+                $reservations->setReservationDate($date);
+                $manager->persist($reservations);
+            }
         }
         $manager->flush();
     }
@@ -106,7 +131,7 @@ class AppFixtures extends Fixture
     {
         for ($i = 1; $i <= $number; $i++) {
             $reservations = new UserAway();
-            $userNumber = rand(1, 20);
+            $userNumber = rand(1, $number);
             $reservations->setAwayUser($this->getReference(self::USER . $userNumber));
             $reservations->setAwayStartDate($this->dateModifier(1, 4));
             $reservations->setAwayEndDate($this->dateModifier(5, 7));

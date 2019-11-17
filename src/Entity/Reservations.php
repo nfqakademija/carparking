@@ -2,17 +2,22 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReservationsRepository")
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={"get"},
+ *     itemOperations={"get"}
+ * )
  */
 class Reservations
 {
     /**
      * @ORM\Id()
+     * @ApiProperty(identifier=true)
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
@@ -24,10 +29,11 @@ class Reservations
     private $reservationDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="reservations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="reservations",fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
+     * @ApiProperty(readableLink=true)
      */
-    private $userReservation;
+    private $user;
 
     public function getId(): ?int
     {
@@ -46,14 +52,14 @@ class Reservations
         return $this;
     }
 
-    public function getReservationUser(): ?Users
+    public function getUser(): ?Users
     {
-        return $this->userReservation;
+        return $this->user;
     }
 
-    public function setReservationUser(?Users $userReservation): self
+    public function setUser(?Users $user): self
     {
-        $this->userReservation = $userReservation;
+        $this->user = $user;
 
         return $this;
     }

@@ -22,7 +22,7 @@ class ParkSpaces
     private $number;
 
     /**
-     * @ORM\Column(type="smallint")
+     * @ORM\Column(type="boolean")
      */
     private $available;
 
@@ -43,12 +43,12 @@ class ParkSpaces
         return $this;
     }
 
-    public function getAvailable(): ?int
+    public function getAvailable(): ?bool
     {
         return $this->available;
     }
 
-    public function setAvailable(int $available): self
+    public function setAvailable(bool $available): self
     {
         $this->available = $available;
 

@@ -2,17 +2,24 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiProperty;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
+ * @ApiResource()
  */
 class Users
 {
+
+    //     if you use Doctrine ORM, be sure to not mark this property
+    // with the @GeneratedValue annotation or use the NONE value
     /**
      * @ORM\Id()
+     * @ApiProperty(identifier=true)
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
@@ -51,6 +58,7 @@ class Users
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Roles")
      * @ORM\JoinColumn(nullable=false)
+     * @ApiProperty(readableLink=true)
      */
     private $userRole;
 
@@ -61,13 +69,15 @@ class Users
     private $userParkSpace;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Reservations", mappedBy="userReservation")
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservations", mappedBy="user")
      * @ORM\JoinColumn(nullable=true)
+     * @ApiProperty(readableLink=true)
      */
     private $reservations;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserAway", mappedBy="awayUser")
+     * @ApiProperty(readableLink=true)
      */
     private $userAways;
 
@@ -77,6 +87,10 @@ class Users
         $this->userAways = new ArrayCollection();
     }
 
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
     public function getName(): ?string
     {
@@ -197,8 +211,8 @@ class Users
         if ($this->reservations->contains($reservation)) {
             $this->reservations->removeElement($reservation);
             // set the owning side to null (unless already changed)
-            if ($reservation->getReservationUser() === $this) {
-                $reservation->setReservationUser(null);
+            if ($reservation->getUser() === $this) {
+                $reservation->setUser(null);
             }
         }
 
