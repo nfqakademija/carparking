@@ -1,6 +1,6 @@
 .Reservation_container {
     width:26%;
-    min-width: 300px;
+    min-width: 350px;
     height:37.5%;
     box-shadow: 5px 10px 10px 0px grey;
     margin-top:2rem; //this needs to be changed
@@ -71,5 +71,16 @@
 @keyframes Reservation_textFadeIn {
     to {
         opacity: 1
+    }
+}
+
+@media(max-width:1480px){
+    .Reservation_container {
+        max-height: 400px;
+    }
+}
+@media(max-width:400px){
+    .Reservation_container {
+        min-width: 300px;
     }
 }
