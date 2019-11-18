@@ -10,6 +10,12 @@ export const getHomeData = () => (dispatch, getState) => {
         userReservation: false,
         userParkingSpot : null
     }
+    let user = {
+        id: 1,
+        name: null,
+        lastname: null,
+        activeCar: null
+    }
     
     for (let i = 0; reservationStatus.length < 6; i++){
         const date = new Date()
@@ -29,8 +35,7 @@ export const getHomeData = () => (dispatch, getState) => {
     } // day objects created
 
     dispatch(actions.getHomeDataStart());
-
-    axios.get('http://127.0.0.1:8000/api/reservations')
+    axios.get(`/api/reservations`)
         .then(res => {
             const data = res.data['hydra:member']
 
@@ -43,11 +48,12 @@ export const getHomeData = () => (dispatch, getState) => {
                     if (reservation.user.id === getState().user.id) {
                         reservationStatus[index].userReservation = true
                         reservationStatus[index].userParkingSpot = reservation.user.userParkSpace.number
+                        user.name = reservation.user.name
+                        user.lastname = reservation.user.surname
+                        user.activeCar = reservation.user.licencePlate
                 }
             }
         })
-        dispatch(actions.getHomeDataSuccess(data))
-    })
-
-        
-    }
+        dispatch(actions.getHomeDataSuccess(reservationStatus, user))
+    })    
+}

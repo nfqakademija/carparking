@@ -25,8 +25,8 @@ class Layout extends Component {
                 <div className="container-fluid mainheight">
                     <div className="row h-100">
                         <Nav/>
-                        <div className="col-12 col-md-8 col-lg-9">
-                            <div className="container-fluid h-100">
+                        <div className="col-12 col-md-8 col-lg-9 h-100">
+                            <div className="h-100">
                                 {this.props.children}
                             </div>
                         </div>

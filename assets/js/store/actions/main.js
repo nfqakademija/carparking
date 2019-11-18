@@ -18,9 +18,10 @@ export const getHomeDataStart = () => {
     }
 }
 
-export const getHomeDataSuccess = (data) => {
+export const getHomeDataSuccess = (data, user) => {
     return {
         type: actionTypes.GET_HOME_DATA_SUCCESS,
-        data
+        data,
+        user
     }
 }

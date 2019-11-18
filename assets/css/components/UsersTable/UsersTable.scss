@@ -1,0 +1,130 @@
+.UsersTable_container {
+    width: 75%;
+    height: 85%;
+    margin-top: 3rem;
+    box-shadow: 5px 5px 10px 0px #343a40;
+    display: flex;
+    flex-direction: column;
+}
+
+.UsersTable_header {
+    padding:1rem;
+    background-color:#343a40;
+    color: #f8f3f0;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    font-size: 1.75rem;
+    text-align: center;
+    justify-content: center; 
+}
+
+.UsersTable_body {
+    width:100%;
+    background-color: #f8f3f0;
+    flex-grow: 1;
+    overflow: auto;
+    scroll-snap-type: y proximity;
+}
+
+.UserTable_tableHead {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+    padding-bottom: 1rem;
+    font-size: 1.5rem;
+    box-shadow: 0px -5px 10px 0px grey; 
+    color: #343a40;
+    font-weight: 900;
+    position: sticky;
+    top: 0;
+    background-color: #f8f3f0;
+    color: #343a40;
+    z-index: 5;
+}
+.itemUsers {
+    align-self: center;
+    grid-column: 1/2;
+    grid-row:  1/3;
+}
+.itemReservation {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+.itemDays {
+    grid-column: 2/3;
+    grid-row: 2/3;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.UserTable_userContainer {
+    margin-bottom:1.5rem;
+    display:flex;
+    flex-direction: row;
+    font-size: 1.5rem;
+    color: #343a40;
+    scroll-snap-align: start;
+    & div {
+        width: 50%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+}
+
+.UserTable_userContainerMain {
+    margin-bottom:1.5rem;
+    display:flex;
+    flex-direction: row;
+    font-size: 1.5rem;
+    scroll-snap-align: end;
+    position: sticky;
+    top: 5.5rem;
+    background-color: #f8f3f0;
+    color: #343a40;
+    z-index: 3;
+    padding-top:1rem;
+    padding-bottom: 1.5rem;
+    font-weight: 900;
+    & div {
+        width: 50%;
+        display: flex;
+        justify-content: space-evenly;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 0px; 
+    background: transparent;
+} // param for each browser will be added later
+
+@media(max-width:1600px){
+    .UsersTable_container {
+        width: 100%;
+    }
+}
+
+@media(max-width:950px){
+    .UserTable_tableHead {
+        font-size:1rem;
+    }
+    .UserTable_userContainer {
+        font-size:1rem;
+    }
+    .UserTable_userContainerMain{
+        font-size:1rem;
+        top: 4rem;
+    }
+}
+
+@media(max-width: 350px){
+    .UserTable_tableHead {
+        font-size:0.9rem;
+    }
+    .UserTable_userContainer {
+        font-size:0.9rem;
+    }
+    .UserTable_userContainerMain{
+        font-size:0.9rem;
+        top: 3.6rem;
+    }
+}

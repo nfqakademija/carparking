@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 
 import { getHomeData } from '../../store/thunk/reservations';
+import { setBaseUrl } from '../../store/actions/index';
 
 import Reservation from '../../components/Reservation/Reservation';
 
@@ -56,12 +57,11 @@ class Home extends Component {
     
 
     render (){
-        console.log(this.props.registrationData)
         return (
         <>
             {this.props.loading || this.props.registrationData === []
             ? 'loading'
-            : <div style={{display:'flex', justifyContent:'space-around', flexWrap:'wrap', height:'100%', alignContent:'flex-start'}}>
+            : <div style={{display:'flex', justifyContent:'space-around', flexWrap:'wrap', height:'100%', alignContent:'flex-start', overflow:'scroll', scrollbarWidth: 'none'}}>
                 {this.props.registrationData.map( day => {
                     return (
                     <Reservation
