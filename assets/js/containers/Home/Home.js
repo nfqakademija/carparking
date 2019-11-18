@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 
 import { getHomeData } from '../../store/thunk/reservations';
+import { setBaseUrl } from '../../store/actions/index';
 
 import Reservation from '../../components/Reservation/Reservation';
 
@@ -9,6 +10,8 @@ class Home extends Component {
 
     componentDidMount(){
         this.props.onGetHomeData()
+        const baseUrl = window.location.origin
+        this.props.onSetBaseUrl(baseUrl)
     }
 
     reservationButtonHandler(day) {
@@ -87,7 +90,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps= dispatch => ({
-    onGetHomeData: () => dispatch(getHomeData())
+    onGetHomeData: () => dispatch(getHomeData()),
+    onSetBaseUrl: (baseUrl) => dispatch(setBaseUrl(baseUrl))
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(Home);

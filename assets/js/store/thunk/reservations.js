@@ -35,8 +35,7 @@ export const getHomeData = () => (dispatch, getState) => {
     } // day objects created
 
     dispatch(actions.getHomeDataStart());
-
-    axios.get('http://127.0.0.1:8000/api/reservations')
+    axios.get(`/api/reservations`)
         .then(res => {
             const data = res.data['hydra:member']
 
