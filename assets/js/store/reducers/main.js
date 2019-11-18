@@ -3,7 +3,15 @@ import registrationData from "../../containers/Home/fakeReservationData.json"
 
 const initialState = {
     registrationData: registrationData,
-    token: null
+    token: null,
+    loading: false,
+    user: {
+        id:1,
+        name: null,
+        lastname: null,
+        activeCar: null
+    },
+    reservationStatus: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -17,6 +25,17 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 token: null
+            }
+        case actionTypes.GET_HOME_DATA_START:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.GET_HOME_DATA_SUCCESS:
+            return {
+                ...state,
+                reservationStatus: action.data,
+                loading: false
             }
         default: return state
     }
