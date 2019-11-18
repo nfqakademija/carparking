@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from "react-redux";
 
 import '../../../css/components/UsersTable/UsersTable.scss';
 
@@ -22,7 +23,7 @@ const usersTable = (props) => {
                     </div>
                 </div>
                 <div className='UserTable_userContainerMain'>
-                    <div>Vardenis Pavardenis</div>
+                    <div>{`${props.userName} ${props.userLastname}`}</div>
                     <div>
                         <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
                         <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
@@ -215,7 +216,14 @@ const usersTable = (props) => {
     )
 }
 
-export default usersTable;
+const mapStateToProps = state => {
+    return {
+        userName: state.user.name,
+        userLastname: state.user.lastname
+    }
+}
+
+export default connect(mapStateToProps)(usersTable);
 
 {/* <div>
                         <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em", margin:"0 0.5em"}}></i>

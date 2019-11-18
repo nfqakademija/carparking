@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from "react-redux";
 
 import Menu from '../Menu/Menu';
 
@@ -19,7 +20,7 @@ const header = (props) => (
                                     <div className="align-self-center d-flex">
                                         <div className="d-none d-md-block align-self-center">
                                             <i className="textLightGrey h4 align-middle m-0">
-                                                Jonas Jonaitis
+                                                {`${props.userName} ${props.userLastname}`}
                                             </i>
                                         </div>
                                         <div>
@@ -55,7 +56,7 @@ const header = (props) => (
                                         </div>
 
                                         <div className="text-left mt-4">
-                                            <b>Jonas Jonaitis</b>
+                                            <b>{`${props.userName} ${props.userLastname}`}</b>
                                         </div>
                                     </div>
                                     <Menu/>
@@ -68,4 +69,11 @@ const header = (props) => (
         </div>
 )
 
-export default header;
+const mapStateToProps = state => {
+    return {
+        userName: state.user.name,
+        userLastname: state.user.lastname
+    }
+}
+
+export default connect(mapStateToProps)(header);

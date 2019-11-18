@@ -35,6 +35,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 reservationStatus: action.data,
+                user: action.user,
                 loading: false
             }
         default: return state
