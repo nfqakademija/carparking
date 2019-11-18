@@ -46,8 +46,6 @@ export const getHomeData = () => (dispatch, getState) => {
                 }
             }
         })
-        dispatch(actions.getHomeDataSuccess(data))
-    })
-
-        
-    }
+        dispatch(actions.getHomeDataSuccess(reservationStatus))
+    })    
+}
