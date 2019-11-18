@@ -38,7 +38,7 @@ const header = (props) => (
                                     </div>
                                 </div>
 
-                                <div className="sidenav p-0 m-0 bg_lightGrey" id="mySidenav" >
+                                <div className="sidenav p-0 m-0 bg_lightGrey h1" id="mySidenav" >
                                     <div className="container-fluid w-100 p-0 p-2">
                                         <div className="d-flex justify-content-between">
                                             <div className="align-self-center">

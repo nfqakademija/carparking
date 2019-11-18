@@ -5,11 +5,11 @@ const menu = () => (
     <div className="hide-text">
         <hr className="m-0"/>
         <div className="m-0 p-2 text-left h6">
-            <NavLink className=" text-dark" to='/home'>Reserve</NavLink>
+            <NavLink className=" text-dark h2" to='/home'>Reserve</NavLink>
         </div>
         <hr className="m-0"/>
         <div className="m-0 p-2 text-left h6">
-            <NavLink className=" text-dark" to="/users">Watch Users</NavLink>
+            <NavLink className=" text-dark h2" to="/users">Watch Users</NavLink>
         </div>
         <hr className="m-0"/>
         {/* <div className="m-0 p-2 text-left h6">
