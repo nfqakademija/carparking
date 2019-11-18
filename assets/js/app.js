@@ -1,17 +1,44 @@
-/*
- * Welcome to your app's main JavaScript file!
- *
- * We recommend including the built version of this JavaScript file
- * (and its CSS file) in your base layout (base.html.twig).
- */
+import React, { Component } from 'react';
+import { Route,  Redirect, Switch } from "react-router-dom";
+import { connect } from "react-redux";
 
-// any CSS you require will output into a single css file (app.css in this case)
-require('../css/app.scss');
+import Layout from './containers/Layout/Layout';
+import Login from './containers/Auth/Auth';
+import Home from './containers/Home/Home';
+import Users from './containers/Users/Users';
+import Logout from './containers/Auth/Logout/Logout'
 
-// Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
-const $ = require('jquery');
-require('bootstrap');
+class App extends Component {
 
-$(document).ready(function() {
-    $('[data-toggle="popover"]').popover();
-});
+    render(){
+
+        let routes =
+        <Switch>
+            <Route path='/' component={Login}/> 
+            <Redirect from='/' to='/'/>
+        </Switch>
+
+        if(this.props.token) {
+            routes = 
+            <Layout>
+                <Switch>   
+                    <Route path="/home" component={Home}/>
+                    <Route path='/users' component={Users}/>
+                    <Route path='/logout' component={Logout}/>
+                    <Redirect from='/' to='/home'/>
+                </Switch>
+            </Layout>
+        }
+
+        return routes
+    }
+
+}
+    
+const mapStateToProps = state => {
+    return {
+        token: state.token
+    }
+}
+
+export default connect(mapStateToProps)(App);

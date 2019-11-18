@@ -1,0 +1,88 @@
+.Reservation_container {
+    width:26%;
+    min-width: 350px;
+    min-height:400px;
+    height:37.5%;
+    box-shadow: 5px 5px 10px 0px #343a40;
+    margin-top:2rem; //this needs to be changed
+    display: flex;
+    flex-direction: column;
+}
+
+.Reservation_header {
+    padding:1rem;
+    background-color:#343a40;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    font-size: 1.25rem;
+    text-align: center;
+    justify-content: center;
+    color: #f8f3f0;
+}
+ 
+.Reservation_body {
+    width: 100%;
+    background-color: #f8f3f0;
+    flex-grow: 1;
+    display:flex;
+    flex-direction: column;
+ }
+
+ .Reservation_svg {
+     width: 75%;
+     height: 75%;
+     margin: auto;
+     margin-top: 1rem;
+     transform: rotate(-90deg);
+     min-height: 160px;
+ }
+
+ .Reservation_circleGreen {
+     fill: none;
+     stroke: #95D195;
+     stroke-width: 7.5%;
+ }
+ 
+ .Reservation_circleRed {
+    fill: none;
+    stroke: #E87C86;
+    stroke-width: 7.5%;
+    stroke-linecap: round;
+    animation: Reservation_circleRed 2s ease-out forwards;
+}
+
+.Reservation_text {
+    transform: rotate(90deg);
+    transform-origin: center;
+    text-anchor: middle;
+    font-size: 2rem;
+    opacity:0;
+    animation: Reservation_textFadeIn 1s linear forwards;
+    animation-delay: 1s;
+    fill: #71c271; // need to pick color here and think about visualization
+    font-weight: 900;
+}
+
+@keyframes Reservation_circleRed {
+    from {
+        stroke-dasharray: 0% 188.4%;
+    }
+}
+
+@keyframes Reservation_textFadeIn {
+    to {
+        opacity: 1
+    }
+}
+
+@media(max-width:1480px){
+    .Reservation_container {
+        max-height: 400px;
+    }
+}
+@media(max-width:400px){
+    .Reservation_container  {
+        min-width: 300px;
+    }
+
+}

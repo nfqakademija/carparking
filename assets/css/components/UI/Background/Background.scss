@@ -1,0 +1,48 @@
+@mixin prefix($name, $value) {
+    @each $vendor in ('-webkit-', '-moz-', '-ms-', '-o-', '') {
+      #{$vendor}#{$name}: #{$value};
+    }
+  }
+
+.Background_container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #c1b9b9;
+    z-index: -5;
+    opacity: 0.75; 
+}
+
+.Background_sky {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: #f8f3f0;
+    z-index:-1;
+    @include prefix(animation, bgIn 6s 1s linear infinite);
+    @include prefix(transform, skewX(10deg));
+    opacity:0.75;
+}
+
+.Background_ground {
+    position: absolute;
+    bottom: 0;
+    height: 25%;
+    width: 100%;
+    background: #343a40;
+    z-index: -1;
+}
+
+@keyframes bgIn{
+    0%{
+      left: 100%;
+    }
+    100%{
+      left: -100%;
+    }
+  }
