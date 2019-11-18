@@ -33,7 +33,25 @@ const usersTable = (props) => {
                         <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
                     </div>
                 </div>
-                <div className='UserTable_userContainer'>
+                {console.log(props.users)}
+                {(props.users.map( user =>{ 
+                    console.log(user.name )
+                    return (
+                    <div className='UserTable_userContainer' key={user.id}>
+                        <div>{`${user.name} ${user.surname}`}</div>
+                        <div>
+                            <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
+                            <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
+                            <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
+                            <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
+                            <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
+                            <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
+                        </div>
+                    </div>
+                    )
+                }))}
+
+                {/* <div className='UserTable_userContainer'>
                     <div>Lukas Laurinavicius</div>
                     <div>
                         <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
@@ -208,7 +226,7 @@ const usersTable = (props) => {
                         <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
                         <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
                     </div>
-                </div>
+                </div> */}
 
             </div>
         </div>
@@ -219,14 +237,15 @@ const usersTable = (props) => {
 const mapStateToProps = state => {
     return {
         userName: state.user.name,
-        userLastname: state.user.lastname
+        userLastname: state.user.lastname,
+        users: state.users
     }
 }
 
 export default connect(mapStateToProps)(usersTable);
 
-{/* <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em", margin:"0 0.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em", margin:"0 0.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em", margin:"0 0.5em"}}></i>
-                    </div> */}
+// {/* <div>
+//                         <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em", margin:"0 0.5em"}}></i>
+//                         <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em", margin:"0 0.5em"}}></i>
+//                         <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em", margin:"0 0.5em"}}></i>
+//                     </div> */}

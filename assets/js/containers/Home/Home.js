@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 
 import { getHomeData } from '../../store/thunk/reservations';
-import { setBaseUrl } from '../../store/actions/index';
 
 import Reservation from '../../components/Reservation/Reservation';
 

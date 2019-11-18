@@ -11,6 +11,7 @@ const initialState = {
         lastname: null,
         activeCar: null
     },
+    users: [],
     reservationStatus: []
 }
 
@@ -36,6 +37,24 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 reservationStatus: action.data,
                 user: action.user,
+                loading: false
+            }
+        case actionTypes.GET_HOME_DATA_FAIL:
+            return {
+                ...state,
+                reservationStatus: action.data,
+                user: action.user,
+                loading: false
+            }
+        case actionTypes.GET_HOME_USERS_START:
+            return {
+                ...state,
+                loading: true
+            }
+        case actionTypes.GET_HOME_USERS_SUCCESS:
+            return {
+                ...state,
+                users: action.users,
                 loading: false
             }
         default: return state

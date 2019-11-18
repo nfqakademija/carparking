@@ -25,3 +25,24 @@ export const getHomeDataSuccess = (data, user) => {
         user
     }
 }
+
+export const getHomeDataFail = (data, user) => {
+    return {
+        type: actionTypes.GET_HOME_DATA_FAIL,
+        data,
+        user
+    }
+}
+
+export const getHomeUsersStart = () => {
+    return {
+        type: actionTypes.GET_HOME_USERS_START
+    }
+}
+
+export const getHomeUsersSuccess = (users) => {
+    return {
+        type: actionTypes.GET_HOME_USERS_SUCCESS,
+        users
+    }
+}

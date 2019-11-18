@@ -2,5 +2,8 @@ export {
     login,
     logout,
     getHomeDataStart,
-    getHomeDataSuccess
+    getHomeDataSuccess,
+    getHomeDataFail,
+    getHomeUsersStart,
+    getHomeUsersSuccess
 } from './main'
