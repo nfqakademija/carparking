@@ -32,7 +32,7 @@ class AppFixtures extends Fixture
         $this->makeParkSpaces(20, $manager);
         $this->makeRoles($manager);
         $this->makeUsers(25, $manager);
-        $this->makeReservations(20,5, $manager);
+        $this->makeReservations(20, 5, $manager);
         $this->makeUserAwayPeriods(5, $manager);
     }
 
