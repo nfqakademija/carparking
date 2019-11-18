@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
+import { getHomeData } from '../../store/thunk/reservations';
+
 import Reservation from '../../components/Reservation/Reservation';
 
 class Home extends Component {
+
+    componentDidMount(){
+        this.props.onGetHomeData()
+    }
 
     reservationButtonHandler(day) {
         if(!day.userReservation) {
@@ -47,13 +53,17 @@ class Home extends Component {
                 })
         } 
     }
-
+    
 
     render (){
-
+        console.log(this.props.registrationData)
         return (
-            <div style={{display:'flex', justifyContent:'space-around', flexWrap:'wrap', height:'100%', alignContent:'flex-start', overflow:"scroll"}}>
-                {this.props.registrationData.reservationStatus.map( day => (
+        <>
+            {this.props.loading || this.props.registrationData === []
+            ? 'loading'
+            : <div style={{display:'flex', justifyContent:'space-around', flexWrap:'wrap', height:'100%', alignContent:'flex-start'}}>
+                {this.props.registrationData.map( day => {
+                    return (
                     <Reservation
                         key={day.date}
                         date={day.date}
@@ -62,16 +72,23 @@ class Home extends Component {
                         usedSpaces={day.usedSpaces}
                         userParkingSpot={day.userParkingSpot}
                         graphStatus={this.graphHandler(day)}/>
-                ))}
-            </div>
+                )})}
+             </div>
+        }
+        </>     
         )
     }
 }
 
 const mapStateToProps = state => {
     return {
-        registrationData: state.registrationData
+        registrationData: state.reservationStatus,
+        loading: state.loading
     }
 }
 
-export default connect( mapStateToProps )(Home);
+const mapDispatchToProps= dispatch => ({
+    onGetHomeData: () => dispatch(getHomeData())
+})
+
+export default connect( mapStateToProps, mapDispatchToProps )(Home);

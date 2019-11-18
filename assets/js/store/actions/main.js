@@ -11,3 +11,16 @@ export const logout = () => {
         type: actionTypes.LOGOUT
     }
 }
+
+export const getHomeDataStart = () => {
+    return {
+        type: actionTypes.GET_HOME_DATA_START
+    }
+}
+
+export const getHomeDataSuccess = (data) => {
+    return {
+        type: actionTypes.GET_HOME_DATA_SUCCESS,
+        data
+    }
+}
