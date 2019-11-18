@@ -10,8 +10,6 @@ class Home extends Component {
 
     componentDidMount(){
         this.props.onGetHomeData()
-        const baseUrl = window.location.origin
-        this.props.onSetBaseUrl(baseUrl)
     }
 
     reservationButtonHandler(day) {
@@ -90,8 +88,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps= dispatch => ({
-    onGetHomeData: () => dispatch(getHomeData()),
-    onSetBaseUrl: (baseUrl) => dispatch(setBaseUrl(baseUrl))
+    onGetHomeData: () => dispatch(getHomeData()))
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(Home);
