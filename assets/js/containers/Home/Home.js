@@ -88,7 +88,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps= dispatch => ({
-    onGetHomeData: () => dispatch(getHomeData()))
+    onGetHomeData: () => dispatch(getHomeData())
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(Home);
