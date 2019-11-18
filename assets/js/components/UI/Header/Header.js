@@ -59,7 +59,7 @@ const header = (props) => (
                                             <b>{`${props.userName} ${props.userLastname}`}</b>
                                         </div>
                                     </div>
-                                    <Menu/>
+                                    <Menu onclick={props.closeMenu}/>
                                 </div>
                             </div>
                         </nav>

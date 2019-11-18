@@ -56,7 +56,6 @@ class Home extends Component {
     
 
     render (){
-        console.log(this.props.registrationData)
         return (
         <>
             {this.props.loading || this.props.registrationData === []
