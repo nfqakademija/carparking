@@ -14,12 +14,15 @@ class Users extends Component {
     render (){
         return (
             <>
-            {this.props.loading || this.props.usersList.length === 0
-            ? 'loading ...'
-            : <div style={{display:'flex', justifyContent:'space-around', height:'100%'}}>
-                <UsersTable usersList={this.props.usersList}/>
-                </div>
-            }   
+                {this.props.loading || this.props.usersList.length === 0
+                ? 'loading ...'
+                : <div style={{display:'flex', justifyContent:'space-around', height:'100%'}}>
+                    <UsersTable 
+                        usersList={this.props.usersList}
+                        reservationStatus={this.props.reservationStatus}
+                        mainUser={this.props.mainUser}/>
+                    </div>
+                }   
             </>
         )
     }  
@@ -28,7 +31,9 @@ class Users extends Component {
 const mapStateToProps = state => {
     return {
         usersList: state.users,
-        loading: state.loading
+        loading: state.loading,
+        reservationStatus: state.reservationStatus,
+        mainUser: state.user
     }
 }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from "react-redux";
 
 import '../../../css/components/UsersTable/UsersTable.scss';
 
@@ -14,7 +13,7 @@ const usersTable = (props) => (
                     <div className='itemReservation'>Reservation status</div>
                     <div className='itemDays'>
                         {props.reservationStatus.map( dayObj =>(
-                            // ugly string to get weekday symbol.
+                            // this string is for getting weekday symbol
                             <span key={dayObj.date}>
                                 {new Intl.DateTimeFormat('en-EN', {weekday: 'narrow'}).format(dayObj.date)} 
                             </span>
@@ -22,7 +21,7 @@ const usersTable = (props) => (
                     </div>
                 </div>
                 <div className='UserTable_userContainerMain'>
-                    <div>{`${props.userName} ${props.userLastname}`}</div>
+                    <div>{`${props.mainUser.name} ${props.mainUser.lastname}`}</div>
                     <div>
                         {props.reservationStatus.map( dayObj => (
                             dayObj.userReservation
@@ -31,37 +30,26 @@ const usersTable = (props) => (
                         ))}
                     </div>
                 </div>
-                {props.usersList.map( user => {
-                    if(props.userName !== user.name && props.userLastname !== user.surname){
-                        return (
-                        <div className='UserTable_userContainer' key={user.id}>
+                {props.usersList.map( user => (
+                    props.mainUser.name !== user.name || props.mainUser.lastname !== user.surname
+                        ? <div className='UserTable_userContainer' key={user.id}>
                             <div>{`${user.name} ${user.surname}`}</div>
                             <div>
                                 {props.reservationStatus.map( dayObj => (
-                                    // every icon has spot in grid and code checking if user has reservation in this grid space
+                                    // every icon has spot in grid and this code checking if user has reservation in this grid space
                                     user.reservations
-                                    ? user.reservations.find( reservation =>new Date (reservation.reservationDate).getDate() === new Date(dayObj.date).getDate() )
-                                        ? <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                                        : <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                                    : <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
+                                    ? user.reservations.find( reservation => new Date (reservation.reservationDate).getDate() === new Date(dayObj.date).getDate() )
+                                        ? <i key={dayObj.date} className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
+                                        : <i key={dayObj.date} className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
+                                    : <i key={dayObj.date} className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
                                 ))}
                             </div>
                         </div>
-                        )
-                    }
-                })}
+                        : null    
+                ))}
             </div>
         </div>
            
     )
 
-
-const mapStateToProps = state => {
-    return {
-        userName: state.user.name,
-        userLastname: state.user.lastname,
-        reservationStatus: state.reservationStatus
-    }
-}
-
-export default connect(mapStateToProps)(usersTable);
+export default usersTable;
