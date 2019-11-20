@@ -24,15 +24,15 @@ const usersTable = (props) => (
                 <div className='UserTable_userContainerMain'>
                     <div>{`${props.userName} ${props.userLastname}`}</div>
                     <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
+                        {props.reservationStatus.map( dayObj => (
+                            dayObj.userReservation
+                                ? <i key={dayObj.date} className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
+                                : <i key={dayObj.date} className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i> 
+                        ))}
                     </div>
                 </div>
                 {props.usersList.map( user => {
+                    {console.log(user)}
                     if(props.userName !== user.name && props.userLastname !== user.surname){
                         return (
                         <div className='UserTable_userContainer' key={user.id}>
