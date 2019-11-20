@@ -3,8 +3,7 @@ import { connect } from "react-redux";
 
 import '../../../css/components/UsersTable/UsersTable.scss';
 
-const usersTable = (props) => {
-    return (
+const usersTable = (props) => (
         <div className='UsersTable_container'> 
             <div className='UsersTable_header'>
                 USERS
@@ -14,12 +13,12 @@ const usersTable = (props) => {
                     <div className='itemUsers'>User</div>
                     <div className='itemReservation'>Reservation status</div>
                     <div className='itemDays'>
-                        <span>M</span>
-                        <span>T</span>
-                        <span>W</span>
-                        <span>T</span>
-                        <span>F</span>
-                        <span>S</span>
+                        {props.reservationStatus.map( dayObj =>(
+                            // ugly string to get weekday symbol.
+                            <span key={dayObj.date}>
+                                {new Intl.DateTimeFormat('en-EN', {weekday: 'narrow'}).format(dayObj.date)} 
+                            </span>
+                        ))}
                     </div>
                 </div>
                 <div className='UserTable_userContainerMain'>
@@ -33,212 +32,34 @@ const usersTable = (props) => {
                         <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
                     </div>
                 </div>
-                {console.log(props.users)}
-                {(props.users.map( user =>{ 
-                    console.log(user.name )
-                    return (
-                    <div className='UserTable_userContainer' key={user.id}>
-                        <div>{`${user.name} ${user.surname}`}</div>
-                        <div>
-                            <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                            <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                            <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                            <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                            <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                            <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
+                {props.usersList.map( user => {
+                    if(props.userName !== user.name && props.userLastname !== user.surname){
+                        return (
+                        <div className='UserTable_userContainer' key={user.id}>
+                            <div>{`${user.name} ${user.surname}`}</div>
+                            <div>
+                                <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
+                                <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
+                                <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
+                                <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
+                                <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
+                                <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
+                            </div>
                         </div>
-                    </div>
-                    )
-                }))}
-
-                {/* <div className='UserTable_userContainer'>
-                    <div>Lukas Laurinavicius</div>
-                    <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                    </div>
-                </div>
-                <div className='UserTable_userContainer'>
-                    <div>Lukas Laurinavicius</div>
-                    <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                    </div>
-                </div>
-                <div className='UserTable_userContainer'>
-                    <div>Lukas Laurinavicius</div>
-                    <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                    </div>
-                </div>
-                <div className='UserTable_userContainer'>
-                    <div>Lukas Laurinavicius</div>
-                    <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                    </div>
-                </div>
-                <div className='UserTable_userContainer'>
-                    <div>Lukas Laurinavicius</div>
-                    <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                    </div>
-                </div>
-                <div className='UserTable_userContainer'>
-                    <div>Lukas Laurinavicius</div>
-                    <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                    </div>
-                </div>
-                <div className='UserTable_userContainer'>
-                    <div>Lukas Laurinavicius</div>
-                    <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                    </div>
-                </div>
-                <div className='UserTable_userContainer'>
-                    <div>Lukas Laurinavicius</div>
-                    <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                    </div>
-                </div>
-                <div className='UserTable_userContainer'>
-                    <div>Lukas Laurinavicius</div>
-                    <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                    </div>
-                </div>
-                <div className='UserTable_userContainer'>
-                    <div>Lukas Laurinavicius</div>
-                    <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                    </div>
-                </div>
-                <div className='UserTable_userContainer'>
-                    <div>Lukas Laurinavicius</div>
-                    <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                    </div>
-                </div>
-                <div className='UserTable_userContainer'>
-                    <div>Lukas Laurinavicius</div>
-                    <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                    </div>
-                </div>
-                <div className='UserTable_userContainer'>
-                    <div>Lukas Laurinavicius</div>
-                    <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                    </div>
-                </div>
-                <div className='UserTable_userContainer'>
-                    <div>Lukas Laurinavicius</div>
-                    <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                    </div>
-                </div>
-                <div className='UserTable_userContainer'>
-                    <div>Lukas Laurinavicius</div>
-                    <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                    </div>
-                </div>
-                <div className='UserTable_userContainer'>
-                    <div>Lukas Laurinavicius</div>
-                    <div>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                        <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                    </div>
-                </div> */}
-
+                        )
+                    }
+                })}
             </div>
         </div>
            
     )
-}
+
 
 const mapStateToProps = state => {
     return {
         userName: state.user.name,
         userLastname: state.user.lastname,
-        users: state.users
+        reservationStatus: state.reservationStatus
     }
 }
 

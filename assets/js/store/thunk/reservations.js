@@ -63,14 +63,15 @@ export const getHomeData = () => (dispatch, getState) => {
 }
 
 export const getUsersData = () => dispatch => {
-    const users = []
     dispatch(actions.getHomeUsersStart());
+    const users = []
     axios.get('/api/users')
         .then(res =>{ 
             const usersData = res.data['hydra:member']
             usersData.map( user => {
                 users.push(user)
             })
-           } )
-    dispatch(actions.getHomeUsersSuccess(users));
+            dispatch(actions.getHomeUsersSuccess(users));
+        })
+
 }

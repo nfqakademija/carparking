@@ -14,10 +14,10 @@ class Users extends Component {
     render (){
         return (
             <>
-            {this.props.loading || this.props.users === []
+            {this.props.loading || this.props.usersList.length === 0
             ? 'loading ...'
             : <div style={{display:'flex', justifyContent:'space-around', height:'100%'}}>
-                <UsersTable/>
+                <UsersTable usersList={this.props.usersList}/>
                 </div>
             }   
             </>
@@ -27,7 +27,7 @@ class Users extends Component {
 
 const mapStateToProps = state => {
     return {
-        users: state.users,
+        usersList: state.users,
         loading: state.loading
     }
 }
