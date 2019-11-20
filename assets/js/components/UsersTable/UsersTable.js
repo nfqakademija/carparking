@@ -32,18 +32,19 @@ const usersTable = (props) => (
                     </div>
                 </div>
                 {props.usersList.map( user => {
-                    {console.log(user)}
                     if(props.userName !== user.name && props.userLastname !== user.surname){
                         return (
                         <div className='UserTable_userContainer' key={user.id}>
                             <div>{`${user.name} ${user.surname}`}</div>
                             <div>
-                                <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                                <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                                <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
-                                <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                                <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
-                                <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
+                                {props.reservationStatus.map( dayObj => (
+                                    // every icon has spot in grid and code checking if user has reservation in this grid space
+                                    user.reservations
+                                    ? user.reservations.find( reservation =>new Date (reservation.reservationDate).getDate() === new Date(dayObj.date).getDate() )
+                                        ? <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em"}}></i>
+                                        : <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
+                                    : <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em"}}></i>
+                                ))}
                             </div>
                         </div>
                         )
@@ -64,9 +65,3 @@ const mapStateToProps = state => {
 }
 
 export default connect(mapStateToProps)(usersTable);
-
-// {/* <div>
-//                         <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em", margin:"0 0.5em"}}></i>
-//                         <i className="fas fa-parking" style={{color:"#95D195", fontSize:"1.5em", margin:"0 0.5em"}}></i>
-//                         <i className="fas fa-parking" style={{color:"#E68F8C", fontSize:"1.5em", margin:"0 0.5em"}}></i>
-//                     </div> */}
