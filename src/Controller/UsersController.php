@@ -28,7 +28,5 @@ class UsersController extends AbstractController
         return new JsonResponse($repository->findAll());
 
 //        return $this->render('users/index.html.twig');
-
-
     }
 }

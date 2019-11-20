@@ -26,7 +26,7 @@ class UsersRepository extends ServiceEntityRepository
     public function findEntries()
     {
     }
-
+}
 //    public function findOneBySomeField($value): ?Users
 //    {
 //        return $this->createQueryBuilder('u')
@@ -36,5 +36,3 @@ class UsersRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
-
-}

@@ -32,7 +32,7 @@ class AppFixtures extends Fixture
         $this->makeParkSpaces(20, $manager);
         $this->makeRoles($manager);
         $this->makeUsers(25, $manager);
-        $this->makeReservations(20,5, $manager);
+        $this->makeReservations(20, 5, $manager);
         $this->makeUserAwayPeriods(5, $manager);
     }
 
@@ -112,7 +112,7 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    private function makeReservations($number,$daysPerUser, ObjectManager $manager)
+    private function makeReservations($number, $daysPerUser, ObjectManager $manager)
     {
         for ($i = 1; $i <= $number; $i++) {
             for ($j = 0; $j < $daysPerUser; $j++) {
