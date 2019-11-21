@@ -112,7 +112,7 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    private function makeReservations($number,$daysPerUser, ObjectManager $manager)
+    private function makeReservations($number, $daysPerUser, ObjectManager $manager)
     {
         for ($i = 1; $i <= $number; $i++) {
             for ($j = 0; $j < $daysPerUser; $j++) {

@@ -55,5 +55,23 @@ export const getHomeData = () => (dispatch, getState) => {
             }
         })
         dispatch(actions.getHomeDataSuccess(reservationStatus, user))
-    })    
+    }).catch( ()=>{
+        const status = getState().registrationData.reservationStatus
+        const user = getState().registrationData.user
+        dispatch(actions.getHomeDataFail(status, user))
+    })      
+}
+
+export const getUsersData = () => dispatch => {
+    dispatch(actions.getHomeUsersStart());
+    const users = []
+    axios.get('/api/users')
+        .then(res =>{ 
+            const usersData = res.data['hydra:member']
+            usersData.map( user => {
+                users.push(user)
+            })
+            dispatch(actions.getHomeUsersSuccess(users));
+        })
+
 }

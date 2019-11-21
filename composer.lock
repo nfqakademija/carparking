@@ -44,16 +44,16 @@
         },
         {
             "name": "api-platform/core",
-            "version": "v2.5.1",
+            "version": "v2.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/api-platform/core.git",
-                "reference": "56e0a2908f3342fb6bf767ff1ca2ac223707a2c5"
+                "reference": "677cd6eb0a12bcf927005a213b58c0f2301437e9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/api-platform/core/zipball/56e0a2908f3342fb6bf767ff1ca2ac223707a2c5",
-                "reference": "56e0a2908f3342fb6bf767ff1ca2ac223707a2c5",
+                "url": "https://api.github.com/repos/api-platform/core/zipball/677cd6eb0a12bcf927005a213b58c0f2301437e9",
+                "reference": "677cd6eb0a12bcf927005a213b58c0f2301437e9",
                 "shasum": ""
             },
             "require": {
@@ -114,7 +114,7 @@
                 "symfony/config": "^3.4 || ^4.0 || ^5.0",
                 "symfony/console": "^3.4 || ^4.0 || ^5.0",
                 "symfony/css-selector": "^3.4 || ^4.0 || ^5.0",
-                "symfony/debug": "^3.4 || ^4.0 || ^5.0",
+                "symfony/debug": "^3.4 || ^4.0",
                 "symfony/dependency-injection": "^3.4 || ^4.0 || ^5.0",
                 "symfony/doctrine-bridge": "^3.4 || ^4.0 || ^5.0",
                 "symfony/dom-crawler": "^3.4 || ^4.0 || ^5.0",
@@ -188,7 +188,7 @@
                 "rest",
                 "swagger"
             ],
-            "time": "2019-11-11T18:42:59+00:00"
+            "time": "2019-11-17T19:06:49+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -1309,16 +1309,16 @@
         },
         {
             "name": "doctrine/orm",
-            "version": "v2.6.4",
+            "version": "v2.6.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/orm.git",
-                "reference": "b52ef5a1002f99ab506a5a2d6dba5a2c236c5f43"
+                "reference": "16751d210fb806cc6f1b868a2b9dde6fab6866ed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/orm/zipball/b52ef5a1002f99ab506a5a2d6dba5a2c236c5f43",
-                "reference": "b52ef5a1002f99ab506a5a2d6dba5a2c236c5f43",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/16751d210fb806cc6f1b868a2b9dde6fab6866ed",
+                "reference": "16751d210fb806cc6f1b868a2b9dde6fab6866ed",
                 "shasum": ""
             },
             "require": {
@@ -1386,7 +1386,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2019-09-20T14:30:26+00:00"
+            "time": "2019-11-18T11:06:51+00:00"
         },
         {
             "name": "doctrine/persistence",

@@ -92,6 +92,24 @@
     }
 }
 
+.UserTable_greenIcon {
+    color:#95D195;
+    font-size: 1.5em;
+    &:hover {
+        color:#71c271;
+    }
+    &:active {
+        position:relative;
+        top:2px;
+        left:1px;
+    }
+}
+
+.UserTable_redIcon {
+    color: #E68F8C;
+    font-size: 1.5em;
+}
+
 ::-webkit-scrollbar {
     width: 0px; 
     background: transparent;
