@@ -48,8 +48,7 @@ const usersTable = (props) => (
                         : null    
                 ))}
             </div>
-        </div>
-           
+        </div>      
     )
 
 export default usersTable;

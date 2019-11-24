@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import Background from '../../components/UI/Background/Background';
 import Header from '../../components/UI/Header/Header';
 import Nav from '../../components/UI/Nav/Nav';
+import PopUp from '../../components/UI/PopUp/PopUp';
 
 class Layout extends Component {
 
@@ -26,7 +27,8 @@ class Layout extends Component {
                     <div className="row h-100">
                         <Nav/>
                         <div className="col-12 col-md-8 col-lg-9 h-100">
-                            <div className="h-100">
+                            {/* <PopUp/> */}
+                            <div className="h-100">    
                                 {this.props.children}
                             </div>
                         </div>

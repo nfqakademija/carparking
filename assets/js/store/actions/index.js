@@ -6,4 +6,5 @@ export {
     getHomeDataFail,
     getHomeUsersStart,
     getHomeUsersSuccess
+    // saveCoordinates
 } from './main'

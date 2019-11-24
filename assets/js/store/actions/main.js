@@ -46,3 +46,12 @@ export const getHomeUsersSuccess = (users) => {
         users
     }
 }
+
+
+// export const saveCoordinates = (first, last) => {
+//     return {
+//         type: actionTypes.SAVE_COORDINATES,
+//         first,
+//         last
+//     }
+// }

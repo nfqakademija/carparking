@@ -1,13 +1,14 @@
 import React from 'react';
-
 import Button from '../UI/Button/Button';
 
 import '../../../css/components/Reservation/Reservation.scss';
 
-const reservation = (props) => {
+const reservation = React.forwardRef((props, ref) => {
     const date = new Date(props.date)
+    console.log(ref)
     return (
-        <div className='Reservation_container'>
+        <div className='Reservation_container' 
+            ref={ref}>
             <div className='Reservation_header'>
                 {`${date.toLocaleDateString('en-EN', {weekday:'short'}).toUpperCase()}
                   ${date.toLocaleDateString('en-EN', {month:'short'}).toUpperCase()}
@@ -37,6 +38,6 @@ const reservation = (props) => {
             </div>
         </div>
     )
-}
+})
 
 export default reservation;

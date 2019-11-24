@@ -6,7 +6,7 @@ const initialState = {
     token: 1,
     loading: false,
     user: {
-        id:1,
+        id:51,
         name: null,
         lastname: null,
         activeCar: null
@@ -57,6 +57,12 @@ const reducer = (state = initialState, action) => {
                 users: action.users,
                 loading: false
             }
+        // case actionTypes.SAVE_COORDINATES:
+        //     return {
+        //         ...state,
+        //         first: action.first,
+        //         last: action.last
+        //     }
         default: return state
     }
 }

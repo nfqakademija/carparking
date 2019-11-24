@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
+
 import { connect } from "react-redux";
 
 import { getHomeData } from '../../store/thunk/reservations';
 
+// import { saveCoordinates } from '../../store/actions/index';
+
 import Reservation from '../../components/Reservation/Reservation';
+import PopUp from '../../components/UI/PopUp/PopUp';
 
 class Home extends Component {
-
+    
     componentDidMount(){
-        this.props.onGetHomeData()
+        this.props.onGetHomeData();
     }
 
     reservationButtonHandler(day) {
@@ -53,17 +57,34 @@ class Home extends Component {
                 })
         } 
     }
-    
+
+    // saveCoordinatesHandler(first,last){
+    //     setTimeout(
+    //         ()=>this.props.onSaveCoordinates(first,last),1000
+    //     )
+    // }
 
     render (){
+        const reservationRefFirst = React.createRef()
+        const reservationRefLast = React.createRef()
+        // this.saveCoordinatesHandler(reservationRefFirst, reservationRefLast)
         return (
         <>
             {this.props.loading
             ? 'loading...'
-            : <div style={{display:'flex', justifyContent:'space-around', flexWrap:'wrap', height:'100%', alignContent:'flex-start', overflow:'scroll', scrollbarWidth: 'none'}}>
-                {this.props.registrationData.map( day => {
+            : <div style={{display:"flex", flexDirection:'column',  height:'100%'}}>
+            <PopUp left={reservationRefFirst} right={reservationRefLast}/>
+            <div style={{display:'flex', justifyContent:'space-around', flexWrap:'wrap', alignContent:'flex-start', overflow:'scroll', scrollbarWidth: 'none', flexGrow: "1"}}>
+                {this.props.registrationData.map( (day,index) => {
                     return (
                     <Reservation
+                        ref={!index 
+                                ? reservationRefFirst
+                                : index === 5 
+                                    ? reservationRefLast
+                                    : null
+                            }
+                        index={index}
                         key={day.date}
                         date={day.date}
                         buttonOptions={this.reservationButtonHandler(day)}
@@ -72,6 +93,7 @@ class Home extends Component {
                         userParkingSpot={day.userParkingSpot}
                         graphStatus={this.graphHandler(day)}/>
                 )})}
+             </div>
              </div>
         }
         </>     
@@ -82,12 +104,15 @@ class Home extends Component {
 const mapStateToProps = state => {
     return {
         registrationData: state.reservationStatus,
-        loading: state.loading
+        loading: state.loading,
+        first: state.first,
+        last: state.last
     }
 }
 
 const mapDispatchToProps= dispatch => ({
-    onGetHomeData: () => dispatch(getHomeData())
+    onGetHomeData: () => dispatch(getHomeData()),
+    onSaveCoordinates: (first,last) => dispatch(saveCoordinates(first,last))
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(Home);
