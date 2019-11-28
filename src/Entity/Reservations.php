@@ -2,22 +2,15 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
-use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ReservationsRepository")
- * @ApiResource(
- *     collectionOperations={"get"},
- *     itemOperations={"get"}
- * )
  */
 class Reservations
 {
     /**
      * @ORM\Id()
-     * @ApiProperty(identifier=true)
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
@@ -31,7 +24,6 @@ class Reservations
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="reservations",fetch="EAGER")
      * @ORM\JoinColumn(nullable=false)
-     * @ApiProperty(readableLink=true)
      */
     private $user;
 

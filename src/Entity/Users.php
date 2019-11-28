@@ -10,16 +10,12 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
- * @ApiResource()
  */
 class Users
 {
 
-    //     if you use Doctrine ORM, be sure to not mark this property
-    // with the @GeneratedValue annotation or use the NONE value
     /**
      * @ORM\Id()
-     * @ApiProperty(identifier=true)
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
@@ -58,7 +54,6 @@ class Users
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Roles")
      * @ORM\JoinColumn(nullable=false)
-     * @ApiProperty(readableLink=true)
      */
     private $userRole;
 
@@ -71,13 +66,11 @@ class Users
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Reservations", mappedBy="user")
      * @ORM\JoinColumn(nullable=true)
-     * @ApiProperty(readableLink=true)
      */
     private $reservations;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserAway", mappedBy="awayUser")
-     * @ApiProperty(readableLink=true)
      */
     private $userAways;
 

@@ -8,13 +8,11 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserAwayRepository")
- * @ApiResource()
  */
 class UserAway
 {
     /**
      * @ORM\Id()
-     * @ApiProperty(identifier=true)
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
