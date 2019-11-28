@@ -60,14 +60,10 @@ class UserAwayController extends FOSRestBundle
         $content = $request->getContent();
         $dataArray = json_decode($content, true);
 
-//        var_dump($dataArray['away_date']);
-
         $user = $this->entityManager->getRepository(Users::class)->checkId($dataArray['id']);
         if (!$user) {
         } else {
             foreach ($dataArray['away_date'] as $value) {
-                var_dump($value);
-
                 $userAway = new UserAway();
                 $format = 'Y-m-d';
                 $dateStart = \DateTime::createFromFormat($format, $value['away_start_date']);
@@ -82,13 +78,46 @@ class UserAwayController extends FOSRestBundle
     }
 
     /**
-     * Posts Articles
-     * @Rest\Put("/api/articles")
+     * @Rest\Put("/api/useraway")
      * @param Request $request
      */
-    public function updateArticle(Request $request)
+    public function updateUserAway(Request $request)
     {
         $content = $request->getContent();
-        $array = json_decode($content, true);
+        $dataArray = json_decode($content, true);
+
+        foreach ($dataArray['away_date'] as $value) {
+            $userAway = $this->entityManager->getRepository(UserAway::class)->checkId($value['id']);
+            if (!$userAway) {
+            } else {
+                $format = 'Y-m-d';
+                $dateStart = \DateTime::createFromFormat($format, $value['away_start_date']);
+                $dateEnd = \DateTime::createFromFormat($format, $value['away_end_date']);
+                $userAway->setAwayStartDate($dateStart);
+                $userAway->setAwayEndDate($dateEnd);
+                $this->entityManager->persist($userAway);
+            }
+        }
+        $this->entityManager->flush();
     }
+
+    /**
+     * @Rest\Delete("/api/useraway")
+     * @param Request $request
+     */
+    public function deleteUserAway(Request $request)
+    {
+        $content = $request->getContent();
+        $dataArray = json_decode($content, true);
+
+        foreach ($dataArray['away_date'] as $value) {
+            $userAway = $this->entityManager->getRepository(UserAway::class)->checkId($value['id']);
+            if (!$userAway) {
+            } else {
+                $this->entityManager->remove($userAway);
+            }
+        }
+        $this->entityManager->flush();
+    }
+
 }
