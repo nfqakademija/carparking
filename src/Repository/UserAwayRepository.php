@@ -33,4 +33,18 @@ class UserAwayRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function checkByUserId($id)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.awayUser = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
 }

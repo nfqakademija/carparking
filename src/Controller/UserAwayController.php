@@ -36,6 +36,27 @@ class UserAwayController extends FOSRestBundle
     public function getUserAwayList()
     {
         $article = $this->entityManager->getRepository(UserAway::class)->findAll();
+
+        $serializer = SerializerBuilder::create()->build();
+        $entity = $serializer->serialize($article, 'json');
+        $response = new Response($entity);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+
+        // $userProduct = $entity($article, array('onlyId'));
+//        return new View($entity, Response::HTTP_OK);
+        // In case our GET was a success we need to return a 200 HTTP OK response with the request object
+        // return View::create($article, Response::HTTP_OK);
+    }
+    /**
+     * @Rest\Get("/api/useraway/{id}")
+     */
+
+    public function getSingleUserAway($id)
+    {
+        $article = $this->entityManager->getRepository(UserAway::class)->checkByUserId($id);
+
         $serializer = SerializerBuilder::create()->build();
         $entity = $serializer->serialize($article, 'json');
         $response = new Response($entity);
