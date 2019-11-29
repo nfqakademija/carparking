@@ -22,16 +22,18 @@ class Users extends Component {
         }
         return (
             <>
-                <PopUp left={this.left} width ={this.width} translate={!this.props.loading}/>
-                {this.props.loading || this.props.usersList.length === 0
-                ? 'loading ...'
-                : <div style={{display:'flex', justifyContent:'space-around', height:'100%'}}>
-                    <UsersTable 
-                        usersList={this.props.usersList}
-                        reservationStatus={this.props.reservationStatus}
-                        mainUser={this.props.mainUser}/>
-                    </div>
-                }   
+                <div style={{display:"flex", flexDirection:'column',  height:'100%'}}>
+                    <PopUp left={this.left} width ={this.width} translate={!this.props.loading}/>
+                    {this.props.loading || this.props.usersList.length === 0
+                        ? 'loading ...'
+                        : <div style={{display:'flex', justifyContent:'space-around', flexGrow: "1", overflow:'scroll', scrollbarWidth: 'none'}}>
+                            <UsersTable 
+                                usersList={this.props.usersList}
+                                reservationStatus={this.props.reservationStatus}
+                                mainUser={this.props.mainUser}/>
+                        </div>
+                    } 
+                </div>  
             </>
         )
     }  
