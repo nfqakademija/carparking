@@ -7,5 +7,6 @@ export {
     getHomeUsersStart,
     getHomeUsersSuccess,
     saveCoordinates,
-    noCoordinates
+    noCoordinates,
+    buttonClicked
 } from './main'

@@ -61,3 +61,11 @@ export const noCoordinates = () => {
         type: actionTypes.NO_COORDINATES
     }
 }
+
+export const buttonClicked = (date, buttonType) => {
+    return {
+        type: actionTypes.BUTTON_CLICKED,
+        date,
+        buttonType
+    }
+}

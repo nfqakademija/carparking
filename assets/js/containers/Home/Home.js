@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { getHomeData } from '../../store/thunk/reservations';
 import { getCoordinates } from '../../store/thunk/popup';
 
-import { saveCoordinates } from '../../store/actions/index';
+import { buttonClicked } from '../../store/actions/index';
 
 import Reservation from '../../components/Reservation/Reservation';
 import PopUp from '../../components/UI/PopUp/PopUp';
@@ -22,6 +22,10 @@ class Home extends Component {
         this.props.onSaveCoordinates(this.reservationRefFirst, this.reservationRefLast)
     }
 
+    buttonClickHandler(date, buttonType) {
+        this.props.onButtonClick(date, buttonType)
+    }
+
     reservationButtonHandler(day) {
         if(!day.userReservation) {
             if(day.parkingSpaces > day.usedSpaces){
@@ -35,12 +39,12 @@ class Home extends Component {
                     buttonText: 'ask'
                     })
             }
-        } else {
-            return ({
-                buttonClass: 'danger',
-                buttonText: 'cancel'
-                })
-        }
+            } else {
+                return ({
+                    buttonClass: 'danger',
+                    buttonText: 'cancel'
+                    })
+            }
     };
 
     graphHandler(day) {
@@ -79,7 +83,7 @@ class Home extends Component {
         <>
             {this.props.loading
             ? 'loading...'
-            : <div style={{display:"flex", flexDirection:'column',  height:'100%'}}>
+            : <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
             {this.popupHandler(this.props.popup)}
             <div style={{display:'flex', justifyContent:'space-around', flexWrap:'wrap', alignContent:'flex-start', overflow:'scroll', scrollbarWidth: 'none', flexGrow: "1"}}>
                 {this.props.registrationData.map( (day,index) => {
@@ -98,7 +102,8 @@ class Home extends Component {
                         parkingSpaces={day.parkingSpaces}
                         usedSpaces={day.usedSpaces}
                         userParkingSpot={day.userParkingSpot}
-                        graphStatus={this.graphHandler(day)}/>
+                        graphStatus={this.graphHandler(day)}
+                        onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day).buttonClass)}/>
                 )})}
              </div>
              </div>
@@ -118,7 +123,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps= dispatch => ({
     onGetHomeData: () => dispatch(getHomeData()),
-    onSaveCoordinates: (first, last) => dispatch(getCoordinates(first, last))
+    onSaveCoordinates: (first, last) => dispatch(getCoordinates(first, last)),
+    onButtonClick: (date, buttonType) => dispatch(buttonClicked(date, buttonType))
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(Home);

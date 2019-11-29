@@ -10,10 +10,10 @@ const popUp = (props) => {
                         position:'relative',
                         left: props.left,
                         width: props.width,
-                        transform: props.translate ?'translateY(0)': 'translateY(-200%)'
+                        transform: props.translate ?'translateY(0)': 'translateY(-200px)',
+                        height: props.translate? '10%': '0'
                     }} 
                     >                
-                        pop-up
                 </div>
             </>
     )

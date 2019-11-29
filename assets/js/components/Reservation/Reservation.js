@@ -7,6 +7,7 @@ const reservation = React.forwardRef((props, ref) => {
     const date = new Date(props.date)
     return (
         <div className='Reservation_container' 
+            style={{height:props.height}}
             ref={ref}>
             <div className='Reservation_header'>
                 {`${date.toLocaleDateString('en-EN', {weekday:'short'}).toUpperCase()}
@@ -33,7 +34,8 @@ const reservation = React.forwardRef((props, ref) => {
                     <Button 
                         text={props.buttonOptions.buttonText} 
                         classname={`Button_${props.buttonOptions.buttonClass}`}
-                        buttonStyle={{width:'50%'}}/>
+                        buttonStyle={{width:'50%'}}
+                        onclick={props.onButtonClick}/>
             </div>
         </div>
     )

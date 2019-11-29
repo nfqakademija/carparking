@@ -67,7 +67,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 popup: {
                     ...state.popup,
-                    loading: false,
                     width: action.width,
                     left: action.left
                 }
@@ -76,8 +75,17 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 popup: {
+                    ...state.popup
+                }
+            }
+        case actionTypes.BUTTON_CLICKED:
+            return {
+                ...state,
+                popup: {
                     ...state.popup,
-                    loading: false
+                    loading: false,
+                    type: action.buttonType,
+                    date: action.date
                 }
             }
         default: return state
