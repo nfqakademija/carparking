@@ -22,10 +22,16 @@ class Reservations
     private $reservationDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="reservations",fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="reservations")
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ParkSpaces", inversedBy="reservation")
+     * @ORM\JoinColumn()
+     */
+    private $parkSpace;
 
     public function getId(): ?int
     {
@@ -55,4 +61,16 @@ class Reservations
 
         return $this;
     }
+
+    public function getParkSpace(): ?ParkSpaces
+    {
+        return $this->parkSpace;
+    }
+
+    public function setParkSpace(?ParkSpaces $parkSpace): self
+    {
+        $this->parkSpace = $parkSpace;
+        return $this;
+    }
+
 }

@@ -48,22 +48,16 @@ class Users
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $licencePlate;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Roles")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn()
      */
     private $userRole;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ParkSpaces", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $userParkSpace;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Reservations", mappedBy="user")
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\JoinColumn()
      */
     private $reservations;
 
@@ -71,6 +65,16 @@ class Users
      * @ORM\OneToMany(targetEntity="App\Entity\UserAway", mappedBy="awayUser")
      */
     private $userAways;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $permanentParkSpace;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\ParkSpaces", cascade={"persist", "remove"})
+     */
+    private $permanentSpace;
 
     public function __construct()
     {
@@ -171,10 +175,9 @@ class Users
     {
         return $this->userParkSpace;
     }
-
-    public function setParkSpaceId(?ParkSpaces $parkSpaceId): self
+    public function setUserParkSpace(?ParkSpaces $userParkSpace): self
     {
-        $this->userParkSpace = $parkSpaceId;
+        $this->userParkSpace = $userParkSpace;
 
         return $this;
     }
@@ -240,4 +243,30 @@ class Users
 
         return $this;
     }
+
+    public function getPermanentParkSpace(): ?string
+    {
+        return $this->permanentParkSpace;
+    }
+
+    public function setPermanentParkSpace(string $permanentParkSpace): self
+    {
+        $this->permanentParkSpace = $permanentParkSpace;
+
+        return $this;
+    }
+
+    public function getPermanentSpace(): ?ParkSpaces
+    {
+        return $this->permanentSpace;
+    }
+
+    public function setPermanentSpace(?ParkSpaces $permanentSpace): self
+    {
+        $this->permanentSpace = $permanentSpace;
+
+        return $this;
+    }
+
+
 }

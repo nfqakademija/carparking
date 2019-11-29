@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -22,9 +24,15 @@ class ParkSpaces
     private $number;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\OneToMany(targetEntity="App\Entity\Reservations", mappedBy="parkSpace")
+     * @ORM\JoinColumn()
      */
-    private $available;
+    private $reservation;
+
+    public function __construct()
+    {
+        $this->reservation = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -43,15 +51,36 @@ class ParkSpaces
         return $this;
     }
 
-    public function getAvailable(): ?bool
+    public function getReservation(): ?Reservations
     {
-        return $this->available;
+        return $this->reservation;
     }
 
-    public function setAvailable(bool $available): self
+    public function setReservation(?Reservations $reservation): self
     {
-        $this->available = $available;
+        $this->reservation = $reservation;
+        return $this;
+    }
+
+    public function addReservation(Reservations $reservation): self
+    {
+        if (!$this->reservation->contains($reservation)) {
+            $this->reservation[] = $reservation;
+            $reservation->addParkSpace($this);
+        }
 
         return $this;
     }
+
+    public function removeReservation(Reservations $reservation): self
+    {
+        if ($this->reservation->contains($reservation)) {
+            $this->reservation->removeElement($reservation);
+            $reservation->removeParkSpace($this);
+        }
+
+        return $this;
+    }
+
+
 }

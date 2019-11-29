@@ -116,7 +116,7 @@ class UserAwayController extends FOSRestBundle
                 $dateEnd = \DateTime::createFromFormat($format, $value['away_end_date']);
                 $userAway->setAwayStartDate($dateStart);
                 $userAway->setAwayEndDate($dateEnd);
-                $this->entityManager->persist($userAway);
+                $this->entityManager->persist($userAway); //not needed
             }
         }
         $this->entityManager->flush();
