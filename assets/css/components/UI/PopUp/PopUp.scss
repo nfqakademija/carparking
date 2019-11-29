@@ -1,6 +1,6 @@
 .PopUp_container {
     color: #f8f3f0;
-    background-color:#71c271;
+    background-color:hsl(120, 40%, 60%);
     padding: 1em;
     box-shadow: 5px 5px 10px 0px #343a40;
     height:10%;
@@ -9,4 +9,6 @@
     margin-bottom: 1em;
     border-radius: 0.25em;
     transition: all 1s ease-out;
+    // margin: 18px auto;
+    // width: 95%;
 }

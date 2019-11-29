@@ -4,15 +4,21 @@ import { connect } from "react-redux";
 
 import { getHomeData } from '../../store/thunk/reservations';
 
-// import { saveCoordinates } from '../../store/actions/index';
+import { saveCoordinates } from '../../store/actions/index';
 
 import Reservation from '../../components/Reservation/Reservation';
 import PopUp from '../../components/UI/PopUp/PopUp';
 
 class Home extends Component {
-    
+    constructor(props){
+        super(props);
+        this.reservationRefFirst = React.createRef();
+        this.reservationRefLast = React.createRef();
+    }
+
     componentDidMount(){
         this.props.onGetHomeData();
+        setTimeout(()=>this.props.onSaveCoordinates(),1000)
     }
 
     reservationButtonHandler(day) {
@@ -58,30 +64,28 @@ class Home extends Component {
         } 
     }
 
-    // saveCoordinatesHandler(first,last){
-    //     setTimeout(
-    //         ()=>this.props.onSaveCoordinates(first,last),1000
-    //     )
-    // }
-
+    popupHandler (popup) {
+        if (popup) {
+            return <PopUp left={this.reservationRefFirst} right={this.reservationRefLast}/>
+        } else {console.log('boo')}
+    }
+    
     render (){
-        const reservationRefFirst = React.createRef()
-        const reservationRefLast = React.createRef()
-        // this.saveCoordinatesHandler(reservationRefFirst, reservationRefLast)
+        
         return (
         <>
             {this.props.loading
             ? 'loading...'
             : <div style={{display:"flex", flexDirection:'column',  height:'100%'}}>
-            <PopUp left={reservationRefFirst} right={reservationRefLast}/>
+            {this.popupHandler(this.props.popup)}
             <div style={{display:'flex', justifyContent:'space-around', flexWrap:'wrap', alignContent:'flex-start', overflow:'scroll', scrollbarWidth: 'none', flexGrow: "1"}}>
                 {this.props.registrationData.map( (day,index) => {
                     return (
                     <Reservation
                         ref={!index 
-                                ? reservationRefFirst
+                                ? this.reservationRefFirst
                                 : index === 5 
-                                    ? reservationRefLast
+                                    ? this.reservationRefLast
                                     : null
                             }
                         index={index}
@@ -105,14 +109,13 @@ const mapStateToProps = state => {
     return {
         registrationData: state.reservationStatus,
         loading: state.loading,
-        first: state.first,
-        last: state.last
+        popup: state.popup
     }
 }
 
 const mapDispatchToProps= dispatch => ({
     onGetHomeData: () => dispatch(getHomeData()),
-    onSaveCoordinates: (first,last) => dispatch(saveCoordinates(first,last))
+    onSaveCoordinates: () => dispatch(saveCoordinates())
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(Home);

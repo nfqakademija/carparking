@@ -12,7 +12,8 @@ const initialState = {
         activeCar: null
     },
     users: [],
-    reservationStatus: []
+    reservationStatus: [],
+    popup: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -57,12 +58,11 @@ const reducer = (state = initialState, action) => {
                 users: action.users,
                 loading: false
             }
-        // case actionTypes.SAVE_COORDINATES:
-        //     return {
-        //         ...state,
-        //         first: action.first,
-        //         last: action.last
-        //     }
+        case actionTypes.SAVE_COORDINATES:
+            return {
+                ...state,
+                popup: true
+            }
         default: return state
     }
 }

@@ -5,7 +5,6 @@ import '../../../css/components/Reservation/Reservation.scss';
 
 const reservation = React.forwardRef((props, ref) => {
     const date = new Date(props.date)
-    console.log(ref)
     return (
         <div className='Reservation_container' 
             ref={ref}>
