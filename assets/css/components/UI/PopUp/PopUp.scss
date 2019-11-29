@@ -5,10 +5,9 @@
     box-shadow: 5px 5px 10px 0px #343a40;
     height:10%;
     margin-left:-15px;
+    margin-right: -15px;
     top: 1em;
     margin-bottom: 1em;
     border-radius: 0.25em;
-    transition: all 1s ease-out;
-    // margin: 18px auto;
-    // width: 95%;
+    transition: transform 1s ease-out 0.5s;
 }

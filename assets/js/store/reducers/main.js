@@ -13,7 +13,11 @@ const initialState = {
     },
     users: [],
     reservationStatus: [],
-    popup: false
+    popup: {
+        loading: true,
+        width: 'calc(100%+30px)',
+        left: '0px'
+    }
 }
 
 const reducer = (state = initialState, action) => {
@@ -61,7 +65,20 @@ const reducer = (state = initialState, action) => {
         case actionTypes.SAVE_COORDINATES:
             return {
                 ...state,
-                popup: true
+                popup: {
+                    ...state.popup,
+                    loading: false,
+                    width: action.width,
+                    left: action.left
+                }
+            }
+        case actionTypes.NO_COORDINATES:
+            return {
+                ...state,
+                popup: {
+                    ...state.popup,
+                    loading: false
+                }
             }
         default: return state
     }

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 
 import { getHomeData } from '../../store/thunk/reservations';
+import { getCoordinates } from '../../store/thunk/popup';
 
 import { saveCoordinates } from '../../store/actions/index';
 
@@ -18,7 +19,7 @@ class Home extends Component {
 
     componentDidMount(){
         this.props.onGetHomeData();
-        setTimeout(()=>this.props.onSaveCoordinates(),1000)
+        this.props.onSaveCoordinates(this.reservationRefFirst, this.reservationRefLast)
     }
 
     reservationButtonHandler(day) {
@@ -65,9 +66,11 @@ class Home extends Component {
     }
 
     popupHandler (popup) {
-        if (popup) {
-            return <PopUp left={this.reservationRefFirst} right={this.reservationRefLast}/>
-        } else {console.log('boo')}
+        if (!popup.loading) {
+            return <PopUp left={popup.left} width={popup.width} translate={true}/>
+        } else {
+            return <PopUp left={popup.left}/>
+        }
     }
     
     render (){
@@ -115,7 +118,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps= dispatch => ({
     onGetHomeData: () => dispatch(getHomeData()),
-    onSaveCoordinates: () => dispatch(saveCoordinates())
+    onSaveCoordinates: (first, last) => dispatch(getCoordinates(first, last))
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(Home);

@@ -48,8 +48,16 @@ export const getHomeUsersSuccess = (users) => {
 }
 
 
-export const saveCoordinates = () => {
+export const saveCoordinates = (left, width) => {
     return {
-        type: actionTypes.SAVE_COORDINATES
+        type: actionTypes.SAVE_COORDINATES,
+        left,
+        width
+    }
+}
+
+export const noCoordinates = () => {
+    return {
+        type: actionTypes.NO_COORDINATES
     }
 }

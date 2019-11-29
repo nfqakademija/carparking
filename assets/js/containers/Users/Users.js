@@ -13,9 +13,16 @@ class Users extends Component {
     }
 
     render (){
+        if(window.innerWidth > 1600){
+            this.width = '75%'
+            this.left = `calc(12.5% + 15px)`
+        } else {
+            this.width = '100%'
+            this.left = '15px'
+        }
         return (
             <>
-                <PopUp/>
+                <PopUp left={this.left} width ={this.width} translate={!this.props.loading}/>
                 {this.props.loading || this.props.usersList.length === 0
                 ? 'loading ...'
                 : <div style={{display:'flex', justifyContent:'space-around', height:'100%'}}>
