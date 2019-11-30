@@ -10,19 +10,12 @@ const popUp = (props) => {
         left: props.left,
         width: props.width,
         transform: props.translate ?'translateY(0)': 'translateY(-300px)',
-    }
-
-    let statusText = null
-
-    popupType = {
-        ...popupType,
         backgroundColor:"#343a40"
     }
 
-    
+    let statusText = null  
             
     if(props.type){
-        
         const date = new Date(props.type.date)
         const dateString = `${date.toLocaleDateString('en-EN', {weekday:'short'}).toUpperCase()}
                             ${date.toLocaleDateString('en-EN', {month:'short'}).toUpperCase()}
@@ -39,17 +32,33 @@ const popUp = (props) => {
                 break
         }
     }
+
+    if(props.uniqueStyle){
+        popupType = {
+            ...popupType,
+            backgroundColor: props.uniqueStyle.backgroundColor,
+            height: props.uniqueStyle.height
+        }
+    }
     
     return (
         <>
-            <div className='PopUp_container' style={popupType} >
-                {statusText}
-                <div style={{display:'flex', justifyContent:'space-around', width:'80%', margin:'auto'}}>
-                    <Button classname="Button_success" text='Accept' buttonStyle={{fontSize:'1rem', width:'35%'}}></Button>
-                    <Button classname="Button_danger" text='Cancel' buttonStyle={{fontSize:'1rem', width:'35%'}} onclick={props.popupCancel}></Button>
-                </div>    
-            </div>
-                    
+            {props.loading
+            ?   <div className='PopUp_container' style={popupType} >
+                    <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
+                </div>
+            :   props.uniqueStyle
+                ?   <div className='PopUp_container' style={popupType} >
+                        <span>Success!!</span> 
+                    </div>
+                :   <div className='PopUp_container' style={popupType} >
+                        {statusText}
+                        <div style={{display:'flex', justifyContent:'space-around', width:'80%', margin:'auto'}}>
+                            <Button classname="Button_success" text='Accept' buttonStyle={{fontSize:'1rem', width:'35%'}} onclick={props.popupAccept}></Button>
+                            <Button classname="Button_danger" text='Cancel' buttonStyle={{fontSize:'1rem', width:'35%'}} onclick={props.popupCancel}></Button>
+                        </div>    
+                    </div>
+            }     
         </>
     )
 }

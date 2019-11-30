@@ -9,5 +9,7 @@ export {
     saveCoordinates,
     noCoordinates,
     buttonClicked,
-    popupCancel
+    popupCancel,
+    popupAcceptStart,
+    popupAcceptSuccess
 } from './main'

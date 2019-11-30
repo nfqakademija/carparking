@@ -14,7 +14,6 @@ const initialState = {
     users: [],
     reservationStatus: [],
     popup: {
-        loading: true,
         width: 'calc(100%+30px)',
         left: '0px'
     }
@@ -83,7 +82,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 popup: {
                     ...state.popup,
-                    loading: false,
+                    show: true,
                     type: action.buttonType,
                     date: action.date
                 }
@@ -93,7 +92,27 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 popup: {
                     ...state.popup,
+                    show: false
+                }
+            }
+        case actionTypes.POPUP_ACCEPT_START:
+            return {
+                ...state,
+                popup: {
+                    ...state.popup,
                     loading: true
+                }
+            }
+        case actionTypes.POPUP_ACCEPT_SUCCESS:
+            return {
+                ...state,
+                popup: {
+                    ...state.popup,
+                    loading: false,
+                    style : {
+                        backgroundColor: '#71c271',
+                        height: '150px'
+                        }
                 }
             }
         default: return state

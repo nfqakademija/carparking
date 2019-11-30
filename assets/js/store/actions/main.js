@@ -75,3 +75,15 @@ export const popupCancel = () => {
         type: actionTypes.POPUP_CANCEL
     }
 }
+
+export const popupAcceptStart = () => {
+    return {
+        type: actionTypes.POPUP_ACCEPT_START
+    }
+}
+
+export const popupAcceptSuccess = () => {
+    return {
+        type: actionTypes.POPUP_ACCEPT_SUCCESS
+    }
+}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from "react-redux";
 
-import { getHomeData } from '../../store/thunk/reservations';
+import { getHomeData, popupAcceptClicked } from '../../store/thunk/reservations';
 import { getCoordinates } from '../../store/thunk/popup';
 
 import { buttonClicked, popupCancel } from '../../store/actions/index';
@@ -72,15 +72,24 @@ class Home extends Component {
     }
 
     popupHandler (popup) {
-        if (!popup.loading) {
-            return <PopUp left={popup.left} width={popup.width} translate={!this.props.popup.loading} type={this.props.popup} popupCancel={this.props.onPopupCancel}/>
+        if (popup.show) {
+            return <PopUp 
+                        left={popup.left} 
+                        width={popup.width} 
+                        translate={this.props.popup.show} 
+                        type={this.props.popup} 
+                        popupCancel={this.props.onPopupCancel} 
+                        popupAccept={this.props.onPopupAccept}
+                        loading={popup.loading}
+                        uniqueStyle={popup.style}
+                    />
         } else {
             return <PopUp left={popup.left} width={popup.width}/>
         }
     }
 
     reservationContainerStyleHandler () {
-        return {transform: this.props.popup.loading ?'translateY(0)': 'translateY(200px)'}
+        return {transform: !this.props.popup.show ?'translateY(0)': 'translateY(200px)'}
     }
     
     render (){
@@ -131,7 +140,8 @@ const mapDispatchToProps= dispatch => ({
     onGetHomeData: () => dispatch(getHomeData()),
     onSaveCoordinates: (first, last) => dispatch(getCoordinates(first, last)),
     onButtonClick: (date, buttonType) => dispatch(buttonClicked(date, buttonType)),
-    onPopupCancel: () => dispatch(popupCancel())
+    onPopupCancel: () => dispatch(popupCancel()),
+    onPopupAccept: () => dispatch(popupAcceptClicked())
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(Home);

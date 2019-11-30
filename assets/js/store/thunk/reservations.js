@@ -73,5 +73,12 @@ export const getUsersData = () => dispatch => {
             })
             dispatch(actions.getHomeUsersSuccess(users));
         })
+}
 
+export const popupAcceptClicked = () => dispatch => {
+    dispatch(actions.popupAcceptStart());
+    setTimeout(
+        () => dispatch(actions.popupAcceptSuccess()),
+        1000
+    )
 }
