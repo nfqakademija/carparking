@@ -7,6 +7,7 @@ use App\Entity\UserAway;
 use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\FOSRestBundle;
+use FOS\RestBundle\View\View;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,9 +28,23 @@ class ReservationController extends FOSRestBundle
 
     /**
      * @Rest\Get("/api/reservations")
-     * @throws \Exception
      */
     public function index()
+    {
+        $data = $this->entityManager->getRepository(Reservations::class)->findAll();
+        $serializer = SerializerBuilder::create()->build();
+        $entity = $serializer->serialize($data, 'json');
+        $response = new Response($entity);
+        $response->headers->set('Content-Type', 'application/json');
+        $response->getStatusCode();
+        return $response;
+    }
+
+    /**
+     * @Rest\Get("/api/make-reservation")
+     * @throws \Exception
+     */
+    public function make()
     {
         $data = $this->entityManager->getRepository(Users::class)->findUsers();
         $reservationDateArray = $this->dateTimeProvider(7);
@@ -51,6 +66,9 @@ class ReservationController extends FOSRestBundle
             }
             $this->entityManager->flush();
         }
+        $response = new Response();
+//        $response->getStatusCode();
+        return $response;
     }
 
     private function dateTimeProvider($days)
@@ -92,16 +110,6 @@ class ReservationController extends FOSRestBundle
         $date = \DateTime::createFromFormat($format, $dateString);
         return $date;
     }
-
-
-//$serializer = SerializerBuilder::create()->build();
-//$entity = $serializer->serialize($data, 'json');
-//$response = new Response($entity);
-//$response->headers->set('Content-Type', 'application/json');
-//
-//return $response;
-//
-//}
 
 
 }

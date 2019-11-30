@@ -2,19 +2,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Reservations;
-use App\Entity\Roles;
+
 use App\Entity\UserAway;
 use App\Entity\Users;
-use App\Repository\ReservationsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\FOSRestBundle;
-use FOS\RestBundle\View\View;
-use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+
 
 class UserAwayController extends FOSRestBundle
 {
@@ -41,14 +38,10 @@ class UserAwayController extends FOSRestBundle
         $entity = $serializer->serialize($article, 'json');
         $response = new Response($entity);
         $response->headers->set('Content-Type', 'application/json');
-
+        $response->getStatusCode();
         return $response;
-
-        // $userProduct = $entity($article, array('onlyId'));
-//        return new View($entity, Response::HTTP_OK);
-        // In case our GET was a success we need to return a 200 HTTP OK response with the request object
-        // return View::create($article, Response::HTTP_OK);
     }
+
     /**
      * @Rest\Get("/api/useraway/{id}")
      */
@@ -61,13 +54,9 @@ class UserAwayController extends FOSRestBundle
         $entity = $serializer->serialize($article, 'json');
         $response = new Response($entity);
         $response->headers->set('Content-Type', 'application/json');
-
+        $response->getStatusCode();
         return $response;
 
-        // $userProduct = $entity($article, array('onlyId'));
-//        return new View($entity, Response::HTTP_OK);
-        // In case our GET was a success we need to return a 200 HTTP OK response with the request object
-        // return View::create($article, Response::HTTP_OK);
     }
 
 
