@@ -69,3 +69,9 @@ export const buttonClicked = (date, buttonType) => {
         buttonType
     }
 }
+
+export const popupCancel = () => {
+    return {
+        type: actionTypes.POPUP_CANCEL
+    }
+}

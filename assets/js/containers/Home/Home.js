@@ -5,10 +5,12 @@ import { connect } from "react-redux";
 import { getHomeData } from '../../store/thunk/reservations';
 import { getCoordinates } from '../../store/thunk/popup';
 
-import { buttonClicked } from '../../store/actions/index';
+import { buttonClicked, popupCancel } from '../../store/actions/index';
 
 import Reservation from '../../components/Reservation/Reservation';
 import PopUp from '../../components/UI/PopUp/PopUp';
+
+import '../../../css/containers/Home/Home.scss';
 
 class Home extends Component {
     constructor(props){
@@ -71,10 +73,14 @@ class Home extends Component {
 
     popupHandler (popup) {
         if (!popup.loading) {
-            return <PopUp left={popup.left} width={popup.width} translate={true} type={this.props.popup}/>
+            return <PopUp left={popup.left} width={popup.width} translate={!this.props.popup.loading} type={this.props.popup} popupCancel={this.props.onPopupCancel}/>
         } else {
-            return <PopUp left={popup.left}/>
+            return <PopUp left={popup.left} width={popup.width}/>
         }
+    }
+
+    reservationContainerStyleHandler () {
+        return {transform: this.props.popup.loading ?'translateY(0)': 'translateY(200px)'}
     }
     
     render (){
@@ -85,7 +91,7 @@ class Home extends Component {
             ? 'loading...'
             : <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
             {this.popupHandler(this.props.popup)}
-            <div style={{display:'flex', justifyContent:'space-around', flexWrap:'wrap', alignContent:'flex-start', overflow:'scroll', scrollbarWidth: 'none', flexGrow: "1"}}>
+            <div className='Home_reservationContainer' style={this.reservationContainerStyleHandler()} >
                 {this.props.registrationData.map( (day,index) => {
                     return (
                     <Reservation
@@ -124,7 +130,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps= dispatch => ({
     onGetHomeData: () => dispatch(getHomeData()),
     onSaveCoordinates: (first, last) => dispatch(getCoordinates(first, last)),
-    onButtonClick: (date, buttonType) => dispatch(buttonClicked(date, buttonType))
+    onButtonClick: (date, buttonType) => dispatch(buttonClicked(date, buttonType)),
+    onPopupCancel: () => dispatch(popupCancel())
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(Home);

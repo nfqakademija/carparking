@@ -8,5 +8,6 @@ export {
     getHomeUsersSuccess,
     saveCoordinates,
     noCoordinates,
-    buttonClicked
+    buttonClicked,
+    popupCancel
 } from './main'

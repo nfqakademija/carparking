@@ -88,6 +88,14 @@ const reducer = (state = initialState, action) => {
                     date: action.date
                 }
             }
+        case actionTypes.POPUP_CANCEL:
+            return {
+                ...state,
+                popup: {
+                    ...state.popup,
+                    loading: true
+                }
+            }
         default: return state
     }
 }
