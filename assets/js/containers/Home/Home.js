@@ -71,7 +71,7 @@ class Home extends Component {
 
     popupHandler (popup) {
         if (!popup.loading) {
-            return <PopUp left={popup.left} width={popup.width} translate={true}/>
+            return <PopUp left={popup.left} width={popup.width} translate={true} type={this.props.popup}/>
         } else {
             return <PopUp left={popup.left}/>
         }
