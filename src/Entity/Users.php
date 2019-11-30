@@ -63,6 +63,7 @@ class Users
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserAway", mappedBy="awayUser")
+     * @ORM\JoinColumn()
      */
     private $userAways;
 
@@ -218,8 +219,10 @@ class Users
      */
     public function getUserAways(): Collection
     {
+
         return $this->userAways;
     }
+
 
     public function addUserAway(UserAway $userAway): self
     {
