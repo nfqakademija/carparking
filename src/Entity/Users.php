@@ -2,24 +2,18 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Core\Annotation\ApiProperty;
-use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UsersRepository")
- * @ApiResource()
  */
 class Users
 {
 
-    //     if you use Doctrine ORM, be sure to not mark this property
-    // with the @GeneratedValue annotation or use the NONE value
     /**
      * @ORM\Id()
-     * @ApiProperty(identifier=true)
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
@@ -54,32 +48,34 @@ class Users
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $licencePlate;
-
+    
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Roles")
-     * @ORM\JoinColumn(nullable=false)
-     * @ApiProperty(readableLink=true)
+     * @ORM\JoinColumn()
      */
     private $userRole;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\ParkSpaces", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $userParkSpace;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Reservations", mappedBy="user")
-     * @ORM\JoinColumn(nullable=true)
-     * @ApiProperty(readableLink=true)
+     * @ORM\JoinColumn()
      */
     private $reservations;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\UserAway", mappedBy="awayUser")
-     * @ApiProperty(readableLink=true)
+     * @ORM\JoinColumn()
      */
     private $userAways;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $permanentParkSpace;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\ParkSpaces", cascade={"persist", "remove"})
+     */
+    private $permanentSpace;
 
     public function __construct()
     {
@@ -180,10 +176,9 @@ class Users
     {
         return $this->userParkSpace;
     }
-
-    public function setParkSpaceId(?ParkSpaces $parkSpaceId): self
+    public function setUserParkSpace(?ParkSpaces $userParkSpace): self
     {
-        $this->userParkSpace = $parkSpaceId;
+        $this->userParkSpace = $userParkSpace;
 
         return $this;
     }
@@ -224,8 +219,10 @@ class Users
      */
     public function getUserAways(): Collection
     {
+
         return $this->userAways;
     }
+
 
     public function addUserAway(UserAway $userAway): self
     {
@@ -246,6 +243,30 @@ class Users
                 $userAway->setAwayUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPermanentParkSpace(): ?string
+    {
+        return $this->permanentParkSpace;
+    }
+
+    public function setPermanentParkSpace(string $permanentParkSpace): self
+    {
+        $this->permanentParkSpace = $permanentParkSpace;
+
+        return $this;
+    }
+
+    public function getPermanentSpace(): ?ParkSpaces
+    {
+        return $this->permanentSpace;
+    }
+
+    public function setPermanentSpace(?ParkSpaces $permanentSpace): self
+    {
+        $this->permanentSpace = $permanentSpace;
 
         return $this;
     }
