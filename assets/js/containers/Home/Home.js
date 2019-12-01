@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import axios from 'axios';
+
 import { connect } from "react-redux";
 
 import { getHomeData, popupAcceptClicked, successTimer } from '../../store/thunk/reservations';
@@ -17,11 +19,22 @@ class Home extends Component {
         super(props);
         this.reservationRefFirst = React.createRef();
         this.reservationRefLast = React.createRef();
+        this.data = {
+            "id": 41,
+            "away_date": [
+                {"away_start_date" :"2019-12-01","away_end_date":"2019-12-01"},
+                {"away_start_date" :"2019-12-02","away_end_date":"2019-12-05"}
+            ]
+        }
     }
 
     componentDidMount(){
         this.props.onGetHomeData();
         this.props.onSaveCoordinates(this.reservationRefFirst, this.reservationRefLast)
+        console.log(this.data)
+        axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
+        axios.get(`/api/reservations`).then(res => console.log(res))
+        axios.get(`/api/users`).then(res => console.log(res))
     }
 
     buttonClickHandler(date, buttonType) {

@@ -5,7 +5,7 @@ export const getHomeData = () => (dispatch, getState) => {
     const reservationStatus = [];
     let dayObject = {
         date: null,
-        parkingSpaces: 15,
+        parkingSpaces: 20,
         usedSpaces: 0,
         userReservation: false,
         userParkingSpot : null

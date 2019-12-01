@@ -32,7 +32,6 @@ const reservation = React.forwardRef((props, ref) => {
                                     : `${props.usedSpaces}/${props.parkingSpaces}`}
                         </text>
                     </svg>
-                    {console.log(props.history)}
                     <Button 
                         text={props.buttonOptions.buttonText} 
                         classname={`Button_${props.buttonOptions.buttonClass}`}
