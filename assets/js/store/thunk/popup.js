@@ -10,6 +10,6 @@ export const getCoordinates = (first, last) => dispatch => {
             } else {
                 dispatch(noCoordinates())
             }
-        }, 500
+        }, 1000
     )
 }

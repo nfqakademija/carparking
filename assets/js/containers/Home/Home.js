@@ -33,8 +33,6 @@ class Home extends Component {
         this.props.onSaveCoordinates(this.reservationRefFirst, this.reservationRefLast)
         console.log(this.data)
         axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
-        axios.get(`/api/reservations`).then(res => console.log(res))
-        axios.get(`/api/users`).then(res => console.log(res))
     }
 
     buttonClickHandler(date, buttonType) {

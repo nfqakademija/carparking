@@ -11,7 +11,7 @@ export const getHomeData = () => (dispatch, getState) => {
         userParkingSpot : null
     }
     let user = {
-        id: 51,
+        id: 2,
         name: null,
         lastname: null,
         activeCar: null
@@ -35,24 +35,25 @@ export const getHomeData = () => (dispatch, getState) => {
     } // day objects created
 
     dispatch(actions.getHomeDataStart());
-    axios.get(`/api/reservation`)
+    axios.get(`/api/reservations`)
         .then(res => {
-            const data = res.data['hydra:member']
-
+            const data = res.data
             data.map(reservation => {
-                const found = reservationStatus.find( dayObj => new Date(dayObj.date).getDate() == new Date(reservation.reservationDate).getDate())
-                const index = reservationStatus.findIndex(obj => obj === found); 
+                const found = reservationStatus.find( dayObj => new Date(dayObj.date).getDate() == new Date(reservation['reservation_date']).getDate())
+                const index = reservationStatus.findIndex(obj => obj === found);
                 if (index !== -1){
                     const newValue = reservationStatus[index].usedSpaces + 1
                     reservationStatus[index].usedSpaces = newValue
-                    if (reservation.user.id === getState().user.id) {
-                        reservationStatus[index].userReservation = true
-                        reservationStatus[index].userParkingSpot = reservation.user.userParkSpace.number
-                        user.name = reservation.user.name
-                        user.lastname = reservation.user.surname
-                        user.activeCar = reservation.user.licencePlate
+                    if (reservation.user) {
+                        if (reservation.user.id === getState().user.id) {
+                            reservationStatus[index].userReservation = true
+                            reservationStatus[index].userParkingSpot = reservation['park_space'].number
+                            user.name = reservation.user.name
+                            user.lastname = reservation.user.surname
+                            user.activeCar = reservation.user['licence_plate']
+                        }
+                    }
                 }
-            }
         })
         dispatch(actions.getHomeDataSuccess(reservationStatus, user))
     }).catch( ()=>{
@@ -67,7 +68,7 @@ export const getUsersData = () => dispatch => {
     const users = []
     axios.get('/api/users')
         .then(res =>{ 
-            const usersData = res.data['hydra:member']
+            const usersData = res.data
             usersData.map( user => {
                 users.push(user)
             })

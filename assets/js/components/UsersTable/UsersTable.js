@@ -34,10 +34,11 @@ const usersTable = (props) => (
                     props.mainUser.name !== user.name || props.mainUser.lastname !== user.surname
                         ? <div className='UserTable_userContainer' key={user.id}>
                             <div>{`${user.name} ${user.surname}`}</div>
+                            {console.log(user.reservations)}
                             <div>
                                 {props.reservationStatus.map( dayObj => (
                                     // every icon has spot in grid and this code checking if user has reservation in this grid space
-                                    user.reservations
+                                    user.reservations !== []
                                     ? user.reservations.find( reservation => new Date (reservation.reservationDate).getDate() === new Date(dayObj.date).getDate() )
                                         ? <i key={dayObj.date} className="fas fa-parking UserTable_greenIcon"></i>
                                         : <i key={dayObj.date} className="fas fa-parking UserTable_redIcon"></i>
