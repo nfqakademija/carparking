@@ -77,6 +77,9 @@ class UserAwayController extends FOSRestBundle
             }
             $this->entityManager->flush();
         }
+        $response = new Response();
+        $response->setStatusCode(Response::HTTP_OK);
+        return $response;
     }
 
     /**
