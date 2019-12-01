@@ -39,7 +39,7 @@ const usersTable = (props) => (
                                 {props.reservationStatus.map( dayObj => (
                                     // every icon has spot in grid and this code checking if user has reservation in this grid space
                                     user.reservations !== []
-                                    ? user.reservations.find( reservation => new Date (reservation.reservationDate).getDate() === new Date(dayObj.date).getDate() )
+                                    ? user.reservations.find( reservation => new Date (reservation['reservation_date']).getDate() === new Date(dayObj.date).getDate() )
                                         ? <i key={dayObj.date} className="fas fa-parking UserTable_greenIcon"></i>
                                         : <i key={dayObj.date} className="fas fa-parking UserTable_redIcon"></i>
                                     : <i key={dayObj.date} className="fas fa-parking UserTable_redIcon"></i>
