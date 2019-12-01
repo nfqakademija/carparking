@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from "react-redux";
 
-import { getHomeData, popupAcceptClicked } from '../../store/thunk/reservations';
+import { getHomeData, popupAcceptClicked, successTimer } from '../../store/thunk/reservations';
 import { getCoordinates } from '../../store/thunk/popup';
 
 import { buttonClicked, popupCancel } from '../../store/actions/index';
@@ -41,12 +41,12 @@ class Home extends Component {
                     buttonText: 'ask'
                     })
             }
-            } else {
-                return ({
-                    buttonClass: 'danger',
-                    buttonText: 'cancel'
-                    })
-            }
+        } else {
+            return ({
+                buttonClass: 'danger',
+                buttonText: 'cancel'
+                })
+        }
     };
 
     graphHandler(day) {
@@ -72,7 +72,7 @@ class Home extends Component {
     }
 
     popupHandler (popup) {
-        if (popup.show) {
+        
             return <PopUp 
                         left={popup.left} 
                         width={popup.width} 
@@ -82,10 +82,9 @@ class Home extends Component {
                         popupAccept={this.props.onPopupAccept}
                         loading={popup.loading}
                         uniqueStyle={popup.style}
+                        successTimer={this.props.onSuccessTimer}
                     />
-        } else {
-            return <PopUp left={popup.left} width={popup.width}/>
-        }
+        
     }
 
     reservationContainerStyleHandler () {
@@ -118,7 +117,8 @@ class Home extends Component {
                         usedSpaces={day.usedSpaces}
                         userParkingSpot={day.userParkingSpot}
                         graphStatus={this.graphHandler(day)}
-                        onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day).buttonClass)}/>
+                        onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day).buttonClass)}
+                        history={this.props.history}/>
                 )})}
              </div>
              </div>
@@ -141,7 +141,8 @@ const mapDispatchToProps= dispatch => ({
     onSaveCoordinates: (first, last) => dispatch(getCoordinates(first, last)),
     onButtonClick: (date, buttonType) => dispatch(buttonClicked(date, buttonType)),
     onPopupCancel: () => dispatch(popupCancel()),
-    onPopupAccept: () => dispatch(popupAcceptClicked())
+    onPopupAccept: () => dispatch(popupAcceptClicked()),
+    onSuccessTimer: () => dispatch(successTimer())
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(Home);

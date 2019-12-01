@@ -11,5 +11,7 @@ export {
     buttonClicked,
     popupCancel,
     popupAcceptStart,
-    popupAcceptSuccess
+    popupAcceptSuccess,
+    popupSuccess,
+    popupStyleReset
 } from './main'

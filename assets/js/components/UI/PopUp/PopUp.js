@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 import Button from '../Button/Button';
 
@@ -13,7 +14,8 @@ const popUp = (props) => {
         backgroundColor:"#343a40"
     }
 
-    let statusText = null  
+    let statusText = null 
+    let successText = null 
             
     if(props.type){
         const date = new Date(props.type.date)
@@ -23,12 +25,15 @@ const popUp = (props) => {
         switch (props.type.type){
             case 'success':
                 statusText = <span style={{textTransform:'uppercase', fontSize:'1.25rem'}}> Are you sure you want to reserve a parking spot for {dateString}</span>
+                successText = <div style={{textTransform:'uppercase', fontSize:'1.25rem'}}> Successfully reserved parking space for {dateString} !</div>
                 break
             case 'danger':
                 statusText = <span style={{textTransform:'uppercase', fontSize:'1.25rem'}}> Are you sure you want to cancel your parking spot for {dateString}</span>
+                successText = <div style={{textTransform:'uppercase', fontSize:'1.25rem'}}> Successfully canceled your parking reservation for {dateString} !</div>
                 break
             case 'neutral':
                 statusText = <span style={{textTransform:'uppercase', fontSize:'1.25rem'}}> Are you sure you want to ask Lukas to swap parking spaces for {dateString}</span>
+                successText = <div style={{textTransform:'uppercase', fontSize:'1.25rem'}}> Lukas successfully received a request to swap parking spaces for {dateString} !</div>
                 break
         }
     }
@@ -37,7 +42,10 @@ const popUp = (props) => {
         popupType = {
             ...popupType,
             backgroundColor: props.uniqueStyle.backgroundColor,
-            height: props.uniqueStyle.height
+            height: props.uniqueStyle.height,
+            display:'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
         }
     }
     
@@ -49,7 +57,8 @@ const popUp = (props) => {
                 </div>
             :   props.uniqueStyle
                 ?   <div className='PopUp_container' style={popupType} >
-                        <span>Success!!</span> 
+                        {successText}
+                        {props.successTimer()}
                     </div>
                 :   <div className='PopUp_container' style={popupType} >
                         {statusText}

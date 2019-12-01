@@ -87,3 +87,15 @@ export const popupAcceptSuccess = () => {
         type: actionTypes.POPUP_ACCEPT_SUCCESS
     }
 }
+
+export const popupSuccess = () => {
+    return {
+        type: actionTypes.POPUP_SUCCESS
+    }
+}
+
+export const popupStyleReset = () => {
+    return {
+        type: actionTypes.POPUP_STYLE_RESET
+    }
+}

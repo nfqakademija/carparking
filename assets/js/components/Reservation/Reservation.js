@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../UI/Button/Button';
+import { Redirect } from 'react-router-dom';
 
 import '../../../css/components/Reservation/Reservation.scss';
 
@@ -31,11 +32,14 @@ const reservation = React.forwardRef((props, ref) => {
                                     : `${props.usedSpaces}/${props.parkingSpaces}`}
                         </text>
                     </svg>
+                    {console.log(props.history)}
                     <Button 
                         text={props.buttonOptions.buttonText} 
                         classname={`Button_${props.buttonOptions.buttonClass}`}
                         buttonStyle={{width:'50%'}}
-                        onclick={props.onButtonClick}/>
+                        onclick={props.buttonOptions.buttonClass==='neutral'
+                                    ? ()=>props.history.push('/users')
+                                    : props.onButtonClick}/>
             </div>
         </div>
     )

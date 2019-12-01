@@ -115,6 +115,22 @@ const reducer = (state = initialState, action) => {
                         }
                 }
             }
+        case actionTypes.POPUP_SUCCESS:
+            return {
+                ...state,
+                popup: {
+                    ...state.popup,
+                    show: false
+                }
+            }
+        case actionTypes.POPUP_STYLE_RESET:
+            return {
+                ...state,
+                popup: {
+                    ...state.popup,
+                    style: null
+                }
+            }
         default: return state
     }
 }

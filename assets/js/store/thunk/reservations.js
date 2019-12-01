@@ -82,3 +82,14 @@ export const popupAcceptClicked = () => dispatch => {
         1000
     )
 }
+
+export const successTimer = () => dispatch => {
+    setTimeout(
+        () => { dispatch(actions.popupSuccess()),
+                setTimeout(
+                    () => dispatch(actions.popupStyleReset()),
+                    500
+                )},
+        2000
+    )
+}

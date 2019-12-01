@@ -23,7 +23,6 @@ class Users extends Component {
         return (
             <>
                 <div style={{display:"flex", flexDirection:'column',  height:'100%'}}>
-                    <PopUp left={this.left} width ={this.width} translate={!this.props.loading}/>
                     {this.props.loading || this.props.usersList.length === 0
                         ? 'loading ...'
                         : <div style={{display:'flex', justifyContent:'space-around', flexGrow: "1", overflow:'scroll', scrollbarWidth: 'none'}}>

@@ -15,7 +15,7 @@ const usersTable = (props) => (
                         {props.reservationStatus.map( dayObj =>(
                             // this string is for getting weekday symbol
                             <span key={dayObj.date}>
-                                {new Intl.DateTimeFormat('en-EN', {weekday: 'narrow'}).format(dayObj.date)} 
+                                {new Intl.DateTimeFormat('en-EN', {weekday: 'narrow'}).format(new Date(dayObj.date))} 
                             </span>
                         ))}
                     </div>
