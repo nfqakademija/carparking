@@ -31,9 +31,9 @@ class AppFixtures extends Fixture
     {
         $this->makeParkSpaces(20, $manager);
         $this->makeRoles($manager);
-        $this->makeUsers(25, $manager);
-        $this->makeReservations(20, 5, $manager);
-        $this->makeUserAwayPeriods(5, $manager);
+        $this->makeUsers(40, $manager);
+        //$this->makeUserAwayPeriods(5, $manager);
+       // $this->makeReservations(20, 5, $manager);
     }
 
     private function makeParkSpaces($number, ObjectManager $manager)
@@ -41,12 +41,11 @@ class AppFixtures extends Fixture
         for ($i = 1; $i <= $number; $i++) {
             $product = new ParkSpaces();
             if ($i < 10) {
-                $stringNumber = "A00" . $i;
+                $stringNumber = "P00" . $i;
             } else {
-                $stringNumber = "A0" . $i;
+                $stringNumber = "P0" . $i;
             }
             $product->setNumber($stringNumber);
-            $product->setAvailable(false);
             $manager->persist($product);
             $this->addReference(self::PARK_SPACE . $i, $product);
         }
@@ -86,15 +85,15 @@ class AppFixtures extends Fixture
             $user->setName($name);
             $surname = $this->faker->lastName;
             $user->setSurname($surname);
-            $user->setStatus(1);
             $user->setAwayStatus(0);
+
             if ($i < 10) {
-                $stringNumber = "AAA00" . $i;
+                $stringNumber = "ABC00" . $i;
             } else {
-                $stringNumber = "AAA0" . $i;
+                $stringNumber = "ABC0" . $i;
             }
             $user->setLicencePlate($stringNumber);
-
+            $user->setStatus(1);
             $user->setEmail($name . $surname . "@mail.com");
             if ($i <= 20) {
                 if ($i == 1) {
@@ -102,11 +101,17 @@ class AppFixtures extends Fixture
                 } else {
                     $user->setUserRole($this->getReference(self::ROLE_USER));
                 }
-                $user->setParkSpaceId($this->getReference(self::PARK_SPACE . $i));
+                $user->setPermanentSpace($this->getReference(self::PARK_SPACE . $i));
+                $user->setStatus(1);
+            } elseif ($i <= 30) {
+                $user->setUserRole($this->getReference(self::ROLE_GUEST));
+                $user->setStatus(1);
             } else {
                 $user->setUserRole($this->getReference(self::ROLE_GUEST));
+                $user->setStatus(0);
             }
             $this->addReference(self::USER . $i, $user);
+            $user->setPermanentParkSpace(1);
             $manager->persist($user);
         }
         $manager->flush();
