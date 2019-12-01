@@ -72,5 +72,4 @@ class Reservations
         $this->parkSpace = $parkSpace;
         return $this;
     }
-
 }
