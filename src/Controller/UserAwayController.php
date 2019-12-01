@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\UserAway;
 use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,14 +11,12 @@ use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-
 class UserAwayController extends FOSRestBundle
 {
 
     private $entityManager;
 
     /**
-     * ReservationController constructor.
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
@@ -32,11 +29,9 @@ class UserAwayController extends FOSRestBundle
      */
     public function getUserAwayList()
     {
-        $article = $this->entityManager->getRepository(UserAway::class)->findAll();
-
-        $serializer = SerializerBuilder::create()->build();
-        $entity = $serializer->serialize($article, 'json');
-        $response = new Response($entity);
+        $data = $this->entityManager->getRepository(UserAway::class)->findAll();
+        $json = $this->serialize($data);
+        $response = new Response($json);
         $response->headers->set('Content-Type', 'application/json');
         $response->getStatusCode();
         return $response;
@@ -48,15 +43,12 @@ class UserAwayController extends FOSRestBundle
 
     public function getSingleUserAway($id)
     {
-        $article = $this->entityManager->getRepository(UserAway::class)->checkByUserId($id);
-
-        $serializer = SerializerBuilder::create()->build();
-        $entity = $serializer->serialize($article, 'json');
-        $response = new Response($entity);
+        $data = $this->entityManager->getRepository(UserAway::class)->checkByUserId($id);
+        $json = $this->serialize($data);
+        $response = new Response($json);
         $response->headers->set('Content-Type', 'application/json');
         $response->getStatusCode();
         return $response;
-
     }
 
 
@@ -129,5 +121,14 @@ class UserAwayController extends FOSRestBundle
         }
         $this->entityManager->flush();
     }
+
+
+    private function serialize($data)
+    {
+        $serializer = SerializerBuilder::create()->build();
+        $json = $serializer->serialize($data, 'json');
+        return $json;
+    }
+
 
 }

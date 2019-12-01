@@ -7,10 +7,8 @@ use App\Entity\UserAway;
 use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\FOSRestBundle;
-use FOS\RestBundle\View\View;
 use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use FOS\RestBundle\Controller\Annotations as Rest;
 
 class ReservationController extends FOSRestBundle
@@ -18,7 +16,6 @@ class ReservationController extends FOSRestBundle
     private $entityManager;
 
     /**
-     * ReservationController constructor.
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
@@ -32,9 +29,8 @@ class ReservationController extends FOSRestBundle
     public function index()
     {
         $data = $this->entityManager->getRepository(Reservations::class)->findAll();
-        $serializer = SerializerBuilder::create()->build();
-        $entity = $serializer->serialize($data, 'json');
-        $response = new Response($entity);
+        $json = $this->serialize($data);
+        $response = new Response($json);
         $response->headers->set('Content-Type', 'application/json');
         $response->getStatusCode();
         return $response;
@@ -44,8 +40,11 @@ class ReservationController extends FOSRestBundle
      * @Rest\Get("/api/make-reservation")
      * @throws \Exception
      */
-    public function make()
+    public function make($userId = null)
     {
+        if($userId != null){
+
+        }
         $data = $this->entityManager->getRepository(Users::class)->findUsers();
         $reservationDateArray = $this->dateTimeProvider(7);
 
@@ -109,6 +108,12 @@ class ReservationController extends FOSRestBundle
         $format = 'Y-m-d';
         $date = \DateTime::createFromFormat($format, $dateString);
         return $date;
+    }
+    private function serialize($data)
+    {
+        $serializer = SerializerBuilder::create()->build();
+        $json = $serializer->serialize($data, 'json');
+        return $json;
     }
 
 
