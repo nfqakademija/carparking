@@ -60,5 +60,4 @@ class UserAwayRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
-
 }

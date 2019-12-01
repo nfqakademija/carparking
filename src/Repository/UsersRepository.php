@@ -52,8 +52,4 @@ class UsersRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
     }
-
-
-
-
 }

@@ -129,6 +129,4 @@ class UserAwayController extends FOSRestBundle
         $json = $serializer->serialize($data, 'json');
         return $json;
     }
-
-
 }

@@ -111,6 +111,4 @@ class ReservationController extends FOSRestBundle
         $json = $serializer->serialize($data, 'json');
         return $json;
     }
-
-
 }
