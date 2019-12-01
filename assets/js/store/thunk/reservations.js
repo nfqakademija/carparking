@@ -1,7 +1,8 @@
 import axios from 'axios';
 import * as actions from '../actions/index';
+import { getCoordinates } from '../thunk/popup';
 
-export const getHomeData = () => (dispatch, getState) => {
+export const getHomeData = (first, last) => (dispatch, getState) => {
     const reservationStatus = [];
     let dayObject = {
         date: null,
@@ -56,6 +57,7 @@ export const getHomeData = () => (dispatch, getState) => {
                 }
         })
         dispatch(actions.getHomeDataSuccess(reservationStatus, user))
+        dispatch(getCoordinates(first, last))
     }).catch( ()=>{
         const status = getState().registrationData.reservationStatus
         const user = getState().registrationData.user
@@ -76,12 +78,21 @@ export const getUsersData = () => dispatch => {
         })
 }
 
-export const popupAcceptClicked = () => dispatch => {
+export const popupAcceptClicked = (date, userId) => dispatch => {
     dispatch(actions.popupAcceptStart());
-    setTimeout(
-        () => dispatch(actions.popupAcceptSuccess()),
-        1000
-    )
+    const newDate = new Date(date)
+    const startDate = new Date(newDate).toISOString().slice(0,-14);
+    const endDate = new Date(newDate.setDate(new Date(newDate.getDate()+1))).toISOString().slice(0,-14)
+    const data = {
+        "id": userId,
+        "away_date": [
+            {"away_start_date" :startDate,"away_end_date":endDate}
+        ]
+    }
+    axios.post('/api/useraway',data)
+        .then(res => {
+            dispatch(actions.popupAcceptSuccess())
+        })
 }
 
 export const successTimer = () => dispatch => {

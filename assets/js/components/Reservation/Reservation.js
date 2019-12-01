@@ -1,6 +1,5 @@
 import React from 'react';
 import Button from '../UI/Button/Button';
-import { Redirect } from 'react-router-dom';
 
 import '../../../css/components/Reservation/Reservation.scss';
 
@@ -26,7 +25,7 @@ const reservation = React.forwardRef((props, ref) => {
                             style={props.graphStatus.isVisible} />
                         <text className='Reservation_text' 
                             x="50%" y="50%"
-                            style={{fill:props.graphStatus.fill}}>
+                            style={{fill:props.userParkingSpot?null:props.graphStatus.fill}}>
                                 { props.userParkingSpot
                                     ? props.userParkingSpot
                                     : `${props.usedSpaces}/${props.parkingSpaces}`}

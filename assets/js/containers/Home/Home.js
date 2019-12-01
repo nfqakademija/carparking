@@ -20,7 +20,7 @@ class Home extends Component {
         this.reservationRefFirst = React.createRef();
         this.reservationRefLast = React.createRef();
         this.data = {
-            "id": 41,
+            "id": 1,
             "away_date": [
                 {"away_start_date" :"2019-12-01","away_end_date":"2019-12-01"},
                 {"away_start_date" :"2019-12-02","away_end_date":"2019-12-05"}
@@ -29,14 +29,17 @@ class Home extends Component {
     }
 
     componentDidMount(){
-        this.props.onGetHomeData();
-        this.props.onSaveCoordinates(this.reservationRefFirst, this.reservationRefLast)
-        console.log(this.data)
-        axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
+        this.props.onGetHomeData(this.reservationRefFirst, this.reservationRefLast);
+        // this.props.onSaveCoordinates(this.reservationRefFirst, this.reservationRefLast)
+        // console.log(this.data)
+        // axios.get('/api/make-reservation').then(res => console.log(res))
+        // axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
+        axios.get(`/api/reservations`).then(res => console.log(res))
+        axios.get(`/api/users`).then(res => console.log(res))
     }
 
-    buttonClickHandler(date, buttonType) {
-        this.props.onButtonClick(date, buttonType)
+    buttonClickHandler(date, buttonType, userId) {
+        this.props.onButtonClick(date, buttonType, userId)
     }
 
     reservationButtonHandler(day) {
@@ -90,7 +93,7 @@ class Home extends Component {
                         translate={this.props.popup.show} 
                         type={this.props.popup} 
                         popupCancel={this.props.onPopupCancel} 
-                        popupAccept={this.props.onPopupAccept}
+                        popupAccept={()=>this.props.onPopupAccept(this.props.popup.date, this.props.popup.userId)}
                         loading={popup.loading}
                         uniqueStyle={popup.style}
                         successTimer={this.props.onSuccessTimer}
@@ -128,7 +131,7 @@ class Home extends Component {
                         usedSpaces={day.usedSpaces}
                         userParkingSpot={day.userParkingSpot}
                         graphStatus={this.graphHandler(day)}
-                        onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day).buttonClass)}
+                        onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day).buttonClass, this.props.userId)}
                         history={this.props.history}/>
                 )})}
              </div>
@@ -143,16 +146,17 @@ const mapStateToProps = state => {
     return {
         registrationData: state.reservationStatus,
         loading: state.loading,
-        popup: state.popup
+        popup: state.popup,
+        userId: state.user.id
     }
 }
 
 const mapDispatchToProps= dispatch => ({
-    onGetHomeData: () => dispatch(getHomeData()),
-    onSaveCoordinates: (first, last) => dispatch(getCoordinates(first, last)),
-    onButtonClick: (date, buttonType) => dispatch(buttonClicked(date, buttonType)),
+    onGetHomeData: (first, last) => dispatch(getHomeData(first, last)),
+    // onSaveCoordinates: (first, last) => dispatch(getCoordinates(first, last)),
+    onButtonClick: (date, buttonType, userId) => dispatch(buttonClicked(date, buttonType, userId)),
     onPopupCancel: () => dispatch(popupCancel()),
-    onPopupAccept: () => dispatch(popupAcceptClicked()),
+    onPopupAccept: (date, userId) => dispatch(popupAcceptClicked(date, userId)),
     onSuccessTimer: () => dispatch(successTimer())
 })
 

@@ -62,11 +62,12 @@ export const noCoordinates = () => {
     }
 }
 
-export const buttonClicked = (date, buttonType) => {
+export const buttonClicked = (date, buttonType, userId) => {
     return {
         type: actionTypes.BUTTON_CLICKED,
         date,
-        buttonType
+        buttonType,
+        userId
     }
 }
 
