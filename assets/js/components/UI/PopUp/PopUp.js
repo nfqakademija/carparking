@@ -1,5 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 
 import Button from '../Button/Button';
 
@@ -58,7 +57,6 @@ const popUp = (props) => {
             :   props.uniqueStyle
                 ?   <div className='PopUp_container' style={popupType} >
                         {successText}
-                        {props.successTimer()}
                     </div>
                 :   <div className='PopUp_container' style={popupType} >
                         {statusText}

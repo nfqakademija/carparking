@@ -84,8 +84,7 @@ const reducer = (state = initialState, action) => {
                     ...state.popup,
                     show: true,
                     type: action.buttonType,
-                    date: action.date,
-                    userId: action.userId
+                    date: action.date
                 }
             }
         case actionTypes.POPUP_CANCEL:
@@ -105,7 +104,6 @@ const reducer = (state = initialState, action) => {
                 }
             }
         case actionTypes.POPUP_ACCEPT_SUCCESS:
-            console.log(state)
             return {
                 ...state,
                 popup: {

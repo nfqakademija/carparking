@@ -30,12 +30,10 @@ class Home extends Component {
 
     componentDidMount(){
         this.props.onGetHomeData(this.reservationRefFirst, this.reservationRefLast);
-        // this.props.onSaveCoordinates(this.reservationRefFirst, this.reservationRefLast)
-        // console.log(this.data)
         // axios.get('/api/make-reservation').then(res => console.log(res))
         // axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
-        axios.get(`/api/reservations`).then(res => console.log(res))
-        axios.get(`/api/users`).then(res => console.log(res))
+        // axios.get(`/api/reservations`).then(res => console.log(res))
+        // axios.get(`/api/users`).then(res => console.log(res))
     }
 
     buttonClickHandler(date, buttonType, userId) {
@@ -86,14 +84,13 @@ class Home extends Component {
     }
 
     popupHandler (popup) {
-        
             return <PopUp 
                         left={popup.left} 
                         width={popup.width} 
                         translate={this.props.popup.show} 
                         type={this.props.popup} 
                         popupCancel={this.props.onPopupCancel} 
-                        popupAccept={()=>this.props.onPopupAccept(this.props.popup.date, this.props.popup.userId)}
+                        popupAccept={()=>this.props.onPopupAccept(this.props.popup.date, this.props.user, 'success')}
                         loading={popup.loading}
                         uniqueStyle={popup.style}
                         successTimer={this.props.onSuccessTimer}
@@ -131,7 +128,7 @@ class Home extends Component {
                         usedSpaces={day.usedSpaces}
                         userParkingSpot={day.userParkingSpot}
                         graphStatus={this.graphHandler(day)}
-                        onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day).buttonClass, this.props.userId)}
+                        onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day).buttonClass)}
                         history={this.props.history}/>
                 )})}
              </div>
@@ -147,16 +144,15 @@ const mapStateToProps = state => {
         registrationData: state.reservationStatus,
         loading: state.loading,
         popup: state.popup,
-        userId: state.user.id
+        user: state.user
     }
 }
 
 const mapDispatchToProps= dispatch => ({
     onGetHomeData: (first, last) => dispatch(getHomeData(first, last)),
-    // onSaveCoordinates: (first, last) => dispatch(getCoordinates(first, last)),
-    onButtonClick: (date, buttonType, userId) => dispatch(buttonClicked(date, buttonType, userId)),
+    onButtonClick: (date, buttonType) => dispatch(buttonClicked(date, buttonType)),
     onPopupCancel: () => dispatch(popupCancel()),
-    onPopupAccept: (date, userId) => dispatch(popupAcceptClicked(date, userId)),
+    onPopupAccept: (date, user, actionType) => dispatch(popupAcceptClicked(date, user, actionType)),
     onSuccessTimer: () => dispatch(successTimer())
 })
 

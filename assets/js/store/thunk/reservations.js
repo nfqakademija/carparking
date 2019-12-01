@@ -15,7 +15,8 @@ export const getHomeData = (first, last) => (dispatch, getState) => {
         id: 2,
         name: null,
         lastname: null,
-        activeCar: null
+        activeCar: null,
+        aways: []
     }
     
     for (let i = 0; reservationStatus.length < 6; i++){
@@ -52,6 +53,7 @@ export const getHomeData = (first, last) => (dispatch, getState) => {
                             user.name = reservation.user.name
                             user.lastname = reservation.user.surname
                             user.activeCar = reservation.user['licence_plate']
+                            user.aways = reservation.user['user_aways']
                         }
                     }
                 }
@@ -78,21 +80,60 @@ export const getUsersData = () => dispatch => {
         })
 }
 
-export const popupAcceptClicked = (date, userId) => dispatch => {
+export const popupAcceptClicked = (date, user, actionType) => dispatch => {
     dispatch(actions.popupAcceptStart());
     const newDate = new Date(date)
     const startDate = new Date(newDate).toISOString().slice(0,-14);
     const endDate = new Date(newDate.setDate(new Date(newDate.getDate()+1))).toISOString().slice(0,-14)
-    const data = {
-        "id": userId,
-        "away_date": [
-            {"away_start_date" :startDate,"away_end_date":endDate}
-        ]
-    }
-    axios.post('/api/useraway',data)
-        .then(res => {
-            dispatch(actions.popupAcceptSuccess())
-        })
+    console.log(user)
+    switch (actionType) {
+        case 'danger':
+            console.log('danger')
+            const postData = {
+                "id": user.id,
+                "away_date": [
+                    {"away_start_date" :startDate,"away_end_date":endDate}
+                ]
+            }
+            axios.post('/api/useraway',postData)
+                .then(() => {
+                    dispatch(actions.popupAcceptSuccess())
+                    dispatch(successTimer())
+                })
+            break
+        case 'success':
+            console.log('success')
+            const found = user.aways.find(away => new Date(away['away_start_date']).getDate() == date.getDate())
+            console.log(found.id)
+            const deleteData = {
+                "away_date": [
+                    {"id": found.id}
+                ]
+            }
+            if(new Date(found['away_end_date']).getDate()!= newDate.getDate()){
+                axios.delete('/api/useraway', {data:deleteData})
+                    .then( () => {
+                        const newPostData = {
+                            "id": user.id,
+                            "away_date": [
+                                {"away_start_date" :startDate,"away_end_date":found['away_end_date']}
+                            ]
+                        }
+                        axios.post('/api/useraway', newPostData)
+                            .then(()=>{
+                                dispatch(actions.popupAcceptSuccess())
+                                dispatch(successTimer())
+                            })
+                    })
+            } else {
+                axios.delete('/api/useraway', {data:deleteData})
+                .then( () => {
+                    dispatch(actions.popupAcceptSuccess())
+                    dispatch(successTimer())
+                })
+            }
+            break      
+    }   
 }
 
 export const successTimer = () => dispatch => {
