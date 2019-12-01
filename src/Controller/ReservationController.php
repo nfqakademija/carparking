@@ -40,11 +40,8 @@ class ReservationController extends FOSRestBundle
      * @Rest\Get("/api/make-reservation")
      * @throws \Exception
      */
-    public function make($userId = null)
+    public function make()
     {
-        if($userId != null){
-
-        }
         $data = $this->entityManager->getRepository(Users::class)->findUsers();
         $reservationDateArray = $this->dateTimeProvider(7);
 
@@ -66,7 +63,6 @@ class ReservationController extends FOSRestBundle
             $this->entityManager->flush();
         }
         $response = new Response();
-//        $response->getStatusCode();
         return $response;
     }
 
