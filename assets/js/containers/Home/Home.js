@@ -32,8 +32,8 @@ class Home extends Component {
         this.props.onGetHomeData(this.reservationRefFirst, this.reservationRefLast);
         // axios.get('/api/make-reservation').then(res => console.log(res))
         // axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
-        // axios.get(`/api/reservations`).then(res => console.log(res))
-        // axios.get(`/api/users`).then(res => console.log(res))
+        axios.get(`/api/reservations`).then(res => console.log(res))
+        axios.get(`/api/users`).then(res => console.log(res))
     }
 
     buttonClickHandler(date, buttonType, userId) {
@@ -90,7 +90,7 @@ class Home extends Component {
                         translate={this.props.popup.show} 
                         type={this.props.popup} 
                         popupCancel={this.props.onPopupCancel} 
-                        popupAccept={()=>this.props.onPopupAccept(this.props.popup.date, this.props.user, 'success')}
+                        popupAccept={()=>this.props.onPopupAccept(this.props.popup.date, this.props.user, this.props.popup.type)}
                         loading={popup.loading}
                         uniqueStyle={popup.style}
                         successTimer={this.props.onSuccessTimer}

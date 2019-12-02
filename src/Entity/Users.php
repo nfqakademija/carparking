@@ -174,11 +174,11 @@ class Users
 
     public function getUserParkSpace(): ?ParkSpaces
     {
-        return $this->userParkSpace;
+        return $this->permanentSpace;
     }
     public function setUserParkSpace(?ParkSpaces $userParkSpace): self
     {
-        $this->userParkSpace = $userParkSpace;
+        $this->permanentSpace = $userParkSpace;
 
         return $this;
     }
