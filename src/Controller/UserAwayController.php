@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\UserAway;
 use App\Entity\Users;
+use App\Services\ReservationService;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\FOSRestBundle;
@@ -67,7 +68,7 @@ class UserAwayController extends FOSRestBundle
         } else {
             foreach ($dataArray['away_date'] as $value) {
                 $userAway = new UserAway();
-                $format = 'Y-m-d';
+                $format = '!Y-m-d';
                 $dateStart = \DateTime::createFromFormat($format, $value['away_start_date']);
                 $dateEnd = \DateTime::createFromFormat($format, $value['away_end_date']);
                 $userAway->setAwayStartDate($dateStart);
@@ -77,6 +78,8 @@ class UserAwayController extends FOSRestBundle
             }
             $this->entityManager->flush();
         }
+        $service = new ReservationService($this->entityManager);
+        $service->make($dataArray['id'], 'user', 'post');
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
         return $response;
@@ -90,12 +93,14 @@ class UserAwayController extends FOSRestBundle
     {
         $content = $request->getContent();
         $dataArray = json_decode($content, true);
-
+        $id = null;
         foreach ($dataArray['away_date'] as $value) {
             $userAway = $this->entityManager->getRepository(UserAway::class)->checkId($value['id']);
             if (!$userAway) {
             } else {
-                $format = 'Y-m-d';
+                $parkId = $userAway->getAwayUser()->getPermanentSpace()->getId();
+                $clientId = $userAway->getAwayUser()->getId();
+                $format = '!Y-m-d';
                 $dateStart = \DateTime::createFromFormat($format, $value['away_start_date']);
                 $dateEnd = \DateTime::createFromFormat($format, $value['away_end_date']);
                 $userAway->setAwayStartDate($dateStart);
@@ -104,6 +109,12 @@ class UserAwayController extends FOSRestBundle
             }
         }
         $this->entityManager->flush();
+
+        $service = new ReservationService($this->entityManager);
+        $service->updateOrDeleteReservation($clientId, $parkId);
+        $response = new Response();
+        $response->setStatusCode(Response::HTTP_OK);
+        return $response;
     }
 
     /**
@@ -119,10 +130,17 @@ class UserAwayController extends FOSRestBundle
             $userAway = $this->entityManager->getRepository(UserAway::class)->checkId($value['id']);
             if (!$userAway) {
             } else {
+                $parkId = $userAway->getAwayUser()->getPermanentSpace()->getId();
+                $clientId = $userAway->getAwayUser()->getId();
                 $this->entityManager->remove($userAway);
             }
         }
         $this->entityManager->flush();
+        $service = new ReservationService($this->entityManager);
+        $service->updateOrDeleteReservation($clientId, $parkId);
+        $response = new Response();
+        $response->setStatusCode(Response::HTTP_OK);
+        return $response;
     }
 
 
