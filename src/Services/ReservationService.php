@@ -6,7 +6,6 @@ use App\Entity\Reservations;
 use App\Entity\UserAway;
 use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
-use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\Response;
 
 class ReservationService
@@ -40,48 +39,42 @@ class ReservationService
         $this->entityManager->flush();
     }
 
-    public function make($clientId = null, $role = null, $method = null)
+    public function make($clientId = null)
     {
         $reservationDateArray = $this->dateTimeProvider(7);
         if ($clientId == null) {
             $data = $this->entityManager->getRepository(Users::class)->findUsers();
-        } elseif ($role == 'user' && $method == "post") {
-            $data = $this->entityManager->getRepository(Users::class)->findUserById($clientId);
-        } elseif ($role == "user" && ($method == "put" || $method == 'delete')) {
-            $data = $this->entityManager->getRepository(Users::class)->findUserById($clientId);
         } else {
+            $data = $this->entityManager->getRepository(Users::class)->findUserById($clientId);
 
-        }
+            foreach ($data as $entry) {
+                $id = $entry->getId();
+                $userAwayTimeArray = $this->userAwayTimeArray($id);
 
-        foreach ($data as $entry) {
-            $id = $entry->getId();
-            $userAwayTimeArray = $this->userAwayTimeArray($id);
-
-            foreach ($reservationDateArray as $reservationDate) {
-                if ($clientId == null) {
-                    $reservation = new Reservations();
-                    if (in_array($reservationDate, $userAwayTimeArray)) {
-                        $reservation->setParkSpace($entry->getPermanentSpace());
+                foreach ($reservationDateArray as $reservationDate) {
+                    if ($clientId == null) {
+                        $reservation = new Reservations();
+                        if (in_array($reservationDate, $userAwayTimeArray)) {
+                            $reservation->setParkSpace($entry->getPermanentSpace());
+                        } else {
+                            $reservation->setUser($entry);
+                            $reservation->setParkSpace($entry->getPermanentSpace());
+                        }
+                        $date = $this->dateFromString($reservationDate);
+                        $reservation->setReservationDate($date);
+                        $this->entityManager->persist($reservation);
                     } else {
-                        $reservation->setUser($entry);
-                        $reservation->setParkSpace($entry->getPermanentSpace());
-                    }
-                    $date = $this->dateFromString($reservationDate);
-                    $reservation->setReservationDate($date);
-                    $this->entityManager->persist($reservation);
-                } else {
-                    $clientReservation = $this->entityManager
-                        ->getRepository(Reservations::class)
-                        ->reservationsByArrayAndId($userAwayTimeArray, $clientId);
-                    foreach ($clientReservation as $value) {
-                        $value->setUser(null);
+                        $clientReservation = $this->entityManager
+                            ->getRepository(Reservations::class)
+                            ->reservationsByArrayAndId($userAwayTimeArray, $clientId);
+                        foreach ($clientReservation as $value) {
+                            $value->setUser(null);
+                        }
                     }
                 }
             }
-            $this->entityManager->flush();
         }
-        $response = new Response();
-        return $response;
+        $this->entityManager->flush();
     }
 
     private function dateTimeProvider($days)
@@ -122,12 +115,5 @@ class ReservationService
         $format = '!Y-m-d';
         $date = \DateTime::createFromFormat($format, $dateString);
         return $date;
-    }
-
-    private function serialize($data)
-    {
-        $serializer = SerializerBuilder::create()->build();
-        $json = $serializer->serialize($data, 'json');
-        return $json;
     }
 }

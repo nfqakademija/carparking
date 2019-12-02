@@ -45,31 +45,8 @@ class ReservationController extends FOSRestBundle
     {
         $service = new ReservationService($this->entityManager);
 
-        $service->make(2, 'user');
+        $service->make();
 //        $service->make();
-
-        $data = $this->entityManager->getRepository(Users::class)->findUsers();
-        $reservationDateArray = $this->dateTimeProvider(7);
-
-        foreach ($data as $entry) {
-            $id = $entry->getId();
-            $userAwayTimeArray = $this->userAwayTimeArray($id);
-            foreach ($reservationDateArray as $reservationDate) {
-                $reservation = new Reservations();
-                if (in_array($reservationDate, $userAwayTimeArray)) {
-                    $reservation->setParkSpace($entry->getPermanentSpace());
-                } else {
-                    $reservation->setUser($entry);
-                    $reservation->setParkSpace($entry->getPermanentSpace());
-                }
-                $date = $this->dateFromString($reservationDate);
-                $reservation->setReservationDate($date);
-                $this->entityManager->persist($reservation);
-            }
-            $this->entityManager->flush();
-        }
-        $response = new Response();
-        return $response;
     }
 
 
