@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Reservations;
-use App\Entity\UserAway;
-use App\Entity\Users;
 use App\Services\ReservationService;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\FOSRestBundle;
@@ -46,12 +44,7 @@ class ReservationController extends FOSRestBundle
         $service = new ReservationService($this->entityManager);
 
         $service->make();
-//        $service->make();
     }
-
-
-
-
 
     private function serialize($data)
     {
