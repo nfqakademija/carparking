@@ -38,7 +38,7 @@ class UsersController extends FOSRestBundle
      */
     public function getOneUser($id)
     {
-        $data = $this->entityManager->getRepository(Users::class)->checkId($id);
+        $data = $this->entityManager->getRepository(Users::class)->getUserAwayById($id);
         $json = $this->serialize($data);
         $response = new Response($json);
         $response->headers->set('Content-Type', 'application/json');

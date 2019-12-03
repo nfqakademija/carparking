@@ -21,10 +21,10 @@ class ReservationService
     {
         $data = $this->entityManager
             ->getRepository(Reservations::class)
-            ->reservationByParkIdAndByUserId($clientId, $parkspaceId);
+            ->getReservationByParkIdAndByUserId($clientId, $parkspaceId);
         $awayArray = $this->userAwayTimeArray($clientId);
 
-        $user = $this->entityManager->getRepository(Users::class)->checkId($clientId);
+        $user = $this->entityManager->getRepository(Users::class)->getUserAwayById($clientId);
 
         foreach ($data as $value) {
             $check = $value->getReservationDate()->format('Y-m-d');
@@ -43,9 +43,9 @@ class ReservationService
     {
         $reservationDateArray = $this->dateTimeProvider(7);
         if ($clientId == null) {
-            $data = $this->entityManager->getRepository(Users::class)->findUsers();
+            $data = $this->entityManager->getRepository(Users::class)->getUsersByRoles();
         } else {
-            $data = $this->entityManager->getRepository(Users::class)->findUserById($clientId);
+            $data = $this->entityManager->getRepository(Users::class)->getUsersByIdAndStatus($clientId);
 
             foreach ($data as $entry) {
                 $id = $entry->getId();
@@ -66,7 +66,7 @@ class ReservationService
                     } else {
                         $clientReservation = $this->entityManager
                             ->getRepository(Reservations::class)
-                            ->reservationsByArrayAndId($userAwayTimeArray, $clientId);
+                            ->getReservationsByArrayAndId($userAwayTimeArray, $clientId);
                         foreach ($clientReservation as $value) {
                             $value->setUser(null);
                         }
@@ -101,7 +101,7 @@ class ReservationService
 
     private function userAwayTimeArray($id)
     {
-        $away = $this->entityManager->getRepository(UserAway::class)->getAwaysByUserId($id);
+        $away = $this->entityManager->getRepository(UserAway::class)->getUserAwayByUserId($id);
         $array = [];
         foreach ($away as $value) {
             $awayStart = $value['awayStartDate'];

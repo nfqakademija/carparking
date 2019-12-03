@@ -44,7 +44,7 @@ class UserAwayController extends FOSRestBundle
 
     public function getSingleUserAway($id)
     {
-        $data = $this->entityManager->getRepository(UserAway::class)->checkByUserId($id);
+        $data = $this->entityManager->getRepository(UserAway::class)->getByUserId($id);
         $json = $this->serialize($data);
         $response = new Response($json);
         $response->headers->set('Content-Type', 'application/json');
@@ -63,7 +63,7 @@ class UserAwayController extends FOSRestBundle
         $content = $request->getContent();
         $dataArray = json_decode($content, true);
 
-        $user = $this->entityManager->getRepository(Users::class)->checkId($dataArray['id']);
+        $user = $this->entityManager->getRepository(Users::class)->getUserAwayById($dataArray['id']);
         if (!$user) {
         } else {
             foreach ($dataArray['away_date'] as $value) {
@@ -95,7 +95,7 @@ class UserAwayController extends FOSRestBundle
         $dataArray = json_decode($content, true);
         $id = null;
         foreach ($dataArray['away_date'] as $value) {
-            $userAway = $this->entityManager->getRepository(UserAway::class)->checkId($value['id']);
+            $userAway = $this->entityManager->getRepository(UserAway::class)->getUserAwayById($value['id']);
             if (!$userAway) {
             } else {
                 $parkId = $userAway->getAwayUser()->getPermanentSpace()->getId();
@@ -127,7 +127,7 @@ class UserAwayController extends FOSRestBundle
         $dataArray = json_decode($content, true);
 
         foreach ($dataArray['away_date'] as $value) {
-            $userAway = $this->entityManager->getRepository(UserAway::class)->checkId($value['id']);
+            $userAway = $this->entityManager->getRepository(UserAway::class)->getUserAwayById($value['id']);
             if (!$userAway) {
             } else {
                 $parkId = $userAway->getAwayUser()->getPermanentSpace()->getId();

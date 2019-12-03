@@ -19,7 +19,7 @@ class ReservationsRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservations::class);
     }
 
-    public function reservationsByArrayAndId(array $dateArray, string $id)
+    public function getReservationsByArrayAndId(array $dateArray, string $id)
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.user = :id')
@@ -30,7 +30,7 @@ class ReservationsRepository extends ServiceEntityRepository
             ->execute();
     }
 
-    public function reservationsWithoutUserId()
+    public function getReservationsWithoutUserId()
     {
         $value = null;
         return $this->createQueryBuilder('r')
@@ -40,7 +40,7 @@ class ReservationsRepository extends ServiceEntityRepository
             ->execute();
     }
 
-    public function reservationByParkIdAndByUserId($clientId, $parkId)
+    public function getReservationByParkIdAndByUserId($clientId, $parkId)
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.parkSpace = :parkId')

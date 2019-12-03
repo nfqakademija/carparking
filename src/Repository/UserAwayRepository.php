@@ -25,7 +25,7 @@ class UserAwayRepository extends ServiceEntityRepository
      * @return mixed
      * @throws NonUniqueResultException
      */
-    public function checkId($id)
+    public function getUserAwayById($id)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.id = :id')
@@ -39,7 +39,7 @@ class UserAwayRepository extends ServiceEntityRepository
      * @return mixed
      * @throws NonUniqueResultException
      */
-    public function checkByUserId($id)
+    public function getByUserId($id)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.awayUser = :id')
@@ -52,7 +52,7 @@ class UserAwayRepository extends ServiceEntityRepository
      * @param $id
      * @return mixed
      */
-    public function getAwaysByUserId($id)
+    public function getUserAwayByUserId($id)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.awayUser = :id')
