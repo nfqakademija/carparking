@@ -6,6 +6,7 @@ use App\Entity\Reservations;
 use App\Entity\UserAway;
 use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
+use JMS\Serializer\SerializerBuilder;
 
 class ReservationService
 {
@@ -76,6 +77,17 @@ class ReservationService
         $this->entityManager->flush();
     }
 
+    public function guestReservation()
+    {
+//        $data = $this->entityManager->getRepository(Reservations::class)->reservationsWithoutUserId();
+//        $json = $this->serialize($data);
+//        echo $json;
+//        foreach ($data as $value) {
+//
+//            var_dump($value->getReservationDate());
+//        }
+    }
+
     private function dateTimeProvider($days)
     {
         $reservationDateArray = [];
@@ -114,5 +126,12 @@ class ReservationService
         $format = '!Y-m-d';
         $date = \DateTime::createFromFormat($format, $dateString);
         return $date;
+    }
+
+    private function serialize($data)
+    {
+        $serializer = SerializerBuilder::create()->build();
+        $json = $serializer->serialize($data, 'json');
+        return $json;
     }
 }

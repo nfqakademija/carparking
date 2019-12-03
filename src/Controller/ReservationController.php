@@ -42,9 +42,21 @@ class ReservationController extends FOSRestBundle
     public function make()
     {
         $service = new ReservationService($this->entityManager);
-
         $service->make();
     }
+
+    /**
+     * @Rest\Get("/api/reserve")
+     * @throws \Exception
+     */
+    public function guest()
+    {
+//        $service = new ReservationService($this->entityManager);
+//        $service->guestReservation();
+//        die;
+    }
+
+
 
     private function serialize($data)
     {

@@ -30,13 +30,12 @@ class ReservationsRepository extends ServiceEntityRepository
             ->execute();
     }
 
-    public function reservationsNotArrayAndId(array $dateArray, string $id)
+    public function reservationsWithoutUserId()
     {
+        $value = null;
         return $this->createQueryBuilder('r')
             ->andWhere('r.user = :id')
-            ->andWhere('r.reservationDate NOT IN (:dates)')
-            ->setParameter('id', $id)
-            ->setParameter('dates', $dateArray)
+            ->setParameter('id', ' ')
             ->getQuery()
             ->execute();
     }
