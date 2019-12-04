@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 
-import Menu from '../Menu/Menu';
+import Menu from '../Menu/mobileMenu';
 import {getHomeData} from "../../../store/thunk/reservations";
 import {openMobileMenu, closeMobileMenu} from "../../../store/actions/main";
 
@@ -42,29 +42,7 @@ const header = (props) => (
                                 </div>
 
                                 <div className="sidenav p-0 m-0 bg_lightGrey h1 text-nowrap" style={props.mobileMenu ? {width: "100%"} : {width: "0%"}} >
-                                    <div className="container-fluid w-100 p-0 p-2">
-                                        <div className="d-flex justify-content-between">
-                                            <div className="align-self-center">
-                                                <p className="m-0 pl-0 h4 align-self-center">
-                                                    <b>Menu</b>
-                                                </p>
-                                            </div>
-                                            <div>
-                                                <a
-                                                    className="mb-0 h2"
-                                                    onClick={props.closeMobileMenu}
-                                                    style={{ cursor: "pointer" }}>
-                                                        ×
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div className="text-left mt-4">
-                                            <b>{props.userName} </b>
-                                            <b>{props.userLastname ? props.userLastname : "Pavardenis"}</b>
-                                        </div>
-                                    </div>
-                                    <Menu onclick={props.closeMenu}/>
+                                    <Menu />
                                 </div>
                             </div>
                         </nav>
@@ -83,8 +61,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps= dispatch => ({
-    openMobileMenu: () => dispatch(openMobileMenu()),
-    closeMobileMenu: () => dispatch(closeMobileMenu())
+    openMobileMenu: () => dispatch(openMobileMenu())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(header);
