@@ -85,13 +85,14 @@ class Home extends Component {
     }
 
     popupHandler (popup) {
+        console.log(popup)
             return <PopUp 
                         left={popup.left} 
                         width={popup.width} 
                         translate={this.props.popup.show} 
                         type={this.props.popup} 
                         popupCancel={this.props.onPopupCancel} 
-                        popupAccept={()=>this.props.onPopupAccept(this.props.popup.date, this.props.user, 'success')}
+                        popupAccept={()=>this.props.onPopupAccept(this.props.popup.date, this.props.user, this.props.popup.type)}
                         loading={popup.loading}
                         uniqueStyle={popup.style}
                         successTimer={this.props.onSuccessTimer}
