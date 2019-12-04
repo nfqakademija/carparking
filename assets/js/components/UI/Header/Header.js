@@ -33,7 +33,7 @@ const header = (props) => (
                                             </Link>
 
                                         </div>
-                                        <div onClick={props.openMobileMenu}>
+                                        <div onClick={props.openMobileMenu} style={{ cursor: "pointer" }}>
                                             <i
                                                 className="icono-hamburger h3 text-white d-md-none"
                                             > </i>
@@ -41,7 +41,7 @@ const header = (props) => (
                                     </div>
                                 </div>
 
-                                <div className="sidenav p-0 m-0 bg_lightGrey h1" style={props.mobileMenu ? {width: "100%"} : {width: "0%"}} >
+                                <div className="sidenav p-0 m-0 bg_lightGrey h1 text-nowrap" style={props.mobileMenu ? {width: "100%"} : {width: "0%"}} >
                                     <div className="container-fluid w-100 p-0 p-2">
                                         <div className="d-flex justify-content-between">
                                             <div className="align-self-center">
@@ -52,14 +52,16 @@ const header = (props) => (
                                             <div>
                                                 <a
                                                     className="mb-0 h2"
-                                                    onClick={props.closeMobileMenu}>
+                                                    onClick={props.closeMobileMenu}
+                                                    style={{ cursor: "pointer" }}>
                                                         ×
                                                 </a>
                                             </div>
                                         </div>
 
                                         <div className="text-left mt-4">
-                                            <b>{`${props.userName} ${props.userLastname}`}</b>
+                                            <b>{props.userName} </b>
+                                            <b>{props.userLastname ? props.userLastname : "Pavardenis"}</b>
                                         </div>
                                     </div>
                                     <Menu onclick={props.closeMenu}/>
