@@ -7,3 +7,6 @@ export const GET_HOME_DATA_FAIL = "GET_HOME_DATA_FAIL";
 
 export const GET_HOME_USERS_START = 'GET_HOME_USERS_START';
 export const GET_HOME_USERS_SUCCESS = 'GET_HOME_USERS_SUCCESS';
+
+export const OPEN_MENU = 'OPEN_MENU';
+export const CLOSE_MENU = 'CLOSE_MENU';
