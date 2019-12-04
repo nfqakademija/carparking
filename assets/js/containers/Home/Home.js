@@ -4,10 +4,9 @@ import axios from 'axios';
 
 import { connect } from "react-redux";
 
-import { getHomeData, popupAcceptClicked, successTimer } from '../../store/thunk/reservations';
-import { getCoordinates } from '../../store/thunk/popup';
+import { getHomeData, popupAcceptClicked, successTimer, buttonClickedMid } from '../../store/thunk/reservations';
 
-import { buttonClicked, popupCancel } from '../../store/actions/index';
+import { popupCancel } from '../../store/actions/index';
 
 import Reservation from '../../components/Reservation/Reservation';
 import PopUp from '../../components/UI/PopUp/PopUp';
@@ -27,19 +26,19 @@ class Home extends Component {
         //     ]
         // }
         this.width = window.innerWidth
+        
     }
 
     componentDidMount(){
-        this.props.onGetHomeData(this.reservationRefFirst, this.reservationRefLast);
+        this.props.onGetHomeData();
         // axios.get('/api/make-reservation').then(res => console.log(res))
         // axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
-        // axios.get(`/api/reservations`).then(res => console.log(res))
-        // axios.get(`/api/users`).then(res => console.log(res))
-        console.log(this.width)
+        axios.get(`/api/reservations`).then(res => console.log(res))
+        axios.get(`/api/users`).then(res => console.log(res))
     }
 
-    buttonClickHandler(date, buttonType, userId) {
-        this.props.onButtonClick(date, buttonType, userId)
+    buttonClickHandler(date, buttonType, first, last) {
+        this.props.onButtonClick(date, buttonType, first, last)
     }
 
     reservationButtonHandler(day) {
@@ -106,10 +105,6 @@ class Home extends Component {
     
     render (){
         
-        if(this.width !== window.innerWidth){
-            console.log('a')
-        }
-
         return (
         <>
             {this.props.loading
@@ -134,7 +129,7 @@ class Home extends Component {
                         usedSpaces={day.usedSpaces}
                         userParkingSpot={day.userParkingSpot}
                         graphStatus={this.graphHandler(day)}
-                        onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day).buttonClass)}
+                        onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day).buttonClass, this.reservationRefFirst, this.reservationRefLast)}
                         history={this.props.history}/>
                 )})}
              </div>
@@ -156,7 +151,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps= dispatch => ({
     onGetHomeData: (first, last) => dispatch(getHomeData(first, last)),
-    onButtonClick: (date, buttonType) => dispatch(buttonClicked(date, buttonType)),
+    onButtonClick: (date, buttonType, first, last) => dispatch(buttonClickedMid(date, buttonType, first, last)),
     onPopupCancel: () => dispatch(popupCancel()),
     onPopupAccept: (date, user, actionType) => dispatch(popupAcceptClicked(date, user, actionType)),
     onSuccessTimer: () => dispatch(successTimer())

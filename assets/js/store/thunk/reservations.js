@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as actions from '../actions/index';
 import { getCoordinates } from '../thunk/popup';
 
-export const getHomeData = (first, last) => (dispatch, getState) => {
+export const getHomeData = () => (dispatch, getState) => {
     const reservationStatus = [];
     let dayObject = {
         date: null,
@@ -59,7 +59,6 @@ export const getHomeData = (first, last) => (dispatch, getState) => {
                 }
         })
         dispatch(actions.getHomeDataSuccess(reservationStatus, user))
-        dispatch(getCoordinates(first, last))
     }).catch( ()=>{
         const status = getState().registrationData.reservationStatus
         const user = getState().registrationData.user
@@ -95,6 +94,7 @@ export const popupAcceptClicked = (date, user, actionType) => dispatch => {
                     {"away_start_date" :startDate,"away_end_date":endDate}
                 ]
             }
+            console.log(postData)
             axios.post('/api/useraway',postData)
                 .then(() => {
                     dispatch(actions.popupAcceptSuccess())
@@ -134,6 +134,11 @@ export const popupAcceptClicked = (date, user, actionType) => dispatch => {
             }
             break      
     }   
+}
+
+export const buttonClickedMid = (date, buttonType, first, last) => dispatch => {
+    dispatch(getCoordinates(first, last)),
+    dispatch(actions.buttonClicked(date, buttonType))
 }
 
 export const successTimer = () => dispatch => {
