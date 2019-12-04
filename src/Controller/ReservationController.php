@@ -46,6 +46,9 @@ class ReservationController extends FOSRestBundle
         $service = new ReservationService($this->entityManager);
 
         $service->make();
+        $response = new Response();
+        $response->setStatusCode(Response::HTTP_OK);
+        return $response;
 //        $service->make();
     }
 

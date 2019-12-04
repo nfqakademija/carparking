@@ -12,7 +12,7 @@ export const getHomeData = (first, last) => (dispatch, getState) => {
         userParkingSpot : null
     }
     let user = {
-        id: 4,
+        id: 1,
         name: null,
         lastname: null,
         activeCar: null,
