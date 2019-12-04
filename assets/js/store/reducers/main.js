@@ -6,7 +6,7 @@ const initialState = {
     token: 1,
     loading: false,
     user: {
-        id:1,
+        id:2,
         name: null,
         lastname: null,
         activeCar: null

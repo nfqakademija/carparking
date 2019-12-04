@@ -91,7 +91,7 @@ class Home extends Component {
                         translate={this.props.popup.show} 
                         type={this.props.popup} 
                         popupCancel={this.props.onPopupCancel} 
-                        popupAccept={()=>this.props.onPopupAccept(this.props.popup.date, this.props.user, this.props.popup.type)}
+                        popupAccept={()=>this.props.onPopupAccept(this.props.popup.date, this.props.user, 'success')}
                         loading={popup.loading}
                         uniqueStyle={popup.style}
                         successTimer={this.props.onSuccessTimer}

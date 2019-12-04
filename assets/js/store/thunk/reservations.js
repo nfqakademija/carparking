@@ -12,7 +12,7 @@ export const getHomeData = () => (dispatch, getState) => {
         userParkingSpot : null
     }
     let user = {
-        id: 1,
+        id: 2,
         name: null,
         lastname: null,
         activeCar: null,
@@ -83,7 +83,6 @@ export const popupAcceptClicked = (date, user, actionType) => dispatch => {
     dispatch(actions.popupAcceptStart());
     const newDate = new Date(date)
     const startDate = new Date(newDate).toISOString().slice(0,-14);
-    const endDate = new Date(newDate.setDate(new Date(newDate.getDate()+1))).toISOString().slice(0,-14)
     console.log(user)
     switch (actionType) {
         case 'danger':
@@ -91,7 +90,7 @@ export const popupAcceptClicked = (date, user, actionType) => dispatch => {
             const postData = {
                 "id": user.id,
                 "away_date": [
-                    {"away_start_date" :startDate,"away_end_date":endDate}
+                    {"away_start_date" :startDate,"away_end_date":startDate}
                 ]
             }
             console.log(postData)
@@ -104,13 +103,15 @@ export const popupAcceptClicked = (date, user, actionType) => dispatch => {
         case 'success':
             console.log('success')
             const found = user.aways.find(away => new Date(away['away_start_date']).getDate() == date.getDate())
-            console.log(found.id)
+            console.log(user.aways)
+            console.log(date.getDate())
+            console.log(found)
             const deleteData = {
                 "away_date": [
                     {"id": found.id}
                 ]
             }
-            if(new Date(found['away_end_date']).getDate()!= newDate.getDate()){
+            if(new Date(found['away_end_date']).getDate()!= date.getDate()){
                 axios.delete('/api/useraway', {data:deleteData})
                     .then( () => {
                         const newPostData = {
