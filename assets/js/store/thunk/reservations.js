@@ -2,7 +2,8 @@ import axios from 'axios';
 import * as actions from '../actions/index';
 import { getCoordinates } from '../thunk/popup';
 
-export const getHomeData = () => (dispatch, getState) => {
+
+const createDayObj = () => {
     const reservationStatus = [];
     let dayObject = {
         date: null,
@@ -34,9 +35,32 @@ export const getHomeData = () => (dispatch, getState) => {
             })
             i++
         } 
-    } // day objects created
+    }
+    return reservationStatus
+}
 
+
+const loadData = () =>{
+    console.log('start')
+    
+}
+
+
+export const getHomeData = () => (dispatch, getState) => {
+    const reservationStatus = createDayObj();
+    console.log(reservationStatus)
+    // day objects created
+
+    let user = {
+        id: 2,
+        name: null,
+        lastname: null,
+        activeCar: null,
+        aways: []
+    }
     dispatch(actions.getHomeDataStart());
+    console.log('prestart')
+    loadData();
     axios.get(`/api/reservations`)
         .then(res => {
             const data = res.data
@@ -63,7 +87,7 @@ export const getHomeData = () => (dispatch, getState) => {
         const status = getState().registrationData.reservationStatus
         const user = getState().registrationData.user
         dispatch(actions.getHomeDataFail(status, user))
-    })      
+    })     
 }
 
 export const getUsersData = () => dispatch => {
