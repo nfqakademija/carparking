@@ -24,8 +24,7 @@ class ReservationService
             ->getReservationByParkIdAndByUserId($clientId, $parkspaceId);
         $awayArray = $this->userAwayTimeArray($clientId);
 
-        $user = $this->entityManager->getRepository(Users::class)->getUserAwayById($clientId);
-
+        $user = $this->entityManager->getRepository(Users::class)->findUserById($clientId);
         foreach ($data as $value) {
             $check = $value->getReservationDate()->format('Y-m-d');
             if (in_array($check, $awayArray)) {

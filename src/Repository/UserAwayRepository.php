@@ -25,7 +25,7 @@ class UserAwayRepository extends ServiceEntityRepository
      * @return mixed
      * @throws NonUniqueResultException
      */
-    public function getUserAwayById($id)
+    public function findById($id)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.id = :id')

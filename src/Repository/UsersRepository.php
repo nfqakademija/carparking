@@ -25,7 +25,7 @@ class UsersRepository extends ServiceEntityRepository
      * @return mixed
      * @throws NonUniqueResultException
      */
-    public function getAllUsersById($id)
+    public function findUserById($id)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.id = :id')
