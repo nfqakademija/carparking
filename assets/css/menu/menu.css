@@ -39,10 +39,31 @@
     height: calc(100% - 70px);
 }
 
-.dddd {
-    z-index: 9999;
+.linkParent {
+    pointer-events: none;
 }
 
-.asd {
-    left: -4em;
+.linkParent:hover {
+    background: orange;
+    color: white;
+}
+
+.linkParent > div > .link {
+    pointer-events: auto;
+}
+
+.link:hover {
+    color: white;
+}
+
+.link {
+    color: black;
+}
+
+.link:link {
+    text-decoration: none;
+}
+
+.link:visited {
+    text-decoration: none;
 }
