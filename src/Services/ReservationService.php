@@ -41,35 +41,35 @@ class ReservationService
 
     public function make($clientId = null)
     {
+
         $reservationDateArray = $this->dateTimeProvider(7);
         if ($clientId == null) {
             $data = $this->entityManager->getRepository(Users::class)->getUsersByRoles();
         } else {
             $data = $this->entityManager->getRepository(Users::class)->getUsersByIdAndStatus($clientId);
+        }
+        foreach ($data as $entry) {
+            $id = $entry->getId();
+            $userAwayTimeArray = $this->userAwayTimeArray($id);
 
-            foreach ($data as $entry) {
-                $id = $entry->getId();
-                $userAwayTimeArray = $this->userAwayTimeArray($id);
-
-                foreach ($reservationDateArray as $reservationDate) {
-                    if ($clientId == null) {
-                        $reservation = new Reservations();
-                        if (in_array($reservationDate, $userAwayTimeArray)) {
-                            $reservation->setParkSpace($entry->getPermanentSpace());
-                        } else {
-                            $reservation->setUser($entry);
-                            $reservation->setParkSpace($entry->getPermanentSpace());
-                        }
-                        $date = $this->dateFromString($reservationDate);
-                        $reservation->setReservationDate($date);
-                        $this->entityManager->persist($reservation);
+            foreach ($reservationDateArray as $reservationDate) {
+                if ($clientId == null) {
+                    $reservation = new Reservations();
+                    if (in_array($reservationDate, $userAwayTimeArray)) {
+                        $reservation->setParkSpace($entry->getPermanentSpace());
                     } else {
-                        $clientReservation = $this->entityManager
-                            ->getRepository(Reservations::class)
-                            ->getReservationsByArrayAndId($userAwayTimeArray, $clientId);
-                        foreach ($clientReservation as $value) {
-                            $value->setUser(null);
-                        }
+                        $reservation->setUser($entry);
+                        $reservation->setParkSpace($entry->getPermanentSpace());
+                    }
+                    $date = $this->dateFromString($reservationDate);
+                    $reservation->setReservationDate($date);
+                    $this->entityManager->persist($reservation);
+                } else {
+                    $clientReservation = $this->entityManager
+                        ->getRepository(Reservations::class)
+                        ->getReservationsByArrayAndId($userAwayTimeArray, $clientId);
+                    foreach ($clientReservation as $value) {
+                        $value->setUser(null);
                     }
                 }
             }

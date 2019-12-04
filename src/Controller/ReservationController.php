@@ -46,7 +46,6 @@ class ReservationController extends FOSRestBundle
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
         return $response;
-//        $service->make();
     }
 
     /**
@@ -60,8 +59,10 @@ class ReservationController extends FOSRestBundle
 //        die;
     }
 
-
-
+    /**
+     * @param $data
+     * @return string
+     */
     private function serialize($data)
     {
         $serializer = SerializerBuilder::create()->build();
