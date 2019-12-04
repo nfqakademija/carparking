@@ -46,3 +46,15 @@ export const getHomeUsersSuccess = (users) => {
         users
     }
 }
+
+export const openMobileMenu = () => {
+    return {
+        type: actionTypes.OPEN_MENU
+    }
+}
+
+export const closeMobileMenu = () => {
+    return {
+        type: actionTypes.CLOSE_MENU
+    }
+}

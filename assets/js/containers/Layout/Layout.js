@@ -6,14 +6,6 @@ import Nav from '../../components/UI/Nav/Nav';
 
 class Layout extends Component {
 
-    openMenuHandler () {
-        document.getElementById("mySidenav").style.width = "100%";
-    }
-
-    closeMenuHandler () {
-        document.getElementById("mySidenav").style.width = "0%";
-    }
-    // in this case it is working, but usualy we are not using ids in react. Like React.fowardRef and then use ref instead
     render (){
         return(
             <>

@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 
 import Menu from '../Menu/Menu';
+import {getHomeData} from "../../../store/thunk/reservations";
+import {openMobileMenu, closeMobileMenu} from "../../../store/actions/main";
+
 
 const header = (props) => (
         <div className="container-fluid box-shadow" >
@@ -25,12 +28,12 @@ const header = (props) => (
                                         </div>
                                         <div>
                                             <Link to='/logout' style={{color:"#f8f3f0"}}>
-                                                <i className="icono-power textLightGrey mx-4"> 
+                                                <i className="icono-power textLightGrey mx-4">
                                                 </i>
                                             </Link>
-                                            
+
                                         </div>
-                                        <div onClick={props.openMenu}>
+                                        <div onClick={props.openMobileMenu}>
                                             <i
                                                 className="icono-hamburger h3 text-white d-md-none"
                                             > </i>
@@ -38,7 +41,7 @@ const header = (props) => (
                                     </div>
                                 </div>
 
-                                <div className="sidenav p-0 m-0 bg_lightGrey h1" id="mySidenav" >
+                                <div className="sidenav p-0 m-0 bg_lightGrey h1" style={props.mobileMenu ? {width: "100%"} : {width: "0%"}} >
                                     <div className="container-fluid w-100 p-0 p-2">
                                         <div className="d-flex justify-content-between">
                                             <div className="align-self-center">
@@ -49,7 +52,7 @@ const header = (props) => (
                                             <div>
                                                 <a
                                                     className="mb-0 h2"
-                                                    onClick={props.closeMenu}>
+                                                    onClick={props.closeMobileMenu}>
                                                         ×
                                                 </a>
                                             </div>
@@ -67,13 +70,19 @@ const header = (props) => (
                 </div>
             </div>
         </div>
-)
+);
 
 const mapStateToProps = state => {
     return {
         userName: state.user.name,
-        userLastname: state.user.lastname
+        userLastname: state.user.lastname,
+        mobileMenu: state.mobileMenu
     }
-}
+};
 
-export default connect(mapStateToProps)(header);
+const mapDispatchToProps= dispatch => ({
+    openMobileMenu: () => dispatch(openMobileMenu()),
+    closeMobileMenu: () => dispatch(closeMobileMenu())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(header);

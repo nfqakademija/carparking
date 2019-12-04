@@ -12,7 +12,8 @@ const initialState = {
         activeCar: null
     },
     users: [],
-    reservationStatus: []
+    reservationStatus: [],
+    mobileMenu: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -56,6 +57,16 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 users: action.users,
                 loading: false
+            }
+        case actionTypes.OPEN_MENU:
+            return {
+                ...state,
+                mobileMenu: true
+            }
+        case actionTypes.CLOSE_MENU:
+            return {
+                ...state,
+                mobileMenu: false
             }
         default: return state
     }
