@@ -19,21 +19,23 @@ class Home extends Component {
         super(props);
         this.reservationRefFirst = React.createRef();
         this.reservationRefLast = React.createRef();
-        this.data = {
-            "id": 1,
-            "away_date": [
-                {"away_start_date" :"2019-12-01","away_end_date":"2019-12-01"},
-                {"away_start_date" :"2019-12-02","away_end_date":"2019-12-05"}
-            ]
-        }
+        // this.data = {
+        //     "id": 1,
+        //     "away_date": [
+        //         {"away_start_date" :"2019-12-01","away_end_date":"2019-12-01"},
+        //         {"away_start_date" :"2019-12-02","away_end_date":"2019-12-05"}
+        //     ]
+        // }
+        this.width = window.innerWidth
     }
 
     componentDidMount(){
         this.props.onGetHomeData(this.reservationRefFirst, this.reservationRefLast);
-        axios.get('/api/make-reservation').then(res => console.log(res))
+        // axios.get('/api/make-reservation').then(res => console.log(res))
         // axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
-        axios.get(`/api/reservations`).then(res => console.log(res))
-        axios.get(`/api/users`).then(res => console.log(res))
+        // axios.get(`/api/reservations`).then(res => console.log(res))
+        // axios.get(`/api/users`).then(res => console.log(res))
+        console.log(this.width)
     }
 
     buttonClickHandler(date, buttonType, userId) {
@@ -104,6 +106,10 @@ class Home extends Component {
     
     render (){
         
+        if(this.width !== window.innerWidth){
+            console.log('a')
+        }
+
         return (
         <>
             {this.props.loading
