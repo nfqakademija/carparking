@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * @method Users|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,9 +23,9 @@ class UsersRepository extends ServiceEntityRepository
     /**
      * @param $id
      * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
-    public function checkId($id)
+    public function getAllUsersById($id)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.id = :id')
@@ -37,7 +38,7 @@ class UsersRepository extends ServiceEntityRepository
      * @return mixed
 
      */
-    public function findUsers()
+    public function getUsersByRoles()
     {
         $admin = 'admin';
         $user = 'user';
@@ -53,7 +54,7 @@ class UsersRepository extends ServiceEntityRepository
             ->execute();
     }
 
-    public function findUserById($id)
+    public function getUsersByIdAndStatus($id)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.status = :val')

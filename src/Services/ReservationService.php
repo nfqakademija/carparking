@@ -6,7 +6,7 @@ use App\Entity\Reservations;
 use App\Entity\UserAway;
 use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\HttpFoundation\Response;
+use JMS\Serializer\SerializerBuilder;
 
 class ReservationService
 {
@@ -21,10 +21,10 @@ class ReservationService
     {
         $data = $this->entityManager
             ->getRepository(Reservations::class)
-            ->reservationByParkIdAndByUserId($clientId, $parkspaceId);
+            ->getReservationByParkIdAndByUserId($clientId, $parkspaceId);
         $awayArray = $this->userAwayTimeArray($clientId);
 
-        $user = $this->entityManager->getRepository(Users::class)->checkId($clientId);
+        $user = $this->entityManager->getRepository(Users::class)->getUserAwayById($clientId);
 
         foreach ($data as $value) {
             $check = $value->getReservationDate()->format('Y-m-d');
@@ -43,9 +43,9 @@ class ReservationService
     {
         $reservationDateArray = $this->dateTimeProvider(7);
         if ($clientId == null) {
-            $data = $this->entityManager->getRepository(Users::class)->findUsers();
+            $data = $this->entityManager->getRepository(Users::class)->getUsersByRoles();
         } else {
-            $data = $this->entityManager->getRepository(Users::class)->findUserById($clientId);
+            $data = $this->entityManager->getRepository(Users::class)->getUsersByIdAndStatus($clientId);
 
             foreach ($data as $entry) {
                 $id = $entry->getId();
@@ -66,7 +66,7 @@ class ReservationService
                     } else {
                         $clientReservation = $this->entityManager
                             ->getRepository(Reservations::class)
-                            ->reservationsByArrayAndId($userAwayTimeArray, $clientId);
+                            ->getReservationsByArrayAndId($userAwayTimeArray, $clientId);
                         foreach ($clientReservation as $value) {
                             $value->setUser(null);
                         }
@@ -75,6 +75,17 @@ class ReservationService
             }
         }
         $this->entityManager->flush();
+    }
+
+    public function guestReservation()
+    {
+//        $data = $this->entityManager->getRepository(Reservations::class)->reservationsWithoutUserId();
+//        $json = $this->serialize($data);
+//        echo $json;
+//        foreach ($data as $value) {
+//
+//            var_dump($value->getReservationDate());
+//        }
     }
 
     private function dateTimeProvider($days)
@@ -90,7 +101,7 @@ class ReservationService
 
     private function userAwayTimeArray($id)
     {
-        $away = $this->entityManager->getRepository(UserAway::class)->getAwaysByUserId($id);
+        $away = $this->entityManager->getRepository(UserAway::class)->getUserAwayByUserId($id);
         $array = [];
         foreach ($away as $value) {
             $awayStart = $value['awayStartDate'];
@@ -115,5 +126,12 @@ class ReservationService
         $format = '!Y-m-d';
         $date = \DateTime::createFromFormat($format, $dateString);
         return $date;
+    }
+
+    private function serialize($data)
+    {
+        $serializer = SerializerBuilder::create()->build();
+        $json = $serializer->serialize($data, 'json');
+        return $json;
     }
 }

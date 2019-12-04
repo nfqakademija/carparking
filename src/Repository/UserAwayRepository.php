@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\UserAway;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * @method UserAway|null find($id, $lockMode = null, $lockVersion = null)
@@ -22,9 +23,9 @@ class UserAwayRepository extends ServiceEntityRepository
     /**
      * @param $id
      * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
-    public function checkId($id)
+    public function getUserAwayById($id)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.id = :id')
@@ -36,9 +37,9 @@ class UserAwayRepository extends ServiceEntityRepository
     /**
      * @param $id
      * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
-    public function checkByUserId($id)
+    public function getByUserId($id)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.awayUser = :id')
@@ -50,9 +51,8 @@ class UserAwayRepository extends ServiceEntityRepository
     /**
      * @param $id
      * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getAwaysByUserId($id)
+    public function getUserAwayByUserId($id)
     {
         return $this->createQueryBuilder('u')
             ->andWhere('u.awayUser = :id')

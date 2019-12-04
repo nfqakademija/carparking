@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Reservations;
-use App\Entity\UserAway;
-use App\Entity\Users;
 use App\Services\ReservationService;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\FOSRestBundle;
@@ -44,7 +42,6 @@ class ReservationController extends FOSRestBundle
     public function make()
     {
         $service = new ReservationService($this->entityManager);
-
         $service->make();
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
@@ -52,7 +49,16 @@ class ReservationController extends FOSRestBundle
 //        $service->make();
     }
 
-
+    /**
+     * @Rest\Get("/api/reserve")
+     * @throws \Exception
+     */
+    public function guest()
+    {
+//        $service = new ReservationService($this->entityManager);
+//        $service->guestReservation();
+//        die;
+    }
 
 
 
