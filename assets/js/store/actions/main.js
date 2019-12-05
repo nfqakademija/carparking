@@ -47,6 +47,7 @@ export const getHomeUsersSuccess = (users) => {
     }
 }
 
+<<<<<<< HEAD
 
 export const saveCoordinates = (left, width) => {
     return {
@@ -97,5 +98,16 @@ export const popupSuccess = () => {
 export const popupStyleReset = () => {
     return {
         type: actionTypes.POPUP_STYLE_RESET
+=======
+export const openMobileMenu = () => {
+    return {
+        type: actionTypes.OPEN_MENU
+    }
+}
+
+export const closeMobileMenu = () => {
+    return {
+        type: actionTypes.CLOSE_MENU
+>>>>>>> 61e3bebc804cd01846c78080a48fe0fcbe40bda2
     }
 }

@@ -13,10 +13,14 @@ const initialState = {
     },
     users: [],
     reservationStatus: [],
+<<<<<<< HEAD
     popup: {
         width: 'calc(100%+30px)',
         left: '0px'
     }
+=======
+    mobileMenu: false,
+>>>>>>> 61e3bebc804cd01846c78080a48fe0fcbe40bda2
 }
 
 const reducer = (state = initialState, action) => {
@@ -61,6 +65,7 @@ const reducer = (state = initialState, action) => {
                 users: action.users,
                 loading: false
             }
+<<<<<<< HEAD
         case actionTypes.SAVE_COORDINATES:
             return {
                 ...state,
@@ -130,6 +135,17 @@ const reducer = (state = initialState, action) => {
                     ...state.popup,
                     style: null
                 }
+=======
+        case actionTypes.OPEN_MENU:
+            return {
+                ...state,
+                mobileMenu: true
+            }
+        case actionTypes.CLOSE_MENU:
+            return {
+                ...state,
+                mobileMenu: false
+>>>>>>> 61e3bebc804cd01846c78080a48fe0fcbe40bda2
             }
         default: return state
     }

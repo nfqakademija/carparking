@@ -2,19 +2,15 @@ import React, { Component } from 'react';
 
 import Background from '../../components/UI/Background/Background';
 import Header from '../../components/UI/Header/Header';
+<<<<<<< HEAD
 import Nav from '../../components/UI/Nav/Nav';
 import PopUp from '../../components/UI/PopUp/PopUp';
+=======
+import Menu from '../../components/UI/Menu/webMenu';
+>>>>>>> 61e3bebc804cd01846c78080a48fe0fcbe40bda2
 
 class Layout extends Component {
 
-    openMenuHandler () {
-        document.getElementById("mySidenav").style.width = "100%";
-    }
-
-    closeMenuHandler () {
-        document.getElementById("mySidenav").style.width = "0%";
-    }
-    // in this case it is working, but usualy we are not using ids in react. Like React.fowardRef and then use ref instead
     render (){
         return(
             <>
@@ -25,7 +21,7 @@ class Layout extends Component {
         
                 <div className="container-fluid mainheight">
                     <div className="row h-100">
-                        <Nav/>
+                        <Menu />
                         <div className="col-12 col-md-8 col-lg-9 h-100">
                             {/* <PopUp/> */}
                             <div className="h-100">    
