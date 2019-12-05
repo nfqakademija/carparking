@@ -13,5 +13,7 @@ export {
     popupAcceptStart,
     popupAcceptSuccess,
     popupSuccess,
-    popupStyleReset
+    popupStyleReset,
+    fetchOneDayDataStart,
+    fetchOneDayDataSuccess
 } from './main'

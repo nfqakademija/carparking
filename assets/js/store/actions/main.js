@@ -111,3 +111,17 @@ export const closeMobileMenu = () => {
         type: actionTypes.CLOSE_MENU
     }
 }
+
+export const fetchOneDayDataStart = (date) => {
+    return {
+        type: actionTypes.FETCH_ONE_DAY_DATA_START,
+        date
+    }
+}
+
+export const fetchOneDayDataSuccess = (data) => {
+    return {
+        type: actionTypes.FETCH_ONE_DAY_DATA_SUCCESS,
+        data
+    }
+}

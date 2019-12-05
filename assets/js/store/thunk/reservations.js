@@ -12,13 +12,6 @@ const createDayObj = () => {
         userReservation: false,
         userParkingSpot : null
     }
-    let user = {
-        id: 2,
-        name: null,
-        lastname: null,
-        activeCar: null,
-        aways: []
-    }
     
     for (let i = 0; reservationStatus.length < 6; i++){
         const date = new Date()
@@ -39,55 +32,12 @@ const createDayObj = () => {
     return reservationStatus
 }
 
-
-const loadData = () =>{
-    console.log('start')
-    
-}
-
-
 export const getHomeData = () => (dispatch, getState) => {
     const reservationStatus = createDayObj();
-    console.log(reservationStatus)
-    // day objects created
-
-    let user = {
-        id: 2,
-        name: null,
-        lastname: null,
-        activeCar: null,
-        aways: []
-    }
+    let user = getState().user;
+        
     dispatch(actions.getHomeDataStart());
-    console.log('prestart')
-    loadData();
-    axios.get(`/api/reservations`)
-        .then(res => {
-            const data = res.data
-            data.map(reservation => {
-                const found = reservationStatus.find( dayObj => new Date(dayObj.date).getDate() == new Date(reservation['reservation_date']).getDate())
-                const index = reservationStatus.findIndex(obj => obj === found);
-                if (index !== -1){
-                    const newValue = reservationStatus[index].usedSpaces + 1
-                    reservationStatus[index].usedSpaces = newValue
-                    if (reservation.user) {
-                        if (reservation.user.id === getState().user.id) {
-                            reservationStatus[index].userReservation = true
-                            reservationStatus[index].userParkingSpot = reservation['park_space'].number
-                            user.name = reservation.user.name
-                            user.lastname = reservation.user.surname
-                            user.activeCar = reservation.user['licence_plate']
-                            user.aways = reservation.user['user_aways']
-                        }
-                    }
-                }
-        })
-        dispatch(actions.getHomeDataSuccess(reservationStatus, user))
-    }).catch( ()=>{
-        const status = getState().registrationData.reservationStatus
-        const user = getState().registrationData.user
-        dispatch(actions.getHomeDataFail(status, user))
-    })     
+    dispatch(fetchHomeData(reservationStatus, user))    
 }
 
 export const getUsersData = () => dispatch => {
@@ -107,7 +57,6 @@ export const popupAcceptClicked = (date, user, actionType) => dispatch => {
     dispatch(actions.popupAcceptStart());
     const newDate = new Date(date)
     const startDate = new Date(newDate).toISOString().slice(0,-14);
-    console.log(user)
     switch (actionType) {
         case 'danger':
             console.log('danger')
@@ -117,19 +66,16 @@ export const popupAcceptClicked = (date, user, actionType) => dispatch => {
                     {"away_start_date" :startDate,"away_end_date":startDate}
                 ]
             }
-            console.log(postData)
             axios.post('/api/useraway',postData)
                 .then(() => {
                     dispatch(actions.popupAcceptSuccess())
                     dispatch(successTimer())
+                    dispatch(fetchOneDayData(date))
                 })
             break
         case 'success':
             console.log('success')
-            const found = user.aways.find(away => new Date(away['away_start_date']).getDate() == date.getDate())
-            console.log(user.aways)
-            console.log(date.getDate())
-            console.log(found)
+            const found = user.aways.find(away => new Date(away['away_start_date']).getDate() == newDate.getDate())
             const deleteData = {
                 "away_date": [
                     {"id": found.id}
@@ -175,4 +121,61 @@ export const successTimer = () => dispatch => {
                 )},
         2000
     )
+}
+const fetchOneDayData = (date) => (dispatch, getState) => {
+    const reservationStatus = getState().reservationStatus
+    const dayIndex = reservationStatus.findIndex( dayObj => new Date(dayObj.date).getDate() == new Date(date).getDate())
+    reservationStatus[dayIndex].userReservation = false
+    reservationStatus[dayIndex].userParkingSpot = null
+
+    dispatch(actions.fetchOneDayDataStart(date))
+
+    axios.get(`/api/reservations`)
+        .then( res => {
+            const reservations = res.data
+            let usedSpaces = 0
+            reservations.map( reservation => {
+                if( new Date(reservation['reservation_date']).getDate() == new Date(reservationStatus[dayIndex].date).getDate()) {
+                    usedSpaces ++
+                    if(reservation.user){
+                        if (reservation.user.id === getState().user.id) {
+                            reservationStatus[index].userReservation = true
+                            reservationStatus[index].userParkingSpot = reservation['park_space'].number
+                        }
+                    }
+                }
+            })
+            reservationStatus[dayIndex].usedSpaces = usedSpaces
+            dispatch(actions.fetchOneDayDataSuccess(reservationStatus))
+        })
+}
+
+const fetchHomeData = (reservationStatus, user) => (dispatch, getState) => {
+    axios.get(`/api/reservations`)
+        .then(res => {
+            const data = res.data
+            data.map(reservation => {
+                const found = reservationStatus.find( dayObj => new Date(dayObj.date).getDate() == new Date(reservation['reservation_date']).getDate())
+                const index = reservationStatus.findIndex(obj => obj === found);
+                if (index !== -1){
+                    const newValue = reservationStatus[index].usedSpaces + 1
+                    reservationStatus[index].usedSpaces = newValue
+                    if (reservation.user) {
+                        if (reservation.user.id === getState().user.id) {
+                            reservationStatus[index].userReservation = true
+                            reservationStatus[index].userParkingSpot = reservation['park_space'].number
+                            user.name = reservation.user.name
+                            user.lastname = reservation.user.surname
+                            user.activeCar = reservation.user['licence_plate']
+                            user.aways = reservation.user['user_aways']
+                        }
+                    }
+                }
+        })
+        dispatch(actions.getHomeDataSuccess(reservationStatus, user))
+    }).catch( ()=>{
+        const status = getState().registrationData.reservationStatus
+        const user = getState().registrationData.user
+        dispatch(actions.getHomeDataFail(status, user))
+    }) 
 }

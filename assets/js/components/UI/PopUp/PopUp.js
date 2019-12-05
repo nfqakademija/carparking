@@ -18,9 +18,8 @@ const popUp = (props) => {
             
     if(props.type){
         const date = new Date(props.type.date)
-        const dateString = `${date.toLocaleDateString('en-EN', {weekday:'short'}).toUpperCase()}
-                            ${date.toLocaleDateString('en-EN', {month:'short'}).toUpperCase()}
-                            ${date.getDate()}`
+        const dateString = <> <span>{`${date.toLocaleDateString('en-EN', {weekday:'long'}).toUpperCase()} `}</span>
+                            <span>{`${date.toLocaleDateString('en-EN', {month:'short'}).toUpperCase()} ${date.getDate()}`}</span> </>
         switch (props.type.type){
             case 'success':
                 statusText = <span style={{textTransform:'uppercase', fontSize:'1.25rem'}}> Are you sure you want to reserve a parking spot for {dateString}</span>

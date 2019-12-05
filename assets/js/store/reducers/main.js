@@ -6,10 +6,11 @@ const initialState = {
     token: 1,
     loading: false,
     user: {
-        id:2,
+        id: 11,
         name: null,
         lastname: null,
-        activeCar: null
+        activeCar: null,
+        aways: []
     },
     users: [],
     reservationStatus: [],
@@ -17,6 +18,7 @@ const initialState = {
         width: 'calc(100%+30px)',
         left: '0px'
     },
+    loadingOneDay: false,
     mobileMenu: false
 }
 
@@ -102,7 +104,8 @@ const reducer = (state = initialState, action) => {
                 popup: {
                     ...state.popup,
                     loading: true
-                }
+                },
+                loadingOneDay: true
             }
         case actionTypes.POPUP_ACCEPT_SUCCESS:
             return {
@@ -113,7 +116,7 @@ const reducer = (state = initialState, action) => {
                     style : {
                         backgroundColor: '#71c271',
                         height: '150px'
-                        }
+                    }
                 }
             }
         case actionTypes.POPUP_SUCCESS:
@@ -141,6 +144,17 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 mobileMenu: false
+            }
+        case actionTypes.FETCH_ONE_DAY_DATA_START:
+            return {
+                ...state,
+                loadingOneDay: action.date
+            }
+        case actionTypes.FETCH_ONE_DAY_DATA_SUCCESS:
+            return {
+                ...state,
+                reservationStatus: action.data,
+                loadingOneDay: false
             }
         default: return state
     }

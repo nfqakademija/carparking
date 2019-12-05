@@ -33,7 +33,7 @@ class Home extends Component {
         this.props.onGetHomeData();
         // axios.get('/api/make-reservation').then(res => console.log(res))
         // axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
-        axios.get(`/api/reservations`).then(res => console.log(res))
+        // axios.get(`/api/reservations`).then(res => console.log(res))
         axios.get(`/api/users`).then(res => console.log(res))
     }
 
@@ -85,7 +85,6 @@ class Home extends Component {
     }
 
     popupHandler (popup) {
-        console.log(popup)
             return <PopUp 
                         left={popup.left} 
                         width={popup.width} 
@@ -111,29 +110,29 @@ class Home extends Component {
             {this.props.loading
             ? 'loading...'
             : <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
-            {this.popupHandler(this.props.popup)}
-            <div className='Home_reservationContainer' style={this.reservationContainerStyleHandler()} >
-                {this.props.registrationData.map( (day,index) => {
-                    return (
-                    <Reservation
-                        ref={!index 
-                                ? this.reservationRefFirst
-                                : index === 5 
-                                    ? this.reservationRefLast
-                                    : null
-                            }
-                        index={index}
-                        key={day.date}
-                        date={day.date}
-                        buttonOptions={this.reservationButtonHandler(day)}
-                        parkingSpaces={day.parkingSpaces}
-                        usedSpaces={day.usedSpaces}
-                        userParkingSpot={day.userParkingSpot}
-                        graphStatus={this.graphHandler(day)}
-                        onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day).buttonClass, this.reservationRefFirst, this.reservationRefLast)}
-                        history={this.props.history}/>
-                )})}
-             </div>
+                {this.popupHandler(this.props.popup)}
+                <div className='Home_reservationContainer' style={this.reservationContainerStyleHandler()} >
+                    {this.props.registrationData.map( (day,index) => {
+                        return (
+                        <Reservation
+                            ref={!index 
+                                    ? this.reservationRefFirst
+                                    : index === 5 
+                                        ? this.reservationRefLast
+                                        : null}
+                            index={index}
+                            key={day.date}
+                            date={day.date}
+                            buttonOptions={this.reservationButtonHandler(day)}
+                            parkingSpaces={day.parkingSpaces}
+                            usedSpaces={day.usedSpaces}
+                            userParkingSpot={day.userParkingSpot}
+                            graphStatus={this.graphHandler(day)}
+                            onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day).buttonClass, this.reservationRefFirst, this.reservationRefLast)}
+                            history={this.props.history}
+                            loading={this.props.loadingOneDay}/>
+                    )})}
+                </div>
              </div>
         }
         </>     
@@ -146,7 +145,8 @@ const mapStateToProps = state => {
         registrationData: state.reservationStatus,
         loading: state.loading,
         popup: state.popup,
-        user: state.user
+        user: state.user,
+        loadingOneDay: state.loadingOneDay
     }
 }
 
