@@ -1,8 +1,9 @@
 import * as actionTypes from './actionTypes';
 
-export const login = () => {
+export const login = (id) => {
     return {
-        type: actionTypes.LOGIN
+        type: actionTypes.LOGIN,
+        id
     }
 }
 
