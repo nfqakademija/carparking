@@ -10,3 +10,5 @@ export const GET_HOME_USERS_SUCCESS = 'GET_HOME_USERS_SUCCESS';
 
 export const OPEN_MENU = 'OPEN_MENU';
 export const CLOSE_MENU = 'CLOSE_MENU';
+
+export const UPDATE_PLATE = 'UPDATE_PLATE';

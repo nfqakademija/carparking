@@ -28,7 +28,7 @@ const mobileMenu = (props) => (
         <div className="text-left h4">
 
             <div className="position-relative py-3">
-                <span className="ml-4 position-absolute"><i className="fa fa-user-circle "></i></span>
+                <span className="ml-4 position-absolute"><i className="fa fa-user-circle "> </i></span>
                 <span style={{ marginLeft: "60px"}}>
                     {props.userName ? props.userLastname : "Vardenis"} {props.userLastname ? props.userLastname : "Pavardenis"}
                 </span>
@@ -38,23 +38,23 @@ const mobileMenu = (props) => (
 
             <div className="position-relative mt-1 py-2 linkParent">
                 <span className="ml-4 position-absolute">
-                    <i className="fa fa-check-square-o"></i></span>
+                    <i className="fa fa-check-square-o"> </i></span>
                 <div style={{ marginLeft: "60px"}}>
-                    <NavLink to='/home' className="link" onClick={props.onclick}>Reserve</NavLink>
+                    <NavLink to='/home' className="link" onClick={ props.closeMobileMenu }>Reserve</NavLink>
                 </div>
             </div>
 
             <div className="position-relative py-2 linkParent">
                 <span className="ml-4 position-absolute"><i className="fa fa-users"> </i></span>
                 <div style={{ marginLeft: "60px"}}>
-                    <NavLink to="/users" className="link" onClick={props.onclick}>Watch Users</NavLink>
+                    <NavLink to="/users" className="link" onClick={props.closeMobileMenu}>Watch Users</NavLink>
                 </div>
             </div>
 
             <div className="position-relative py-2 linkParent">
                 <span className="ml-4 position-absolute"><i className="fas fa-car-side"> </i></span>
                 <div style={{ marginLeft: "60px"}}>
-                    <NavLink to="/plate" className="link" onClick={props.onclick}>Car Plate</NavLink>
+                    <NavLink to="/plate" className="link" onClick={props.closeMobileMenu}>Car Plate</NavLink>
                 </div>
             </div>
 

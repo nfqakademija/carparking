@@ -58,3 +58,10 @@ export const closeMobileMenu = () => {
         type: actionTypes.CLOSE_MENU
     }
 }
+
+export const updatePlate = (numbers) => {
+    return {
+        type: actionTypes.UPDATE_PLATE,
+        numbers
+    }
+}

@@ -1,5 +1,6 @@
 import React from 'react';
-import Button from "../../components/UI/Button/Button";
+import {updatePlate} from "../../store/actions/main";
+import {connect} from "react-redux";
 
 
 const plate = (props) => (
@@ -15,13 +16,24 @@ const plate = (props) => (
                     name="licenseplate"
                     className="licenseplate w-100"
                     maxLength="6"
-                    placeholder="ABC123"
+                    id="plate"
+                    placeholder={props.plate}
                 />
             </div>
 
-        <button className="btn btn-warning btn-lg mb-3 shadow"><b className="text-white">Update</b></button>
+        <button className="btn btn-warning btn-lg mb-3 shadow" onClick={() => {props.updatePlate(document.getElementById("plate").value)}}><b className="text-white">Update</b></button>
 
     </div>
 )
 
-export default plate;
+const mapStateToProps = state => {
+    return {
+        plate: state.plate
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    updatePlate: (number) => dispatch(updatePlate(number))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(plate);

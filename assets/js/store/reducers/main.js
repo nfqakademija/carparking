@@ -12,6 +12,7 @@ const initialState = {
         activeCar: null
     },
     users: [],
+    plate: "ABC000",
     reservationStatus: [],
     mobileMenu: false,
 }
@@ -67,6 +68,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 mobileMenu: false
+            }
+        case actionTypes.UPDATE_PLATE:
+            return {
+                ...state,
+                plate: action.numbers
             }
         default: return state
     }
