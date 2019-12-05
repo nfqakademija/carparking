@@ -44,8 +44,10 @@
 }
 
 .linkParent:hover {
-    background: orange;
-    color: white;
+    color: #343a40;
+    top: 2px;
+    left:-2px;
+    font-weight: bolder;
 }
 
 .linkParent > div > .link {
@@ -53,17 +55,14 @@
 }
 
 .link:hover {
-    color: white;
+    color: #343a40 ;
+    text-decoration: inherit;
 }
 
 .link {
-    color: black;
+    color: #343a40;
 }
 
-.link:link {
-    text-decoration: none;
-}
-
-.link:visited {
-    text-decoration: none;
+.webMenu_activeClass {
+    text-decoration: underline;
 }

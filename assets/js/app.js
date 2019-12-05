@@ -21,7 +21,7 @@ class App extends Component {
 
         if(this.props.token) {
             routes = 
-            <Layout>
+            <Layout user={this.props.user}>
                 <Switch>   
                     <Route path="/home" component={Home}/>
                     <Route path='/users' component={Users}/>
@@ -39,7 +39,8 @@ class App extends Component {
     
 const mapStateToProps = state => {
     return {
-        token: state.token
+        token: state.token,
+        user: state.user
     }
 }
 
