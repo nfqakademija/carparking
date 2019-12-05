@@ -141,7 +141,7 @@ class UserAwayController extends FOSRestBundle
         $service->updateOrDeleteReservation($clientId, $parkId);
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
-        return $response;  
+        return $response;
     }
 
 
