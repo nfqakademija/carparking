@@ -8,7 +8,6 @@ export const GET_HOME_DATA_FAIL = "GET_HOME_DATA_FAIL";
 export const GET_HOME_USERS_START = 'GET_HOME_USERS_START';
 export const GET_HOME_USERS_SUCCESS = 'GET_HOME_USERS_SUCCESS';
 
-<<<<<<< HEAD
 export const SAVE_COORDINATES = 'SAVE_COORDINATES';
 export const NO_COORDINATES = 'NO_COORDINATES';
 
@@ -20,7 +19,5 @@ export const POPUP_ACCEPT_SUCCESS = 'POPUP_ACCEPT_SUCCESS';
 
 export const POPUP_SUCCESS = 'POPUP_SUCCESS';
 export const POPUP_STYLE_RESET = 'POPUP_STYLE_RESET';
-=======
 export const OPEN_MENU = 'OPEN_MENU';
 export const CLOSE_MENU = 'CLOSE_MENU';
->>>>>>> 61e3bebc804cd01846c78080a48fe0fcbe40bda2
