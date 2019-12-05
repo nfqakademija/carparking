@@ -9,6 +9,8 @@
         "friendsofsymfony/rest-bundle": "^2.6",
         "fzaninotto/faker": "^1.9",
         "jms/serializer-bundle": "^3.4",
+        "knpuniversity/oauth2-client-bundle": "^1.31",
+        "league/oauth2-google": "^3.0",
         "symfony/asset": "4.3.*",
         "symfony/console": "4.3.*",
         "symfony/dotenv": "4.3.*",
