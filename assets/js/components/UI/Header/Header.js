@@ -24,7 +24,9 @@ const header = (props) => (
                                     <div className="align-self-center d-flex">
                                         <div className="d-none d-md-block align-self-center">
                                             <i className="textLightGrey h4 align-middle m-0">
-                                                {`${props.userName} ${props.userLastname}`}
+                                                {props.userName
+                                                ?`${props.userName} ${props.userLastname}`
+                                                :null}
                                             </i>
                                         </div>
                                         <div>

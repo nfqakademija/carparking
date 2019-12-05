@@ -3,7 +3,7 @@ import registrationData from "../../containers/Home/fakeReservationData.json"
 
 const initialState = {
     registrationData: registrationData,
-    token: 1,
+    token: null,
     loading: false,
     user: {
         id: 11,
@@ -28,7 +28,11 @@ const reducer = (state = initialState, action) => {
         case actionTypes.LOGIN:
             return { 
                 ...state,
-                token: true
+                token: true,
+                user: {
+                    ...state.user,
+                    id: Number(action.id)
+                }
             }
         case actionTypes.LOGOUT:
             return {
