@@ -13,6 +13,7 @@ const initialState = {
         aways: []
     },
     users: [],
+    plate: "ABC000",
     reservationStatus: [],
     popup: {
         width: 'calc(100%+30px)',
@@ -144,6 +145,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 mobileMenu: false
+            }
+        case actionTypes.UPDATE_PLATE:
+            return {
+                ...state,
+                plate: action.numbers
             }
         case actionTypes.FETCH_ONE_DAY_DATA_START:
             return {

@@ -112,6 +112,13 @@ export const closeMobileMenu = () => {
     }
 }
 
+export const updatePlate = (numbers) => {
+    return {
+        type: actionTypes.UPDATE_PLATE,
+        numbers
+    }
+}
+
 export const fetchOneDayDataStart = (date) => {
     return {
         type: actionTypes.FETCH_ONE_DAY_DATA_START,
