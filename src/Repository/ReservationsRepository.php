@@ -19,32 +19,52 @@ class ReservationsRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservations::class);
     }
 
-    // /**
-    //  * @return Reservations[] Returns an array of Reservations objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function getReservationsByArrayAndId(array $dateArray, string $id)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('r.user = :id')
+            ->andWhere('r.reservationDate IN (:dates)')
+            ->setParameter('id', $id)
+            ->setParameter('dates', $dateArray)
             ->getQuery()
-            ->getResult()
-        ;
+            ->execute();
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Reservations
+    public function getReservationsWithoutUserId()
+    {
+        $value = null;
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.user = :id')
+            ->setParameter('id', ' ')
+            ->getQuery()
+            ->execute();
+    }
+
+    public function getReservationByParkIdAndByUserId($clientId, $parkId)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('r.parkSpace = :parkId')
+            ->orWhere('r.user = :id')
+            ->setParameter('id', $clientId)
+            ->setParameter('parkId', $parkId)
             ->getQuery()
-            ->getOneOrNullResult()
-        ;
+            ->execute();
     }
-    */
+
+
+//    public function findUsers()
+//    {
+//        $admin = 'admin';
+//        $user = 'user';
+//
+//        return $this->createQueryBuilder('u')
+//            ->andWhere('u.status = :val')
+//            ->leftJoin('u.userRole', 'r')
+//            ->andWhere('r.role = :admin OR r.role = :user')
+//            ->setParameter('admin', $admin)
+//            ->setParameter('user', $user)
+//            ->setParameter('val', 1)
+//            ->getQuery()
+//            ->execute();
+//    }
 }

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * @method Users|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,19 +21,47 @@ class UsersRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Users[] Returns an array of Users objects
-    */
-
-    public function findEntries()
+     * @param $id
+     * @return mixed
+     * @throws NonUniqueResultException
+     */
+    public function findUserById($id)
     {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    /**
+     * @return mixed
+
+     */
+    public function getUsersByRoles()
+    {
+        $admin = 'admin';
+        $user = 'user';
+
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.status = :val')
+            ->leftJoin('u.userRole', 'r')
+            ->andWhere('r.role = :admin OR r.role = :user')
+            ->setParameter('admin', $admin)
+            ->setParameter('user', $user)
+            ->setParameter('val', 1)
+            ->getQuery()
+            ->execute();
+    }
+
+    public function getUsersByIdAndStatus($id)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.status = :val')
+            ->andWhere('u.id = :id')
+            ->setParameter('id', $id)
+            ->setParameter('val', 1)
+            ->getQuery()
+            ->execute();
     }
 }
-//    public function findOneBySomeField($value): ?Users
-//    {
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }

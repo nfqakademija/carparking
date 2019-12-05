@@ -6,6 +6,7 @@ import Layout from './containers/Layout/Layout';
 import Login from './containers/Auth/Auth';
 import Home from './containers/Home/Home';
 import Users from './containers/Users/Users';
+import Plate from './containers/PlatePage/Plate';
 import Logout from './containers/Auth/Logout/Logout'
 
 class App extends Component {
@@ -20,11 +21,12 @@ class App extends Component {
 
         if(this.props.token) {
             routes = 
-            <Layout>
+            <Layout user={this.props.user}>
                 <Switch>   
                     <Route path="/home" component={Home}/>
                     <Route path='/users' component={Users}/>
                     <Route path='/logout' component={Logout}/>
+                    <Route path='/plate' component={Plate}/>
                     <Redirect from='/' to='/home'/>
                 </Switch>
             </Layout>
@@ -37,7 +39,8 @@ class App extends Component {
     
 const mapStateToProps = state => {
     return {
-        token: state.token
+        token: state.token,
+        user: state.user
     }
 }
 

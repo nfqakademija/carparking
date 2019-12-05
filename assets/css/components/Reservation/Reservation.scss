@@ -1,10 +1,11 @@
 .Reservation_container {
     width:26%;
     min-width: 350px;
-    min-height:400px;
-    height:37.5%;
+    min-height:375px;
+    height: 37.5%;
     box-shadow: 5px 5px 10px 0px #343a40;
-    margin-top:2rem; //this needs to be changed
+    margin:auto;
+    margin-top: 2em; //this needs to be changed
     display: flex;
     flex-direction: column;
 }

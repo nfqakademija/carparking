@@ -1,8 +1,9 @@
 import * as actionTypes from './actionTypes';
 
-export const login = () => {
+export const login = (id) => {
     return {
-        type: actionTypes.LOGIN
+        type: actionTypes.LOGIN,
+        id
     }
 }
 
@@ -44,5 +45,91 @@ export const getHomeUsersSuccess = (users) => {
     return {
         type: actionTypes.GET_HOME_USERS_SUCCESS,
         users
+    }
+}
+
+
+export const saveCoordinates = (left, width) => {
+    return {
+        type: actionTypes.SAVE_COORDINATES,
+        left,
+        width
+    }
+}
+
+export const noCoordinates = () => {
+    return {
+        type: actionTypes.NO_COORDINATES
+    }
+}
+
+export const buttonClicked = (date, buttonType) => {
+    return {
+        type: actionTypes.BUTTON_CLICKED,
+        date,
+        buttonType
+    }
+}
+
+export const popupCancel = () => {
+    return {
+        type: actionTypes.POPUP_CANCEL
+    }
+}
+
+export const popupAcceptStart = () => {
+    return {
+        type: actionTypes.POPUP_ACCEPT_START
+    }
+}
+
+export const popupAcceptSuccess = () => {
+    return {
+        type: actionTypes.POPUP_ACCEPT_SUCCESS
+    }
+}
+
+export const popupSuccess = () => {
+    return {
+        type: actionTypes.POPUP_SUCCESS
+    }
+}
+
+export const popupStyleReset = () => {
+    return {
+        type: actionTypes.POPUP_STYLE_RESET
+    }
+}
+
+export const openMobileMenu = () => {
+    return {
+        type: actionTypes.OPEN_MENU
+    }
+}
+
+export const closeMobileMenu = () => {
+    return {
+        type: actionTypes.CLOSE_MENU
+    }
+}
+
+export const updatePlate = (numbers) => {
+    return {
+        type: actionTypes.UPDATE_PLATE,
+        numbers
+    }
+}
+
+export const fetchOneDayDataStart = (date) => {
+    return {
+        type: actionTypes.FETCH_ONE_DAY_DATA_START,
+        date
+    }
+}
+
+export const fetchOneDayDataSuccess = (data) => {
+    return {
+        type: actionTypes.FETCH_ONE_DAY_DATA_SUCCESS,
+        data
     }
 }

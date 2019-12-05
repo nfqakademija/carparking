@@ -3,16 +3,24 @@ import registrationData from "../../containers/Home/fakeReservationData.json"
 
 const initialState = {
     registrationData: registrationData,
-    token: 1,
+    token: null,
     loading: false,
     user: {
-        id:1,
+        id: 11,
         name: null,
         lastname: null,
-        activeCar: null
+        activeCar: null,
+        aways: []
     },
     users: [],
-    reservationStatus: []
+    plate: "ABC000",
+    reservationStatus: [],
+    popup: {
+        width: 'calc(100%+30px)',
+        left: '0px'
+    },
+    loadingOneDay: false,
+    mobileMenu: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -20,7 +28,11 @@ const reducer = (state = initialState, action) => {
         case actionTypes.LOGIN:
             return { 
                 ...state,
-                token: true
+                token: true,
+                user: {
+                    ...state.user,
+                    id: Number(action.id)
+                }
             }
         case actionTypes.LOGOUT:
             return {
@@ -56,6 +68,103 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 users: action.users,
                 loading: false
+            }
+        case actionTypes.SAVE_COORDINATES:
+            return {
+                ...state,
+                popup: {
+                    ...state.popup,
+                    width: action.width,
+                    left: action.left
+                }
+            }
+        case actionTypes.NO_COORDINATES:
+            return {
+                ...state,
+                popup: {
+                    ...state.popup
+                }
+            }
+        case actionTypes.BUTTON_CLICKED:
+            return {
+                ...state,
+                popup: {
+                    ...state.popup,
+                    show: true,
+                    type: action.buttonType,
+                    date: action.date
+                }
+            }
+        case actionTypes.POPUP_CANCEL:
+            return {
+                ...state,
+                popup: {
+                    ...state.popup,
+                    show: false
+                }
+            }
+        case actionTypes.POPUP_ACCEPT_START:
+            return {
+                ...state,
+                popup: {
+                    ...state.popup,
+                    loading: true
+                },
+                loadingOneDay: true
+            }
+        case actionTypes.POPUP_ACCEPT_SUCCESS:
+            return {
+                ...state,
+                popup: {
+                    ...state.popup,
+                    loading: false,
+                    style : {
+                        backgroundColor: '#71c271',
+                        height: '150px'
+                    }
+                }
+            }
+        case actionTypes.POPUP_SUCCESS:
+            return {
+                ...state,
+                popup: {
+                    ...state.popup,
+                    show: false
+                }
+            }
+        case actionTypes.POPUP_STYLE_RESET:
+            return {
+                ...state,
+                popup: {
+                    ...state.popup,
+                    style: null
+                }
+            }
+        case actionTypes.OPEN_MENU:
+            return {
+                ...state,
+                mobileMenu: true
+            }
+        case actionTypes.CLOSE_MENU:
+            return {
+                ...state,
+                mobileMenu: false
+            }
+        case actionTypes.UPDATE_PLATE:
+            return {
+                ...state,
+                plate: action.numbers
+            }
+        case actionTypes.FETCH_ONE_DAY_DATA_START:
+            return {
+                ...state,
+                loadingOneDay: action.date
+            }
+        case actionTypes.FETCH_ONE_DAY_DATA_SUCCESS:
+            return {
+                ...state,
+                reservationStatus: action.data,
+                loadingOneDay: false
             }
         default: return state
     }

@@ -39,10 +39,30 @@
     height: calc(100% - 70px);
 }
 
-.dddd {
-    z-index: 9999;
+.linkParent {
+    pointer-events: none;
 }
 
-.asd {
-    left: -4em;
+.linkParent:hover {
+    color: #343a40;
+    top: 2px;
+    left:-2px;
+    font-weight: bolder;
+}
+
+.linkParent > div > .link {
+    pointer-events: auto;
+}
+
+.link:hover {
+    color: #343a40 ;
+    text-decoration: inherit;
+}
+
+.link {
+    color: #343a40;
+}
+
+.webMenu_activeClass {
+    text-decoration: underline;
 }

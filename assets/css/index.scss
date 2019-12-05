@@ -7,23 +7,30 @@
 }
 
 #root {
-  margin:auto;
+  margin: auto;
   text-align: center;
-  height:100vh;
+  height: 100vh;
   // font-size: 96px;
   // font-weight: 100;
   // font-family: 'Lato', serif;
 }
 
 
-
 .box-shadow {
   box-shadow: 5px 5px 10px 0px #343a40;
 }
 
-@media(max-width: 400px){
+.headerText {
+  font-size: 1.8rem;
+}
+
+.webMeniu {
+  font-size: 1.8rem;
+}
+
+@media(max-width: 320px){
   .headerText {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 }
 
