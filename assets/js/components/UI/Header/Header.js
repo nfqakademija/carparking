@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 
 import Menu from '../Menu/mobileMenu';
-import {getHomeData} from "../../../store/thunk/reservations";
 import {openMobileMenu, closeMobileMenu} from "../../../store/actions/main";
 
 
@@ -18,7 +17,7 @@ const header = (props) => (
                                     <div>
 
                                         <span className="textLightGrey headerText" style={{marginLeft:'2rem'}}>
-                                            <i className="mr-4 fas fa-car headerText" style={{color: "orange"}}> </i>
+                                            {/* <i className="mr-4 fas fa-car headerText" style={{color: "white", fontSize:'1.25em'}}> </i> */}
                                             NFQ parking
                                         </span>
                                     </div>
@@ -44,7 +43,7 @@ const header = (props) => (
                                 </div>
 
                                 <div className="sidenav p-0 m-0 bg-light h1 text-nowrap" style={props.mobileMenu ? {width: "100%"} : {width: "0%"}} >
-                                    <Menu />
+                                    <Menu userName={props.userName} userLastname={props.userLastname} />
                                 </div>
                             </div>
                         </nav>

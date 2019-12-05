@@ -1,0 +1,46 @@
+.Auth_container {
+    width:30%;
+    min-width: 350px;
+    min-height:200px;
+    height: 25%;
+    box-shadow: 5px 5px 10px 0px #343a40;
+    margin:auto;
+    position: relative;
+    top:15%;
+    display: flex;
+    flex-direction: column;
+}
+
+.Auth_header {
+    padding:1rem;
+    background-color:#343a40;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    font-size: 1.25rem;
+    text-align: center;
+    justify-content: center;
+    color: #f8f3f0;
+}
+ 
+.Auth_body {
+    width: 100%;
+    background-color: #f8f3f0;
+    flex-grow: 1;
+    display:flex;
+    flex-direction: column;
+}
+
+.Auth_input {
+    width: 65%;
+    margin: auto;
+    border-radius: 0.25rem;
+}
+
+ @media(max-width:400px){
+    .Auth_container  {
+        min-width: 300px;
+    }
+
+}
+
+
