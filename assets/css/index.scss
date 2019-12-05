@@ -21,25 +21,16 @@
 }
 
 .headerText {
-  font-size: 1.4rem;
+  font-size: 1.8rem;
 }
 
 .webMeniu {
-  font-size: 1.4rem;
+  font-size: 1.8rem;
 }
 
-@include media-breakpoint-up(md) {
+@media(max-width: 320px){
   .headerText {
-    font-size: 1.8rem;
-  }
-}
-
-@include media-breakpoint-up(lg) {
-  .headerText {
-    font-size: 1.8rem;
-  }
-  .webMeniu {
-    font-size: 1.8rem;
+    font-size: 1.4rem;
   }
 }
 

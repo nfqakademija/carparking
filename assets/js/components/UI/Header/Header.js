@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 
 import Menu from '../Menu/mobileMenu';
-import {getHomeData} from "../../../store/thunk/reservations";
 import {openMobileMenu, closeMobileMenu} from "../../../store/actions/main";
 
 
@@ -44,7 +43,7 @@ const header = (props) => (
                                 </div>
 
                                 <div className="sidenav p-0 m-0 bg-light h1 text-nowrap" style={props.mobileMenu ? {width: "100%"} : {width: "0%"}} >
-                                    <Menu />
+                                    <Menu userName={props.userName} userLastname={props.userLastname} />
                                 </div>
                             </div>
                         </nav>
