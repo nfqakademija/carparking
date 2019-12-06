@@ -70,7 +70,7 @@ class Home extends Component {
                 } )
         } else if (day.usedSpaces === day.parkingSpaces) {
             return ({
-                status: '188.4%',
+                status: '94.2%',
                 fill: "#F1B55C"
                 })
         } else if (day.usedSpaces === 1){
@@ -79,7 +79,7 @@ class Home extends Component {
                 })
         } else {
             return ({
-                status:`${((day.usedSpaces/day.parkingSpaces)*188.4)-4.4}%`
+                status:`${((day.usedSpaces/day.parkingSpaces)*94.2)-4.4}%`
                 })
         } 
     }

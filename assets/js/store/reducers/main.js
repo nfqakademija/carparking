@@ -3,7 +3,7 @@ import registrationData from "../../containers/Home/fakeReservationData.json"
 
 const initialState = {
     registrationData: registrationData,
-    token: null,
+    token: 1,
     loading: false,
     user: {
         id: 11,

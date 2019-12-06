@@ -20,17 +20,19 @@ const reservation = React.forwardRef((props, ref) => {
                     : <>
                         <svg className='Reservation_svg'> 
                             <circle className='Reservation_circleGreen' 
-                                cx="50%" cy="50%" r="30%"/>
+                                cx="50%" cy="50%" r="40%"
+                                strokeDasharray={`94.2% 94.2%`}/>
                             <circle className='Reservation_circleRed' 
-                                cx="50%" cy="50%" r="30%"
-                                strokeDasharray={`${props.graphStatus.status} 188.4%`}
+                                cx="50%" cy="50%" r="40%"
+                                strokeDasharray={`${props.graphStatus.status} 94.2%`}
                                 style={props.graphStatus.isVisible} />
                             <text className='Reservation_text' 
                                 x="50%" y="50%"
                                 style={{fill:props.userParkingSpot?null:props.graphStatus.fill}}>
-                                    { props.userParkingSpot
+                                    100%
+                                    {/* { props.userParkingSpot
                                         ? props.userParkingSpot
-                                        : `${props.usedSpaces}/${props.parkingSpaces}`}
+                                        : `${props.usedSpaces}/${props.parkingSpaces}`} */}
                             </text>
                         </svg>
                         <Button 
