@@ -24,7 +24,7 @@ const webMeniu = (props) => (
                 <div className="position-relative py-2 linkParent">
                     <span className="ml-4 position-absolute"><i className="fas fa-car-side"> </i></span>
                     <div style={{marginLeft: "5rem"}}>
-                        <NavLink to="/plate" className="link" activeClassName='webMenu_activeClass' onClick={props.onclick}>Car Plate</NavLink>
+                        <a href="#car-plate" className="link">Car Plate</a>
                     </div>
                 </div>
             </div>
