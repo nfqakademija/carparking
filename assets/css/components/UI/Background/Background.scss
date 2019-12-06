@@ -416,14 +416,14 @@ html, body{
 }
 
 .car_outter{
-  @include prefix(transform, translateX(-1000%));
+  @include prefix(transform, translateX(-300%));
   position: relative;
   animation: carDrive 5s 1s cubic-bezier(0.88, 0.08, 0.16, 1.1) infinite;
 }
 
 @keyframes carDrive{
   0%{
-    transform: translateX(-100%);
+    transform: translateX(-300%);
   }
   25%{
     transform: translateX(0%);
@@ -432,7 +432,7 @@ html, body{
     transform: translateX(0%);
   }
   100%{
-    transform: translateX(100%);
+    transform: translateX(300%);
   }
 }
 
