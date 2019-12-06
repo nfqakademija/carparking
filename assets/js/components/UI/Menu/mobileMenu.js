@@ -54,7 +54,7 @@ const mobileMenu = (props) => (
             <div className="position-relative py-2 linkParent">
                 <span className="ml-4 position-absolute"><i className="fas fa-car-side"> </i></span>
                 <div style={{ marginLeft: "60px"}}>
-                    <NavLink to="/plate" className="link" onClick={props.closeMobileMenu}>Car Plate</NavLink>
+                    <a href="#car-plate" className="link">Car Plate</a>
                 </div>
             </div>
 
