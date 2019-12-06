@@ -4,7 +4,9 @@ import '../../../../css/components/UI/Background/Background.scss';
 
 // background without any animations yet
 
-const background = (props) => (
+const background = (props) => {
+    document.documentElement.style.setProperty('$basepx', `${(1080/window.innerWidth)*9}px`);
+return(
     <div className='Background_container'>
         <div class="car-wrapper">
             <div class="car-wrapper_inner">
@@ -45,7 +47,7 @@ const background = (props) => (
         <div className='Background_sky'></div>
         <div className='Background_ground'></div>
     </div>
-)
+)}
 
 export default background;
 
