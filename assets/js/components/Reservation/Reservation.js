@@ -23,24 +23,39 @@ const reservation = React.forwardRef((props, ref) => {
                             <svg className='Reservation_svg'> 
                             {console.log(props)}
                                 <circle className='Reservation_circleGreen' 
-                                    cx="50%" cy="50%" r="30%"
+                                    cx="50%" cy="55%" r="30%"
                                     strokeDasharray={`110% 110%`}/>
                                 <circle className='Reservation_circleRed' 
-                                    cx="50%" cy="50%" r="30%"
+                                    cx="50%" cy="55%" r="30%"
                                     strokeDasharray={`${props.graphStatus.status} 184.2%`}
                                     style={props.graphStatus.isVisible} />
                                 <text className='Reservation_text' 
-                                    x="50%" y="50%">
-                                        {`${(props.usedSpaces/props.parkingSpaces)*100}%`}
+                                    x="50%" y="45%">
+                                        {`${(props.usedSpaces/props.parkingSpaces)*100}%`}                      
+                                </text>
+                                <text className='Reservation_text'
+                                    x="35%" y="77.5%">
+                                        {`${(props.parkingSpaces)}`}                      
+                                </text>
+                                <text className='Reservation_text' style={{fontSize:'0.75em', fill:'#8d8d8d'}}
+                                    x="35%" y="85%">
+                                        {`Available`}                      
+                                </text>
+                                <line x1="50%" y1="15%" x2="50%" y2="32.5%" className='Reservation_line'></line>
+                                <text className='Reservation_text'
+                                    x="65%" y="77.5%">
+                                        {`${(props.usedSpaces)}`}                      
+                                </text>
+                                <text className='Reservation_text' style={{fontSize:'0.75em', fill:'#8d8d8d'}}
+                                    x="65%" y="85%">
+                                        {`Reserved`}                      
                                 </text>
                             </svg>
                         </a>
-                        
                         {props.userParkingSpot
-                            ? <div style={{fontSize:'1.5em', color:'#343a40'}}>Reserved No: <strong>{props.userParkingSpot}</strong></div>
-                            : <a data-toggle='tooltip' title='Tip: You can always ask for a switch'>
-                                <div style={{fontSize:'1.5em', color:'#343a40'}}>Avalable: <strong>{`${props.parkingSpaces-props.usedSpaces}`}</strong></div>
-                              </a>}
+                            ?<div style={{width:'#343a40', fontWeight:'900'}}>120 <br/> Your already have spot</div>
+                            :null}
+                        
                         
                         
                         <Button 

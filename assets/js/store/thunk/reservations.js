@@ -151,7 +151,7 @@ const fetchOneDayData = (date) => (dispatch, getState) => {
 }
 
 const fetchHomeData = (reservationStatus, user) => (dispatch, getState) => {
-    axios.get(`/api/reservation`)
+    axios.get(`/api/reservations`)
         .then(res => {
             const data = res.data
             data.map(reservation => {

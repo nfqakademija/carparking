@@ -2,7 +2,7 @@
     width:26%;
     min-width: 350px;
     min-height:375px;
-    height: 37.5%;
+    height: 45%;
     box-shadow: 5px 5px 10px 0px #343a40;
     margin:auto;
     margin-top: 2em; //this needs to be changed
@@ -32,8 +32,8 @@
 
  .Reservation_svg {
     margin: auto;
-    height:100%;
     width:85%;
+    height:100%;
     transform: rotate(164.2deg);
     min-height: 160px;
  }
@@ -65,6 +65,17 @@
     font-weight: 900;
 }
 
+.Reservation_line {
+    transform: rotate(15.8deg);
+    transform-origin: center;
+    text-anchor: middle;
+    opacity:0;
+    animation: Reservation_textFadeIn 1s linear forwards;
+    animation-delay: 1s;
+    stroke:#c2c1c1;
+    stroke-width: 1.5;
+}
+
 @keyframes Reservation_circleRed {
     from {
         stroke-dasharray: 0% 188.4%;
@@ -79,7 +90,7 @@
 
 @media(max-width:1480px){
     .Reservation_container {
-        max-height: 400px;
+        max-height: 500px;
     }
 }
 @media(max-width:400px){
