@@ -18,30 +18,40 @@ const reservation = React.forwardRef((props, ref) => {
                 {props.loading && new Date(props.loading).getDate() === date.getDate()
                     ? null
                     : <>
-                        <svg className='Reservation_svg'> 
-                            <circle className='Reservation_circleGreen' 
-                                cx="50%" cy="50%" r="40%"
-                                strokeDasharray={`94.2% 94.2%`}/>
-                            <circle className='Reservation_circleRed' 
-                                cx="50%" cy="50%" r="40%"
-                                strokeDasharray={`${props.graphStatus.status} 94.2%`}
-                                style={props.graphStatus.isVisible} />
-                            <text className='Reservation_text' 
-                                x="50%" y="50%"
-                                style={{fill:props.userParkingSpot?null:props.graphStatus.fill}}>
-                                    100%
-                                    {/* { props.userParkingSpot
-                                        ? props.userParkingSpot
-                                        : `${props.usedSpaces}/${props.parkingSpaces}`} */}
-                            </text>
-                        </svg>
+                        <a  data-toggle='tooltip' style={{minHeight:'60%', marginTop:'1em'}}
+                            title={`Parking spots: ${props.parkingSpaces} \nReserved: ${props.usedSpaces}`}>
+                            <svg className='Reservation_svg'> 
+                            {console.log(props)}
+                                <circle className='Reservation_circleGreen' 
+                                    cx="50%" cy="50%" r="30%"
+                                    strokeDasharray={`110% 110%`}/>
+                                <circle className='Reservation_circleRed' 
+                                    cx="50%" cy="50%" r="30%"
+                                    strokeDasharray={`${props.graphStatus.status} 184.2%`}
+                                    style={props.graphStatus.isVisible} />
+                                <text className='Reservation_text' 
+                                    x="50%" y="50%">
+                                        {`${(props.usedSpaces/props.parkingSpaces)*100}%`}
+                                </text>
+                            </svg>
+                        </a>
+                        
+                        {props.userParkingSpot
+                            ? <div style={{fontSize:'1.5em', color:'#343a40'}}>Reserved No: <strong>{props.userParkingSpot}</strong></div>
+                            : <a data-toggle='tooltip' title='Tip: You can always ask for a switch'>
+                                <div style={{fontSize:'1.5em', color:'#343a40'}}>Avalable: <strong>{`${props.parkingSpaces-props.usedSpaces}`}</strong></div>
+                              </a>}
+                        
+                        
                         <Button 
                             text={props.buttonOptions.buttonText} 
                             classname={`Button_${props.buttonOptions.buttonClass}`}
-                            buttonStyle={{width:'50%'}}
+                            buttonStyle={{width:'50%', marginBottom:'1em'}}
                             onclick={props.buttonOptions.buttonClass==='neutral'
                                         ? ()=>props.history.push('/users')
                                         : props.onButtonClick}/>
+                        
+                        
                     </>
                     }    
             </div>

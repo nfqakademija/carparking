@@ -16,7 +16,7 @@ const header = (props) => (
                                 <div className="d-flex justify-content-between">
                                     <div>
 
-                                        <span className="textLightGrey headerText" style={{marginLeft:'2rem'}}>
+                                        <span className="textLightGrey headerText" style={{marginLeft:'2em'}}>
                                             {/* <i className="mr-4 fas fa-car headerText" style={{color: "white", fontSize:'1.25em'}}> </i> */}
                                             NFQ parking
                                         </span>

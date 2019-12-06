@@ -10,7 +10,7 @@
   margin: auto;
   text-align: center;
   height: 100vh;
-  // font-size: 96px;
+  // font-size:15px;
   // font-weight: 100;
   // font-family: 'Lato', serif;
 }
@@ -21,16 +21,16 @@
 }
 
 .headerText {
-  font-size: 1.8rem;
+  font-size: 1.8em;
 }
 
 .webMeniu {
-  font-size: 1.8rem;
+  font-size: 1.8em;
 }
 
 @media(max-width: 320px){
   .headerText {
-    font-size: 1.4rem;
+    font-size: 1.4em;
   }
 }
 

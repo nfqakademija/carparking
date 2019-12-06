@@ -11,11 +11,11 @@
 }
 
 .Reservation_header {
-    padding:1rem;
+    padding:1em;
     background-color:#343a40;
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
-    font-size: 1.25rem;
+    border-top-left-radius: 0.25em;
+    border-top-right-radius: 0.25em;
+    font-size: 1.25em;
     text-align: center;
     justify-content: center;
     color: #f8f3f0;
@@ -27,15 +27,15 @@
     flex-grow: 1;
     display:flex;
     flex-direction: column;
+    justify-content: space-around;
  }
 
  .Reservation_svg {
-     width: 75%;
-     height: 75%;
-     margin: auto;
-     margin-top: 1rem;
-     transform: rotate(245deg);
-     min-height: 160px;
+    margin: auto;
+    height:100%;
+    width:85%;
+    transform: rotate(164.2deg);
+    min-height: 160px;
  }
 
  .Reservation_circleGreen {
@@ -54,14 +54,14 @@
 }
 
 .Reservation_text {
-    transform: rotate(180deg);
+    transform: rotate(195.8deg);
     transform-origin: center;
     text-anchor: middle;
-    font-size: 2rem;
+    font-size: 2em;
     opacity:0;
     animation: Reservation_textFadeIn 1s linear forwards;
     animation-delay: 1s;
-    fill: #71c271; // need to pick color here and think about visualization
+    fill: #343a40; // need to pick color here and think about visualization
     font-weight: 900;
 }
 
