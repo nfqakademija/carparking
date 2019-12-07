@@ -19,7 +19,7 @@ const plateModal = (props) => (
 
 
     <div id="car-plate" className="modal-window">
-        <a href="#" title="Close" className="modal-close p-4">Close</a>
+        <a href="#" className="modal-close p-4">Close</a>
 
         <div className="w-100">
 
@@ -34,7 +34,7 @@ const plateModal = (props) => (
                 placeholder={props.plate}
             />
             <br/>
-            <button className="btn btn-warning btn-lg mt-3 shadow" href="#" onClick={() => checkNumber(document.getElementById("plate").value)}>
+            <button className="btn btn-warning btn-lg mt-3 shadow" onClick={() => checkNumber(document.getElementById("plate").value)}>
                <b className="text-white">Update</b>
             </button>
         </div>

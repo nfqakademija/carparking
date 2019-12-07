@@ -1,6 +1,6 @@
 .modal-window {
   position: fixed;
-  background-color: rgba(255, 255, 255, 0.90);
+  background-color: rgba(52, 58, 64, 0.90);
   top: 0;
   right: 0;
   bottom: 0;
@@ -9,7 +9,7 @@
   visibility: hidden;
   opacity: 0;
   pointer-events: none;
-  transition: all 0.3s;
+  transition: all 0.8s;
 
   &:target {
     visibility: visible;
@@ -28,7 +28,7 @@
 }
 
 .modal-close {
-  color: black;
+  color: #f8f3f0;
   line-height: 30px;
   font-size: 30px;
   right: 0;
@@ -38,7 +38,7 @@
   text-decoration: none;
 
   &:hover {
-    color: black;
+    color: #c1b9b9;
   }
 }
 
@@ -48,8 +48,8 @@
 
 
 .licenseplate {
-  color: #333;
-  background-color: #fff;
+  color: #343a40;
+  background-color: #f8f3f0;
   background-image: url('./plate.svg');
   background-repeat: no-repeat;
 
@@ -61,7 +61,7 @@
   text-align: center;
   padding-left: 40px;
 
-  border: 4px solid #ccc;
+  border: 4px solid #c1b9b9;
   border-radius: 15px;
   outline: none;
 }
