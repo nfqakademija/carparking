@@ -19,7 +19,11 @@ const reservation = React.forwardRef((props, ref) => {
                     ? null
                     : <>
                         <a  data-toggle='tooltip' style={{minHeight:'60%', marginTop:'1em'}}
-                            title={`Parking spots: ${props.parkingSpaces} \nReserved: ${props.usedSpaces}`}>
+                            title={props.userParkingSpot
+                                    ? `You already have spot for this day`
+                                    : props.usedSpaces >= props.parkingSpaces 
+                                        ? `You can always ask a colleague to let you in their parking space`
+                                        :`You can reserve a parking space for this day`}>
                             <svg className='Reservation_svg'> 
                             {console.log(props)}
                                 <circle className='Reservation_circleGreen' 
@@ -29,7 +33,7 @@ const reservation = React.forwardRef((props, ref) => {
                                     cx="50%" cy="55%" r="30%"
                                     strokeDasharray={`${props.graphStatus.status} 184.2%`}
                                     style={props.graphStatus.isVisible} />
-                                <text className='Reservation_text' 
+                                <text className='Reservation_text' style={{fontSize:'2em'}}
                                     x="50%" y="45%">
                                         {`${(props.usedSpaces/props.parkingSpaces)*100}%`}                      
                                 </text>
@@ -57,9 +61,6 @@ const reservation = React.forwardRef((props, ref) => {
                                 {props.userParkingSpot} <br/> 
                                 <div style={{fontSize:'0.375em', marginTop:'-0.5em', color:'#8d8d8d'}}>Your spot</div></div>
                             :null}
-                        
-                        
-                        
                         <Button 
                             text={props.buttonOptions.buttonText} 
                             classname={`Button_${props.buttonOptions.buttonClass}`}
