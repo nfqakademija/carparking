@@ -12,7 +12,6 @@ const reservation = React.forwardRef((props, ref) => {
             <div className='Reservation_header'>
                 <span>{`${date.toLocaleDateString('en-EN', {weekday:'long'}).toUpperCase()} `}</span>
                 <span>{`${date.toLocaleDateString('en-EN', {month:'short'}).toUpperCase()} ${date.getDate()}`}</span>
-                  {/* needs some clean up */}
             </div>
             <div className='Reservation_body'>
                 {props.loading && new Date(props.loading).getDate() === date.getDate()
@@ -25,11 +24,10 @@ const reservation = React.forwardRef((props, ref) => {
                                         ? `You can always ask a colleague to let you in their parking space`
                                         :`You can reserve a parking space for this day`}>
                             <svg className='Reservation_svg'> 
-                            {console.log(props)}
-                                <circle className='Reservation_circleGreen' 
+                                <circle className='Reservation_circleBase' 
                                     cx="50%" cy="55%" r="30%"
                                     strokeDasharray={`110% 110%`}/>
-                                <circle className='Reservation_circleRed' 
+                                <circle className='Reservation_circleStatus' 
                                     cx="50%" cy="55%" r="30%"
                                     strokeDasharray={`${props.graphStatus.status} 184.2%`}
                                     style={props.graphStatus.isVisible} />
@@ -48,7 +46,7 @@ const reservation = React.forwardRef((props, ref) => {
                                 <line x1="50%" y1="15%" x2="50%" y2="32.5%" className='Reservation_line'></line>
                                 <text className='Reservation_text'
                                     x="65%" y="77.5%">
-                                        {`${(props.usedSpaces)}`}                      
+                                        {props.usedSpaces}                   
                                 </text>
                                 <text className='Reservation_text' style={{fontSize:'0.75em', fill:'#8d8d8d'}}
                                     x="65%" y="85%">
@@ -57,10 +55,10 @@ const reservation = React.forwardRef((props, ref) => {
                             </svg>
                         </a>
                         {props.userParkingSpot
-                            ?<div className='Reservation_userSpotText'>
+                            ? <div className='Reservation_userSpotText'>
                                 {props.userParkingSpot} <br/> 
                                 <div style={{fontSize:'0.375em', marginTop:'-0.5em', color:'#8d8d8d'}}>Your spot</div></div>
-                            :null}
+                            : null}
                         <Button 
                             text={props.buttonOptions.buttonText} 
                             classname={`Button_${props.buttonOptions.buttonClass}`}
@@ -68,8 +66,6 @@ const reservation = React.forwardRef((props, ref) => {
                             onclick={props.buttonOptions.buttonClass==='neutral'
                                         ? ()=>props.history.push('/users')
                                         : props.onButtonClick}/>
-                        
-                        
                     </>
                     }    
             </div>
