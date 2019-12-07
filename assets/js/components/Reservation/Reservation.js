@@ -39,7 +39,7 @@ const reservation = React.forwardRef((props, ref) => {
                                 </text>
                                 <text className='Reservation_text' style={{fontSize:'0.75em', fill:'#8d8d8d'}}
                                     x="35%" y="85%">
-                                        {`Available`}                      
+                                        {`Overall`}                      
                                 </text>
                                 <line x1="50%" y1="15%" x2="50%" y2="32.5%" className='Reservation_line'></line>
                                 <text className='Reservation_text'
@@ -48,12 +48,14 @@ const reservation = React.forwardRef((props, ref) => {
                                 </text>
                                 <text className='Reservation_text' style={{fontSize:'0.75em', fill:'#8d8d8d'}}
                                     x="65%" y="85%">
-                                        {`Reserved`}                      
+                                        {`Used`}                      
                                 </text>
                             </svg>
                         </a>
                         {props.userParkingSpot
-                            ?<div style={{width:'#343a40', fontWeight:'900'}}>120 <br/> Your already have spot</div>
+                            ?<div className='Reservation_userSpotText'>
+                                {props.userParkingSpot} <br/> 
+                                <div style={{fontSize:'0.375em', marginTop:'-0.5em', color:'#8d8d8d'}}>Your spot</div></div>
                             :null}
                         
                         

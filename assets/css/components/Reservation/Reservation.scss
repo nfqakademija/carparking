@@ -57,7 +57,7 @@
     transform: rotate(195.8deg);
     transform-origin: center;
     text-anchor: middle;
-    font-size: 2em;
+    font-size: 1.75em;
     opacity:0;
     animation: Reservation_textFadeIn 1s linear forwards;
     animation-delay: 1s;
@@ -74,6 +74,15 @@
     animation-delay: 1s;
     stroke:#c2c1c1;
     stroke-width: 1.5;
+}
+
+.Reservation_userSpotText {
+    font-weight: 900;
+    font-size: 2em;
+    margin-top: -0.75em;
+    opacity: 0;
+    color: #343a40;
+    animation: Reservation_textFadeIn 1s linear forwards ;
 }
 
 @keyframes Reservation_circleRed {
