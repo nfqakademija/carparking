@@ -95,6 +95,12 @@
 .UserTable_greenIcon {
     color:#95D195;
     font-size: 1.5em;
+}
+
+.UserTable_greenClickableIcon {
+    color:#95D195;
+    font-size: 1.5em;
+    cursor: pointer;
     &:hover {
         color:#71c271;
     }
@@ -107,6 +113,11 @@
 
 .UserTable_redIcon {
     color: #E68F8C;
+    font-size: 1.5em;
+}
+
+.UserTable_greyIcon {
+    color: #c1b9b9;
     font-size: 1.5em;
 }
 

@@ -25,8 +25,16 @@ const usersTable = (props) => (
                     <div>
                         {props.reservationStatus.map( dayObj => (
                             dayObj.userReservation
-                                ? <i key={dayObj.date} className="fas fa-parking" style={{color:'#95D195', fontSize: '1.5em'}}></i>
-                                : <i key={dayObj.date} className="fas fa-parking UserTable_redIcon"></i> 
+                                ?<a data-toggle='tooltip'
+                                    key={dayObj.date}
+                                    title={`You already have a parking spot for ${dayObj.date.toLocaleDateString('en-EN', {weekday:'long'})}`}>
+                                        <i key={dayObj.date} className="fas fa-parking UserTable_greenIcon" ></i>
+                                 </a>
+                                :<a data-toggle='tooltip'
+                                    key={dayObj.date}
+                                    title={`You can ask for parking space for ${dayObj.date.toLocaleDateString('en-EN', {weekday:'long'})} by clicking on the icon in this column `}>
+                                        <i key={dayObj.date} className="fas fa-parking UserTable_redIcon"></i> 
+                                 </a>
                         ))}
                     </div>
                 </div>
@@ -39,9 +47,15 @@ const usersTable = (props) => (
                                     // every icon has spot in grid and this code checking if user has reservation in this grid space
                                     user.reservations !== []
                                     ? user.reservations.find( reservation => new Date (reservation['reservation_date']).getDate() === new Date(dayObj.date).getDate() )
-                                        ? <i key={dayObj.date} className="fas fa-parking UserTable_greenIcon"></i>
-                                        : <i key={dayObj.date} className="fas fa-parking UserTable_redIcon"></i>
-                                    : <i key={dayObj.date} className="fas fa-parking UserTable_redIcon"></i>
+                                        ? dayObj.userReservation
+                                            ?<i key={dayObj.date} className="fas fa-parking UserTable_greenIcon"></i>
+                                            :<a data-toggle='tooltip'
+                                                key={dayObj.date}
+                                                title={`You can ask ${user.name} for parking space for ${dayObj.date.toLocaleDateString('en-EN', {weekday:'long'})}`}>
+                                                    <i key={dayObj.date} className="fas fa-parking UserTable_greenClickableIcon"></i>
+                                             </a>
+                                        : <i key={dayObj.date} className="fas fa-parking UserTable_greyIcon"></i>
+                                    : <i key={dayObj.date} className="fas fa-parking UserTable_greyIcon"></i>
                                 ))}
                             </div>
                         </div>
