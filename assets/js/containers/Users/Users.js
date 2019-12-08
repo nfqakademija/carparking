@@ -32,6 +32,7 @@ class Users extends Component {
                     uniqueStyle={popup.style}
                     successTimer={this.props.onSuccessTimer}
                     user={popup.switchUser}
+                    isUser={true}
                 />
     }
 
