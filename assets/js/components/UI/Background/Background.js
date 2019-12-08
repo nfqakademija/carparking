@@ -2,7 +2,6 @@ import React from 'react';
 
 import '../../../../css/components/UI/Background/Background.scss';
 
-// background without any animations yet
 
 const background = (props) => (
     

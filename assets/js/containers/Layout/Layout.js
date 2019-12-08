@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Background from '../../components/UI/Background/Background';
+import BackgroundHome from '../../components/UI/Background/BackgroundHome';
 import Header from '../../components/UI/Header/Header';
 import Menu from '../../components/UI/Menu/webMenu';
 
@@ -9,7 +10,9 @@ class Layout extends Component {
     render (){
         return(
             <>
-                <Background/>
+                {this.props.user
+                    ? <BackgroundHome/>
+                    : <Background/>}
                 <Header
                     openMenu={this.openMenuHandler}
                     closeMenu={this.closeMenuHandler}/>
