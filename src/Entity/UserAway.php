@@ -27,7 +27,7 @@ class UserAway
     private $awayEndDate;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="userAways")
+     * @ORM\ManyToOne(targetEntity="Users", inversedBy="userAways")
      * @ORM\JoinColumn(nullable=false)
      */
     private $awayUser;
