@@ -2,10 +2,8 @@ import React from 'react';
 
 import '../../../../css/components/UI/Background/Background.scss';
 
-// background without any animations yet
-
+console.log('aaaa')
 const background = (props) => (
-    
     <div className='Background_container'>
         <div className="car-wrapper">
             <div className="car-wrapper_inner">

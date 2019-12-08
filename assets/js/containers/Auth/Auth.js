@@ -11,6 +11,7 @@ const auth = (props) => {
   return (
     <>
       <Background/>
+      
       <div className='Auth_container'>
         <div className='Auth_header'>
           LOG IN
