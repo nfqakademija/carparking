@@ -2,8 +2,8 @@ import React from 'react';
 
 import '../../../css/components/UsersTable/UsersTable.scss';
 
-const usersTable = (props) => (
-        <div className='UsersTable_container'> 
+const usersTable = React.forwardRef((props, ref) => (
+        <div className='UsersTable_container' ref={ref}> 
             <div className='UsersTable_header'>
                 USERS
             </div>
@@ -52,7 +52,7 @@ const usersTable = (props) => (
                                             :<a data-toggle='tooltip'
                                                 key={dayObj.date}
                                                 title={`You can ask ${user.name} for parking space for ${dayObj.date.toLocaleDateString('en-EN', {weekday:'long'})}`}>
-                                                    <i key={dayObj.date} className="fas fa-parking UserTable_greenClickableIcon"></i>
+                                                    <i key={dayObj.date} onClick={()=>props.onclick(dayObj, user)} className="fas fa-parking UserTable_greenClickableIcon"></i>
                                              </a>
                                         : <i key={dayObj.date} className="fas fa-parking UserTable_greyIcon"></i>
                                     : <i key={dayObj.date} className="fas fa-parking UserTable_greyIcon"></i>
@@ -63,6 +63,7 @@ const usersTable = (props) => (
                 ))}
             </div>
         </div>      
+    )
     )
 
 export default usersTable;

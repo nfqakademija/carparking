@@ -2,9 +2,13 @@
     width: 75%;
     height: 85%;
     margin-top: 3em;
+    margin-left: 15px;
+    margin-right: 15px;
     box-shadow: 5px 5px 10px 0px #343a40;
     display: flex;
     flex-direction: column;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
 }
 
 .UsersTable_header {

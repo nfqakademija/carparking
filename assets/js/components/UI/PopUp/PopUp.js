@@ -10,8 +10,10 @@ const popUp = (props) => {
         left: props.left,
         width: props.width,
         transform: props.translate ?'translateY(0)': 'translateY(-300px)',
-        backgroundColor:"#343a40"
+        backgroundColor:"#343a40",
     }
+
+    console.log(props.user)
 
     let statusText = null 
     let successText = null 
@@ -30,8 +32,8 @@ const popUp = (props) => {
                 successText = <div style={{textTransform:'uppercase', fontSize:'1.25rem'}}> Successfully canceled your parking reservation for {dateString} !</div>
                 break
             case 'neutral':
-                statusText = <span style={{textTransform:'uppercase', fontSize:'1.25rem'}}> Are you sure you want to ask Lukas to swap parking spaces for {dateString}</span>
-                successText = <div style={{textTransform:'uppercase', fontSize:'1.25rem'}}> Lukas successfully received a request to swap parking spaces for {dateString} !</div>
+                statusText = <span style={{textTransform:'uppercase', fontSize:'1.25rem'}}> Are you sure you want to ask {props.user.name} to swap parking spaces for {dateString}</span>
+                successText = <div style={{textTransform:'uppercase', fontSize:'1.25rem'}}> {props.user.name} successfully received a request to swap parking spaces for {dateString} !</div>
                 break
         }
     }
