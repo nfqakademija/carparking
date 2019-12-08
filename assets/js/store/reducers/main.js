@@ -28,7 +28,11 @@ const reducer = (state = initialState, action) => {
         case actionTypes.LOGIN:
             return { 
                 ...state,
-                token: true
+                token: true,
+                user: {
+                    ...state.user,
+                    id: Number(action.id)
+                }
             }
         case actionTypes.LOGOUT:
             return {
