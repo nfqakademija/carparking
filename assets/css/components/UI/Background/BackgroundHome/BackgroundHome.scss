@@ -4,7 +4,7 @@
     }
   }
 
-.Background_container {
+.Background_container1 {
     position: absolute;
     top: 0;
     left: 0;
@@ -73,14 +73,14 @@ html, body{
   width: 100%;
   display: table;
   overflow: hidden;
-  .car-wrapper{
+  .car-wrapper1{
     display: table-cell;
     vertical-align: middle;
     width: 100%;
   }
 }
 
-.car{
+.car1{
   width: em(32vw, $basepx);
   height: em(20vw, $basepx);
   position: relative;
@@ -299,6 +299,38 @@ html, body{
     background-color:#f8f3f0;
     border-radius: 50%;
     @include prefix(transform, rotate(-30deg));
+  }
+  .window{
+    position: absolute;
+    top: em(1.8vw, $basepx);
+    left: em(20vw, $basepx);
+    width: em(3.2vw, $basepx);
+    background: #5bc2ef;
+    height: em(7.2vw, $basepx);
+    border-radius: 10px 10px 0 10px;
+    &:before{
+      content: "";
+      width: 100%;
+      height: em(2vw, $basepx);
+      background: #5bc2ef;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: em(4.7vw, $basepx);
+      border-radius: 0 10px 10px 10px;
+    }
+    &:after{
+      content: "";
+      height: em(2vw, $basepx);
+      background: #5bc2ef;
+      position: absolute;
+      top: em(1.7vw, $basepx);
+      left: em(-1.3vw, $basepx);
+      width: em(6.7vw, $basepx);
+      transform-origin: bottom;
+      @include prefix(transform, rotate(74deg));
+      border-radius: 10px 10px 10px 10px;
+    }    
   }
 }
 
@@ -522,6 +554,38 @@ html, body{
       border-radius: 50%;
       @include prefix(transform, rotate(-30deg));
     }
+    .window{
+      position: absolute;
+      top: em(1.8vw, $basepx);
+      left: em(20vw, $basepx);
+      width: em(3.2vw, $basepx);
+      background: #5bc2ef;
+      height: em(7.2vw, $basepx);
+      border-radius: 10px 10px 0 10px;
+      &:before{
+        content: "";
+        width: 100%;
+        height: em(2vw, $basepx);
+        background: #5bc2ef;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: em(4.7vw, $basepx);
+        border-radius: 0 10px 10px 10px;
+      }
+      &:after{
+        content: "";
+        height: em(2vw, $basepx);
+        background: #5bc2ef;
+        position: absolute;
+        top: em(1.7vw, $basepx);
+        left: em(-1.3vw, $basepx);
+        width: em(6.7vw, $basepx);
+        transform-origin: bottom;
+        @include prefix(transform, rotate(74deg));
+        border-radius: 10px 10px 10px 10px;
+      }    
+    }
   }
 
 .text {
@@ -531,7 +595,7 @@ html, body{
   color:rgb(255, 107, 0);
 }
 
-.car-wrapper_inner{
+.car-wrapper_inner1{
   position: absolute;
   z-index: 4;
   bottom: 15%;
@@ -550,10 +614,10 @@ html, body{
   }
 }
 
-.car_outter{
+.car_outter1{
   @include prefix(transform, translateX(-320%));
   position: relative;
-  animation: carDrive 5s ease-in-out infinite;
+  animation: carDrive1 5s ease-in-out infinite;
 }
 
 .car_outter2{
@@ -586,7 +650,7 @@ html, body{
     animation: carDrive6 5s ease-in-out infinite;
   }
 
-@keyframes carDrive{
+@keyframes carDrive1{
     75%{
         transform: translateX(-220%);
     }

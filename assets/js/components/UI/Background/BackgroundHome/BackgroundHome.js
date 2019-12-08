@@ -1,15 +1,15 @@
 import React from 'react';
 
-import '../../../../css/components/UI/Background/BackgroundHome.scss';
+import '../../../../../css/components/UI/Background/BackgroundHome/BackgroundHome.scss';
 
 
 const background = (props) => (
     
-    <div className='Background_container'>
-        <div className="car-wrapper">
-            <div className="car-wrapper_inner">
-                <div className="car_outter">  
-                    <div className="car">
+    <div className='Background_container1'>
+        <div className="car-wrapper1">
+            <div className="car-wrapper_inner1">
+                <div className="car_outter1">  
+                    <div className="car1">
                         <div className="body">
                             <div></div>
                         </div>
@@ -35,8 +35,8 @@ const background = (props) => (
                 </div>
             </div>
         </div>
-        <div className="car-wrapper">
-            <div className="car-wrapper_inner">
+        <div className="car-wrapper1">
+            <div className="car-wrapper_inner1">
                 <div className="car_outter2">  
                     <div className="car2">
                         <div className="body">
@@ -64,10 +64,10 @@ const background = (props) => (
                 </div>
             </div>
         </div>
-        <div className="car-wrapper">
-            <div className="car-wrapper_inner">
+        <div className="car-wrapper1">
+            <div className="car-wrapper_inner1">
                 <div className="car_outter3">  
-                    <div className="car">
+                    <div className="car1">
                         <div className="body">
                             <div></div>
                         </div>
@@ -93,8 +93,8 @@ const background = (props) => (
                 </div>
             </div>
         </div>
-        <div className="car-wrapper">
-            <div className="car-wrapper_inner">
+        <div className="car-wrapper1">
+            <div className="car-wrapper_inner1">
                 <div className="car_outter4">  
                     <div className="car2">
                         <div className="body">
@@ -122,10 +122,10 @@ const background = (props) => (
                 </div>
             </div>
         </div>
-        <div className="car-wrapper">
-            <div className="car-wrapper_inner">
+        <div className="car-wrapper1">
+            <div className="car-wrapper_inner1">
                 <div className="car_outter5">  
-                    <div className="car">
+                    <div className="car1">
                         <div className="body">
                             <div></div>
                         </div>
@@ -151,8 +151,8 @@ const background = (props) => (
                 </div>
             </div>
         </div>
-        <div className="car-wrapper">
-            <div className="car-wrapper_inner">
+        <div className="car-wrapper1">
+            <div className="car-wrapper_inner1">
                 <div className="car_outter6">  
                     <div className="car2">
                         <div className="body">
