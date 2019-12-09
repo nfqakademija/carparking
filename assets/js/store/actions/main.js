@@ -134,3 +134,9 @@ export const fetchOneDayDataSuccess = (data) => {
         data
     }
 }
+
+export const setNotification = () => {
+    return {
+        type: actionTypes.SET_NOTIFICATION
+    }
+}

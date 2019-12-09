@@ -14,8 +14,6 @@ const popUp = (props) => {
         marginLeft: props.isUser ?'15px' :'15px'
     }
 
-    console.log(props.user)
-
     let statusText = null 
     let successText = null 
             

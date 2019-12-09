@@ -15,5 +15,6 @@ export {
     popupSuccess,
     popupStyleReset,
     fetchOneDayDataStart,
-    fetchOneDayDataSuccess
+    fetchOneDayDataSuccess,
+    setNotification
 } from './main'
