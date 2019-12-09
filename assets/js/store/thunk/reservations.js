@@ -59,7 +59,6 @@ export const popupAcceptClicked = (date, user, actionType) => dispatch => {
     const startDate = new Date(newDate).toISOString().slice(0,-14);
     switch (actionType) {
         case 'danger':
-            console.log('danger')
             const postData = {
                 "id": user.id,
                 "away_date": [
@@ -74,7 +73,6 @@ export const popupAcceptClicked = (date, user, actionType) => dispatch => {
                 })
             break
         case 'success':
-            console.log('success')
             const found = user.aways.find(away => new Date(away['away_start_date']).getDate() == newDate.getDate())
             const deleteData = {
                 "away_date": [
@@ -103,7 +101,10 @@ export const popupAcceptClicked = (date, user, actionType) => dispatch => {
                     dispatch(successTimer())
                 })
             }
-            break      
+            break 
+        case 'neutral':
+                dispatch(actions.popupAcceptSuccess())
+                dispatch(successTimer())
     }   
 }
 

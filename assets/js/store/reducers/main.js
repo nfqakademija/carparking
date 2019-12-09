@@ -92,7 +92,8 @@ const reducer = (state = initialState, action) => {
                     ...state.popup,
                     show: true,
                     type: action.buttonType,
-                    date: action.date
+                    date: action.date,
+                    switchUser: action.switchUser
                 }
             }
         case actionTypes.POPUP_CANCEL:
