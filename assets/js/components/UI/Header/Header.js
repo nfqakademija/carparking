@@ -16,7 +16,7 @@ const header = (props) => (
                                 <div className="d-flex justify-content-between">
                                     <div>
 
-                                        <span className="textLightGrey headerText" style={{marginLeft:'2rem'}}>
+                                        <span className="textLightGrey headerText" style={{marginLeft:'2em'}}>
                                             {/* <i className="mr-4 fas fa-car headerText" style={{color: "white", fontSize:'1.25em'}}> </i> */}
                                             NFQ parking
                                         </span>
@@ -24,7 +24,9 @@ const header = (props) => (
                                     <div className="align-self-center d-flex">
                                         <div className="d-none d-md-block align-self-center">
                                             <i className="textLightGrey h4 align-middle m-0">
-                                                {`${props.userName} ${props.userLastname}`}
+                                                {props.userName
+                                                ?`${props.userName} ${props.userLastname}`
+                                                :null}
                                             </i>
                                         </div>
                                         <div>

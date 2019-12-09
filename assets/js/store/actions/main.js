@@ -1,8 +1,9 @@
 import * as actionTypes from './actionTypes';
 
-export const login = () => {
+export const login = (id) => {
     return {
-        type: actionTypes.LOGIN
+        type: actionTypes.LOGIN,
+        id
     }
 }
 
@@ -62,11 +63,12 @@ export const noCoordinates = () => {
     }
 }
 
-export const buttonClicked = (date, buttonType) => {
+export const buttonClicked = (date, buttonType, switchUser) => {
     return {
         type: actionTypes.BUTTON_CLICKED,
         date,
-        buttonType
+        buttonType,
+        switchUser
     }
 }
 

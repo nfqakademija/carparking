@@ -28,7 +28,11 @@ const reducer = (state = initialState, action) => {
         case actionTypes.LOGIN:
             return { 
                 ...state,
-                token: true
+                token: true,
+                user: {
+                    ...state.user,
+                    id: Number(action.id)
+                }
             }
         case actionTypes.LOGOUT:
             return {
@@ -88,7 +92,8 @@ const reducer = (state = initialState, action) => {
                     ...state.popup,
                     show: true,
                     type: action.buttonType,
-                    date: action.date
+                    date: action.date,
+                    switchUser: action.switchUser
                 }
             }
         case actionTypes.POPUP_CANCEL:

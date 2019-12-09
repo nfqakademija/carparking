@@ -15,7 +15,7 @@ class App extends Component {
 
         let routes =
         <Switch>
-            <Route path='/' component={Login}/> 
+            <Route path='/' exact component={Login}/> 
             <Redirect from='/' to='/'/>
         </Switch>
 
@@ -23,10 +23,10 @@ class App extends Component {
             routes = 
             <Layout user={this.props.user}>
                 <Switch>   
-                    <Route path="/home" component={Home}/>
-                    <Route path='/users' component={Users}/>
-                    <Route path='/logout' component={Logout}/>
-                    <Route path='/plate' component={Plate}/>
+                    <Route path="/home" exact component={Home}/>
+                    <Route path='/users' exact component={Users}/>
+                    <Route path='/logout' exact component={Logout}/>
+                    <Route path='/plate' exact component={Plate}/>
                     <Redirect from='/' to='/home'/>
                 </Switch>
             </Layout>
