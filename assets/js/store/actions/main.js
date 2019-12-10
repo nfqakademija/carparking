@@ -158,3 +158,15 @@ export const notificationPopupAcceptSuccess = () => {
         type: actionTypes.NOTIFICATION_POPUP_ACCEPT_SUCCESS
     }
 }
+
+export const popupOpenedStart = () => {
+    return {
+        type: actionTypes.POPUP_OPENED_START
+    }
+}
+
+export const popupOpenedReset = () => {
+    return {
+        type: actionTypes.POPUP_OPENED_RESET
+    }
+}

@@ -6,7 +6,7 @@ const initialState = {
     token: 1,
     loading: false,
     user: {
-        id: 11,
+        id: 4,
         name: null,
         lastname: null,
         activeCar: null,
@@ -36,7 +36,8 @@ const initialState = {
         left: '0px'
     },
     loadingOneDay: false,
-    mobileMenu: false
+    mobileMenu: false,
+    popupShake: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -241,6 +242,16 @@ const reducer = (state = initialState, action) => {
                     ...state.user,
                     notifications: state.user.notifications.slice(1)
                 }
+            }
+        case actionTypes.POPUP_OPENED_START:
+            return {
+                ...state,
+                popupShake: true
+            }
+        case actionTypes.POPUP_OPENED_RESET:
+            return {
+                ...state,
+                popupShake: false
             }
         default: return state
     }

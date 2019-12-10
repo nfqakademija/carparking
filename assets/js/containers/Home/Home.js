@@ -89,6 +89,7 @@ class Home extends Component {
                         loading={popup.loading}
                         uniqueStyle={popup.style}
                         successTimer={this.props.onSuccessTimer}
+                        shake={this.props.popupShake}
                     />
         
     }
@@ -106,6 +107,7 @@ class Home extends Component {
             return <NotificationsPopUp
                         translate={popup.show}
                         popup={popup}
+                        shake={this.props.popupShake}
                         popupCancel={() => {this.props.onNotificationPopupCancel(); this.notificationPopupChainHandler()}}
                         popupAccept={() => this.props.onNotificationPopupAccept(popup.date)}
                         successTimer={this.props.onSuccessTimer}/> 
@@ -159,7 +161,8 @@ const mapStateToProps = state => {
         popup: state.popup,
         user: state.user,
         loadingOneDay: state.loadingOneDay,
-        notificationPopup: state.notificationPopup
+        notificationPopup: state.notificationPopup,
+        popupShake: state.popupShake
     }
 }
 

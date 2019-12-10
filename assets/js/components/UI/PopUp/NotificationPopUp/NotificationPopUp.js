@@ -3,7 +3,6 @@ import React from 'react';
 import Button from '../../Button/Button';
 
 import '../../../../../css/components/UI/PopUp/PopUp.scss';
-import { closeMobileMenu } from '../../../../store/actions/main';
 
 const notificationPopUp = (props) => {
     let popupType = {
@@ -31,6 +30,12 @@ const notificationPopUp = (props) => {
             display:'flex',
             alignItems: 'center',
             justifyContent: 'center'
+        }
+    }
+    if(props.shake && props.popup && props.popup.show){
+        popupType = {
+            ...popupType,
+            animation: 'shake 0.5s ease-out both'
         }
     }
 

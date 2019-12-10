@@ -47,6 +47,14 @@ const popUp = (props) => {
             justifyContent: 'center'
         }
     }
+
+    if(props.shake && props.type && props.type.show){
+        
+        popupType = {
+            ...popupType,
+            animation: 'shake 0.5s ease-out both'
+        }
+    }
     
     return (
         <>

@@ -19,5 +19,7 @@ export {
     setNotification,
     notificationPopupCancel,
     notificationPopupAcceptStart,
-    notificationPopupAcceptSuccess
+    notificationPopupAcceptSuccess,
+    popupOpenedStart,
+    popupOpenedReset
 } from './main'

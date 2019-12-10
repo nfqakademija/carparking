@@ -17,7 +17,9 @@ const webMeniu = (props) => (
                 <div className="position-relative py-2 linkParent">
                     <span className="ml-4 position-absolute"><i className="fa fa-users"> </i></span>
                     <div style={{marginLeft: "5rem"}}>
-                        <NavLink to="/users" className="link" activeClassName='webMenu_activeClass' onClick={props.onclick}>Watch Users</NavLink>
+                        {props.popupOpened
+                            ?<a title='You must first accept or reject the swap request' className="link" onClick={props.popupOpened}>Watch Users</a>
+                            :<NavLink to="/users" className="link" activeClassName='webMenu_activeClass' onClick={props.onclick}>Watch Users</NavLink>}
                     </div>
                 </div>
                 <hr className="m-0" />
