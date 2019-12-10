@@ -49,11 +49,17 @@ const usersTable = React.forwardRef((props, ref) => (
                                     ? user.reservations.find( reservation => new Date (reservation['reservation_date']).getDate() === new Date(dayObj.date).getDate() )
                                         ? dayObj.userReservation
                                             ?<i key={dayObj.date} className="fas fa-parking UserTable_greenIcon"></i>
-                                            :<a data-toggle='tooltip'
-                                                key={dayObj.date}
-                                                title={`You can ask ${user.name} for parking space for ${dayObj.date.toLocaleDateString('en-EN', {weekday:'long'})}`}>
-                                                    <i key={dayObj.date} onClick={()=>props.onclick(dayObj, user)} className="fas fa-parking UserTable_greenClickableIcon"></i>
-                                             </a>
+                                            :props.popupShake
+                                                ? <a data-toggle='tooltip'
+                                                        key={dayObj.date}
+                                                        title='You must first accept or reject notification message'>
+                                                            <i key={dayObj.date} onClick={props.popupShake} className="fas fa-parking UserTable_greenClickableIcon"></i>
+                                                  </a>
+                                                : <a data-toggle='tooltip'
+                                                    key={dayObj.date}
+                                                    title={`You can ask ${user.name} for parking space for ${dayObj.date.toLocaleDateString('en-EN', {weekday:'long'})}`}>
+                                                        <i key={dayObj.date} onClick={()=>props.onclick(dayObj, user)} className="fas fa-parking UserTable_greenClickableIcon"></i>
+                                                  </a>
                                         : <i key={dayObj.date} className="fas fa-parking UserTable_greyIcon"></i>
                                     : <i key={dayObj.date} className="fas fa-parking UserTable_greyIcon"></i>
                                 ))}

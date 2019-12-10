@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 
 import { getUsersData, popupAcceptClicked } from '../../store/thunk/reservations';
-import { getCoordinates } from '../../store/thunk/popup';
+import { getCoordinates, popupOpened } from '../../store/thunk/popup';
 import { buttonClicked, popupCancel } from '../../store/actions/index';
 
 import UsersTable from '../../components/UsersTable/UsersTable';
@@ -33,6 +33,7 @@ class Users extends Component {
                     successTimer={this.props.onSuccessTimer}
                     user={popup.switchUser}
                     isUser={true}
+                    shake={this.props.popupShake}
                 />
     }
 
@@ -54,7 +55,8 @@ class Users extends Component {
                                 usersList={this.props.usersList}
                                 reservationStatus={this.props.reservationStatus}
                                 mainUser={this.props.mainUser}
-                                onclick={(dayObj, switchUser) => this.props.onButtonClick(dayObj.date, 'neutral', this.userTableRef, switchUser)}/>
+                                onclick={(dayObj, switchUser) => this.props.onButtonClick(dayObj.date, 'neutral', this.userTableRef, switchUser)}
+                                popupShake={this.props.popupShow || this.props.notificationPopupShow ?this.props.onPopupOpened :false}/>
                         </div>
                     } 
                 </div>  
@@ -70,7 +72,10 @@ const mapStateToProps = state => {
         reservationStatus: state.reservationStatus,
         mainUser: state.user,
         popup: state.popup,
-        user: state.user
+        user: state.user,
+        popupShake: state.popupShake,
+        popupShow: state.popup.show,
+        notificationPopupShow: state.notificationPopup.show
     }
 }
 
@@ -79,7 +84,8 @@ const mapDispatchToProps= dispatch => ({
     onGetUsersData: () => dispatch(getUsersData()),
     onButtonClick: (date, buttonType, ref, switchUser) => {dispatch(getCoordinates(ref ,ref)),dispatch(buttonClicked(date, buttonType, switchUser))},
     onPopupAccept: (date, user, actionType) => dispatch(popupAcceptClicked(date, user, actionType)),
-    onPopupCancel: () => dispatch(popupCancel())
+    onPopupCancel: () => dispatch(popupCancel()),
+    onPopupOpened: () => dispatch(popupOpened())
 })
 
 

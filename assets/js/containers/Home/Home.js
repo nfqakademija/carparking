@@ -5,7 +5,7 @@ import axios from 'axios';
 import { connect } from "react-redux";
 
 import { getHomeData, popupAcceptClicked, successTimer, buttonClickedMid, notificationPopupAccept } from '../../store/thunk/reservations';
-import { getCoordinates } from '../../store/thunk/popup';
+import { getCoordinates, popupOpened } from '../../store/thunk/popup';
 import { popupCancel, setNotification, notificationPopupCancel } from '../../store/actions/index';
 
 import Reservation from '../../components/Reservation/Reservation';
@@ -144,7 +144,8 @@ class Home extends Component {
                             graphStatus={this.graphHandler(day)}
                             onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day).buttonClass, this.reservationRefFirst, this.reservationRefLast)}
                             history={this.props.history}
-                            loading={this.props.loadingOneDay}/>
+                            loading={this.props.loadingOneDay}
+                            popupShake={this.props.popup.show || this.props.notificationPopup.show ?this.props.onPopupOpened :false}/>
                     )})}
                 </div>
              </div>
@@ -175,7 +176,8 @@ const mapDispatchToProps= dispatch => ({
     onSetNotification: () => dispatch(setNotification()),
     onNotificationPopupCancel: () => dispatch(notificationPopupCancel()),
     onNotificationPopupAccept: (date) => dispatch(notificationPopupAccept(date)),
-    onGetCoordinates: (first, last) => dispatch(getCoordinates(first, last))
+    onGetCoordinates: (first, last) => dispatch(getCoordinates(first, last)),
+    onPopupOpened: () => dispatch(popupOpened())
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(Home);
