@@ -20,8 +20,10 @@ const notificationPopUp = (props) => {
                             <span>{`${date.toLocaleDateString('en-EN', {weekday:'long'}).toUpperCase()} `}</span>
                             <span>{`${date.toLocaleDateString('en-EN', {month:'short'}).toUpperCase()} ${date.getDate()}`}</span> 
                         </>
-    let statusText = <span style={{textTransform:'uppercase', fontSize:'1.25rem'}}> Are you sure you want to reserve a parking spot for {dateString}</span>
-    const successText = <span style={{textTransform:'uppercase', fontSize:'1.25rem'}}> Are</span>
+    let statusText = <span style={{textTransform:'uppercase', fontSize:'1.25rem'}}> 
+                        <strong>{props.popup.name} {props.popup.surname}</strong> ask you to swap parking space for <strong>{dateString}</strong>
+                    </span>
+    const successText = <span style={{textTransform:'uppercase', fontSize:'1.25rem'}}> You have successfully donated parking for <strong>{props.popup.name}</strong></span>
     if(props.popup.style){
         popupType = {
             ...popupType,

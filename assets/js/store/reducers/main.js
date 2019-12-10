@@ -203,7 +203,9 @@ const reducer = (state = initialState, action) => {
                 notificationPopup: {
                     ...state.notificationPopup,
                     show: true,
-                    date: state.user.notifications[0].date
+                    date: state.user.notifications[0].date,
+                    name: state.user.notifications[0].name,
+                    surname: state.user.notifications[0].surname
                 }
             }
         case actionTypes.NOTIFICATION_POPUP_CANCEL:
