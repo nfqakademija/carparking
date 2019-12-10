@@ -11,7 +11,7 @@ const webMeniu = (props) => (
                     <i className="fa fa-check-square-o"></i></span>
                     <div style={{marginLeft: "5rem"}}>
                         {props.popupOpened
-                                ?<a title='You must first accept or reject notification message' className="link" onClick={props.popupOpened}>Watch Users</a>
+                                ?<a title='You must first accept or reject notification message' className="link" onClick={props.popupOpened}>Reserve</a>
                                 :<NavLink to='/home' activeClassName='webMenu_activeClass' className="link" onClick={props.onclick}>Reserve</NavLink>}
                     </div>
                 </div>
