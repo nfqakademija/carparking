@@ -92,6 +92,11 @@ const reducer = (state = initialState, action) => {
                     ...state.popup,
                     width: action.width,
                     left: action.left
+                },
+                notificationPopup: {
+                    ...state.notificationPopup,
+                    width: action.width,
+                    left: action.left
                 }
             }
         case actionTypes.NO_COORDINATES:
@@ -190,6 +195,18 @@ const reducer = (state = initialState, action) => {
                     ...state.notificationPopup,
                     show: true,
                     date: state.user.notifications[0].date
+                }
+            }
+        case actionTypes.NOTIFICATION_POPUP_CANCEL:
+            return {
+                ...state,
+                notificationPopup: {
+                    ...state.notificationPopup,
+                    show: false
+                },
+                user: {
+                    ...state.user,
+                    notifications: state.user.notifications.slice(1)
                 }
             }
         default: return state

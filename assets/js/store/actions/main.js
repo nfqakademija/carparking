@@ -140,3 +140,9 @@ export const setNotification = () => {
         type: actionTypes.SET_NOTIFICATION
     }
 }
+
+export const notificationPopupCancel = () => {
+    return {
+        type: actionTypes.NOTIFICATION_POPUP_CANCEL
+    }
+}

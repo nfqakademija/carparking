@@ -5,8 +5,8 @@ import axios from 'axios';
 import { connect } from "react-redux";
 
 import { getHomeData, popupAcceptClicked, successTimer, buttonClickedMid } from '../../store/thunk/reservations';
-
-import { popupCancel, setNotification } from '../../store/actions/index';
+import { getCoordinates } from '../../store/thunk/popup';
+import { popupCancel, setNotification, notificationPopupCancel } from '../../store/actions/index';
 
 import Reservation from '../../components/Reservation/Reservation';
 import PopUp from '../../components/UI/PopUp/PopUp';
@@ -25,10 +25,10 @@ class Home extends Component {
         this.props.onGetHomeData();
         if (this.props.user.notifications) {
             setTimeout(
-                () => this.props.onSetNotification(), 1000
+                () => {this.props.onGetCoordinates(this.reservationRefFirst, this.reservationRefLast); this.props.onSetNotification()}, 1000
             )
         }
-        ;
+        
         // axios.get('/api/make-reservation').then(res => console.log(res))
         // axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
         // axios.get(`/api/reservations`).then(res => console.log(res))
@@ -94,11 +94,14 @@ class Home extends Component {
     }
 
     notificationPopupHandler (popup) {
-        return <NotificationsPopUp
+        if (this.props.user.notifications[0]){
+            console.log(this.props.user.notifications[0])
+            return <NotificationsPopUp
                         translate={popup.show}
                         popup={popup}
-                        popupCancel={this.props.onPopupCancel}
+                        popupCancel={this.props.onNotificationPopupCancel}
                         successTimer={this.props.onSuccessTimer}/> 
+        }
     }
 
     reservationContainerStyleHandler () {
@@ -106,7 +109,6 @@ class Home extends Component {
     }
     
     render (){
-        
         return (
         <>
             {this.props.loading
@@ -160,7 +162,9 @@ const mapDispatchToProps= dispatch => ({
     onPopupCancel: () => dispatch(popupCancel()),
     onPopupAccept: (date, user, actionType) => dispatch(popupAcceptClicked(date, user, actionType)),
     onSuccessTimer: () => dispatch(successTimer()),
-    onSetNotification: () => dispatch(setNotification())
+    onSetNotification: () => dispatch(setNotification()),
+    onNotificationPopupCancel: () => dispatch(notificationPopupCancel()),
+    onGetCoordinates: (first, last) => dispatch(getCoordinates(first, last))
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(Home);
