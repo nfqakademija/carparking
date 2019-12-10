@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
-import {closeMobileMenu} from "../../../store/actions/main";
+import {closeMobileMenu, openModal} from "../../../store/actions/main";
 import {connect} from "react-redux";
 
 const mobileMenu = (props) => (
@@ -54,7 +54,7 @@ const mobileMenu = (props) => (
             <div className="position-relative py-2 linkParent">
                 <span className="ml-4 position-absolute"><i className="fas fa-car-side"> </i></span>
                 <div style={{ marginLeft: "60px"}}>
-                    <a href="#car-plate" className="link">Car Plate</a>
+                    <p onClick={ props.openModal } className="link" style={{cursor: "pointer"}}>Car Plate</p>
                 </div>
             </div>
 
@@ -64,7 +64,8 @@ const mobileMenu = (props) => (
 );
 
 const mapDispatchToProps = dispatch => ({
-    closeMobileMenu: () => dispatch(closeMobileMenu())
+    closeMobileMenu: () => dispatch(closeMobileMenu()),
+    openModal: () => dispatch(openModal())
 });
 
 export default connect(null, mapDispatchToProps)(mobileMenu);

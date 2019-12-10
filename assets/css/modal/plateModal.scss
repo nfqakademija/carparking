@@ -8,11 +8,11 @@
   z-index: 2000;
   visibility: hidden;
   opacity: 0;
-  pointer-events: none;
+  pointer-events: auto;
   transition: all 0.8s;
 
   &:target {
-    visibility: visible;
+    visibility: hidden;
     opacity: 1;
     pointer-events: auto;
   }
@@ -27,15 +27,26 @@
   }
 }
 
+.noneOpicity {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.fullOpicity {
+  opacity: 1;
+  visibility: visible;
+}
+
 .modal-close {
   color: #f8f3f0;
   line-height: 30px;
   font-size: 30px;
   right: 0;
-  top: 0;
+  top: 4%;
   position: absolute;
   width: 120px;
   text-decoration: none;
+  cursor: pointer;
 
   &:hover {
     color: #c1b9b9;
@@ -55,7 +66,7 @@
 
   font-family: "Segoe UI", Arial, sans-serif;
   font-size: 40px;
-  line-height: 120px;
+  line-height: 121px;
   font-weight: bold;
   text-transform: uppercase;
   text-align: center;
@@ -85,4 +96,14 @@
   .licenseplate {
     font-size: 70px!important;
   }
+}
+
+.wrong {
+  border-color: #FF0000;
+  color: #FF0000;
+}
+
+.success {
+  border-color: #28a745;
+  color: #28a745;
 }

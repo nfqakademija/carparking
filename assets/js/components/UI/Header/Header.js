@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 
 import Menu from '../Menu/mobileMenu';
-import {openMobileMenu, closeMobileMenu} from "../../../store/actions/main";
+import {openMobileMenu} from "../../../store/actions/main";
 
 
 const header = (props) => (
