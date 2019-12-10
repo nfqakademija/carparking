@@ -94,20 +94,15 @@ html, body{
   .body {
     position: absolute;
     top: 0;
-    left: em(-2vw, $basepx);
+    left: em(1.4vw, $basepx);
     width: em(23vw, $basepx);
-    height: em(40vw, $basepx);
-
-
-    div {
-      position: absolute;
-      background: #c1b9b9;
-      width: em(29vw, $basepx);
-      height: 4000px;
-      bottom: em(-1vw, $basepx);
-
-    }
+    height: em(16vw, $basepx);
   }
+}
+
+.svg {
+  height: em(16vw, $basepx);
+  width: em(30vw, $basepx);
 }
 
 .wind{
@@ -217,15 +212,32 @@ html, body{
   }
 }
 
-.wheels {
+.wheel1 {
+  top: 58%;
+  position: absolute;
+  width: em(2vw, $basepx);
+  height: em(2vw, $basepx);
+  bottom: 0;
+  left: em(5.3vw, $basepx);
+  z-index: 14;
   animation-name: spin;
-  animation-duration: 5000ms;
+  animation-duration: 1000ms;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
-  /* transform: rotate(3deg); */
-  /* transform: rotate(0.3rad);/ */
-  /* transform: rotate(3grad); */
-  /* transform: rotate(.03turn);  */
+}
+
+.wheel2 {
+  top: 58%;
+  position: absolute;
+  width: em(2vw, $basepx);
+  height: em(2vw, $basepx);
+  bottom: 0;
+  left: em(24.3vw, $basepx);
+  z-index: 14;
+  animation-name: spin;
+  animation-duration: 1000ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
 
 @keyframes spin {

@@ -2,6 +2,7 @@ import React from 'react';
 
 import '../../../../css/components/UI/Background/Background.scss';
 import car from '../../../../css/cars/cars1.svg';
+import wheel from '../../../../css/cars/wheel.svg';
 
 import SVG from 'react-inlinesvg';
 
@@ -11,14 +12,19 @@ const background = (props) => (
             <div className="car-wrapper_inner">
                 <div className="car_outter">
                     <div className="car">
+
                         <div className="body">
-                            <SVG src={car} />
+                            <SVG className="svg" src={car} />
                         </div>
 
+
                         <div>
-                            <div className="wheel"></div>
-                            <div className="wheel"></div>
+                            <SVG className="wheel1" src={wheel} />
+                            <SVG className="wheel2" src={wheel} />
                         </div>
+
+
+
                         <div className="wind">
                             <div className="p p1"></div>
                             <div className="p p2"></div>
