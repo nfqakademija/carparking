@@ -23,7 +23,7 @@ class Home extends Component {
 
     componentDidMount(){
         this.props.onGetHomeData();
-        if (this.props.user.notifications) {
+        if (this.props.user.notifications[1]) {
             setTimeout(
                 () => {this.props.onGetCoordinates(this.reservationRefFirst, this.reservationRefLast); this.props.onSetNotification()}, 1000
             )
@@ -93,13 +93,21 @@ class Home extends Component {
         
     }
 
+    notificationPopupCancelHandler () {
+        setTimeout(
+            () =>   {this.props.user.notifications[0] 
+                        ? this.props.onSetNotification()
+                        : null
+                    }
+        ,1000)
+    }
+
     notificationPopupHandler (popup) {
         if (this.props.user.notifications[0]){
-            console.log(this.props.user.notifications[0])
             return <NotificationsPopUp
                         translate={popup.show}
                         popup={popup}
-                        popupCancel={this.props.onNotificationPopupCancel}
+                        popupCancel={() => {this.props.onNotificationPopupCancel(); this.notificationPopupCancelHandler()}}
                         successTimer={this.props.onSuccessTimer}/> 
         }
     }
@@ -114,7 +122,7 @@ class Home extends Component {
             {this.props.loading
             ? 'loading...'
             : <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
-                {this.notificationPopupHandler(this.props.notificationPopup)}
+                {this.props.user.notifications[0] ?this.notificationPopupHandler(this.props.notificationPopup) :null}
                 {this.popupHandler(this.props.popup)}
                 <div className='Home_reservationContainer' style={this.reservationContainerStyleHandler()} >
                     {this.props.registrationData.map( (day,index) => {
