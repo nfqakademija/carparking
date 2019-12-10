@@ -146,3 +146,15 @@ export const notificationPopupCancel = () => {
         type: actionTypes.NOTIFICATION_POPUP_CANCEL
     }
 }
+
+export const notificationPopupAcceptStart = () => {
+    return {
+        type: actionTypes.NOTIFICATION_POPUP_ACCEPT_START
+    }
+}
+
+export const notificationPopupAcceptSuccess = () => {
+    return {
+        type: actionTypes.NOTIFICATION_POPUP_ACCEPT_SUCCESS
+    }
+}

@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { connect } from "react-redux";
 
-import { getHomeData, popupAcceptClicked, successTimer, buttonClickedMid } from '../../store/thunk/reservations';
+import { getHomeData, popupAcceptClicked, successTimer, buttonClickedMid, notificationPopupAccept } from '../../store/thunk/reservations';
 import { getCoordinates } from '../../store/thunk/popup';
 import { popupCancel, setNotification, notificationPopupCancel } from '../../store/actions/index';
 
@@ -93,7 +93,7 @@ class Home extends Component {
         
     }
 
-    notificationPopupCancelHandler () {
+    notificationPopupChainHandler () {
         setTimeout(
             () =>   {this.props.user.notifications[0] 
                         ? this.props.onSetNotification()
@@ -103,13 +103,12 @@ class Home extends Component {
     }
 
     notificationPopupHandler (popup) {
-        if (this.props.user.notifications[0]){
             return <NotificationsPopUp
                         translate={popup.show}
                         popup={popup}
-                        popupCancel={() => {this.props.onNotificationPopupCancel(); this.notificationPopupCancelHandler()}}
+                        popupCancel={() => {this.props.onNotificationPopupCancel(); this.notificationPopupChainHandler()}}
+                        popupAccept={() => this.props.onNotificationPopupAccept(popup.date)}
                         successTimer={this.props.onSuccessTimer}/> 
-        }
     }
 
     reservationContainerStyleHandler () {
@@ -122,7 +121,7 @@ class Home extends Component {
             {this.props.loading
             ? 'loading...'
             : <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
-                {this.props.user.notifications[0] ?this.notificationPopupHandler(this.props.notificationPopup) :null}
+                {this.notificationPopupHandler(this.props.notificationPopup)}
                 {this.popupHandler(this.props.popup)}
                 <div className='Home_reservationContainer' style={this.reservationContainerStyleHandler()} >
                     {this.props.registrationData.map( (day,index) => {
@@ -172,6 +171,7 @@ const mapDispatchToProps= dispatch => ({
     onSuccessTimer: () => dispatch(successTimer()),
     onSetNotification: () => dispatch(setNotification()),
     onNotificationPopupCancel: () => dispatch(notificationPopupCancel()),
+    onNotificationPopupAccept: (date) => dispatch(notificationPopupAccept(date)),
     onGetCoordinates: (first, last) => dispatch(getCoordinates(first, last))
 })
 

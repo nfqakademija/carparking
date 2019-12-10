@@ -17,5 +17,7 @@ export {
     fetchOneDayDataStart,
     fetchOneDayDataSuccess,
     setNotification,
-    notificationPopupCancel
+    notificationPopupCancel,
+    notificationPopupAcceptStart,
+    notificationPopupAcceptSuccess
 } from './main'

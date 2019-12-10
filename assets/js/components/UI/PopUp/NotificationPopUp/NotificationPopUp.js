@@ -3,6 +3,7 @@ import React from 'react';
 import Button from '../../Button/Button';
 
 import '../../../../../css/components/UI/PopUp/PopUp.scss';
+import { closeMobileMenu } from '../../../../store/actions/main';
 
 const notificationPopUp = (props) => {
     let popupType = {
@@ -13,7 +14,6 @@ const notificationPopUp = (props) => {
         backgroundColor:"#343a40",
         marginLeft: props.isUser ?'15px' :'15px'
     }
-    console.log(props.translate)
     
     const date = new Date(props.popup.date)
     const dateString = 
@@ -22,14 +22,29 @@ const notificationPopUp = (props) => {
                             <span>{`${date.toLocaleDateString('en-EN', {month:'short'}).toUpperCase()} ${date.getDate()}`}</span> 
                         </>
     let statusText = <span style={{textTransform:'uppercase', fontSize:'1.25rem'}}> Are you sure you want to reserve a parking spot for {dateString}</span>
-    
+    const successText = <span style={{textTransform:'uppercase', fontSize:'1.25rem'}}> Are</span>
+    if(props.popup.style){
+        popupType = {
+            ...popupType,
+            backgroundColor: props.popup.style.backgroundColor,
+            height: props.popup.style.height,
+            display:'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+        }
+    }
+
     return (
         <>
             {props.popup.loading
             ?   <div className='PopUp_container' style={popupType} >
                     <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
                 </div>
-            :   <div className='PopUp_container' style={popupType} >
+            :  props.popup.style
+                ?<div className='PopUp_container' style={popupType} >
+                    {successText}
+                 </div>
+                :<div className='PopUp_container' style={popupType} >
                         {statusText}
                         <div style={{display:'flex', justifyContent:'space-around', width:'80%', margin:'auto'}}>
                             <Button classname="Button_success" text='Accept' buttonStyle={{fontSize:'1rem', width:'35%'}} onclick={props.popupAccept}></Button>

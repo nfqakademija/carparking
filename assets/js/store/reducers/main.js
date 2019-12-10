@@ -15,12 +15,12 @@ const initialState = {
             {
                 name: 'Elvis',
                 surname: 'Raynor',
-                date: '2019-12-09'
+                date: '2019-12-10'
             },
             {
                 name: 'Calista',
                 surname: 'Sipes',
-                date: '2019-12-10'
+                date: '2019-12-11'
             }
         ]
     },
@@ -152,6 +152,10 @@ const reducer = (state = initialState, action) => {
                 popup: {
                     ...state.popup,
                     show: false
+                },
+                notificationPopup: {
+                    ...state.notificationPopup,
+                    show: false
                 }
             }
         case actionTypes.POPUP_STYLE_RESET:
@@ -159,6 +163,10 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 popup: {
                     ...state.popup,
+                    style: null
+                },
+                notificationPopup: {
+                    ...state.notificationPopup,
                     style: null
                 }
             }
@@ -203,6 +211,31 @@ const reducer = (state = initialState, action) => {
                 notificationPopup: {
                     ...state.notificationPopup,
                     show: false
+                },
+                user: {
+                    ...state.user,
+                    notifications: state.user.notifications.slice(1)
+                }
+            }
+        case actionTypes.NOTIFICATION_POPUP_ACCEPT_START:
+                return {
+                    ...state,
+                    notificationPopup: {
+                        ...state.notificationPopup,
+                        loading: true
+                    },
+                    loadingOneDay: true
+                }
+        case actionTypes.NOTIFICATION_POPUP_ACCEPT_SUCCESS:
+            return {
+                ...state,
+                notificationPopup: {
+                    ...state.notificationPopup,
+                    loading: false,
+                    style : {
+                        backgroundColor: '#71c271',
+                        height: '150px'
+                    }
                 },
                 user: {
                     ...state.user,
