@@ -32,7 +32,7 @@
 .Background_ground {
     position: absolute;
     bottom: 0;
-    height: 25%;
+    height: 40%;
     width: 100%;
     background: #343a40;
     z-index: -1;
@@ -80,7 +80,7 @@ html, body{
   }
 }
 
-.car {
+.car1 {
   left: em(-0.5vw, $basepx);
   width: em(32vw, $basepx);
   height: em(20vw, $basepx);
@@ -91,21 +91,72 @@ html, body{
   z-index: 4;
   @include prefix(animation, carMove 0.3s infinite);
 
-  .body {
+  .bodyCar1 {
     position: absolute;
-    top: 0;
+    top: 180%;
+    left: em(1.4vw, $basepx);
+    width: em(23vw, $basepx);
+    height: em(16vw, $basepx);
+  }
+
+}
+
+.car2 {
+  left: em(-0.5vw, $basepx);
+  width: em(32vw, $basepx);
+  height: em(20vw, $basepx);
+  position: relative;
+  opacity: 1;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 4;
+  @include prefix(animation, carMove 0.3s infinite);
+
+  .bodyCar2 {
+    position: absolute;
+    top: 110%;
     left: em(1.4vw, $basepx);
     width: em(23vw, $basepx);
     height: em(16vw, $basepx);
   }
 }
 
-.svg {
-  height: em(16vw, $basepx);
-  width: em(30vw, $basepx);
+.car3 {
+  left: em(-0.5vw, $basepx);
+  width: em(32vw, $basepx);
+  height: em(20vw, $basepx);
+  position: relative;
+  opacity: 1;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 4;
+  @include prefix(animation, carMove 0.3s infinite);
+
+  .bodyCar3 {
+    position: absolute;
+    top: 40%;
+    left: em(1.4vw, $basepx);
+    width: em(23vw, $basepx);
+    height: em(16vw, $basepx);
+  }
 }
 
-.wind{
+.svg1 {
+  height: em(8vw, $basepx);
+  width: em(15vw, $basepx);
+}
+
+.svg2 {
+  height: em(8vw, $basepx);
+  width: em(15vw, $basepx);
+}
+
+.svg3 {
+  height: em(8vw, $basepx);
+  width: em(15vw, $basepx);
+}
+
+.wind1{
   position: absolute;
   z-index: -1;
   right: 100%;
@@ -115,45 +166,135 @@ html, body{
     position: absolute;
     background: #c1b9b9;
     border-radius: em(1vw, $basepx);    
-    height: em(1vw, $basepx);
+    height: em(0.5vw, $basepx);
   }
   .p1{
     width: em(7vw, $basepx);
     position: absolute;
     right: 0;
-    top: em(2.5vw, $basepx);
+    top: em(36vw, $basepx);
     animation: wind 1s -1s linear infinite;
   }
   .p2{
    width: em(10vw, $basepx);
    right: em(4vw, $basepx);
-   top: em(6vw, $basepx); 
+   top: em(37vw, $basepx);
     animation: wind 1s -2s linear infinite;
   }
   .p3{
    width: em(5vw, $basepx);
    right: em(0vw, $basepx);
-   top: em(10.5vw, $basepx); 
+   top: em(38vw, $basepx);
     animation: wind 1s -1s linear infinite;
   } 
   .p4{
    width: em(6vw, $basepx);
    right: em(10vw, $basepx);
-   top: em(13.5vw, $basepx); 
+   top: em(40vw, $basepx);
     animation: wind 1s 1s linear infinite;
   }   
   .p5{
    width: em(7vw, $basepx);
    right: em(3vw, $basepx);
-   top: em(14.5vw, $basepx); 
+   top: em(41vw, $basepx);
     animation: wind 1s -1.5s linear infinite;
   }     
+}
+
+.wind2{
+  position: absolute;
+  z-index: -1;
+  right: 100%;
+  height: 100%;
+  margin-right: em(-2vw, $basepx);
+  .p{
+    position: absolute;
+    background: #c1b9b9;
+    border-radius: em(1vw, $basepx);
+    height: em(0.4vw, $basepx);
+  }
+  .p1{
+    width: em(7vw, $basepx);
+    position: absolute;
+    right: 0;
+    top: em(24vw, $basepx);
+    animation: wind 1s -1s linear infinite;
+  }
+  .p2{
+    width: em(9vw, $basepx);
+    right: em(4vw, $basepx);
+    top: em(25vw, $basepx);
+    animation: wind 1s -2s linear infinite;
+  }
+  .p3{
+    width: em(6vw, $basepx);
+    right: em(0vw, $basepx);
+    top: em(26vw, $basepx);
+    animation: wind 1s -1s linear infinite;
+  }
+  .p4{
+    width: em(5vw, $basepx);
+    right: em(10vw, $basepx);
+    top: em(27vw, $basepx);
+    animation: wind 1s 1s linear infinite;
+  }
+  .p5{
+    width: em(8vw, $basepx);
+    right: em(3vw, $basepx);
+    top: em(28vw, $basepx);
+    animation: wind 1s -1.5s linear infinite;
+  }
+}
+
+.wind3{
+  position: absolute;
+  z-index: -1;
+  right: 100%;
+  height: 100%;
+  margin-right: em(-2vw, $basepx);
+  .p{
+    position: absolute;
+    background: #c1b9b9;
+    border-radius: em(1vw, $basepx);
+    height: em(0.5vw, $basepx);
+  }
+  .p1{
+    width: em(7vw, $basepx);
+    position: absolute;
+    right: 0;
+    top: em(10vw, $basepx);
+    animation: wind 1s -1s linear infinite;
+  }
+  .p2{
+    width: em(5vw, $basepx);
+    right: em(4vw, $basepx);
+    top: em(11vw, $basepx);
+    animation: wind 1s -2s linear infinite;
+  }
+  .p3{
+    width: em(4vw, $basepx);
+    right: em(0vw, $basepx);
+    top: em(26vw, $basepx);
+    animation: wind 1s -1s linear infinite;
+  }
+  .p4{
+    width: em(8vw, $basepx);
+    right: em(10vw, $basepx);
+    top: em(12vw, $basepx);
+    animation: wind 1s 1s linear infinite;
+  }
+  .p5{
+    width: em(6vw, $basepx);
+    right: em(3vw, $basepx);
+    top: em(14vw, $basepx);
+    animation: wind 1s -1.5s linear infinite;
+  }
 }
 
 .car-wrapper_inner{
   position: absolute;
   z-index: 4;
-  bottom: 15%;
+  bottom: 0%;
   left: 35%;
 }
 
@@ -180,11 +321,24 @@ html, body{
   }
 }
 
-.car_outter{
+.car_outter1{
   @include prefix(transform, translateX(-300%));
   position: relative;
-  animation: carDrive 5s 1s cubic-bezier(0.88, 0.08, 0.16, 1.1) infinite;
+  animation: carDrive 5.2s 1.2s cubic-bezier(0.88, 0.08, 0.16, 1.1) infinite;
 }
+
+.car_outter2{
+  @include prefix(transform, translateX(-300%));
+  position: relative;
+  animation: carDrive 5.5s 1.5s cubic-bezier(0.88, 0.08, 0.16, 1.1) infinite;
+}
+
+.car_outter3{
+  @include prefix(transform, translateX(-300%));
+  position: relative;
+  animation: carDrive 5.3s 1.3s cubic-bezier(0.88, 0.08, 0.16, 1.1) infinite;
+}
+
 
 @keyframes carDrive{
   0%{

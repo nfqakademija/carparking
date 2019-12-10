@@ -1,49 +1,205 @@
-<svg width="162.5mm" height="95.445mm" version="1.1" viewBox="10 0 154.77 95.445" xmlns="http://www.w3.org/2000/svg">
- <g transform="matrix(2.3683 0 0 3.4674 .75421 -11.917)">
-  <g transform="matrix(.35278 0 0 -.35278 -91.52 161.12)">// Kebulas
-   <g transform="translate(271.02,405.2)" fill="#ff8c0a">
-    <path d="m0 0-4.395-2.532s-2.904-13.11 2.607-18.92c1.714-0.074 3.054 0 3.054 0s0.373 23.091 20.335 21.899c19.961-1.192 19.589-25.325 19.589-25.325l94.596-1.837s-1.639 27.207 21.6 27.207c15.791 0 19.962-17.698 18.696-26.785 0 0 9.236-0.298 12.29 0.894 0 0 0.298 2.085-1.117 4.692l2.085 9.162-0.521 5.735-3.054 2.16-1.043 7.002s-1.713 4.469-9.534 7.523l-0.186 0.633s-9.72 4.283-31.098 5.251c0 0-0.099 0.72-0.893 0.72h-6.481l-21.898 19.565s-2.979 2.507-6.853 3.178c-3.873 0.67-46.18 3.128-82.529 0 0 0-2.905-0.149-6.033-3.129l0.298-0.596s-6.579-7.299-11.247-16.436c0 0-0.969 0.05-1.453-0.769 0 0-4.258-0.671-5.847-7.623 0 0-0.894-7.448-0.968-11.669" fill="#ff8c0a"/>
-   </g>
-   <g transform="translate(378.75,441.6)">
-    <path d="m0 0 6.406 0.497 22.295-19.913s-1.638-1.092-5.065-1.39c-3.426-0.298-4.171 0-4.171 0z" fill="#fff"/>
-   </g>
-   <g transform="translate(373.99,441.3)">
-    <path d="m0 0 17.479-20.309-55.565 2.16-0.373 18.149z" fill="#fff"/>
-   </g>
-   <g transform="translate(333.91,441.3)">
-    <path d="m0 0 0.348-18.025-45.66 1.738 9.311 16.287z" fill="#fff"/>
-   </g>
-   <g transform="translate(452.54,403.56)">
-    <path d="m0 0s-1.142-0.646-4.568 1.589c-3.427 2.235-6.903 8.094-5.165 9.633 1.738 1.54 11.57-6.852 9.733-11.222" fill="#fff"/>
-   </g>
-   <g transform="translate(458.6,394.08)">
-    <path d="m0 0s-2.582 0.05-2.731-1.837-1.192-7.2 1.365-7.3c0 0 0.969 0.497 1.366 3.923s0 5.214 0 5.214" fill="#fff"/>
-   </g>
-   <g transform="translate(336.89,414.26)">
-    <path d="m0 0s-4.022 0.025-4.022 1.018 4.469 0.894 4.469 0.894 0.521 1.539 2.93 1.539c2.11 0 2.135-1.787 2.135-1.787s2.781-0.298 2.83-1.093c0.05-0.794-2.631-0.695-2.631-0.695s-0.274-2.011-3.129-1.887c-2.728 0.119-2.582 2.011-2.582 2.011" fill="#fff"/>
-   </g>
-   <g transform="translate(290.73,441.62)">
-    <path d="m0 0h1.527s-7.449-9.311-11.024-16.461h-1.44s4.395 8.739 10.937 16.461" fill="#fff"/>
-   </g>
-   <g transform="translate(272.51,407.7)">
-    <path d="m0 0s-1.117 0-0.894 1.75c0.224 1.751 1.19 11.806 5.214 11.806 1.825 0 0.596-3.277 0.596-3.277l-3.091-9.236s-0.457-1.266-1.825-1.043" fill="#fff"/>
-   </g>
-   <g transform="translate(388.86,418.42)">
-    <path d="m0 0-2.607 3.761s0.484 1.118 0.186 1.825c-0.298 0.708-2.569 4.358-7.188 3.129-3.463-1.676-3.202-6.331 0-7.821l2.31 0.112-0.708-0.82s0.372-2.756 4.171-2.607 3.836 2.421 3.836 2.421" fill="#282f39"/>
-   </g>
-   <g transform="translate(308.99,385.93)">
-    <path d="m0 0c0-9.379-7.603-16.983-16.983-16.983-9.379 0-16.982 7.604-16.982 16.983s7.603 16.983 16.982 16.983c9.38 0 16.983-7.604 16.983-16.983" fill="#282f39"/>
-   </g>
-   <g transform="translate(304.82,385.93)" fill="#ececec">
-    <path d="m0 0c0-7.076-5.736-12.811-12.811-12.811-7.076 0-12.812 5.735-12.812 12.811s5.736 12.811 12.812 12.811c7.075 0 12.811-5.735 12.811-12.811" fill="#ececec"/>
-   </g>
-   <g transform="translate(444.09,385.93)">
-    <path d="m0 0c0-9.379-7.603-16.983-16.983-16.983-9.379 0-16.982 7.604-16.982 16.983s7.603 16.983 16.982 16.983c9.38 0 16.983-7.604 16.983-16.983" fill="#282f39"/>
-   </g>
-   <g transform="translate(439.92,385.93)" fill="#ececec">
-    <path d="m0 0c0-7.076-5.736-12.811-12.811-12.811-7.076 0-12.812 5.735-12.812 12.811s5.736 12.811 12.812 12.811c7.075 0 12.811-5.735 12.811-12.811" fill="#ececec"/>
-   </g>
-  </g>// tekstas
-  <text transform="scale(1.0981 .91067)" x="24.234175" y="26.32128" fill="#ffffff" font-family="'Showcard Gothic'" font-size="7.341px" letter-spacing="0px" stroke-width=".18353" word-spacing="0px" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25" xml:space="preserve">   <tspan x="24.234175" y="26.32128" fill="#ffffff" font-family="'Showcard Gothic'" font-size="7.341px" stroke-width=".18353" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal">NFQ</tspan>  </text>// ratlankiai
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="162.5mm"
+   height="95.445mm"
+   version="1.1"
+   viewBox="10 0 154.77 95.445"
+   id="svg773"
+   sodipodi:docname="cars1.svg"
+   inkscape:version="0.92.4 (f8dce91, 2019-08-02)">
+  <metadata
+     id="metadata779">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs777" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1853"
+     inkscape:window-height="1025"
+     id="namedview775"
+     showgrid="false"
+     inkscape:zoom="1.6118408"
+     inkscape:cx="385.34078"
+     inkscape:cy="136.7475"
+     inkscape:window-x="67"
+     inkscape:window-y="27"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg773" />
+  <g
+     transform="matrix(2.3683 0 0 3.4674 .75421 -11.917)"
+     id="g771"><g
+   transform="matrix(.35278 0 0 -.35278 -91.52 161.12)"
+   id="g765">// Kebulas
+   <g
+   transform="translate(271.02,405.2)"
+   fill="#ff8c0a"
+   id="g711">
+  <path
+     d="m0 0-4.395-2.532s-2.904-13.11 2.607-18.92c1.714-0.074 3.054 0 3.054 0s0.373 23.091 20.335 21.899c19.961-1.192 19.589-25.325 19.589-25.325l94.596-1.837s-1.639 27.207 21.6 27.207c15.791 0 19.962-17.698 18.696-26.785 0 0 9.236-0.298 12.29 0.894 0 0 0.298 2.085-1.117 4.692l2.085 9.162-0.521 5.735-3.054 2.16-1.043 7.002s-1.713 4.469-9.534 7.523l-0.186 0.633s-9.72 4.283-31.098 5.251c0 0-0.099 0.72-0.893 0.72h-6.481l-21.898 19.565s-2.979 2.507-6.853 3.178c-3.873 0.67-46.18 3.128-82.529 0 0 0-2.905-0.149-6.033-3.129l0.298-0.596s-6.579-7.299-11.247-16.436c0 0-0.969 0.05-1.453-0.769 0 0-4.258-0.671-5.847-7.623 0 0-0.894-7.448-0.968-11.669"
+     fill="#ff8c0a"
+     id="path709" />
+</g>
+<g
+   transform="translate(378.75,441.6)"
+   id="g715">
+  <path
+     d="m0 0 6.406 0.497 22.295-19.913s-1.638-1.092-5.065-1.39c-3.426-0.298-4.171 0-4.171 0z"
+     fill="#fff"
+     id="path713" />
+</g>
+<g
+   transform="translate(373.99,441.3)"
+   id="g719">
+  <path
+     d="m0 0 17.479-20.309-55.565 2.16-0.373 18.149z"
+     fill="#fff"
+     id="path717" />
+</g>
+<g
+   transform="translate(333.91,441.3)"
+   id="g723">
+  <path
+     d="m0 0 0.348-18.025-45.66 1.738 9.311 16.287z"
+     fill="#fff"
+     id="path721" />
+</g>
+<g
+   transform="translate(452.54,403.56)"
+   id="g727">
+  <path
+     d="m0 0s-1.142-0.646-4.568 1.589c-3.427 2.235-6.903 8.094-5.165 9.633 1.738 1.54 11.57-6.852 9.733-11.222"
+     fill="#fff"
+     id="path725" />
+</g>
+<g
+   transform="translate(458.6,394.08)"
+   id="g731">
+  <path
+     d="m0 0s-2.582 0.05-2.731-1.837-1.192-7.2 1.365-7.3c0 0 0.969 0.497 1.366 3.923s0 5.214 0 5.214"
+     fill="#fff"
+     id="path729" />
+</g>
+<g
+   transform="translate(336.89,414.26)"
+   id="g735">
+  <path
+     d="m0 0s-4.022 0.025-4.022 1.018 4.469 0.894 4.469 0.894 0.521 1.539 2.93 1.539c2.11 0 2.135-1.787 2.135-1.787s2.781-0.298 2.83-1.093c0.05-0.794-2.631-0.695-2.631-0.695s-0.274-2.011-3.129-1.887c-2.728 0.119-2.582 2.011-2.582 2.011"
+     fill="#fff"
+     id="path733" />
+</g>
+<g
+   transform="translate(290.73,441.62)"
+   id="g739">
+  <path
+     d="m0 0h1.527s-7.449-9.311-11.024-16.461h-1.44s4.395 8.739 10.937 16.461"
+     fill="#fff"
+     id="path737" />
+</g>
+<g
+   transform="translate(272.51,407.7)"
+   id="g743">
+  <path
+     d="m0 0s-1.117 0-0.894 1.75c0.224 1.751 1.19 11.806 5.214 11.806 1.825 0 0.596-3.277 0.596-3.277l-3.091-9.236s-0.457-1.266-1.825-1.043"
+     fill="#fff"
+     id="path741" />
+</g>
+<g
+   transform="translate(388.86,418.42)"
+   id="g747">
+  <path
+     d="m0 0-2.607 3.761s0.484 1.118 0.186 1.825c-0.298 0.708-2.569 4.358-7.188 3.129-3.463-1.676-3.202-6.331 0-7.821l2.31 0.112-0.708-0.82s0.372-2.756 4.171-2.607 3.836 2.421 3.836 2.421"
+     fill="#282f39"
+     id="path745" />
+</g>
+<g
+   transform="translate(308.99,385.93)"
+   id="g751">
+  <path
+     d="m0 0c0-9.379-7.603-16.983-16.983-16.983-9.379 0-16.982 7.604-16.982 16.983s7.603 16.983 16.982 16.983c9.38 0 16.983-7.604 16.983-16.983"
+     fill="#282f39"
+     id="path749" />
+</g>
+<g
+   transform="translate(304.82,385.93)"
+   fill="#ececec"
+   id="g755">
+  <path
+     d="m0 0c0-7.076-5.736-12.811-12.811-12.811-7.076 0-12.812 5.735-12.812 12.811s5.736 12.811 12.812 12.811c7.075 0 12.811-5.735 12.811-12.811"
+     fill="#ececec"
+     id="path753" />
+</g>
+<g
+   transform="translate(444.09,385.93)"
+   id="g759">
+  <path
+     d="m0 0c0-9.379-7.603-16.983-16.983-16.983-9.379 0-16.982 7.604-16.982 16.983s7.603 16.983 16.982 16.983c9.38 0 16.983-7.604 16.983-16.983"
+     fill="#282f39"
+     id="path757" />
+</g>
+<g
+   transform="translate(439.92,385.93)"
+   fill="#ececec"
+   id="g763">
+  <path
+     d="m0 0c0-7.076-5.736-12.811-12.811-12.811-7.076 0-12.812 5.735-12.812 12.811s5.736 12.811 12.812 12.811c7.075 0 12.811-5.735 12.811-12.811"
+     fill="#ececec"
+     id="path761" />
+</g>
+</g>
+// tekstas
+  <text
+   transform="scale(1.0981 .91067)"
+   x="24.234175"
+   y="26.32128"
+   fill="#ffffff"
+   font-family="'Showcard Gothic'"
+   font-size="7.341px"
+   letter-spacing="0px"
+   stroke-width=".18353"
+   word-spacing="0px"
+   style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25"
+   xml:space="preserve"
+   id="text769">   <tspan
+   x="24.234175"
+   y="26.32128"
+   fill="#ffffff"
+   font-family="'Showcard Gothic'"
+   font-size="7.341px"
+   stroke-width=".18353"
+   style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal"
+   id="tspan767">NFQ</tspan>  </text>
+// ratlankiai
  </g>
+  <path
+     id="path1565-6-4"
+     d="m 29.6454,79.296808 -1.785671,-1.706003 -0.665012,2.63846 -0.618984,-2.654907 -1.814942,1.659802 0.784148,-2.589742 -2.271616,0.04713 1.887744,-1.535375 -1.860622,-1.583471 2.270286,0.105418 -0.738934,-2.609275 1.785669,1.706002 0.665016,-2.638459 0.618982,2.654907 1.814942,-1.659801 -0.784149,2.589741 2.271617,-0.04713 -1.887744,1.535357 1.86062,1.583489 -2.270282,-0.105431 z"
+     inkscape:connector-curvature="0"
+     style="stroke-width:0.22486365" />
+  <path
+     id="path1565-6-4-3"
+     d="m 143.14463,79.368564 -1.78567,-1.70601 -0.66501,2.63846 -0.61899,-2.6549 -1.81494,1.6598 0.78415,-2.58974 -2.27162,0.0471 1.88775,-1.53537 -1.86062,-1.58347 2.27028,0.10542 -0.73893,-2.60928 1.78567,1.706 0.66501,-2.63845 0.61899,2.6549 1.81494,-1.6598 -0.78415,2.58974 2.27162,-0.0471 -1.88775,1.53536 1.86062,1.58349 -2.27028,-0.10543 z"
+     inkscape:connector-curvature="0"
+     style="stroke-width:0.22486366" />
 </svg>
