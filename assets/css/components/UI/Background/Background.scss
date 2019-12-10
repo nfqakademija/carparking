@@ -324,7 +324,7 @@ html, body{
 .car_outter1{
   @include prefix(transform, translateX(-300%));
   position: relative;
-  animation: carDrive 5.2s 1.2s cubic-bezier(0.88, 0.08, 0.16, 1.1) infinite;
+  animation: carDrive 5.3s 1.3s cubic-bezier(0.88, 0.08, 0.16, 1.1) infinite;
 }
 
 .car_outter2{
@@ -336,7 +336,7 @@ html, body{
 .car_outter3{
   @include prefix(transform, translateX(-300%));
   position: relative;
-  animation: carDrive 5.3s 1.3s cubic-bezier(0.88, 0.08, 0.16, 1.1) infinite;
+  animation: carDrive 5.4s 1.4s cubic-bezier(0.88, 0.08, 0.16, 1.1) infinite;
 }
 
 
