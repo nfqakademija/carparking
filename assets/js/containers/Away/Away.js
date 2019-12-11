@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import '../../../css/containers/Away/away.scss'
 
 
-import Datepicker, {registerLocale, setDefaultLocale} from "react-datepicker";
+import DatePicker, {registerLocale, setDefaultLocale} from "react-datepicker";
 import {enGB} from "date-fns/esm/locale";
 
 registerLocale("en-GB", enGB);
