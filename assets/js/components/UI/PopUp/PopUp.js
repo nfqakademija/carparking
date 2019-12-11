@@ -14,8 +14,6 @@ const popUp = (props) => {
         marginLeft: props.isUser ?'15px' :'15px'
     }
 
-    console.log(props.user)
-
     let statusText = null 
     let successText = null 
             
@@ -47,6 +45,14 @@ const popUp = (props) => {
             display:'flex',
             alignItems: 'center',
             justifyContent: 'center'
+        }
+    }
+
+    if(props.shake && props.type && props.type.show){
+        
+        popupType = {
+            ...popupType,
+            animation: 'shake 0.5s ease-out both'
         }
     }
     

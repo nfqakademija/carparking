@@ -6,11 +6,23 @@ const initialState = {
     token: 1,
     loading: false,
     user: {
-        id: 11,
+        id: 4,
         name: null,
         lastname: null,
         activeCar: null,
-        aways: []
+        aways: [],
+        notifications: [
+            {
+                name: 'Elvis',
+                surname: 'Raynor',
+                date: '2019-12-10'
+            },
+            {
+                name: 'Calista',
+                surname: 'Sipes',
+                date: '2019-12-11'
+            }
+        ]
     },
     users: [],
     plate: "ABC000",
@@ -19,8 +31,13 @@ const initialState = {
         width: 'calc(100%+30px)',
         left: '0px'
     },
+    notificationPopup: {
+        width: 'calc(100%+30px)',
+        left: '0px'
+    },
     loadingOneDay: false,
     mobileMenu: false,
+    popupShake: false,
     plateModal: false
 }
 
@@ -75,6 +92,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 popup: {
                     ...state.popup,
+                    width: action.width,
+                    left: action.left
+                },
+                notificationPopup: {
+                    ...state.notificationPopup,
                     width: action.width,
                     left: action.left
                 }
@@ -132,6 +154,10 @@ const reducer = (state = initialState, action) => {
                 popup: {
                     ...state.popup,
                     show: false
+                },
+                notificationPopup: {
+                    ...state.notificationPopup,
+                    show: false
                 }
             }
         case actionTypes.POPUP_STYLE_RESET:
@@ -139,6 +165,10 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 popup: {
                     ...state.popup,
+                    style: null
+                },
+                notificationPopup: {
+                    ...state.notificationPopup,
                     style: null
                 }
             }
@@ -167,6 +197,64 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 reservationStatus: action.data,
                 loadingOneDay: false
+            }
+        case actionTypes.SET_NOTIFICATION:
+            return {
+                ...state,
+                notificationPopup: {
+                    ...state.notificationPopup,
+                    show: true,
+                    date: state.user.notifications[0].date,
+                    name: state.user.notifications[0].name,
+                    surname: state.user.notifications[0].surname
+                }
+            }
+        case actionTypes.NOTIFICATION_POPUP_CANCEL:
+            return {
+                ...state,
+                notificationPopup: {
+                    ...state.notificationPopup,
+                    show: false
+                },
+                user: {
+                    ...state.user,
+                    notifications: state.user.notifications.slice(1)
+                }
+            }
+        case actionTypes.NOTIFICATION_POPUP_ACCEPT_START:
+                return {
+                    ...state,
+                    notificationPopup: {
+                        ...state.notificationPopup,
+                        loading: true
+                    },
+                    loadingOneDay: true
+                }
+        case actionTypes.NOTIFICATION_POPUP_ACCEPT_SUCCESS:
+            return {
+                ...state,
+                notificationPopup: {
+                    ...state.notificationPopup,
+                    loading: false,
+                    style : {
+                        backgroundColor: '#71c271',
+                        height: '150px'
+                    }
+                },
+                user: {
+                    ...state.user,
+                    notifications: state.user.notifications.slice(1)
+                }
+            }
+        case actionTypes.POPUP_OPENED_START:
+            return {
+                ...state,
+                popupShake: true
+            }
+        case actionTypes.POPUP_OPENED_RESET:
+            return {
+                ...state,
+                popupShake: false
             }
         case actionTypes.OPEN_PLATE_MODAL:
             console.log("as");

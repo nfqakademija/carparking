@@ -59,13 +59,24 @@ const reservation = React.forwardRef((props, ref) => {
                                 {props.userParkingSpot} <br/> 
                                 <div style={{fontSize:'0.375em', marginTop:'-0.5em', color:'#8d8d8d'}}>Your spot</div></div>
                             : null}
-                        <Button 
-                            text={props.buttonOptions.buttonText} 
-                            classname={`Button_${props.buttonOptions.buttonClass}`}
-                            buttonStyle={{width:'50%', marginBottom:'1em'}}
-                            onclick={props.buttonOptions.buttonClass==='neutral'
-                                        ? ()=>props.history.push('/users')
-                                        : props.onButtonClick}/>
+                        {props.popupShake
+                            ? <a title='You must first accept or reject notification message'>
+                                <Button 
+                                    text={props.buttonOptions.buttonText} 
+                                    classname={`Button_${props.buttonOptions.buttonClass}`}
+                                    buttonStyle={{width:'50%', marginBottom:'1em'}}
+                                    onclick={props.popupShake}/>
+                              </a>
+                            : <Button 
+                                    text={props.buttonOptions.buttonText} 
+                                    classname={`Button_${props.buttonOptions.buttonClass}`}
+                                    buttonStyle={{width:'50%', marginBottom:'1em'}}
+                                    onclick={props.buttonOptions.buttonClass==='neutral'
+                                                        ? ()=>props.history.push('/users')
+                                                        : props.onButtonClick}/>
+
+                        }
+                        
                     </>
                     }    
             </div>

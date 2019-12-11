@@ -12,14 +12,18 @@ const webMeniu = (props) => (
                 <span className="ml-4 position-absolute">
                     <i className="fa fa-check-square-o"></i></span>
                     <div style={{marginLeft: "5rem"}}>
-                        <NavLink to='/home' activeClassName='webMenu_activeClass' className="link" >Reserve</NavLink>
+                        {props.popupOpened
+                                ?<a title='You must first accept or reject notification message' className="link" onClick={props.popupOpened}>Reserve</a>
+                                :<NavLink to='/home' activeClassName='webMenu_activeClass' className="link" onClick={props.onclick}>Reserve</NavLink>}
                     </div>
                 </div>
                 <hr className="m-0" />
                 <div className="position-relative py-2 linkParent">
                     <span className="ml-4 position-absolute"><i className="fa fa-users"> </i></span>
                     <div style={{marginLeft: "5rem"}}>
-                        <NavLink to="/users" className="link" activeClassName='webMenu_activeClass' >Watch Users</NavLink>
+                        {props.popupOpened
+                            ?<a title='You must first accept or reject notification message' className="link" onClick={props.popupOpened}>Watch Users</a>
+                            :<NavLink to="/users" className="link" activeClassName='webMenu_activeClass' onClick={props.onclick}>Watch Users</NavLink>}
                     </div>
                 </div>
                 <hr className="m-0" />

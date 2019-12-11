@@ -140,8 +140,8 @@ const fetchOneDayData = (date) => (dispatch, getState) => {
                     usedSpaces ++
                     if(reservation.user){
                         if (reservation.user.id === getState().user.id) {
-                            reservationStatus[index].userReservation = true
-                            reservationStatus[index].userParkingSpot = reservation['park_space'].number
+                            reservationStatus[dayIndex].userReservation = true
+                            reservationStatus[dayIndex].userParkingSpot = reservation['park_space'].number
                         }
                     }
                 }
@@ -179,4 +179,26 @@ const fetchHomeData = (reservationStatus, user) => (dispatch, getState) => {
         const user = getState().registrationData.user
         dispatch(actions.getHomeDataFail(status, user))
     }) 
+}
+
+export const notificationPopupAccept = (date) => (dispatch, getState) => {
+    // fake
+    dispatch(actions.notificationPopupAcceptStart());
+    const newDate = new Date(date);
+    console.log(newDate)
+    setTimeout(
+        () => {
+            dispatch(actions.notificationPopupAcceptSuccess())
+            dispatch(successTimer())
+            dispatch(fetchOneDayData(newDate))
+            setTimeout(
+                //after success message
+                () =>   {getState().user.notifications[0]
+                            ? dispatch(actions.setNotification())
+                            : null
+                        }
+            ,3000)
+        }
+        , 500
+    )
 }

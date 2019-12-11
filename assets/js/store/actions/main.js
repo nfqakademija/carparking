@@ -135,6 +135,42 @@ export const fetchOneDayDataSuccess = (data) => {
     }
 }
 
+export const setNotification = () => {
+    return {
+        type: actionTypes.SET_NOTIFICATION
+    }
+}
+
+export const notificationPopupCancel = () => {
+    return {
+        type: actionTypes.NOTIFICATION_POPUP_CANCEL
+    }
+}
+
+export const notificationPopupAcceptStart = () => {
+    return {
+        type: actionTypes.NOTIFICATION_POPUP_ACCEPT_START
+    }
+}
+
+export const notificationPopupAcceptSuccess = () => {
+    return {
+        type: actionTypes.NOTIFICATION_POPUP_ACCEPT_SUCCESS
+    }
+}
+
+export const popupOpenedStart = () => {
+    return {
+        type: actionTypes.POPUP_OPENED_START
+    }
+}
+
+export const popupOpenedReset = () => {
+    return {
+        type: actionTypes.POPUP_OPENED_RESET
+    }
+}
+
 export const openModal = () => {
     return {
         type: actionTypes.OPEN_PLATE_MODAL
