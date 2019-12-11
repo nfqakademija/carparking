@@ -31,46 +31,28 @@ class ReservationController extends FOSRestBundle
 
 
     /**
-     * @Rest\Post("/api/reservations")
+     * @Rest\Get("/api/reservations")
      */
-    public function index(Request $request)
-    {
-        $content = $request->headers->get('Newuser');
-        var_dump($content);
-//        $dataArray = json_decode($content, true);
-
-        die;
-//
-//        $data = $this->entityManager->getRepository(Reservations::class)->findAll();
-//        $json = $this->serialize($data);
-//        $response = new Response($json);
-//        $response->headers->set('Content-Type', 'application/json');
-//        $response->getStatusCode();
-//        return $response;
-    }
-
-    /**
-     * @Rest\Get("/api/make-reservation")
-     * @throws \Exception
-     */
-    public function make()
+    public function index()
     {
         $service = new ReservationService($this->entityManager);
-        $service->make();
+        $service->reservationList();
+    }
+
+
+    /**
+     * @param Request $request
+     * @return Response
+     */
+    public function createReservation(Request $request)
+    {
+        $content = $request->getContent();
+        $dataArray = json_decode($content, true);
+        $service = new ReservationService($this->entityManager);
+        $service->makeGuestReservation($dataArray);
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
         return $response;
-    }
-
-    /**
-     * @Rest\Get("/api/reserve")
-     * @throws \Exception
-     */
-    public function guest()
-    {
-//        $service = new ReservationService($this->entityManager);
-//        $service->guestReservation();
-//        die;
     }
 
     /**

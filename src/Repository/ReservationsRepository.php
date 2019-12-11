@@ -51,6 +51,36 @@ class ReservationsRepository extends ServiceEntityRepository
             ->execute();
     }
 
+    /**
+     * @param $date
+     * @param $clientId
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findReservationByDateAndUserId($date, $clientId)
+    {
+      return $this->createQueryBuilder('r')
+          ->andWhere('r.reservationDate = :reservationDate')
+          ->andWhere('r.user = :id')
+          ->setParameter('id', $clientId)
+          ->setParameter('reservationDate', $date)
+          ->getQuery()
+          ->getOneOrNullResult();
+    }
+
+    public function findReservationByDateAndParkSpaceId($date, $parkSpaceId)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.reservationDate = :reservationDate')
+            ->andWhere('r.parkSpace = :id')
+            ->setParameter('id', $parkSpaceId)
+            ->setParameter('reservationDate', $date)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+//    public function getReservationWherePar
+
 
 //    public function findUsers()
 //    {

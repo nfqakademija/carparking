@@ -34,10 +34,33 @@ class UsersRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws NonUniqueResultException
+     */
+    public function findUserByRoleGuestAndId($id)
+    {
+        $guest = 'guest';
+
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.userRole', 'r')
+            ->andWhere('u.id = :id')
+            ->andWhere('r.role = :guest')
+            ->setParameter('guest', $guest)
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+
+
+
     /**
      * @return mixed
-
      */
+
     public function getUsersByRoles()
     {
         $admin = 'admin';
