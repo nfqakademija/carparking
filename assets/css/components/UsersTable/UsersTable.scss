@@ -1,19 +1,23 @@
 .UsersTable_container {
     width: 75%;
     height: 85%;
-    margin-top: 3rem;
+    margin-top: 3em;
+    margin-left: 15px;
+    margin-right: 15px;
     box-shadow: 5px 5px 10px 0px #343a40;
     display: flex;
     flex-direction: column;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
 }
 
 .UsersTable_header {
-    padding:1rem;
+    padding:1em;
     background-color:#343a40;
     color: #f8f3f0;
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
-    font-size: 1.75rem;
+    border-top-left-radius: 0.25em;
+    border-top-right-radius: 0.25em;
+    font-size: 1.75em;
     text-align: center;
     justify-content: center; 
 }
@@ -30,8 +34,8 @@
     display: grid;
     grid-template-columns: 50% 50%;
     grid-template-rows: 50% 50%;
-    padding-bottom: 1rem;
-    font-size: 1.5rem;
+    padding-bottom: 1em;
+    font-size: 1.5em;
     box-shadow: 0px -5px 10px 0px grey; 
     color: #343a40;
     font-weight: 900;
@@ -58,10 +62,10 @@
 }
 
 .UserTable_userContainer {
-    margin-bottom:1.5rem;
+    margin-bottom:1.5em;
     display:flex;
     flex-direction: row;
-    font-size: 1.5rem;
+    font-size: 1.5em;
     color: #343a40;
     scroll-snap-align: start;
     & div {
@@ -72,18 +76,18 @@
 }
 
 .UserTable_userContainerMain {
-    margin-bottom:1.5rem;
+    margin-bottom:1.5em;
     display:flex;
     flex-direction: row;
-    font-size: 1.5rem;
+    font-size: 1.5em;
     scroll-snap-align: end;
     position: sticky;
-    top: 5.5rem;
+    top: 4em;
     background-color: #f8f3f0;
     color: #343a40;
     z-index: 3;
-    padding-top:1rem;
-    padding-bottom: 1.5rem;
+    padding-top:1em;
+    padding-bottom: 1.5em;
     font-weight: 900;
     & div {
         width: 50%;
@@ -95,6 +99,12 @@
 .UserTable_greenIcon {
     color:#95D195;
     font-size: 1.5em;
+}
+
+.UserTable_greenClickableIcon {
+    color:#95D195;
+    font-size: 1.5em;
+    cursor: pointer;
     &:hover {
         color:#71c271;
     }
@@ -107,6 +117,11 @@
 
 .UserTable_redIcon {
     color: #E68F8C;
+    font-size: 1.5em;
+}
+
+.UserTable_greyIcon {
+    color: #c1b9b9;
     font-size: 1.5em;
 }
 
@@ -123,26 +138,26 @@
 
 @media(max-width:950px){
     .UserTable_tableHead {
-        font-size:1rem;
+        font-size:1em;
     }
     .UserTable_userContainer {
-        font-size:1rem;
+        font-size:1em;
     }
     .UserTable_userContainerMain{
-        font-size:1rem;
-        top: 4rem;
+        font-size:1em;
+        top: 4em;
     }
 }
 
 @media(max-width: 350px){
     .UserTable_tableHead {
-        font-size:0.9rem;
+        font-size:0.9em;
     }
     .UserTable_userContainer {
-        font-size:0.9rem;
+        font-size:0.9em;
     }
     .UserTable_userContainerMain{
-        font-size:0.9rem;
-        top: 3.6rem;
+        font-size:0.9em;
+        top: 3.6em;
     }
 }

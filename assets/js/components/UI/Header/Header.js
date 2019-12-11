@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 
 import Menu from '../Menu/mobileMenu';
-import {openMobileMenu, closeMobileMenu} from "../../../store/actions/main";
+
+import { openMobileMenu } from "../../../store/actions/main";
+import { popupOpened } from '../../../store/thunk/popup';
 
 
 const header = (props) => (
@@ -16,7 +18,7 @@ const header = (props) => (
                                 <div className="d-flex justify-content-between">
                                     <div>
 
-                                        <span className="textLightGrey headerText" style={{marginLeft:'2rem'}}>
+                                        <span className="textLightGrey headerText" style={{marginLeft:'2em'}}>
                                             {/* <i className="mr-4 fas fa-car headerText" style={{color: "white", fontSize:'1.25em'}}> </i> */}
                                             NFQ parking
                                         </span>
@@ -36,11 +38,16 @@ const header = (props) => (
                                             </Link>
 
                                         </div>
-                                        <div onClick={props.openMobileMenu} style={{ cursor: "pointer" }}>
-                                            <i
-                                                className="fa fa-bars h3 text-white d-md-none mr-2"
-                                            > </i>
-                                        </div>
+                                        {props.popupShow || props.notificationPopupShow
+                                            ? <a title='You must first accept or reject notification message'>
+                                                <div onClick={props.onPopupOpened} style={{ cursor: "pointer" }}>
+                                                        <i className="fa fa-bars h3 text-white d-md-none mr-2"> </i>
+                                                </div>
+                                              </a>
+                                            : <div onClick={props.openMobileMenu} style={{ cursor: "pointer" }}>
+                                                <i className="fa fa-bars h3 text-white d-md-none mr-2"> </i>
+                                              </div>
+                                        }
                                     </div>
                                 </div>
 
@@ -59,12 +66,15 @@ const mapStateToProps = state => {
     return {
         userName: state.user.name,
         userLastname: state.user.lastname,
-        mobileMenu: state.mobileMenu
+        mobileMenu: state.mobileMenu,
+        popupShow: state.popup.show,
+        notificationPopupShow: state.notificationPopup.show
     }
 };
 
 const mapDispatchToProps= dispatch => ({
-    openMobileMenu: () => dispatch(openMobileMenu())
+    openMobileMenu: () => dispatch(openMobileMenu()),
+    onPopupOpened: () => dispatch(popupOpened())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(header);

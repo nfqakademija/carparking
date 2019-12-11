@@ -63,11 +63,12 @@ export const noCoordinates = () => {
     }
 }
 
-export const buttonClicked = (date, buttonType) => {
+export const buttonClicked = (date, buttonType, switchUser) => {
     return {
         type: actionTypes.BUTTON_CLICKED,
         date,
-        buttonType
+        buttonType,
+        switchUser
     }
 }
 
@@ -131,5 +132,53 @@ export const fetchOneDayDataSuccess = (data) => {
     return {
         type: actionTypes.FETCH_ONE_DAY_DATA_SUCCESS,
         data
+    }
+}
+
+export const setNotification = () => {
+    return {
+        type: actionTypes.SET_NOTIFICATION
+    }
+}
+
+export const notificationPopupCancel = () => {
+    return {
+        type: actionTypes.NOTIFICATION_POPUP_CANCEL
+    }
+}
+
+export const notificationPopupAcceptStart = () => {
+    return {
+        type: actionTypes.NOTIFICATION_POPUP_ACCEPT_START
+    }
+}
+
+export const notificationPopupAcceptSuccess = () => {
+    return {
+        type: actionTypes.NOTIFICATION_POPUP_ACCEPT_SUCCESS
+    }
+}
+
+export const popupOpenedStart = () => {
+    return {
+        type: actionTypes.POPUP_OPENED_START
+    }
+}
+
+export const popupOpenedReset = () => {
+    return {
+        type: actionTypes.POPUP_OPENED_RESET
+    }
+}
+
+export const openModal = () => {
+    return {
+        type: actionTypes.OPEN_PLATE_MODAL
+    }
+}
+
+export const closeModal = () => {
+    return {
+        type: actionTypes.CLOSE_PLATE_MODAL
     }
 }

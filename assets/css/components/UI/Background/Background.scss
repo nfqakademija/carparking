@@ -19,13 +19,13 @@
 .Background_sky {
     position: absolute;
     top: 0;
-    left: -100%;
+    // left: -100%;
     width: 100%;
     height: 100%;
     background: #f8f3f0;
     z-index:-1;
-    @include prefix(animation, bgIn 6s 1s linear infinite);
-    @include prefix(transform, skewX(10deg));
+    // @include prefix(animation, bgIn 6s 1s linear infinite);
+    // @include prefix(transform, skewX(10deg));
     opacity:0.75;
 }
 
@@ -46,3 +46,403 @@
       left: -100%;
     }
   }
+ 
+$basepx:1.25;
+
+
+@function em($target, $context: $basepx) {
+   @if $target == 0 { @return 0 };
+   @return ($target * $context)/1.28;
+}
+
+@mixin prefix($name, $value) {
+  @each $vendor in ('-webkit-', '-moz-', '-ms-', '-o-', '') {
+    #{$vendor}#{$name}: #{$value};
+  }
+}
+
+html, body{
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.container{
+  height: 100%;
+  width: 100%;
+  display: table;
+  overflow: hidden;
+  .car-wrapper{
+    display: table-cell;
+    vertical-align: middle;
+    width: 100%;
+  }
+}
+
+.car{
+  width: em(32vw, $basepx);
+  height: em(20vw, $basepx);
+  position: relative;
+  opacity: 1;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 4;
+  @include prefix(animation, carMove 0.3s infinite);
+  .body{
+    position: absolute;
+    top: 0;
+    left: em(1.4vw, $basepx);
+    width: em(23vw, $basepx);
+    height: em(16vw, $basepx);
+    background: #c1b9b9;
+    &:before{
+      content: "";
+      position: absolute;
+      left: em(-1.4vw, $basepx);
+      border-radius: 10px 10px 0 0;
+      width: em(25.4vw, $basepx);
+      z-index: 2;
+      height: em(1.2vw, $basepx);
+      background: black;
+    }
+    div{
+      position: absolute;
+      background: #c1b9b9;
+      width: em(29vw, $basepx);
+      height: em(6vw, $basepx);
+      bottom: em(-1vw, $basepx);
+      border-radius: 0 0 10px 10px;
+      &:before{
+        content: "";
+        background: #c1b9b9;
+        position: absolute;
+        top: em(-2.9vw, $basepx);
+        right: 0px;
+        width: em(8vw, $basepx);
+        height: em(4vw, $basepx);
+        z-index: 1;
+        border-radius: 0 14px 0 0;
+        @include prefix(transform, rotate(17deg));
+      }
+      &:after{
+        content: "";
+        background: #c1b9b9;
+        position: absolute;
+        top: em(-8.2vw, $basepx);
+        right: em(1.7vw, $basepx);
+        width: em(9vw, $basepx);
+        height: em(4vw, $basepx);
+        z-index: 1;
+        border-radius: 10px 0 0 0;
+        @include prefix(transform, rotate(75deg));        
+      }
+    }
+   }
+  .wheel{
+    position: absolute;
+    width: em(6vw, $basepx);
+    height: em(6vw, $basepx);
+    background: black;
+    border-radius: 50%;
+    bottom: 0;
+    left: em(4.8vw, $basepx);
+    z-index: 14;
+    @include prefix(animation, carMove 0.3s 0.2s);
+    &:before{
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      background: #c1b9b9;
+      width: em(2.4vw, $basepx);
+      height: em(2.4vw, $basepx);
+      border-radius: 50%;
+      @include prefix(transform, translate(-50%, -50%));
+    }
+    &:nth-of-type(2){
+      left: em(21vw, $basepx);
+    }
+  }
+  .decos{
+    width: em(29vw, $basepx);
+    height: em(16.8vw, $basepx);
+    position: absolute;
+    z-index: 12;
+    top: 0;
+    left: em(1.4vw, $basepx);
+  }
+  .line-bot{
+    position: absolute;
+    bottom: em(0.9vw, $basepx);
+    height: 3px;
+    width: 100%;
+    background: #e1e8ef;
+  }
+  .door{
+    position: absolute;
+    left: em(12vw, $basepx);
+    bottom: 0;
+    width: em(6vw, $basepx);
+    height: em(14.1vw, $basepx);
+    border-radius: 10px 10px 0 0;
+    border: 3px solid #e1e8ef;
+    border-bottom: 0;
+    background: #c1b9b9;
+    &:after{
+      content: "";
+      position: absolute;
+      top: em(0.6vw, $basepx);
+      left: em(0.7vw, $basepx);
+      width: em(4.6vw, $basepx);
+      height: em(4vw, $basepx);
+      border-radius: 4px;
+      background: #5bc2ef;
+    }
+    .handle{
+      position: absolute;
+      right: em(1vw, $basepx);
+      top: em(7vw, $basepx);
+      width: em(1vw, $basepx);
+      height: em(1vw, $basepx);
+      background: #e1e8ef;
+      border-radius: 50%;
+      &:after{
+        content: "";
+        width: em(2vw, $basepx);
+        height: em(0.4vw, $basepx);
+        border-radius: 10px;
+        background: #e1e8ef;
+        position: absolute;
+        top: 50%;
+        left: em(-0.5vw, $basepx);
+        margin-top: em(-0.2vw, $basepx);
+      }
+    }
+    .bottom{
+      position: absolute;
+      bottom: em(0.6vw, $basepx);
+      left: em(1.1vw, $basepx);
+      width: em(3.8vw, $basepx);
+      height: em(1.2vw, $basepx);
+      &:before, &:after{
+        content: "";
+        display: block;
+        width: 100%;
+        height: em(0.3vw, $basepx);
+        background: #e1e8ef;
+        height: em(0.4vw, $basepx);
+        border-radius: 10px;
+        margin-bottom: em(0.4vw, $basepx);
+      }
+    }
+  }
+  .window{
+    position: absolute;
+    top: em(1.8vw, $basepx);
+    left: em(20vw, $basepx);
+    width: em(3.2vw, $basepx);
+    background: #5bc2ef;
+    height: em(7.2vw, $basepx);
+    border-radius: 10px 10px 0 10px;
+    &:before{
+      content: "";
+      width: 100%;
+      height: em(2vw, $basepx);
+      background: #5bc2ef;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: em(4.7vw, $basepx);
+      border-radius: 0 10px 10px 10px;
+    }
+    &:after{
+      content: "";
+      height: em(2vw, $basepx);
+      background: #5bc2ef;
+      position: absolute;
+      top: em(1.7vw, $basepx);
+      left: em(-1.3vw, $basepx);
+      width: em(6.7vw, $basepx);
+      transform-origin: bottom;
+      @include prefix(transform, rotate(74deg));
+      border-radius: 10px 10px 10px 10px;
+    }    
+  }
+  .light{
+    position: absolute;
+    width: em(1vw, $basepx);
+    height: em(1vw, $basepx);
+    background: #ff8c40;
+    right: em(6vw, $basepx);
+    bottom: em(5vw, $basepx);
+    border-radius: 3px;
+  }
+  .light-front{
+    position: absolute;
+    width: em(0.8vw, $basepx);
+    height: em(0.8vw, $basepx);
+    background: #ff8c40;
+    right: em(-0.3vw, $basepx);
+    bottom: em(5.7vw, $basepx);
+    border-radius: 3px;
+    &:after{
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #ff8c40;
+      top: 100%;
+      height: em(1.5vw, $basepx);
+      border-radius: 3px;
+      margin-top: 2px;
+    }
+  }  
+  .antenna{
+    position: absolute;
+    width: em(2.6vw, $basepx);
+    height: em(1vw, $basepx);
+    background: #c1b9b9;
+    bottom: 100%;
+    left: em(1.7vw, $basepx);
+    border-radius: 4px 4px 0 0;
+    &:before{
+      content: "";
+      position: absolute;
+      width: em(3.8vw, $basepx);
+      height: em(0.4vw, $basepx);
+      background: #c1b9b9;
+      bottom: 0;
+      left: em(-2.2vw, $basepx);
+      @include prefix(transform, rotate(55deg));
+      @include prefix(transform-origin, right);
+      border-radius: 4px;
+    }
+  }
+  .ice-cream{
+    position: absolute;
+    left: em(3vw, $basepx);
+    top: em(3vw, $basepx);
+    width: em(7vw, $basepx);
+    height: em(7vw, $basepx);
+    border: 3px solid #fff;
+    background-color:#f8f3f0;
+    border-radius: 50%;
+    @include prefix(transform, rotate(-30deg));
+  }
+}
+
+.text {
+  font-size:$basepx*1.5vw;
+  font-weight: 900;
+  margin-top:$basepx*1vw;
+  color:rgb(255, 107, 0);
+}
+
+.wind{
+  position: absolute;
+  z-index: -1;
+  right: 100%;
+  height: 100%;
+  margin-right: em(-2vw, $basepx);
+  .p{
+    position: absolute;
+    background: #c1b9b9;
+    border-radius: em(1vw, $basepx);    
+    height: em(1vw, $basepx);
+  }
+  .p1{
+    width: em(7vw, $basepx);
+    position: absolute;
+    right: 0;
+    top: em(2.5vw, $basepx);
+    animation: wind 1s -1s linear infinite;
+  }
+  .p2{
+   width: em(10vw, $basepx);
+   right: em(4vw, $basepx);
+   top: em(6vw, $basepx); 
+    animation: wind 1s -2s linear infinite;
+  }
+  .p3{
+   width: em(5vw, $basepx);
+   right: em(0vw, $basepx);
+   top: em(10.5vw, $basepx); 
+    animation: wind 1s -1s linear infinite;
+  } 
+  .p4{
+   width: em(6vw, $basepx);
+   right: em(10vw, $basepx);
+   top: em(13.5vw, $basepx); 
+    animation: wind 1s 1s linear infinite;
+  }   
+  .p5{
+   width: em(7vw, $basepx);
+   right: em(3vw, $basepx);
+   top: em(14.5vw, $basepx); 
+    animation: wind 1s -1.5s linear infinite;
+  }     
+}
+
+.car-wrapper_inner{
+  position: absolute;
+  z-index: 4;
+  bottom: 15%;
+  left: 35%;
+}
+
+@keyframes carMove{
+  0%{
+    transform: translateY(0px);
+  }
+  50%{
+   transform: translateY(-1px); 
+  }
+  100%{
+    transform: translateY(0px);
+  }
+}
+
+@keyframes wind{
+  0%{
+    transform: translateX(100%);
+    opacity: 1;
+  }
+  100%{
+    transform: translateX(-400%);
+    opacity: 0;
+  }
+}
+
+.car_outter{
+  @include prefix(transform, translateX(-300%));
+  position: relative;
+  animation: carDrive 5s 1s cubic-bezier(0.88, 0.08, 0.16, 1.1) infinite;
+}
+
+@keyframes carDrive{
+  0%{
+    transform: translateX(-300%);
+  }
+  25%{
+    transform: translateX(0%);
+  }
+  70%{
+    transform: translateX(0%);
+  }
+  100%{
+    transform: translateX(300%);
+  }
+}
+
+@keyframes wrapperIn{
+  0%{
+    transform: scale(0);
+    opacity: 0;
+  }
+  100%{
+    transform: scale(1);
+    opacity: 1;
+  }
+}
