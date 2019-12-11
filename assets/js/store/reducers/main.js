@@ -37,7 +37,8 @@ const initialState = {
     },
     loadingOneDay: false,
     mobileMenu: false,
-    popupShake: false
+    popupShake: false,
+    plateModal: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -254,6 +255,18 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 popupShake: false
+            }
+        case actionTypes.OPEN_PLATE_MODAL:
+            console.log("as");
+            return {
+                ...state,
+                plateModal: true
+            }
+        case actionTypes.CLOSE_PLATE_MODAL:
+            console.log("asd")
+            return {
+                ...state,
+                plateModal: false
             }
         default: return state
     }

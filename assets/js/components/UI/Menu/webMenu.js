@@ -1,5 +1,7 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
+import {openModal} from "../../../store/actions/main";
+import {connect} from "react-redux";
 
 
 const webMeniu = (props) => (
@@ -28,13 +30,17 @@ const webMeniu = (props) => (
                 <div className="position-relative py-2 linkParent">
                     <span className="ml-4 position-absolute"><i className="fas fa-car-side"> </i></span>
                     <div style={{marginLeft: "5rem"}}>
-                        <NavLink to="/plate" className="link" activeClassName='webMenu_activeClass' onClick={props.onclick}>Car Plate</NavLink>
+                        <p onClick={ props.openModal } className="link" style={{cursor: "pointer"}}>Car Plate</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-)
+);
 
-export default webMeniu;
+const mapDispatchToProps= dispatch => ({
+    openModal: () => dispatch(openModal()),
+});
+
+export default connect(null, mapDispatchToProps)(webMeniu);
 

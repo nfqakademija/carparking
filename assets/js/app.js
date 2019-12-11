@@ -6,7 +6,6 @@ import Layout from './containers/Layout/Layout';
 import Login from './containers/Auth/Auth';
 import Home from './containers/Home/Home';
 import Users from './containers/Users/Users';
-import Plate from './containers/PlatePage/Plate';
 import Logout from './containers/Auth/Logout/Logout'
 
 class App extends Component {
@@ -22,11 +21,10 @@ class App extends Component {
         if(this.props.token) {
             routes = 
             <Layout user={this.props.user}>
-                <Switch>   
-                    <Route path="/home" exact component={Home}/>
-                    <Route path='/users' exact component={Users}/>
-                    <Route path='/logout' exact component={Logout}/>
-                    <Route path='/plate' exact component={Plate}/>
+                <Switch>  
+                    <Route path="/home" component={Home}/>
+                    <Route path='/users' component={Users}/>
+                    <Route path='/logout' component={Logout}/>
                     <Redirect from='/' to='/home'/>
                 </Switch>
             </Layout>

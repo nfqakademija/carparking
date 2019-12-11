@@ -170,3 +170,15 @@ export const popupOpenedReset = () => {
         type: actionTypes.POPUP_OPENED_RESET
     }
 }
+
+export const openModal = () => {
+    return {
+        type: actionTypes.OPEN_PLATE_MODAL
+    }
+}
+
+export const closeModal = () => {
+    return {
+        type: actionTypes.CLOSE_PLATE_MODAL
+    }
+}

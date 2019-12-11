@@ -6,6 +6,8 @@ import { popupOpened } from '../../store/thunk/popup';
 import BackgroundHome from '../../components/UI/Background/BackgroundHome/BackgroundHome';
 import Header from '../../components/UI/Header/Header';
 import Menu from '../../components/UI/Menu/webMenu';
+import Modal from "../../components/UI/Modal/Modal";
+
 
 class Layout extends Component {
 
@@ -16,7 +18,9 @@ class Layout extends Component {
                 <Header
                     openMenu={this.openMenuHandler}
                     closeMenu={this.closeMenuHandler}/>
-        
+
+                <Modal />
+
                 <div className="container-fluid mainheight">
                     <div className="row h-100">
                         <Menu user={this.props.user} popupOpened={this.props.popup.show || this.props.notificationPopup.show ?this.props.onPopupOpened :false}/>
