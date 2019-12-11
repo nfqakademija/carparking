@@ -6,6 +6,8 @@ use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * @method Users|null find($id, $lockMode = null, $lockVersion = null)
@@ -96,4 +98,28 @@ class UsersRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+    public function getUsersList()
+    {
+        return $this->createQueryBuilder('u')
+            ->select('partial u.{id, name, surname}, partial ua.{id, awayStartDate, awayEndDate}')
+            ->leftJoin('u.userAways', 'ua')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+
+
+
+
+    // {
+    //            "name":"",
+    //            "surname":"",
+    //            "reservations": [
+    //                {
+    //                    "date":"",
+    //                    "reservationId":""
+    //                } * tiek kiek turi rezervaciju
+    //            ]
+    //        }  * tiek kiek yra useriu
 }

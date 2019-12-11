@@ -17,7 +17,6 @@ class ReservationService
         $this->entityManager = $entityManager;
     }
 
-
     public function reservationList()
     {
         $countParkSpaces = $this->countParkSpaces();
