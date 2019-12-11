@@ -14,14 +14,14 @@ class App extends Component {
 
         let routes =
         <Switch>
-            <Route path='/' component={Login}/> 
+            <Route path='/' exact component={Login}/> 
             <Redirect from='/' to='/'/>
         </Switch>
 
         if(this.props.token) {
             routes = 
             <Layout user={this.props.user}>
-                <Switch>   
+                <Switch>  
                     <Route path="/home" component={Home}/>
                     <Route path='/users' component={Users}/>
                     <Route path='/logout' component={Logout}/>

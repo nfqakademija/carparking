@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Background from '../../components/UI/Background/Background';
+import BackgroundHome from '../../components/UI/Background/BackgroundHome/BackgroundHome';
 import Header from '../../components/UI/Header/Header';
 import Menu from '../../components/UI/Menu/webMenu';
 import Modal from "../../components/UI/Modal/Modal";
@@ -11,7 +11,7 @@ class Layout extends Component {
     render (){
         return(
             <>
-                <Background/>
+                <BackgroundHome/>
                 <Header
                     openMenu={this.openMenuHandler}
                     closeMenu={this.closeMenuHandler}/>
