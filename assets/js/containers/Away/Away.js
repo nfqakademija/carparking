@@ -5,6 +5,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import '../../../css/containers/Away/away.scss'
 
 
+import Datepicker, {registerLocale, setDefaultLocale} from "react-datepicker";
+import {enGB} from "date-fns/esm/locale";
+
+registerLocale("en-GB", enGB);
+setDefaultLocale("en-GB");
+
+
 class Home extends Component {
     constructor(props) {
         super(props);
@@ -39,50 +46,63 @@ class Home extends Component {
     render() {
 
         const ExampleCustomInput = React.forwardRef((props, ref) => (
-                <input {...props} readOnly={true} type="text" className="form-control" placeholder="Click to select a date" />
+            <input {...props} readOnly={true} type="text" className="form-control"
+                   placeholder="Click to select a date"/>
         ));
 
         return (
-            <div className="bg-white container-fluid mt-4 p-4">
+            <div className="pt-4">
+                <div className="bg-white container-fluid p-4">
 
-                <form>
-                    <div className="form-row">
-                        <div className="col-6">
-                            <p className="text-left m-1"><b>From:</b></p>
-                            <DatePicker
-                                minDate={new Date()}
-                                maxDate={this.addDays(90)}
-                                selected={this.state.startDate}
-                                onChange={date => this.setStartDate(date)}
-                                dateFormat="dd - MM - yyyy"
-                                isClearable
-
-                                selectsStart
-                                startDate={this.state.startDate}
-                                endDate={this.state.endDate}
-                                customInput={<ExampleCustomInput />}
-                            />
-                        </div>
-                        <div className="col-12 col-md-6">
-                            <p className="text-left m-1"><b>To:</b></p>
-                            <DatePicker
-                                minDate={new Date()}
-                                maxDate={this.addDays(90)}
-                                selected={this.state.endDate}
-                                onChange={date => this.setEndDate(date)}
-                                dateFormat="dd - MM - yyyy"
-                                isClearable
-
-                                selectsEnd
-                                startDate={this.state.startDate}
-                                endDate={this.state.endDate}
-                                minDate={this.state.startDate}
-                                customInput={<ExampleCustomInput />}
-                            />
-                        </div>
+                    <div className="rounded text-left p-2 my-3" style={{backgroundColor: "#E9ECEF"}}><b>History:</b></div>
+                    <div className="rounded text-left p-2 my-3" style={{backgroundColor: "#E9ECEF"}}>Welcome please choose
+                        dates when you will not use the car park.
                     </div>
-                </form>
 
+                    <form>
+                        <div className="form-row">
+                            <div className="col-12 col-md-6">
+                                <p className="text-left m-1"><b>From:</b></p>
+                                <DatePicker
+                                    minDate={new Date()}
+                                    maxDate={this.addDays(90)}
+                                    selected={this.state.startDate}
+                                    onChange={date => this.setStartDate(date)}
+                                    dateFormat="yyyy-MM-dd"
+                                    isClearable
+                                    locale="en-GB"
+
+                                    selectsStart
+                                    startDate={this.state.startDate}
+                                    endDate={this.state.endDate}
+                                    customInput={<ExampleCustomInput/>}
+                                />
+                            </div>
+                            <div className="col-12 col-md-6">
+                                <p className="text-left m-1"><b>To:</b></p>
+                                <DatePicker
+                                    minDate={new Date()}
+                                    maxDate={this.addDays(90)}
+                                    selected={this.state.endDate}
+                                    onChange={date => this.setEndDate(date)}
+                                    dateFormat="yyyy-MM-dd"
+                                    isClearable
+                                    locale="en-GB"
+
+                                    selectsEnd
+                                    startDate={this.state.startDate}
+                                    endDate={this.state.endDate}
+                                    minDate={this.state.startDate}
+                                    customInput={<ExampleCustomInput/>}
+                                />
+                            </div>
+                        </div>
+                    </form>
+
+                    <button className="btn btn-warning btn-lg mt-4 shadow">
+                        <b className="text-white">Enter</b>
+                    </button>
+                </div>
             </div>
         );
     }
