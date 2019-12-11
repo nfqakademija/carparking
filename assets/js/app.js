@@ -7,6 +7,7 @@ import Login from './containers/Auth/Auth';
 import Home from './containers/Home/Home';
 import Users from './containers/Users/Users';
 import Logout from './containers/Auth/Logout/Logout'
+import Away from './containers/Away/Away'
 
 class App extends Component {
 
@@ -25,6 +26,7 @@ class App extends Component {
                     <Route path="/home" component={Home}/>
                     <Route path='/users' component={Users}/>
                     <Route path='/logout' component={Logout}/>
+                    <Route path='/away' component={Away}/>
                     <Redirect from='/' to='/home'/>
                 </Switch>
             </Layout>

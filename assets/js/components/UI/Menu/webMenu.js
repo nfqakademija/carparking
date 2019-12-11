@@ -28,6 +28,15 @@ const webMeniu = (props) => (
                 </div>
                 <hr className="m-0" />
                 <div className="position-relative py-2 linkParent">
+                    <span className="ml-4 position-absolute"><i className="fa fa-users"> </i></span>
+                    <div style={{marginLeft: "5rem"}}>
+                        {props.popupOpened
+                            ?<a title='You must first accept or reject notification message' className="link" onClick={props.popupOpened}>Watch Users</a>
+                            :<NavLink to="/away" className="link" activeClassName='webMenu_activeClass' onClick={props.onclick}>Set Away</NavLink>}
+                    </div>
+                </div>
+                <hr className="m-0" />
+                <div className="position-relative py-2 linkParent">
                     <span className="ml-4 position-absolute"><i className="fas fa-car-side"> </i></span>
                     <div style={{marginLeft: "5rem"}}>
                         <p onClick={ props.openModal } className="link" style={{cursor: "pointer"}}>Car Plate</p>
