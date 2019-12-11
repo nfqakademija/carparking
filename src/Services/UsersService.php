@@ -35,7 +35,8 @@ class UsersService
                     array_push($reservations, $checkGuestReservation);
                 }
             }
-            array_push($userArray, $single, $reservations);
+            $single['reservations'] = $reservations;
+            array_push($userArray, $single);
         }
         return $userArray;
     }
