@@ -52,7 +52,7 @@ class PlateModal extends Component {
                     className={"licenseplate modileWidth " + this.state.color}
                     maxLength="6"
                     id="plate"
-                    placeholder={this.props.plate}
+                    placeholder={this.props.plate ?this.props.plate :'ABC000'}
                     onKeyUp={this.myChangeHandler}
                 />
                 <br/>
@@ -67,7 +67,7 @@ class PlateModal extends Component {
 
 const mapStateToProps = state => {
     return {
-        plate: state.plate,
+        plate: state.user.activeCar,
     }
 }
 
