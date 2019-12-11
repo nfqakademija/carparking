@@ -101,8 +101,12 @@ class UsersRepository extends ServiceEntityRepository
 
     public function getUsersList()
     {
+        $user = 'user';
         return $this->createQueryBuilder('u')
             ->select('partial u.{id, name, surname}, partial ua.{id, awayStartDate, awayEndDate}')
+            ->leftJoin('u.userRole', 'r')
+            ->andWhere('r.role = :user')
+            ->setParameter('user', $user)
             ->leftJoin('u.userAways', 'ua')
             ->getQuery()
             ->getArrayResult();
