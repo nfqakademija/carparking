@@ -20,7 +20,8 @@ const initialState = {
         left: '0px'
     },
     loadingOneDay: false,
-    mobileMenu: false
+    mobileMenu: false,
+    plateModal: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -166,6 +167,18 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 reservationStatus: action.data,
                 loadingOneDay: false
+            }
+        case actionTypes.OPEN_PLATE_MODAL:
+            console.log("as");
+            return {
+                ...state,
+                plateModal: true
+            }
+        case actionTypes.CLOSE_PLATE_MODAL:
+            console.log("asd")
+            return {
+                ...state,
+                plateModal: false
             }
         default: return state
     }

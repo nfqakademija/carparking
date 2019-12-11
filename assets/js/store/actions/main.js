@@ -134,3 +134,15 @@ export const fetchOneDayDataSuccess = (data) => {
         data
     }
 }
+
+export const openModal = () => {
+    return {
+        type: actionTypes.OPEN_PLATE_MODAL
+    }
+}
+
+export const closeModal = () => {
+    return {
+        type: actionTypes.CLOSE_PLATE_MODAL
+    }
+}
