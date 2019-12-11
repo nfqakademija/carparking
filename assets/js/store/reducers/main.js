@@ -15,12 +15,12 @@ const initialState = {
             {
                 name: 'Elvis',
                 surname: 'Raynor',
-                date: '2019-12-10'
+                date: '2019-12-13'
             },
             {
                 name: 'Calista',
                 surname: 'Sipes',
-                date: '2019-12-11'
+                date: '2019-12-14'
             }
         ]
     },
