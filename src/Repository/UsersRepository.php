@@ -54,9 +54,6 @@ class UsersRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-
-
-
     /**
      * @return mixed
      */
@@ -86,5 +83,17 @@ class UsersRepository extends ServiceEntityRepository
             ->setParameter('val', 1)
             ->getQuery()
             ->execute();
+    }
+
+    public function countUsersByAwayDate($date)
+    {
+        return $this->createQueryBuilder('u')
+            ->select('count(u.id)')
+            ->leftJoin('u.userAways', 'ua')
+            ->andWhere('ua.awayStartDate <= :date')
+            ->andWhere('ua.awayEndDate >= :date')
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

@@ -17,6 +17,36 @@ class ReservationService
         $this->entityManager = $entityManager;
     }
 
+
+    public function reservationList()
+    {
+        $countParkSpaces = $this->countParkSpaces();
+        $reservationList = [];
+        $dateArray = $this->dateTimeProvider(7);
+        foreach ($dateArray as $item) {
+            $dateObject = $this->dateFromString($item);
+            $reservationDateString = $dateObject->format('Y-m-d H:i:s');
+            $numberReservation = $this->entityManager
+                ->getRepository(Reservations::class)
+                ->countReservationByDateAndWithParkSpaceId($reservationDateString);
+            $numberAways = $this->entityManager
+                ->getRepository(Users::class)
+                ->countUsersByAwayDate($reservationDateString);
+            $array = [];
+            $array['date'] = $item;
+            $array['availableSpots'] = $numberAways - $numberReservation;
+            $array['usedSpots'] = $countParkSpaces - $array['availableSpots'];
+            array_push($reservationList, $array);
+        }
+        return $reservationList;
+    }
+
+    private function countParkSpaces()
+    {
+        return $this->entityManager->getRepository(ParkSpaces::class)->countParkSpaces();
+    }
+
+
     public function makeGuestReservation($array)
     {
         $guest = $this->checkUserRole($array['id']);

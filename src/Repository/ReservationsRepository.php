@@ -59,13 +59,13 @@ class ReservationsRepository extends ServiceEntityRepository
      */
     public function findReservationByDateAndUserId($date, $clientId)
     {
-      return $this->createQueryBuilder('r')
-          ->andWhere('r.reservationDate = :reservationDate')
-          ->andWhere('r.user = :id')
-          ->setParameter('id', $clientId)
-          ->setParameter('reservationDate', $date)
-          ->getQuery()
-          ->getOneOrNullResult();
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.reservationDate = :reservationDate')
+            ->andWhere('r.user = :id')
+            ->setParameter('id', $clientId)
+            ->setParameter('reservationDate', $date)
+            ->getQuery()
+            ->getOneOrNullResult();
     }
 
     public function findReservationByDateAndParkSpaceId($date, $parkSpaceId)
@@ -79,22 +79,17 @@ class ReservationsRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-//    public function getReservationWherePar
-
-
-//    public function findUsers()
-//    {
-//        $admin = 'admin';
-//        $user = 'user';
-//
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.status = :val')
-//            ->leftJoin('u.userRole', 'r')
-//            ->andWhere('r.role = :admin OR r.role = :user')
-//            ->setParameter('admin', $admin)
-//            ->setParameter('user', $user)
-//            ->setParameter('val', 1)
-//            ->getQuery()
-//            ->execute();
-//    }
+    public function countReservationByDateAndWithParkSpaceId($date)
+    {
+        return $this->createQueryBuilder('r')
+            ->select('count(r.id)')
+            ->andWhere('r.reservationDate = :reservationDate')
+            ->andWhere('r.parkSpace > 0')
+            ->setParameter('reservationDate', $date)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }
+
+
+
