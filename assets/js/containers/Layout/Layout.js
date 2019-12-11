@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import Background from '../../components/UI/Background/Background';
 import Header from '../../components/UI/Header/Header';
 import Menu from '../../components/UI/Menu/webMenu';
-import PlateModal from '../../components/UI/Modal/PlateModal';
+import Modal from "../../components/UI/Modal/Modal";
+
 
 class Layout extends Component {
 
@@ -15,8 +16,8 @@ class Layout extends Component {
                     openMenu={this.openMenuHandler}
                     closeMenu={this.closeMenuHandler}/>
 
-                <PlateModal />
-        
+                <Modal />
+
                 <div className="container-fluid mainheight">
                     <div className="row h-100">
                         <Menu user={this.props.user}/>
@@ -31,5 +32,6 @@ class Layout extends Component {
         )
     }
 }
+
 
 export default Layout;
