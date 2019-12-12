@@ -182,3 +182,10 @@ export const closeModal = () => {
         type: actionTypes.CLOSE_PLATE_MODAL
     }
 }
+
+export const postAway = (data) => {
+    return {
+        type: actionTypes.POST_AWAY_DATES,
+        data: data
+    }
+};
