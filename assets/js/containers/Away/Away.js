@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import "react-datepicker/dist/react-datepicker.css";
 import '../../../css/containers/Away/away.scss'
 
-
+import '../../../css/components/UI/PopUp/popAway.scss';
 import DatePicker, {registerLocale, setDefaultLocale} from "react-datepicker";
 import {enGB} from "date-fns/esm/locale";
 
@@ -16,11 +16,13 @@ class Home extends Component {
         super(props);
         this.state = {
             startDate: "",
-            endDate: ""
+            endDate: "",
+            popUp: false
         };
 
         this.setStartDate = this.setStartDate.bind(this);
         this.setEndDate = this.setEndDate.bind(this);
+        this.openPop = this.openPop.bind(this);
         this.myRef = React.createRef();
     }
 
@@ -42,6 +44,12 @@ class Home extends Component {
         return result;
     }
 
+    openPop() {
+        this.setState({
+            popUp: !this.state.popUp
+        });
+    }
+
     render() {
 
         const ExampleCustomInput = React.forwardRef((props, ref) => (
@@ -50,11 +58,20 @@ class Home extends Component {
         ));
 
         return (
-            <div className="pt-4">
-                <div className="bg-white container-fluid p-4">
+            <div className="p-4">
 
-                    <div className="rounded text-left p-2 my-3" style={{backgroundColor: "#E9ECEF"}}><b>History:</b></div>
-                    <div className="rounded text-left p-2 my-3" style={{backgroundColor: "#E9ECEF"}}>Welcome please choose
+                <div className={`PopUp_away_container mb-4 animation ${this.state.popUp?'show':'hide'}`}>
+                    From {this.state.setStartDate} To {this.state.endDate}
+                    Are you sure?
+                </div>
+
+
+                <div className="bg-white container-fluid p-4 shadow">
+
+                    <div className="rounded text-left p-2 my-3" style={{backgroundColor: "#E9ECEF"}}><b>History:</b>
+                    </div>
+                    <div className="rounded text-left p-2 my-3" style={{backgroundColor: "#E9ECEF"}}>Welcome please
+                        choose
                         dates when you will not use the car park.
                     </div>
 
@@ -80,7 +97,6 @@ class Home extends Component {
                             <div className="col-12 col-md-6">
                                 <p className="text-left m-1"><b>To:</b></p>
                                 <DatePicker
-                                    minDate={new Date()}
                                     maxDate={this.addDays(90)}
                                     selected={this.state.endDate}
                                     onChange={date => this.setEndDate(date)}
@@ -98,7 +114,7 @@ class Home extends Component {
                         </div>
                     </form>
 
-                    <button className="btn btn-warning btn-lg mt-4 shadow">
+                    <button className="btn btn-warning btn-lg mt-4 shadow" onClick={this.openPop}>
                         <b className="text-white">Enter</b>
                     </button>
                 </div>
