@@ -16,25 +16,31 @@ class Home extends Component {
         super(props);
         this.state = {
             startDate: "",
+            startDateClear: null,
             endDate: "",
-            popUp: false
+            endDateClear: null,
+            popUp: false,
+            message: null
         };
 
         this.setStartDate = this.setStartDate.bind(this);
         this.setEndDate = this.setEndDate.bind(this);
         this.openPop = this.openPop.bind(this);
-        this.myRef = React.createRef();
     }
 
     setStartDate(date) {
+        const dateConstructor = `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
         this.setState({
-            startDate: date
+            startDate: date,
+            startDateClear: dateConstructor
         });
     };
 
     setEndDate(date) {
+        const dateConstructor = `${date.getFullYear()}-${(date.getMonth()+1).toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
         this.setState({
-            endDate: date
+            endDate: date,
+            endDateClear: dateConstructor
         });
     };
 
@@ -45,9 +51,19 @@ class Home extends Component {
     }
 
     openPop() {
-        this.setState({
-            popUp: !this.state.popUp
-        });
+        if(this.state.startDateClear !== null && this.state.endDateClear !== null)
+        {
+            this.setState({
+                popUp: !this.state.popUp,
+                message: null
+            });
+        }
+        else{
+            this.setState({
+                message: "Sorry,  you didn't select a dates!"
+            });
+        }
+
     }
 
     render() {
@@ -61,8 +77,10 @@ class Home extends Component {
             <div className="p-4">
 
                 <div className={`PopUp_away_container mb-4 animation ${this.state.popUp?'show':'hide'}`}>
-                    From {this.state.setStartDate} To {this.state.endDate}
-                    Are you sure?
+                    <p><b>Set Away </b> - From: <b>{this.state.startDateClear}</b> To <b>{this.state.endDateClear}</b></p>
+                    <p>Are you sure?</p>
+                    <button className="btn btn-warning mr-2"><b className="text-white">Yes</b></button>
+                    <button className="btn btn-danger"><b className="text-white">No</b></button>
                 </div>
 
 
@@ -97,6 +115,7 @@ class Home extends Component {
                             <div className="col-12 col-md-6">
                                 <p className="text-left m-1"><b>To:</b></p>
                                 <DatePicker
+                                    minDate={new Date()}
                                     maxDate={this.addDays(90)}
                                     selected={this.state.endDate}
                                     onChange={date => this.setEndDate(date)}
@@ -114,7 +133,9 @@ class Home extends Component {
                         </div>
                     </form>
 
-                    <button className="btn btn-warning btn-lg mt-4 shadow" onClick={this.openPop}>
+                    <div className="text-danger my-4">{this.state.message}</div>
+
+                    <button className="btn btn-warning btn-lg mt-2 shadow" onClick={this.openPop}>
                         <b className="text-white">Enter</b>
                     </button>
                 </div>
