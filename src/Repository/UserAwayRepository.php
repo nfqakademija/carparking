@@ -28,7 +28,7 @@ class UserAwayRepository extends ServiceEntityRepository
     public function findById($id)
     {
         return $this->createQueryBuilder('ua')
-            ->andWhere('u.id = :id')
+            ->andWhere('ua.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
             ->getOneOrNullResult();

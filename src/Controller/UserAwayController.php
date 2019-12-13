@@ -58,7 +58,7 @@ class UserAwayController extends FOSRestBundle
     /**
      * @Rest\Post("/api/useraway")
      * @param Request $request
-     * @return JsonResponse()
+     * @return JsonResponse
      */
     public function postUserAway(Request $request)
     {
@@ -73,33 +73,15 @@ class UserAwayController extends FOSRestBundle
     /**
      * @Rest\Put("/api/useraway")
      * @param Request $request
+     * @return JsonResponse
      */
     public function updateUserAway(Request $request)
     {
         $content = $request->getContent();
         $dataArray = json_decode($content, true);
-        $id = null;
-        foreach ($dataArray['away_date'] as $value) {
-            $userAway = $this->entityManager->getRepository(UserAway::class)->findById($value['id']);
-            if (!$userAway) {
-            } else {
-                $parkId = $userAway->getAwayUser()->getPermanentSpace()->getId();
-                $clientId = $userAway->getAwayUser()->getId();
-                $format = '!Y-m-d';
-                $dateStart = \DateTime::createFromFormat($format, $value['away_start_date']);
-                $dateEnd = \DateTime::createFromFormat($format, $value['away_end_date']);
-                $userAway->setAwayStartDate($dateStart);
-                $userAway->setAwayEndDate($dateEnd);
-                $this->entityManager->persist($userAway); //not needed
-            }
-        }
-        $this->entityManager->flush();
-
-        $service = new ReservationService($this->entityManager);
-        $service->updateOrDeleteReservation($clientId, $parkId);
-        $response = new Response();
-        $response->setStatusCode(Response::HTTP_OK);
-        return $response;
+        $awayService = new UserAwayService($this->entityManager);
+        $response = $awayService->put($dataArray);
+        return new JsonResponse($response);
     }
 
     /**
