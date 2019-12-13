@@ -38,7 +38,6 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 //    var_dump($request->headers->get('Userid'));
 //    die;
         return $request->headers->has('Authorization');
-
     }
 
     /**

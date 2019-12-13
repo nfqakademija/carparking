@@ -90,6 +90,3 @@ class ReservationsRepository extends ServiceEntityRepository
             ->getSingleScalarResult();
     }
 }
-
-
-

@@ -14,6 +14,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
 class GoogleAuthenticator extends SocialAuthenticator
@@ -91,13 +93,12 @@ class GoogleAuthenticator extends SocialAuthenticator
      *      return new Response('Auth header required', 401);
      *
      * @param Request $request The request that resulted in an AuthenticationException
-     * @param \Symfony\Component\Security\Core\Exception\AuthenticationException $authException The exception that started the authentication process
+     * @param AuthenticationException $authException
+     * The exception that started the authentication process
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function start(
-        Request $request,
-        \Symfony\Component\Security\Core\Exception\AuthenticationException $authException = null)
+    public function start(Request $request, AuthenticationException $authException = null)
     {
         return new RedirectResponse('/login');
     }
@@ -112,19 +113,14 @@ class GoogleAuthenticator extends SocialAuthenticator
      * not be authenticated. This is probably not what you want to do.
      *
      * @param Request $request
-     * @param \Symfony\Component\Security\Core\Exception\AuthenticationException $exception
+     * @param AuthenticationException $exception
      *
      * @return Response
      */
-    public function onAuthenticationFailure(
-        Request $request,
-        \Symfony\Component\Security\Core\Exception\AuthenticationException $exception)
+    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         // TODO: Implement onAuthenticationFailure() method.
-
-
         $message = strtr($exception->getMessageKey(), $exception->getMessageData());
-
         return new Response($message, Response::HTTP_FORBIDDEN);
     }
 
@@ -138,19 +134,16 @@ class GoogleAuthenticator extends SocialAuthenticator
      * will be authenticated. This makes sense, for example, with an API.
      *
      * @param Request $request
-     * @param \Symfony\Component\Security\Core\Authentication\Token\TokenInterface $token
+     * @param TokenInterface $token
      * @param string $providerKey The provider (i.e. firewall) key
      *
      * @return RedirectResponse
      */
-    public function onAuthenticationSuccess(
-        Request $request,
-        \Symfony\Component\Security\Core\Authentication\Token\TokenInterface $token, $providerKey)
+    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
         $valueArray = $this->testCred->getValues();
         $key = $valueArray['token_type'];
         $value = $valueArray['id_token'];
-
         $response = new RedirectResponse('/hom');
         $response->headers->setCookie(Cookie::create($key . '-token', $value));
         return $response;

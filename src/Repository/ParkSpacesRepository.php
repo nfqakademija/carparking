@@ -31,6 +31,4 @@ class ParkSpacesRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
-
-
 }
