@@ -4,7 +4,10 @@ import registrationData from "../../containers/Home/fakeReservationData.json"
 const initialState = {
     registrationData: registrationData,
     token: 1,
-    loading: false,
+    loading: {
+        loadingSingleUser: true,
+        loadingReservations: true
+    },
     user: {
         id: 4,
         name: null,
@@ -291,6 +294,64 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 postAwayLoading: true
+            }
+        case actionTypes.GET_SINGLE_USER_START:
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    loadingSingleUser: true
+                }
+            }
+        case actionTypes.GET_SINGLE_USER_SUCCESS:
+            return {
+                ...state,
+                user: action.user,
+                loading: {
+                    ...state.loading,
+                    loadingSingleUser: false
+                }
+            }
+        case actionTypes.GET_SINGLE_USER_FAIL:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    err: action.err
+                },
+                loading: {
+                    ...state.loading,
+                    loadingSingleUser: false
+                }
+            }
+        case actionTypes.GET_RESERVATIONS_START:
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    loadingReservations: true
+                }
+            }
+        case actionTypes.GET_RESERVATIONS_SUCCESS:
+            return {
+                ...state,
+                weekStatus: action.parkingLotStatus,
+                loading: {
+                    ...state.loading,
+                    loadingReservations: false
+                }
+            }
+        case actionTypes.GET_RESERVATIONS_SUCCESS:
+            return {
+                ...state,
+                parkingLotStatus: {
+                    ...state.parkingLotStatus,
+                    err: action.err
+                },
+                loading: {
+                    ...state.loading,
+                    loadingReservations: false
+                }
             }
         default: return state
     }

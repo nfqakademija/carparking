@@ -32,12 +32,33 @@ const createDayObj = () => {
     return reservationStatus
 }
 
+export const getSingleUser = () => dispatch => {
+    dispatch(actions.getSingleUserStart()) //*
+    axios.get(`/api/single-user/4`) //*
+        .then( res => {
+            dispatch(actions.getSingleUserSuccess(res.data))
+        })
+        .catch( err => {
+            console.log(err)
+        })
+}
+
+export const getReservations = () => dispatch => {
+    dispatch(actions.getReservationsStart());
+    axios.get(`/api/reservations`)
+        .then( res => {
+            dispatch(actions.getReservationsSuccess(res.data))
+        })
+        .catch( err => {
+            console.log(err)
+        })
+}
+
 export const getHomeData = () => (dispatch, getState) => {
-    const reservationStatus = createDayObj();
-    let user = getState().user;
-        
-    dispatch(actions.getHomeDataStart());
-    dispatch(fetchHomeData(reservationStatus, user))    
+    dispatch(getSingleUser());
+    dispatch(getReservations())
+    // dispatch(actions.getHomeDataStart());
+    // dispatch(fetchHomeData(reservationStatus, user))    
 }
 
 export const getUsersData = () => dispatch => {

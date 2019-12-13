@@ -208,3 +208,43 @@ export const postAwayStatusLoading = () => {
         type: actionTypes.POST_AWAY_STATUS_LOADING
     }
 }
+
+export const getSingleUserStart = () => {
+    return {
+        type: actionTypes.GET_SINGLE_USER_START
+    }
+}
+
+export const getSingleUserSuccess = user => {
+    return {
+        type: actionTypes.GET_SINGLE_USER_SUCCESS,
+        user
+    }
+}
+
+export const getSingleUserFail = err => {
+    return {
+        type: actionTypes.GET_SINGLE_USER_SUCCESS,
+        err
+    }
+}
+
+export const getReservationsStart = () => {
+    return {
+        type: actionTypes.GET_RESERVATIONS_START
+    }
+}
+
+export const getReservationsSuccess = parkingLotStatus => {
+    return {
+        type: actionTypes.GET_RESERVATIONS_SUCCESS,
+        parkingLotStatus
+    }
+}
+
+export const getReservationsFail = err => {
+    return {
+        type: actionTypes.GET_RESERVATIONS_FAIL,
+        err
+    }
+}

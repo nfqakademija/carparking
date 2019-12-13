@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { connect } from "react-redux";
 
-import { getHomeData, popupAcceptClicked, successTimer, buttonClickedMid, notificationPopupAccept } from '../../store/thunk/reservations';
+import { getHomeData, popupAcceptClicked, successTimer, buttonClickedMid, notificationPopupAccept, getSingleUser } from '../../store/thunk/reservations';
 import { getCoordinates, popupOpened } from '../../store/thunk/popup';
 import { popupCancel, setNotification, notificationPopupCancel } from '../../store/actions/index';
 
@@ -23,16 +23,17 @@ class Home extends Component {
 
     componentDidMount(){
         this.props.onGetHomeData();
-        if (this.props.user.notifications[1]) {
-            setTimeout(
-                () => {this.props.onGetCoordinates(this.reservationRefFirst, this.reservationRefLast); this.props.onSetNotification()}, 1000
-            )
-        }
+        // if (this.props.user.notifications[1]) {
+        //     setTimeout(
+        //         () => {this.props.onGetCoordinates(this.reservationRefFirst, this.reservationRefLast); this.props.onSetNotification()}, 1000
+        //     )
+        // }
         
         // axios.get('/api/make-reservation').then(res => console.log(res))
         // axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
-        // axios.get(`/api/reservations`).then(res => console.log(res))
+        axios.get(`/api/reservations`).then(res => console.log(res))
         // axios.get(`/api/users`).then(res => console.log(res))
+        axios.get(`/api/single-user/4`).then(res => console.log(res))
     }
 
     buttonClickHandler(date, buttonType, first, last) {
@@ -120,33 +121,34 @@ class Home extends Component {
     render (){
         return (
         <>
-            {this.props.loading
-            ? 'loading...'
+            {this.props.loading.loadingSingleUser || this.props.loading.loadingReservations
+            ? null
             : <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
                 {this.notificationPopupHandler(this.props.notificationPopup)}
                 {this.popupHandler(this.props.popup)}
                 <div className='Home_reservationContainer' style={this.reservationContainerStyleHandler()} >
-                    {this.props.registrationData.map( (day,index) => {
-                        return (
-                        <Reservation
-                            ref={!index 
-                                    ? this.reservationRefFirst
-                                    : index === 5 
-                                        ? this.reservationRefLast
-                                        : null}
-                            index={index}
-                            key={day.date}
-                            date={day.date}
-                            buttonOptions={this.reservationButtonHandler(day)}
-                            parkingSpaces={day.parkingSpaces}
-                            usedSpaces={day.usedSpaces}
-                            userParkingSpot={day.userParkingSpot}
-                            graphStatus={this.graphHandler(day)}
-                            onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day).buttonClass, this.reservationRefFirst, this.reservationRefLast)}
-                            history={this.props.history}
-                            loading={this.props.loadingOneDay}
-                            popupShake={this.props.popup.show || this.props.notificationPopup.show ?this.props.onPopupOpened :false}/>
-                    )})}
+                    {console.log(this.props.weekStatus)}
+                    {this.props.weekStatus.map( (day,index) => (
+                        new Date(day.date).getDay() // skip sunday
+                            ? <Reservation
+                                ref={!index 
+                                        ? this.reservationRefFirst
+                                        : index === 5 
+                                            ? this.reservationRefLast
+                                            : null}
+                                index={index}
+                                key={day.date}
+                                date={day.date}
+                                buttonOptions={this.reservationButtonHandler(day)}
+                                parkingSpaces={day.parkingSpaces}
+                                usedSpaces={day.usedSpaces}
+                                userParkingSpot={day.userParkingSpot}
+                                graphStatus={this.graphHandler(day)}
+                                onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day).buttonClass, this.reservationRefFirst, this.reservationRefLast)}
+                                history={this.props.history}
+                                loading={this.props.loadingOneDay}
+                                popupShake={this.props.popup.show || this.props.notificationPopup.show ?this.props.onPopupOpened :false}/>
+                            : null))}
                 </div>
              </div>
         }
@@ -157,7 +159,7 @@ class Home extends Component {
 
 const mapStateToProps = state => {
     return {
-        registrationData: state.reservationStatus,
+        weekStatus: state.weekStatus,
         loading: state.loading,
         popup: state.popup,
         user: state.user,

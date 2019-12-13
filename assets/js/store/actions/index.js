@@ -24,6 +24,12 @@ export {
     popupOpenedReset,
     postAway,
     postAwayStatus,
-    postAwayStatusLoading
+    postAwayStatusLoading,
+    getSingleUserStart,
+    getSingleUserSuccess,
+    getSingleUserFail,
+    getReservationsStart,
+    getReservationsSuccess,
+    getReservationsFail
 
 } from './main'
