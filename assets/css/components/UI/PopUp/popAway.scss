@@ -1,0 +1,25 @@
+.PopUp_away_container {
+  color: #f8f3f0;
+  box-shadow: 5px 5px 10px 0px #343a40;
+  border-radius: 0.25em;
+  background-color: #343a40;
+  overflow:hidden;
+}
+
+
+.animation {
+  transition: all 0.3s ease-in-out;
+
+}
+
+.show{
+  opacity: 1;
+  max-height: 600px;
+  padding: 1em;
+}
+
+.hide{
+  opacity: 0;
+  padding: 0;
+  max-height:0px;
+}

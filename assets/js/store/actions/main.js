@@ -182,3 +182,29 @@ export const closeModal = () => {
         type: actionTypes.CLOSE_PLATE_MODAL
     }
 }
+
+export const postAway = (data) => {
+    return {
+        type: actionTypes.POST_AWAY_DATES,
+        data: data
+    }
+};
+
+export const postAwayStatus = (status) => {
+    return {
+        type: actionTypes.POST_AWAY_STATUS,
+        data: status
+    }
+}
+
+export const postAwayDefaultStatus = () => {
+    return {
+        type: actionTypes.POST_AWAY_DEFAULT_STATUS
+    }
+}
+
+export const postAwayStatusLoading = () => {
+    return {
+        type: actionTypes.POST_AWAY_STATUS_LOADING
+    }
+}
