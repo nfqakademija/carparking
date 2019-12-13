@@ -4,27 +4,15 @@
     margin-top: 3em;
     margin-left: 15px;
     margin-right: 15px;
-    box-shadow: 5px 5px 10px 0px #343a40;
     display: flex;
     flex-direction: column;
     border-top-left-radius: 0.5em;
     border-top-right-radius: 0.5em;
 }
 
-.UsersTable_header {
-    padding:1em;
-    background-color:#343a40;
-    color: #f8f3f0;
-    border-top-left-radius: 0.25em;
-    border-top-right-radius: 0.25em;
-    font-size: 1.75em;
-    text-align: center;
-    justify-content: center; 
-}
-
 .UsersTable_body {
     width:100%;
-    background-color: #f8f3f0;
+    background-color: #ffffff;
     flex-grow: 1;
     overflow: auto;
     scroll-snap-type: y proximity;
@@ -41,7 +29,6 @@
     font-weight: 900;
     position: sticky;
     top: 0;
-    background-color: #f8f3f0;
     color: #343a40;
     z-index: 5;
 }
@@ -83,7 +70,7 @@
     scroll-snap-align: end;
     position: sticky;
     top: 4em;
-    background-color: #f8f3f0;
+    background-color: #F0F0F0;
     color: #343a40;
     z-index: 3;
     padding-top:1em;
