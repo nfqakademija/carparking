@@ -1,4 +1,4 @@
-get api/single-user/{id} : + pakolkas {id} per url paduok
+GET api/single-user/{id} : + pakolkas {id} per url paduok
         "name":"",
         "surname":"",
         "role": "", // arba padaryt kad guest neturetu userAways is viso
@@ -17,7 +17,7 @@ get api/single-user/{id} : + pakolkas {id} per url paduok
         ]
     }
 
-get api/reservations : + paduodu token
+GET api/reservations : + paduodu token
     [
         {
             "date":"",
@@ -26,7 +26,7 @@ get api/reservations : + paduodu token
         } x6 kiekvienai dienai
     ]
 
-get api/users : + paduodu token
+GET api/users : + paduodu token
     [
         {
             "name":"",
@@ -39,7 +39,16 @@ get api/users : + paduodu token
         }  x tiek kiek yra useriu
     ]
 
-get api/notifications : + paduodu token
+GET /api/useraway/{id}"
+[
+    {
+        "awayId": "",
+        "startDate": "",
+        "endDate": ""
+    } x tiek kiek yra userAways vienam useriui
+]
+
+GET api/notifications : + paduodu token
 [
     {
         "guestName":"",
@@ -50,10 +59,37 @@ get api/notifications : + paduodu token
     } x tiek kiek notification
 ]
 
-// parasyk kokia data reikes papostinti
-1) post api/useraway
-2) delete api/useraway
-3) ar bus put api/useraway? 
+post api/useraway: + token (veliau reikes)
+api/useraway POST
+
+{
+	"id": 41,(userId)
+	"awayDate": [
+		{"awayStartDate" :"2019-09-15","awayEndDate":"2019-09-16"}
+                {"awayStartDate" :"2019-09-20","awayEndDate":"2019-09-22"}
+	]
+}
+
+post api/useraway: + token (veliau reikes)
+api/useraway PUT
+
+{
+	"awayDate": [
+		{"id": 25(userAwayId),"awayStartDate" :"2019-09-20","awayEndDate":"2019-09-29"},
+		{"id": 57(userAwayId),"awayStartDate" :"2019-09-11","awayEndDate":"2019-09-12"}
+	]
+}
+
+delete api/useraway:  + token (veliau reikes)
+api/useraway DELETE
+{
+	"awayDate": [
+		{"id": 25},
+		{"id": 57}
+	]
+}
+
+
 
 4) post api/switch (galiu duot token + guestName + guestSurname)
 5) delete api/notifications (galiu duot notification id)
