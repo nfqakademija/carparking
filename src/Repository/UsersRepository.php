@@ -101,13 +101,18 @@ class UsersRepository extends ServiceEntityRepository
 
     public function getUsersList()
     {
-        $user = 'user';
         return $this->createQueryBuilder('u')
-            ->select('partial u.{id, name, surname}, partial ua.{id, awayStartDate, awayEndDate}')
-            ->leftJoin('u.userRole', 'r')
-            ->andWhere('r.role = :user')
-            ->setParameter('user', $user)
+            ->select(
+                'partial u.{id, name, surname},
+                partial ua.{id, awayStartDate, awayEndDate},
+                partial ro.{id, role}, 
+                partial re.{id, reservationDate},
+                partial p.{id,number}'
+            )
+            ->leftJoin('u.userRole', 'ro')
             ->leftJoin('u.userAways', 'ua')
+            ->leftJoin('u.reservations', 're')
+            ->leftJoin('re.parkSpace', 'p')
             ->getQuery()
             ->getArrayResult();
     }
@@ -115,12 +120,11 @@ class UsersRepository extends ServiceEntityRepository
     public function getSingleUserList($userId)
     {
         {
-            $user = 'user';
 
             return $this->createQueryBuilder('u')
                 ->select(
                     'partial u.{id, name, surname, licencePlate},
-                    partial r.{id, role}, 
+                    partial ro.{id, role}, 
                     partial p.{id, number}, 
                     partial ua.{id, awayStartDate, awayEndDate},
                     partial re.{id, reservationDate},
@@ -128,7 +132,7 @@ class UsersRepository extends ServiceEntityRepository
                 )
                 ->andWhere('u.id = :id')
                 ->setParameter('id', $userId)
-                ->leftJoin('u.userRole', 'r')
+                ->leftJoin('u.userRole', 'ro')
                 ->leftJoin('u.permanentSpace', 'p')
                 ->leftJoin('u.userAways', 'ua')
                 ->leftJoin('u.reservations', 're')

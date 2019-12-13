@@ -28,14 +28,19 @@ class UsersService
         foreach ($userList as $user) {
             $single['name'] = $user['name'];
             $single['surname'] = $user['surname'];
+            $single['role'] = $user['userRole']['role'];
             $reservations = [];
-            foreach ($days as $day) {
-                $checkGuestReservation = $this->checkGuestReservationByDateAndParkId($user, $day);
-                if ($checkGuestReservation != null) {
-                    array_push($reservations, $checkGuestReservation);
+            if ($user['userRole']['role'] == 'user') {
+                foreach ($days as $day) {
+                    $checkGuestReservation = $this->checkGuestReservationByDateAndParkId($user, $day);
+                    if ($checkGuestReservation != null) {
+                        array_push($reservations, $checkGuestReservation);
+                    }
                 }
+                $single['reservations'] = $reservations;
+            } else {
+                $single['reservations'] = $user['reservations'];
             }
-            $single['reservations'] = $reservations;
             array_push($userArray, $single);
         }
         return $userArray;
