@@ -89,7 +89,18 @@ api/useraway DELETE
 	]
 }
 
-
+api/licenseplate POST ir editui naudot 
+{
+	"licensePlate": [
+		{"userId": "41","licensePlate" : "A012456"}
+	]
+}
+api/licenseplate DELETE 
+{
+	"licensePlate": [
+		{"userId": "41"}
+	]
+}
 
 4) post api/switch (galiu duot token + guestName + guestSurname)
 5) delete api/notifications (galiu duot notification id)
