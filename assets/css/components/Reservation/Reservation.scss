@@ -1,20 +1,23 @@
 .Reservation_container {
     width:26%;
     min-width: 350px;
-    min-height:400px;
-    height:37.5%;
+    min-height:375px;
+    height: 45%;
     box-shadow: 5px 5px 10px 0px #343a40;
-    margin-top:2rem; //this needs to be changed
+    margin:auto;
+    margin-top: 2em;
     display: flex;
     flex-direction: column;
+    border-top-left-radius: 0.5em;
+    border-top-right-radius: 0.5em;
 }
 
 .Reservation_header {
-    padding:1rem;
+    padding:1em;
     background-color:#343a40;
-    border-top-left-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
-    font-size: 1.25rem;
+    border-top-left-radius: 0.25em;
+    border-top-right-radius: 0.25em;
+    font-size: 1.25em;
     text-align: center;
     justify-content: center;
     color: #f8f3f0;
@@ -26,41 +29,62 @@
     flex-grow: 1;
     display:flex;
     flex-direction: column;
+    justify-content: space-around;
  }
 
  .Reservation_svg {
-     width: 75%;
-     height: 75%;
-     margin: auto;
-     margin-top: 1rem;
-     transform: rotate(-90deg);
-     min-height: 160px;
+    margin: auto;
+    width:85%;
+    height:100%;
+    transform: rotate(164.2deg);
+    min-height: 160px;
  }
 
- .Reservation_circleGreen {
+ .Reservation_circleBase {
      fill: none;
-     stroke: #95D195;
-     stroke-width: 7.5%;
+     stroke: #c1b9b9;
+     stroke-width: 5%;
+     stroke-linecap: round;
  }
  
- .Reservation_circleRed {
+ .Reservation_circleStatus {
     fill: none;
-    stroke: #E87C86;
-    stroke-width: 7.5%;
+    stroke: #343a40;
+    stroke-width: 5%; 
     stroke-linecap: round;
     animation: Reservation_circleRed 2s ease-out forwards;
 }
 
 .Reservation_text {
-    transform: rotate(90deg);
+    transform: rotate(195.8deg);
     transform-origin: center;
     text-anchor: middle;
-    font-size: 2rem;
+    font-size: 1.75em;
     opacity:0;
     animation: Reservation_textFadeIn 1s linear forwards;
     animation-delay: 1s;
-    fill: #71c271; // need to pick color here and think about visualization
+    fill: #343a40; // need to pick color here and think about visualization
     font-weight: 900;
+}
+
+.Reservation_line {
+    transform: rotate(15.8deg);
+    transform-origin: center;
+    text-anchor: middle;
+    opacity:0;
+    animation: Reservation_textFadeIn 1s linear forwards;
+    animation-delay: 1s;
+    stroke:#c2c1c1;
+    stroke-width: 1.5;
+}
+
+.Reservation_userSpotText {
+    font-weight: 900;
+    font-size: 2em;
+    margin-top: -0.75em;
+    opacity: 0;
+    color: #343a40;
+    animation: Reservation_textFadeIn 1s linear forwards ;
 }
 
 @keyframes Reservation_circleRed {
@@ -77,7 +101,7 @@
 
 @media(max-width:1480px){
     .Reservation_container {
-        max-height: 400px;
+        max-height: 500px;
     }
 }
 @media(max-width:400px){

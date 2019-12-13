@@ -9,7 +9,7 @@ import App from './app';
 import '../css/index.scss';
 import '../css/colors/index.css';
 import '../css/menu/menu.css';
-import '../css/icons/icons.css';
+import '../css/modal/plateModal.scss';
 
 import rootReducer from './store/reducers/main';
 

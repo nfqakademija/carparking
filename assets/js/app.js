@@ -7,6 +7,7 @@ import Login from './containers/Auth/Auth';
 import Home from './containers/Home/Home';
 import Users from './containers/Users/Users';
 import Logout from './containers/Auth/Logout/Logout'
+import Away from './containers/Away/Away'
 
 class App extends Component {
 
@@ -14,17 +15,18 @@ class App extends Component {
 
         let routes =
         <Switch>
-            <Route path='/' component={Login}/> 
+            <Route path='/' exact component={Login}/> 
             <Redirect from='/' to='/'/>
         </Switch>
 
         if(this.props.token) {
             routes = 
-            <Layout>
-                <Switch>   
+            <Layout user={this.props.user}>
+                <Switch>  
                     <Route path="/home" component={Home}/>
                     <Route path='/users' component={Users}/>
                     <Route path='/logout' component={Logout}/>
+                    <Route path='/away' component={Away}/>
                     <Redirect from='/' to='/home'/>
                 </Switch>
             </Layout>
@@ -37,7 +39,8 @@ class App extends Component {
     
 const mapStateToProps = state => {
     return {
-        token: state.token
+        token: state.token,
+        user: state.user
     }
 }
 

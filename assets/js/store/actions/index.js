@@ -5,5 +5,25 @@ export {
     getHomeDataSuccess,
     getHomeDataFail,
     getHomeUsersStart,
-    getHomeUsersSuccess
+    getHomeUsersSuccess,
+    saveCoordinates,
+    noCoordinates,
+    buttonClicked,
+    popupCancel,
+    popupAcceptStart,
+    popupAcceptSuccess,
+    popupSuccess,
+    popupStyleReset,
+    fetchOneDayDataStart,
+    fetchOneDayDataSuccess,
+    setNotification,
+    notificationPopupCancel,
+    notificationPopupAcceptStart,
+    notificationPopupAcceptSuccess,
+    popupOpenedStart,
+    popupOpenedReset,
+    postAway,
+    postAwayStatus,
+    postAwayStatusLoading
+
 } from './main'

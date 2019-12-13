@@ -1,0 +1,70 @@
+get api/single-user/{id} : + pakolkas {id} per url paduok
+        "name":"",
+        "surname":"",
+        "role": "", // arba padaryt kad guest neturetu userAways is viso
+        "reservations":[
+            {
+                "date":"",
+                "userSpot": ""
+            } x tiek kiek yra userio rezervaciju
+        ],
+        "userAways":[
+            {
+                "awayId": "",
+                "startDate": "",
+                "endDate": ""
+            } x tiek kiek yra userAways
+        ]
+    }
+
+get api/reservations : + paduodu token
+    [
+        {
+            "date":"",
+            "avalableSpots": "",
+            "usedSpots": ""
+        } x6 kiekvienai dienai
+    ]
+
+get api/users : + paduodu token
+    [
+        {
+            "name":"",
+            "surname":"",
+            "reservations": [
+                {
+                    "date":"",
+                } x tiek kiek turi rezervaciju
+            ]
+        }  x tiek kiek yra useriu
+    ]
+
+get api/notifications : + paduodu token
+[
+    {
+        "guestName":"",
+        "guestSurname":"",
+        "date":"",
+        "notificationId":"",
+        // guestId: '' // tam kad paduot post api/switch
+    } x tiek kiek notification
+]
+
+// parasyk kokia data reikes papostinti
+1) post api/useraway
+2) delete api/useraway
+3) ar bus put api/useraway? 
+
+4) post api/switch (galiu duot token + guestName + guestSurname)
+5) delete api/notifications (galiu duot notification id)
+
+// bonus
+Jei turesi laiko preverstu toks kur tik viena diena refresina (nebutina nes get api/reservations tik 6-7 mazi objectai)
+    get api/reservations/{date}:
+        {
+            "avalableSpots": "",
+            "usedSpots": "",
+            "userSpotForThisDate": "" // if exists
+        }
+
+// nezinau ar yra dar kokiu funkciju?
