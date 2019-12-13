@@ -137,19 +137,4 @@ class UsersRepository extends ServiceEntityRepository
                 ->getArrayResult();
         }
     }
-
-
-
-
-
-    // {
-    //            "name":"",
-    //            "surname":"",
-    //            "reservations": [
-    //                {
-    //                    "date":"",
-    //                    "reservationId":""
-    //                } * tiek kiek turi rezervaciju
-    //            ]
-    //        }  * tiek kiek yra useriu
 }
