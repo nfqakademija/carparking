@@ -3,13 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\UserAway;
-use App\Entity\Users;
-use App\Services\ReservationService;
 use App\Services\UserAwayService;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\FOSRestBundle;
-use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,7 +40,6 @@ class UserAwayController extends FOSRestBundle
     /**
      * @Rest\Get("/api/useraway/{id}")
      */
-
     public function getSingleUserAway($id)
     {
         $data = $this->entityManager->getRepository(UserAway::class)->getByUserId($id);
@@ -53,7 +49,6 @@ class UserAwayController extends FOSRestBundle
         $response->getStatusCode();
         return $response;
     }
-
 
     /**
      * @Rest\Post("/api/useraway")
@@ -87,34 +82,14 @@ class UserAwayController extends FOSRestBundle
     /**
      * @Rest\Delete("/api/useraway")
      * @param Request $request
+     * @return JsonResponse
      */
     public function deleteUserAway(Request $request)
     {
         $content = $request->getContent();
         $dataArray = json_decode($content, true);
-
-        foreach ($dataArray['away_date'] as $value) {
-            $userAway = $this->entityManager->getRepository(UserAway::class)->findById($value['id']);
-            if (!$userAway) {
-            } else {
-                $parkId = $userAway->getAwayUser()->getPermanentSpace()->getId();
-                $clientId = $userAway->getAwayUser()->getId();
-                $this->entityManager->remove($userAway);
-            }
-        }
-        $this->entityManager->flush();
-        $service = new ReservationService($this->entityManager);
-        $service->updateOrDeleteReservation($clientId, $parkId);
-        $response = new Response();
-        $response->setStatusCode(Response::HTTP_OK);
-        return $response;
-    }
-
-
-    private function serialize($data)
-    {
-        $serializer = SerializerBuilder::create()->build();
-        $json = $serializer->serialize($data, 'json');
-        return $json;
+        $awayService = new UserAwayService($this->entityManager);
+        $response = $awayService->delete($dataArray);
+        return new JsonResponse($response);
     }
 }

@@ -73,6 +73,19 @@ class UserAwayService
         return $array = ['success' => "success"];
     }
 
+    public function delete($dataArray)
+    {
+        foreach ($dataArray['awayDate'] as $value) {
+            $userAway = $this->entityManager->getRepository(UserAway::class)->findById($value['id']);
+            if (!$userAway) {
+            } else {
+                $this->entityManager->remove($userAway);
+            }
+        }
+        $this->entityManager->flush();
+        return $array = ['success' => "success"];
+    }
+
     private function checkUserAwayDuplicates($startDate, $endDate, $userId)
     {
 
