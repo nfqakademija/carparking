@@ -52,6 +52,13 @@ const mobileMenu = (props) => (
             </div>
 
             <div className="position-relative py-2 linkParent">
+                <span className="ml-4 position-absolute"><i className="fas fa-suitcase-rolling"> </i></span>
+                <div style={{ marginLeft: "60px"}}>
+                    <NavLink to="/users" className="link" onClick={props.closeMobileMenu}>Set Away</NavLink>
+                </div>
+            </div>
+
+            <div className="position-relative py-2 linkParent">
                 <span className="ml-4 position-absolute"><i className="fas fa-car-side"> </i></span>
                 <div style={{ marginLeft: "60px"}}>
                     <p onClick={ props.openModal } className="link" style={{cursor: "pointer"}}>Car Plate</p>

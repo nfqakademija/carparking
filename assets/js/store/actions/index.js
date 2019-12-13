@@ -21,5 +21,9 @@ export {
     notificationPopupAcceptStart,
     notificationPopupAcceptSuccess,
     popupOpenedStart,
-    popupOpenedReset
+    popupOpenedReset,
+    postAway,
+    postAwayStatus,
+    postAwayStatusLoading
+
 } from './main'

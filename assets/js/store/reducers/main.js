@@ -11,18 +11,7 @@ const initialState = {
         lastname: null,
         activeCar: null,
         aways: [],
-        notifications: [
-            {
-                name: 'Elvis',
-                surname: 'Raynor',
-                date: '2019-12-10'
-            },
-            {
-                name: 'Calista',
-                surname: 'Sipes',
-                date: '2019-12-11'
-            }
-        ]
+        notifications: []
     },
     users: [],
     plate: "ABC000",
@@ -38,7 +27,9 @@ const initialState = {
     loadingOneDay: false,
     mobileMenu: false,
     popupShake: false,
-    plateModal: false
+    plateModal: false,
+    postAwayStatus: null,
+    postAwayLoading: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -257,16 +248,38 @@ const reducer = (state = initialState, action) => {
                 popupShake: false
             }
         case actionTypes.OPEN_PLATE_MODAL:
-            console.log("as");
             return {
                 ...state,
                 plateModal: true
             }
         case actionTypes.CLOSE_PLATE_MODAL:
-            console.log("asd")
             return {
                 ...state,
                 plateModal: false
+            }
+        case actionTypes.POST_AWAY_DATES:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    aways: [...state.user.aways, ...action.data]
+                }
+            }
+        case actionTypes.POST_AWAY_STATUS:
+            return {
+                ...state,
+                postAwayStatus: action.data,
+                postAwayLoading: false
+            }
+        case actionTypes.POST_AWAY_DEFAULT_STATUS:
+            return {
+                ...state,
+                postAwayStatus: null
+            }
+        case actionTypes.POST_AWAY_STATUS_LOADING:
+            return {
+                ...state,
+                postAwayLoading: true
             }
         default: return state
     }
