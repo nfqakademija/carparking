@@ -76,15 +76,30 @@ class UserAwayRepository extends ServiceEntityRepository
             ->execute();
     }
 
+
     public function findSingleUserAwayByDate($startDate, $endDate, $userId)
     {
-
         return $this->createQueryBuilder('ua')
             ->select('partial ua.{id, awayStartDate, awayEndDate}')
             ->leftJoin('ua.awayUser', 'u')
-            ->andWhere('ua.awayUser = :id')
-            ->andWhere('ua.awayStartDate = :startDate')
-            ->andWhere('ua.awayEndDate = :endDate')
+            ->orWhere('ua.awayUser = :id and ua.awayStartDate >= :startDate and ua.awayEndDate <= :endDate')
+            ->orWhere(
+                'ua.awayUser = :id 
+                and ua.awayStartDate >= :startDate 
+                and ua.awayEndDate >= :endDate 
+                and ua.awayStartDate <= :endDate'
+            )
+            ->orWhere(
+                'ua.awayUser = :id 
+                and ua.awayStartDate <= :startDate 
+                and ua.awayEndDate >= :startDate
+                and ua.awayEndDate <= :endDate'
+            )
+            ->orWhere(
+                'ua.awayUser = :id 
+                and ua.awayStartDate <= :startDate 
+                and ua.awayEndDate >= :endDate'
+            )
             ->setParameter('startDate', $startDate)
             ->setParameter('endDate', $endDate)
             ->setParameter('id', $userId)

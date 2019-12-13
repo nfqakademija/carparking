@@ -56,7 +56,6 @@ class UserAwayService
         $userAway = $this->entityManager
             ->getRepository(UserAway::class)
             ->findSingleUserAwayByDate($startDate, $endDate, $userId);
-
         if ($userAway != null) {
             return true;
         }
@@ -69,6 +68,4 @@ class UserAwayService
         $date = \DateTime::createFromFormat($format, $dateString);
         return $date;
     }
-
-
 }
