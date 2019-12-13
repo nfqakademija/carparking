@@ -67,6 +67,26 @@ class UsersService
         return $array;
     }
 
+    public function createLicensePlate($data)
+    {
+        $user = $this->entityManager
+            ->getRepository(Users::class)
+            ->getSingleUser($data['licensePlate'][0]['userId']);
+        $user->setLicencePlate($data['licensePlate'][0]['licensePlate']);
+        $this->entityManager->flush();
+        return $array = ['success' => 'success'];
+    }
+
+    public function deleteLicensePlate($data)
+    {
+        $user = $this->entityManager
+            ->getRepository(Users::class)
+            ->getSingleUser($data['licensePlate'][0]['userId']);
+        $user->setLicencePlate(null);
+        $this->entityManager->flush();
+        return $array = ['success' => 'success'];
+    }
+
     private function reservationBuilder($user)
     {
         $days = $this->dateTimeProvider(7);
@@ -82,7 +102,6 @@ class UsersService
         }
         return $reservations;
     }
-
 
     private function checkGuestReservationByDateAndParkId($user, $currentDate)
     {
@@ -101,7 +120,6 @@ class UsersService
         }
         return $array;
     }
-
 
     private function dateTimeProvider($days)
     {
