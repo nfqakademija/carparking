@@ -2,16 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\Users;
-use App\Services\ReservationService;
 use App\Services\UsersService;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\FOSRestBundle;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use JMS\Serializer\SerializerBuilder;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 
 class UsersController extends FOSRestBundle
 {
@@ -43,6 +39,32 @@ class UsersController extends FOSRestBundle
         //TODO implement user id addition in guard
         $service = new UsersService($this->entityManager);
         $list = $service->singleUserList($id);
+        return new JsonResponse($list);
+    }
+
+    /**
+     * @Rest\Post("/api/licenseplate")
+     * @return JsonResponse
+     */
+    public function postLicensePlate(Request $request)
+    {
+        $content = $request->getContent();
+        $dataArray = json_decode($content, true);
+        $service = new UsersService($this->entityManager);
+        $list = $service->createLicensePlate($dataArray);
+        return new JsonResponse($list);
+    }
+
+    /**
+     * @Rest\Delete("/api/licenseplate")
+     * @return JsonResponse
+     */
+    public function deleteLicensePlate(Request $request)
+    {
+        $content = $request->getContent();
+        $dataArray = json_decode($content, true);
+        $service = new UsersService($this->entityManager);
+        $list = $service->deleteLicensePlate($dataArray);
         return new JsonResponse($list);
     }
 }
