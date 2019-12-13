@@ -1,4 +1,4 @@
-get api/users : + paduodu token
+get api/single-user : + paduodu token
     {
         "name":"",
         "surname":"",
