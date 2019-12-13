@@ -5,10 +5,12 @@ namespace App\Controller;
 use App\Entity\UserAway;
 use App\Entity\Users;
 use App\Services\ReservationService;
+use App\Services\UserAwayService;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\FOSRestBundle;
 use JMS\Serializer\SerializerBuilder;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -56,34 +58,16 @@ class UserAwayController extends FOSRestBundle
     /**
      * @Rest\Post("/api/useraway")
      * @param Request $request
+     * @return JsonResponse()
      */
     public function postUserAway(Request $request)
     {
-
         $content = $request->getContent();
         $dataArray = json_decode($content, true);
 
-        $user = $this->entityManager->getRepository(Users::class)->findUserById($dataArray['id']);
-
-        if (!$user) {
-        } else {
-            foreach ($dataArray['away_date'] as $value) {
-                $userAway = new UserAway();
-                $format = '!Y-m-d';
-                $dateStart = \DateTime::createFromFormat($format, $value['away_start_date']);
-                $dateEnd = \DateTime::createFromFormat($format, $value['away_end_date']);
-                $userAway->setAwayStartDate($dateStart);
-                $userAway->setAwayEndDate($dateEnd);
-                $userAway->setAwayUser($user);
-                $this->entityManager->persist($userAway);
-            }
-            $this->entityManager->flush();
-        }
-        $service = new ReservationService($this->entityManager);
-       // $service->make($dataArray['id']);
-        $response = new Response();
-        $response->setStatusCode(Response::HTTP_OK);
-        return $response;
+        $awayService = new UserAwayService($this->entityManager);
+        $response = $awayService->post($dataArray);
+        return new JsonResponse($response);
     }
 
     /**
