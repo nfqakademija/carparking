@@ -189,3 +189,22 @@ export const postAway = (data) => {
         data: data
     }
 };
+
+export const postAwayStatus = (status) => {
+    return {
+        type: actionTypes.POST_AWAY_STATUS,
+        data: status
+    }
+}
+
+export const postAwayDefaultStatus = () => {
+    return {
+        type: actionTypes.POST_AWAY_DEFAULT_STATUS
+    }
+}
+
+export const postAwayStatusLoading = () => {
+    return {
+        type: actionTypes.POST_AWAY_STATUS_LOADING
+    }
+}

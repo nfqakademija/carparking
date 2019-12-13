@@ -3,12 +3,11 @@ import {connect} from "react-redux";
 import "react-datepicker/dist/react-datepicker.css";
 import '../../../css/containers/Away/away.scss'
 import {postDatesAway} from '../../store/thunk/awayPage';
-//import { postDatesAway } from '../../store/actions/index';
 
 import '../../../css/components/UI/PopUp/popAway.scss';
 import DatePicker, {registerLocale, setDefaultLocale} from "react-datepicker";
 import {enGB} from "date-fns/esm/locale";
-import {popupOpened} from "../../store/thunk/popup";
+import {postAwayDefaultStatus} from "../../store/actions/main";
 
 registerLocale("en-GB", enGB);
 setDefaultLocale("en-GB");
@@ -23,7 +22,7 @@ class Home extends Component {
             endDate: null,
             endDateClear: null,
             popUp: false,
-            message: null
+            message: null,
         };
 
         this.setStartDate = this.setStartDate.bind(this);
@@ -31,6 +30,10 @@ class Home extends Component {
         this.openPop = this.openPop.bind(this);
         this.closePop = this.closePop.bind(this);
         this.postData = this.postData.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.postAwayDefaultStatus();
     }
 
     setStartDate(date) {
@@ -56,6 +59,8 @@ class Home extends Component {
     }
 
     openPop() {
+
+        this.props.postAwayDefaultStatus();
 
         if (this.state.startDate !== null && this.state.endDate !== null) {
 
@@ -88,33 +93,78 @@ class Home extends Component {
     }
 
     postData() {
-        console.log("asd")
         this.props.postDatesAway(this.state.startDateClear, this.state.endDateClear);
+
     }
 
     render() {
-        console.log(this.props.user)
+
 
         const ExampleCustomInput = React.forwardRef((props, ref) => (
             <input {...props} readOnly={true} type="text" className="form-control"
                    placeholder="Click to select a date"/>
         ));
 
-        return (
-            <div className="p-4">
+        const Popup = () => (
 
-                <div className={`PopUp_away_container mb-4 animation ${this.state.popUp ? 'show' : 'hide'}`}>
-                    <p><b>Set Away </b> - From: <b>{this.state.startDateClear}</b> To <b>{this.state.endDateClear}</b>
+            this.props.status ?
+                //if exist post status (success or error)
+                this.props.postAwayLoading ?
+                    <div className="spinner-border text-light" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                    :
+                    this.props.status === "success" ?
+                        <div><b>The operation performed successfully</b></div> : this.props.status === "fail" ?
+                        <div><b>Sorry, operation failed please contact the call center.</b></div> : <div>error</div>
+                :
+                //if exist post null (success or error)
+                <div>
+                    <p><b>Set Away </b> -
+                        From: <b>{this.state.startDateClear}</b> To <b>{this.state.endDateClear}</b>
                     </p>
                     <p>Are you sure?</p>
-                    <button className="btn btn-warning mr-2" onClick={this.postData}><b className="text-white">Accept</b></button>
-                    <button className="btn btn-danger" onClick={this.closePop}><b className="text-white">Cancel</b></button>
+                    <button className="btn btn-warning mr-2" onClick={this.postData}><b
+                        className="text-white">Accept</b>
+                    </button>
+                    <button className="btn btn-danger" onClick={this.closePop}><b className="text-white">Cancel</b>
+                    </button>
+                </div>
+        );
+
+        const History = () => (
+            <div>
+                {(Array.isArray(this.props.history) && this.props.history.length) ?
+                    <table className="table m-0">
+                        <tbody>
+                        {this.props.history.map((data) =>
+                            (<tr>
+                                <td className="px-0 py-1">From: <b>{data.away_start_date}</b></td>
+                                <td className="px-0 py-1">To: <b>{data.away_end_date}</b></td>
+                            </tr>))
+                        }
+                        </tbody>
+                    </table>
+                    :
+                    <p>No Records.</p>}
+            </div>
+
+        );
+
+        return (
+            <div className="p-0 py-2 p-md-4">
+
+                <div
+                    className={`PopUp_away_container shadow mb-2 animation ${this.state.popUp ? 'show' : 'hide'} ${this.props.status === "success" ? "bg-success" : this.props.status === "fail" ? "bg-danger" : null}`}>
+                    <Popup/>
                 </div>
 
 
                 <div className="bg-white container-fluid p-4 shadow rounded">
 
-                    <div className="rounded text-left p-2 my-3" style={{backgroundColor: "#E9ECEF"}}><b>History:</b>
+                    <div className="rounded text-left p-2 my-3" style={{backgroundColor: "#E9ECEF"}}>
+                        <div className="py-2"><b className="h5">History:</b></div>
+                        <History/>
                     </div>
                     <div className="rounded text-left p-2 my-3" style={{backgroundColor: "#E9ECEF"}}>Welcome please
                         choose
@@ -153,7 +203,7 @@ class Home extends Component {
                                     selectsEnd
                                     startDate={this.state.startDate}
                                     endDate={this.state.endDate}
-                                    minDate={this.state.startDate === null ? new Date() : this.state.startDate }
+                                    minDate={this.state.startDate === null ? new Date() : this.state.startDate}
                                     customInput={<ExampleCustomInput/>}
                                 />
                             </div>
@@ -173,12 +223,16 @@ class Home extends Component {
 
 const mapStateToProps = state => {
     return {
+        history: state.user.aways,
+        status: state.postAwayStatus,
         user: state.user.aways,
+        loading: state.postAwayLoading,
     }
 }
 
-const mapDispatchToProps= dispatch => ({
-    postDatesAway: (startDate, endDate) => dispatch(postDatesAway(startDate, endDate))
+const mapDispatchToProps = dispatch => ({
+    postDatesAway: (startDate, endDate) => dispatch(postDatesAway(startDate, endDate)),
+    postAwayDefaultStatus: () => dispatch(postAwayDefaultStatus()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
