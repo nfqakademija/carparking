@@ -15,6 +15,21 @@ class UserAwayService
         $this->entityManager = $entityManager;
     }
 
+    public function getSingle($userId)
+    {
+        $userAways = $this->entityManager->getRepository(UserAway::class)->getByUserId($userId);
+
+        $dataArray = [];
+        foreach ($userAways as $userAway) {
+            $single = [];
+            $single['awayId'] = $userAway->getId();
+            $single['startDate'] = $userAway->getAwayStartDate()->format('Y-m-d');
+            $single['endDate'] = $userAway->getAwayEndDate()->format('Y-m-d');
+            array_push($dataArray, $single);
+        }
+        return $dataArray;
+    }
+
     public function post($dataArray)
     {
         $user = $this->entityManager->getRepository(Users::class)->findUserById($dataArray['id']);

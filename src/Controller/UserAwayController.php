@@ -42,12 +42,9 @@ class UserAwayController extends FOSRestBundle
      */
     public function getSingleUserAway($id)
     {
-        $data = $this->entityManager->getRepository(UserAway::class)->getByUserId($id);
-        $json = $this->serialize($data);
-        $response = new Response($json);
-        $response->headers->set('Content-Type', 'application/json');
-        $response->getStatusCode();
-        return $response;
+        $awayService = new UserAwayService($this->entityManager);
+        $response = $awayService->getSingle($id);
+        return new JsonResponse($response);
     }
 
     /**

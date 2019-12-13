@@ -45,7 +45,7 @@ class UserAwayRepository extends ServiceEntityRepository
             ->andWhere('ua.awayUser = :id')
             ->setParameter('id', $id)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->execute();
     }
 
     /**
