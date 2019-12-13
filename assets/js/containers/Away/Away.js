@@ -107,7 +107,7 @@ class Home extends Component {
                     <p><b>Set Away </b> - From: <b>{this.state.startDateClear}</b> To <b>{this.state.endDateClear}</b>
                     </p>
                     <p>Are you sure?</p>
-                    <button className="btn btn-warning mr-2" onClick={this.postData}><b className="text-white">Yes</b></button>
+                    <button className="btn btn-warning mr-2" onClick={this.postData}><b className="text-white">Accept</b></button>
                     <button className="btn btn-danger" onClick={this.closePop}><b className="text-white">Cancel</b></button>
                 </div>
 

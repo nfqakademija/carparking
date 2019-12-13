@@ -9,10 +9,14 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
         "away_date": [
             {"away_start_date": startDate,"away_end_date": endDate}
         ]
-    }
+    };
     axios.post('/api/useraway',postData)
-        .then(() => {
+        .then((response) => {
+            console.log(response);
             dispatch(postAway(postData.away_date))
-        })
+        }).catch(error => {
+        console.log(error.response)
+    });
+
 
 }
