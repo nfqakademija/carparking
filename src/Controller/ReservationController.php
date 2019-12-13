@@ -52,6 +52,7 @@ class ReservationController extends FOSRestBundle
         $dataArray = json_decode($content, true);
         $service = new ReservationService($this->entityManager);
         $service->makeGuestReservation($dataArray);
+
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
         return $response;

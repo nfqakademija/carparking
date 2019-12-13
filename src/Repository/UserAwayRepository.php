@@ -27,8 +27,8 @@ class UserAwayRepository extends ServiceEntityRepository
      */
     public function findById($id)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.id = :id')
+        return $this->createQueryBuilder('ua')
+            ->andWhere('ua.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
             ->getOneOrNullResult();
@@ -41,11 +41,11 @@ class UserAwayRepository extends ServiceEntityRepository
      */
     public function getByUserId($id)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.awayUser = :id')
+        return $this->createQueryBuilder('ua')
+            ->andWhere('ua.awayUser = :id')
             ->setParameter('id', $id)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->execute();
     }
 
     /**
@@ -54,8 +54,8 @@ class UserAwayRepository extends ServiceEntityRepository
      */
     public function getUserAwayByUserId($id)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.awayUser = :id')
+        return $this->createQueryBuilder('ua')
+            ->andWhere('ua.awayUser = :id')
             ->setParameter('id', $id)
             ->getQuery()
             ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
@@ -68,11 +68,42 @@ class UserAwayRepository extends ServiceEntityRepository
      */
     public function findUserAwayByDate($date)
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.awayStartDate <= :date')
-            ->andWhere('u.awayEndDate >= :date')
+        return $this->createQueryBuilder('ua')
+            ->andWhere('ua.awayStartDate <= :date')
+            ->andWhere('ua.awayEndDate >= :date')
             ->setParameter('date', $date)
             ->getQuery()
             ->execute();
+    }
+
+
+    public function findSingleUserAwayByDate($startDate, $endDate, $userId)
+    {
+        return $this->createQueryBuilder('ua')
+            ->select('partial ua.{id, awayStartDate, awayEndDate}')
+            ->leftJoin('ua.awayUser', 'u')
+            ->orWhere('ua.awayUser = :id and ua.awayStartDate >= :startDate and ua.awayEndDate <= :endDate')
+            ->orWhere(
+                'ua.awayUser = :id 
+                and ua.awayStartDate >= :startDate 
+                and ua.awayEndDate >= :endDate 
+                and ua.awayStartDate <= :endDate'
+            )
+            ->orWhere(
+                'ua.awayUser = :id 
+                and ua.awayStartDate <= :startDate 
+                and ua.awayEndDate >= :startDate
+                and ua.awayEndDate <= :endDate'
+            )
+            ->orWhere(
+                'ua.awayUser = :id 
+                and ua.awayStartDate <= :startDate 
+                and ua.awayEndDate >= :endDate'
+            )
+            ->setParameter('startDate', $startDate)
+            ->setParameter('endDate', $endDate)
+            ->setParameter('id', $userId)
+            ->getQuery()
+            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
 }
