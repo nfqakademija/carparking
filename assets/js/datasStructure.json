@@ -1,5 +1,4 @@
-get api/single-user : + paduodu token
-    {
+get api/single-user/{id} : + pakolkas {id} per url paduok
         "name":"",
         "surname":"",
         "role": "", // arba padaryt kad guest neturetu userAways is viso
