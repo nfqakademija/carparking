@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 
 
 const webMeniu = (props) => (
-    <div className="d-none bg-light d-md-block col-0 col-md-4 col-lg-3 p-0 shadow h-100">
+    <div className="d-none bg-white d-md-block col-0 col-md-4 col-lg-3 p-0 shadow h-100">
         <div className="d-none d-md-block col-0 col-md-4 col-lg-3 position-fixed p-0 mt-2">
             <div className="text-left webMeniu">
                 <div className="position-relative mt-1 py-2 linkParent">
