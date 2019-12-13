@@ -76,17 +76,6 @@ class ReservationServiceOld
         $this->entityManager->flush();
     }
 
-    public function guestReservation()
-    {
-//        $data = $this->entityManager->getRepository(Reservations::class)->reservationsWithoutUserId();
-//        $json = $this->serialize($data);
-//        echo $json;
-//        foreach ($data as $value) {
-//
-//            var_dump($value->getReservationDate());
-//        }
-    }
-
     private function dateTimeProvider($days)
     {
         $reservationDateArray = [];

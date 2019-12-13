@@ -9,7 +9,7 @@ use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
 use League\OAuth2\Client\Provider\GoogleUser;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -141,26 +141,18 @@ class GoogleAuthenticator extends SocialAuthenticator
      * @param \Symfony\Component\Security\Core\Authentication\Token\TokenInterface $token
      * @param string $providerKey The provider (i.e. firewall) key
      *
-     * @return JsonResponse
+     * @return RedirectResponse
      */
     public function onAuthenticationSuccess(
         Request $request,
         \Symfony\Component\Security\Core\Authentication\Token\TokenInterface $token, $providerKey)
     {
-
-//        $googleUser = $this->getGoogleClient()
-//            ->fetchUserFromToken($this->testCred);
-        //var_dump($this->tokenStorage->getToken()->serialize());
-        //return new RedirectResponse('/
-        $tokenArray = [];
         $valueArray = $this->testCred->getValues();
         $key = $valueArray['token_type'];
         $value = $valueArray['id_token'];
-        $tokenArray[$key] = $value;
 
-//        json_encode($tokenArray);
-        return new JsonResponse($tokenArray);
-
-        // TODO: Implement onAuthenticationSuccess() method.
+        $response = new RedirectResponse('/hom');
+        $response->headers->setCookie(Cookie::create($key . '-token', $value));
+        return $response;
     }
 }

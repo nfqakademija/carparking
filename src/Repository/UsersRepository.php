@@ -112,6 +112,32 @@ class UsersRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
+    public function getSingleUserList($userId)
+    {
+        {
+            $user = 'user';
+
+            return $this->createQueryBuilder('u')
+                ->select(
+                    'partial u.{id, name, surname, licencePlate},
+                    partial r.{id, role}, 
+                    partial p.{id, number}, 
+                    partial ua.{id, awayStartDate, awayEndDate},
+                    partial re.{id, reservationDate},
+                    partial s.{id, number}'
+                )
+                ->andWhere('u.id = :id')
+                ->setParameter('id', $userId)
+                ->leftJoin('u.userRole', 'r')
+                ->leftJoin('u.permanentSpace', 'p')
+                ->leftJoin('u.userAways', 'ua')
+                ->leftJoin('u.reservations', 're')
+                ->leftJoin('re.parkSpace', 's')
+                ->getQuery()
+                ->getArrayResult();
+        }
+    }
+
 
 
 

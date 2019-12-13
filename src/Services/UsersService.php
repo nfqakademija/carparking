@@ -41,6 +41,44 @@ class UsersService
         return $userArray;
     }
 
+    public function singleUserList($userId)
+    {
+        $userList = $this->entityManager->getRepository(Users::class)->getSingleUserList($userId);
+        $array = [];
+        foreach ($userList as $user) {
+            $array['userId'] = $user['id'];
+            $array['name'] = $user['name'];
+            $array['surname'] = $user['surname'];
+            $array['role'] = $user['userRole']['role'];
+            $array['licensePlate'] = $user['licencePlate'];
+            if ($user['userRole']['role'] == 'user') {
+                $array['reservations'] = $this->reservationBuilder($user);
+                $array['userAways'] = $user['userAways'];
+            } else {
+                $array['reservations'] = $user['reservations'];
+                $array['userAways'] = $user['userAways'];
+            }
+        }
+        return $array;
+    }
+
+    private function reservationBuilder($user)
+    {
+        $days = $this->dateTimeProvider(7);
+        $reservations = [];
+        foreach ($days as $day) {
+            $array = $this->checkGuestReservationByDateAndParkId($user, $day);
+            if ($array != null) {
+                $reservation = [];
+                $reservation['date'] = $array[0];
+                $reservation['userSpot'] = $user['permanentSpace']['number'];
+                array_push($reservations, $reservation);
+            }
+        }
+        return $reservations;
+    }
+
+
     private function checkGuestReservationByDateAndParkId($user, $currentDate)
     {
         $array = [];

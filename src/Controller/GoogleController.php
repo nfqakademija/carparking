@@ -39,10 +39,8 @@ class GoogleController extends AbstractController
             //TODO implement admin panel route for admin role
 //            $data = $this->getUser();
 //            var_dump($data->getUserRole()->getRole());
-            die;
 
-            return $this->redirectToRoute('home');
+//            return $this->redirectToRoute('home');
         }
     }
-
 }

@@ -58,18 +58,12 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         $data = $credentials['token'];
 
         if (null === $data) {
-
             return;
         }
         $email = $this->tokenParser($data);
 
-        return$this->em->getRepository(Users::class)
+        return $this->em->getRepository(Users::class)
             ->findOneBy(['email' => $email]);
-
-//var_dump($userObject->getId());
-//die;
-        // if a User object, checkCredentials() is called
-//     return $userObject;
     }
 
     public function checkCredentials($credentials, UserInterface $user)
