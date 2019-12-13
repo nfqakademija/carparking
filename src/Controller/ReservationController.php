@@ -3,18 +3,26 @@
 namespace App\Controller;
 
 use App\Entity\Reservations;
+use App\Security\TokenAuthenticator;
 use App\Services\ReservationService;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\FOSRestBundle;
 use JMS\Serializer\SerializerBuilder;
+use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
+use Lexik\Bundle\JWTAuthenticationBundle\Encoder\LcobucciJWTEncoder;
+use Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ReservationController extends FOSRestBundle
 {
     private $entityManager;
 
     /**
+     * @param TokenAuthenticator $tokenAuthenticator
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
@@ -22,41 +30,31 @@ class ReservationController extends FOSRestBundle
         $this->entityManager = $entityManager;
     }
 
+
     /**
      * @Rest\Get("/api/reservations")
      */
     public function index()
     {
-        $data = $this->entityManager->getRepository(Reservations::class)->findAll();
-        $json = $this->serialize($data);
-        $response = new Response($json);
-        $response->headers->set('Content-Type', 'application/json');
-        $response->getStatusCode();
-        return $response;
+        $service = new ReservationService($this->entityManager);
+        $service->reservationList();
+        return new JsonResponse($service->reservationList());
     }
 
+
     /**
-     * @Rest\Get("/api/make-reservation")
-     * @throws \Exception
+     * @param Request $request
+     * @return Response
      */
-    public function make()
+    public function createReservation(Request $request)
     {
+        $content = $request->getContent();
+        $dataArray = json_decode($content, true);
         $service = new ReservationService($this->entityManager);
-        $service->make();
+        $service->makeGuestReservation($dataArray);
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
         return $response;
-    }
-
-    /**
-     * @Rest\Get("/api/reserve")
-     * @throws \Exception
-     */
-    public function guest()
-    {
-//        $service = new ReservationService($this->entityManager);
-//        $service->guestReservation();
-//        die;
     }
 
     /**

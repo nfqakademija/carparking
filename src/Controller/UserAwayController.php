@@ -80,7 +80,7 @@ class UserAwayController extends FOSRestBundle
             $this->entityManager->flush();
         }
         $service = new ReservationService($this->entityManager);
-        $service->make($dataArray['id']);
+       // $service->make($dataArray['id']);
         $response = new Response();
         $response->setStatusCode(Response::HTTP_OK);
         return $response;

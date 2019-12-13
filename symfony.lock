@@ -90,6 +90,9 @@
     "doctrine/reflection": {
         "version": "v1.0.0"
     },
+    "firebase/php-jwt": {
+        "version": "v5.0.0"
+    },
     "friendsofsymfony/rest-bundle": {
         "version": "2.2",
         "recipe": {
@@ -104,6 +107,15 @@
     },
     "fzaninotto/faker": {
         "version": "v1.9.0"
+    },
+    "guzzlehttp/guzzle": {
+        "version": "6.4.1"
+    },
+    "guzzlehttp/promises": {
+        "version": "v1.3.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.6.1"
     },
     "hoa/compiler": {
         "version": "3.17.08.08"
@@ -167,6 +179,42 @@
             "config/packages/prod/jms_serializer.yaml"
         ]
     },
+    "knpuniversity/oauth2-client-bundle": {
+        "version": "1.20",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "1.20",
+            "ref": "80acc9223a205cbf5d9828fd616c82a374d281dd"
+        },
+        "files": [
+            "config/packages/knpu_oauth2_client.yaml"
+        ]
+    },
+    "lcobucci/jwt": {
+        "version": "3.3.1"
+    },
+    "league/oauth2-client": {
+        "version": "2.4.1"
+    },
+    "league/oauth2-google": {
+        "version": "3.0.2"
+    },
+    "lexik/jwt-authentication-bundle": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "5b2157bcd5778166a5696e42f552ad36529a07a6"
+        },
+        "files": [
+            "config/packages/lexik_jwt_authentication.yaml"
+        ]
+    },
+    "namshi/jose": {
+        "version": "7.2.3"
+    },
     "nikic/php-parser": {
         "version": "v4.2.4"
     },
@@ -182,8 +230,14 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/log": {
         "version": "1.1.0"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
     },
     "squizlabs/php_codesniffer": {
         "version": "3.0",
@@ -283,6 +337,9 @@
     "symfony/http-kernel": {
         "version": "v4.3.5"
     },
+    "symfony/inflector": {
+        "version": "v4.3.9"
+    },
     "symfony/maker-bundle": {
         "version": "1.0",
         "recipe": {
@@ -310,6 +367,9 @@
     "symfony/polyfill-php73": {
         "version": "v1.12.0"
     },
+    "symfony/property-access": {
+        "version": "v4.3.9"
+    },
     "symfony/routing": {
         "version": "4.2",
         "recipe": {
@@ -325,8 +385,29 @@
             "config/routes.yaml"
         ]
     },
+    "symfony/security-bundle": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "e5a0228251d1dd2bca4c8ef918e14423c06db625"
+        },
+        "files": [
+            "config/packages/security.yaml"
+        ]
+    },
     "symfony/security-core": {
         "version": "v4.3.8"
+    },
+    "symfony/security-csrf": {
+        "version": "v4.3.9"
+    },
+    "symfony/security-guard": {
+        "version": "v4.3.9"
+    },
+    "symfony/security-http": {
+        "version": "v4.3.9"
     },
     "symfony/service-contracts": {
         "version": "v1.1.7"

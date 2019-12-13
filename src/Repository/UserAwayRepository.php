@@ -60,4 +60,19 @@ class UserAwayRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
     }
+
+    /**
+     * @param $date
+     * @return mixed
+     * @throws NonUniqueResultException
+     */
+    public function findUserAwayByDate($date)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.awayStartDate <= :date')
+            ->andWhere('u.awayEndDate >= :date')
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->execute();
+    }
 }

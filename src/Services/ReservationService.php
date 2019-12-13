@@ -2,11 +2,11 @@
 
 namespace App\Services;
 
+use App\Entity\ParkSpaces;
 use App\Entity\Reservations;
 use App\Entity\UserAway;
 use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
-use JMS\Serializer\SerializerBuilder;
 
 class ReservationService
 {
@@ -17,74 +17,98 @@ class ReservationService
         $this->entityManager = $entityManager;
     }
 
-    public function updateOrDeleteReservation($clientId, $parkspaceId)
+    public function reservationList()
     {
-        $data = $this->entityManager
-            ->getRepository(Reservations::class)
-            ->getReservationByParkIdAndByUserId($clientId, $parkspaceId);
-        $awayArray = $this->userAwayTimeArray($clientId);
-
-        $user = $this->entityManager->getRepository(Users::class)->findUserById($clientId);
-        foreach ($data as $value) {
-            $check = $value->getReservationDate()->format('Y-m-d');
-            if (in_array($check, $awayArray)) {
-                $value->setUser(null);
-                $value->setParkSpace($user->getUserParkSpace());
-            } else {
-                $value->setUser($user);
-                $value->setParkSpace($user->getUserParkSpace());
-            }
+        $countParkSpaces = $this->countParkSpaces();
+        $reservationList = [];
+        $dateArray = $this->dateTimeProvider(7);
+        foreach ($dateArray as $item) {
+            $dateObject = $this->dateFromString($item);
+            $reservationDateString = $dateObject->format('Y-m-d H:i:s');
+            $numberReservation = $this->entityManager
+                ->getRepository(Reservations::class)
+                ->countReservationByDateAndWithParkSpaceId($reservationDateString);
+            $numberAways = $this->entityManager
+                ->getRepository(Users::class)
+                ->countUsersByAwayDate($reservationDateString);
+            $array = [];
+            $array['date'] = $item;
+            $array['availableSpots'] = $numberAways - $numberReservation;
+            $array['usedSpots'] = $countParkSpaces - $array['availableSpots'];
+            array_push($reservationList, $array);
         }
-        $this->entityManager->flush();
+        return $reservationList;
     }
 
-    public function make($clientId = null)
+    private function countParkSpaces()
     {
+        return $this->entityManager->getRepository(ParkSpaces::class)->countParkSpaces();
+    }
 
-        $reservationDateArray = $this->dateTimeProvider(7);
-        if ($clientId == null) {
-            $data = $this->entityManager->getRepository(Users::class)->getUsersByRoles();
+
+    public function makeGuestReservation($array)
+    {
+        $guest = $this->checkUserRole($array['id']);
+        if ($guest == null) {
+            echo "not guest";
+            //TODO return statement no guest found by entered id
         } else {
-            $data = $this->entityManager->getRepository(Users::class)->getUsersByIdAndStatus($clientId);
-        }
-        foreach ($data as $entry) {
-            $id = $entry->getId();
-            $userAwayTimeArray = $this->userAwayTimeArray($id);
-
-            foreach ($reservationDateArray as $reservationDate) {
-                if ($clientId == null) {
-                    $reservation = new Reservations();
-                    if (in_array($reservationDate, $userAwayTimeArray)) {
-                        $reservation->setParkSpace($entry->getPermanentSpace());
-                    } else {
-                        $reservation->setUser($entry);
-                        $reservation->setParkSpace($entry->getPermanentSpace());
-                    }
-                    $date = $this->dateFromString($reservationDate);
-                    $reservation->setReservationDate($date);
-                    $this->entityManager->persist($reservation);
+            foreach ($array['reservations'] as $value) {
+                $dateObject = $this->dateFromString($value['reservation_date']);
+                $reservationDateString = $dateObject->format('Y-m-d H:i:s');
+                //TODO check if guest are not creating existing reservation
+                $existingReservation = $this
+                    ->checkIfGuestNotCreatingExistingReservation($reservationDateString, $guest->getId());
+                if ($existingReservation != null) {
+                    //TODO return statement for existing reservations
+                    echo "error user has reservations by entered date";
+                    die;
+                }
+                $reservation = new Reservations();
+                $reservation->setUser($guest);
+                $dateObject = $this->dateFromString($value['reservation_date']);
+                $reservation->setReservationDate($dateObject);
+                $parkingSpace = $this->checkIfParkSpaceAvailableByDate($reservationDateString);
+                if ($parkingSpace == null) {
+                    $reservation->setParkSpace(null);
                 } else {
-                    $clientReservation = $this->entityManager
-                        ->getRepository(Reservations::class)
-                        ->getReservationsByArrayAndId($userAwayTimeArray, $clientId);
-                    foreach ($clientReservation as $value) {
-                        $value->setUser(null);
-                    }
+                    $reservation->setParkSpace($parkingSpace->getAwayUser()->getUserParkSpace());
+                }
+                $this->entityManager->persist($reservation);
+            }
+            $this->entityManager->flush();
+        }
+    }
+
+    private function checkUserRole($id)
+    {
+        $guest = $this->entityManager->getRepository(Users::class)->findUserByRoleGuestAndId($id);
+        return $guest;
+    }
+
+    private function checkIfParkSpaceAvailableByDate($date)
+    {
+        $away = $this->entityManager->getRepository(UserAway::class)->findUserAwayByDate($date);
+        if ($away != null) {
+            foreach ($away as $item) {
+                $parkSpaceAtReservation = $this->entityManager
+                    ->getRepository(Reservations::class)
+                    ->findReservationByDateAndParkSpaceId($date, $item->getAwayUser()->getPermanentSpace());
+                if ($parkSpaceAtReservation != null) {
+                    $away = null;
+                } else {
+                    continue;
                 }
             }
+            return $away;
         }
-        $this->entityManager->flush();
     }
 
-    public function guestReservation()
+    private function checkIfGuestNotCreatingExistingReservation($date, $guestId)
     {
-//        $data = $this->entityManager->getRepository(Reservations::class)->reservationsWithoutUserId();
-//        $json = $this->serialize($data);
-//        echo $json;
-//        foreach ($data as $value) {
-//
-//            var_dump($value->getReservationDate());
-//        }
+        return $this->entityManager
+            ->getRepository(Reservations::class)
+            ->findReservationByDateAndUserId($date, $guestId);
     }
 
     private function dateTimeProvider($days)
@@ -125,12 +149,5 @@ class ReservationService
         $format = '!Y-m-d';
         $date = \DateTime::createFromFormat($format, $dateString);
         return $date;
-    }
-
-    private function serialize($data)
-    {
-        $serializer = SerializerBuilder::create()->build();
-        $json = $serializer->serialize($data, 'json');
-        return $json;
     }
 }

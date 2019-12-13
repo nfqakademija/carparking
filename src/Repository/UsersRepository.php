@@ -6,6 +6,8 @@ use App\Entity\Users;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\Query\Expr\Join;
 
 /**
  * @method Users|null find($id, $lockMode = null, $lockVersion = null)
@@ -34,10 +36,30 @@ class UsersRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws NonUniqueResultException
+     */
+    public function findUserByRoleGuestAndId($id)
+    {
+        $guest = 'guest';
+
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.userRole', 'r')
+            ->andWhere('u.id = :id')
+            ->andWhere('r.role = :guest')
+            ->setParameter('guest', $guest)
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     /**
      * @return mixed
-
      */
+
     public function getUsersByRoles()
     {
         $admin = 'admin';
@@ -64,4 +86,70 @@ class UsersRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
     }
+
+    public function countUsersByAwayDate($date)
+    {
+        return $this->createQueryBuilder('u')
+            ->select('count(u.id)')
+            ->leftJoin('u.userAways', 'ua')
+            ->andWhere('ua.awayStartDate <= :date')
+            ->andWhere('ua.awayEndDate >= :date')
+            ->setParameter('date', $date)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getUsersList()
+    {
+        $user = 'user';
+        return $this->createQueryBuilder('u')
+            ->select('partial u.{id, name, surname}, partial ua.{id, awayStartDate, awayEndDate}')
+            ->leftJoin('u.userRole', 'r')
+            ->andWhere('r.role = :user')
+            ->setParameter('user', $user)
+            ->leftJoin('u.userAways', 'ua')
+            ->getQuery()
+            ->getArrayResult();
+    }
+
+    public function getSingleUserList($userId)
+    {
+        {
+            $user = 'user';
+
+            return $this->createQueryBuilder('u')
+                ->select(
+                    'partial u.{id, name, surname, licencePlate},
+                    partial r.{id, role}, 
+                    partial p.{id, number}, 
+                    partial ua.{id, awayStartDate, awayEndDate},
+                    partial re.{id, reservationDate},
+                    partial s.{id, number}'
+                )
+                ->andWhere('u.id = :id')
+                ->setParameter('id', $userId)
+                ->leftJoin('u.userRole', 'r')
+                ->leftJoin('u.permanentSpace', 'p')
+                ->leftJoin('u.userAways', 'ua')
+                ->leftJoin('u.reservations', 're')
+                ->leftJoin('re.parkSpace', 's')
+                ->getQuery()
+                ->getArrayResult();
+        }
+    }
+
+
+
+
+
+    // {
+    //            "name":"",
+    //            "surname":"",
+    //            "reservations": [
+    //                {
+    //                    "date":"",
+    //                    "reservationId":""
+    //                } * tiek kiek turi rezervaciju
+    //            ]
+    //        }  * tiek kiek yra useriu
 }
