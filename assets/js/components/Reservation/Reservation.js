@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Button from '../UI/Button/Button';
+import StatusSvg from './StatusSvg/StatusSvg';
 
 import '../../../css/components/Reservation/Reservation.scss';
 
@@ -18,44 +20,16 @@ const reservation = React.forwardRef((props, ref) => {
                     ? null
                     : <>
                         <a  data-toggle='tooltip' style={{minHeight:'60%', marginTop:'1em'}}
-                            title={props.userParkingSpot
+                            // svg tooltip text depending on current status
+                            title={props.buttonOptions.buttonClass === 'danger'
                                     ? `You already have spot for this day`
-                                    : props.usedSpaces >= props.parkingSpaces 
+                                    : props.buttonOptions.buttonClass === 'neutral'
                                         ? `You can always ask a colleague to let you in their parking space`
-                                        :`You can reserve a parking space for this day`}>
-                            <svg className='Reservation_svg'> 
-                                <circle className='Reservation_circleBase' 
-                                    cx="50%" cy="55%" r="30%"
-                                    strokeDasharray={`110% 110%`}/>
-                                <circle className='Reservation_circleStatus' 
-                                    cx="50%" cy="55%" r="30%"
-                                    strokeDasharray={`${props.graphStatus.status} 184.2%`}
-                                    style={props.graphStatus.isVisible} />
-                                {console.log(props.usedSpaces)}
-                                {console.log(props.lotSize)}
-                                <text className='Reservation_text' style={{fontSize:'2em'}}
-                                    x="50%" y="45%">
-                                        {`${(props.usedSpots/props.lotSize)*100}%`}                      
-                                </text>
-                                <text className='Reservation_text'
-                                    x="35%" y="77.5%">
-                                        {props.lotSize}                      
-                                </text>
-                                <text className='Reservation_text' style={{fontSize:'0.75em', fill:'#8d8d8d'}}
-                                    x="35%" y="85%">
-                                        Overall                     
-                                </text>
-                                <line x1="50%" y1="15%" x2="50%" y2="32.5%" className='Reservation_line'></line>
-                                <text className='Reservation_text'
-                                    x="65%" y="77.5%">
-                                        {props.usedSpots}                   
-                                </text>
-                                <text className='Reservation_text' style={{fontSize:'0.75em', fill:'#8d8d8d'}}
-                                    x="65%" y="85%">
-                                        Used                     
-                                </text>
-                            </svg> 
-                            {/* svg could be different component */}
+                                        : `You can reserve a parking space for this day`}> 
+                            <StatusSvg
+                                graphStatus={props.graphStatus}
+                                lotSize={props.lotSize}
+                                usedSpots={props.usedSpots} />
                         </a>
                         {props.userParkingSpot
                             ? <div className='Reservation_userSpotText'>
