@@ -62,19 +62,20 @@ class Home extends Component {
     };
 
     graphHandler(day) {
-        if (day.usedSpaces === 0){
+        const lotSize = day.usedSpots + day.availableSpots
+        if (day.usedSpots === 0){
             return ( {
                 isVisible:{visibility:'hidden'},
                 status: '0%'
                 } )
-        } else if (day.usedSpaces === day.parkingSpaces) {
+        } else if (day.availableSpots <= 0) {
             return ({
                 status: '110%',
                 fill: "#F1B55C"
                 })
         } else {
             return ({
-                status:`${((day.usedSpaces/day.parkingSpaces)*110)}%`
+                status:`${((day.usedSpots/lotSize)*110)}%`
                 })
         } 
     }
@@ -139,10 +140,10 @@ class Home extends Component {
                                 index={index}
                                 key={day.date}
                                 date={day.date}
+                                lotSize={day.usedSpots+day.availableSpots} // *
+                                usedSpots={day.usedSpots >20 ?20 :day.usedSpots} // used spots could be bigger than lot size
+                                availableSpots={day.availableSpots > 0 ?day.availableSpots :0} // available spots could be negative
                                 buttonOptions={this.reservationButtonHandler(day)}
-                                parkingSpaces={day.parkingSpaces}
-                                usedSpaces={day.usedSpaces}
-                                userParkingSpot={day.userParkingSpot}
                                 graphStatus={this.graphHandler(day)}
                                 onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day).buttonClass, this.reservationRefFirst, this.reservationRefLast)}
                                 history={this.props.history}

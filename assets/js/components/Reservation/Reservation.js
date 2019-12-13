@@ -31,28 +31,31 @@ const reservation = React.forwardRef((props, ref) => {
                                     cx="50%" cy="55%" r="30%"
                                     strokeDasharray={`${props.graphStatus.status} 184.2%`}
                                     style={props.graphStatus.isVisible} />
+                                {console.log(props.usedSpaces)}
+                                {console.log(props.lotSize)}
                                 <text className='Reservation_text' style={{fontSize:'2em'}}
                                     x="50%" y="45%">
-                                        {`${(props.usedSpaces/props.parkingSpaces)*100}%`}                      
+                                        {`${(props.usedSpots/props.lotSize)*100}%`}                      
                                 </text>
                                 <text className='Reservation_text'
                                     x="35%" y="77.5%">
-                                        {`${(props.parkingSpaces)}`}                      
+                                        {props.lotSize}                      
                                 </text>
                                 <text className='Reservation_text' style={{fontSize:'0.75em', fill:'#8d8d8d'}}
                                     x="35%" y="85%">
-                                        {`Overall`}                      
+                                        Overall                     
                                 </text>
                                 <line x1="50%" y1="15%" x2="50%" y2="32.5%" className='Reservation_line'></line>
                                 <text className='Reservation_text'
                                     x="65%" y="77.5%">
-                                        {props.usedSpaces}                   
+                                        {props.usedSpots}                   
                                 </text>
                                 <text className='Reservation_text' style={{fontSize:'0.75em', fill:'#8d8d8d'}}
                                     x="65%" y="85%">
-                                        {`Used`}                      
+                                        Used                     
                                 </text>
-                            </svg>
+                            </svg> 
+                            {/* svg could be different component */}
                         </a>
                         {props.userParkingSpot
                             ? <div className='Reservation_userSpotText'>
