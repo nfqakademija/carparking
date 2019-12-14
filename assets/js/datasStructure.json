@@ -84,8 +84,8 @@ delete api/useraway:  + token (veliau reikes)
 api/useraway DELETE
 {
 	"awayDate": [
-		{"id": 25},
-		{"id": 57}
+		{"id": 25(userAwayId)},
+		{"id": 57(userAwayId)}
 	]
 }
 
@@ -102,8 +102,34 @@ api/licenseplate DELETE
 	]
 }
 
-4) post api/switch (galiu duot token + guestName + guestSurname)
+api/reservations POST
+{
+	"id": 21,
+	"reservations": [
+		{"reservationDate" :"2019-12-15"},
+        	{"reservationDate" :"2019-12-18"}
+	]
+}
+api/reservations DELETE
+nera dar
+
+api/notifications POST
+{
+	"guestId": 21,
+	"userId": 2,
+	"requestDate" :"2019-12-20"
+}
+api/notifications DELETE
+{
+	nera dar 
+}
+
+/api/notification-accept/{notificationId} POST (tuscia paduok) sukuria switch
+/api/notification-cancel/{notificationId} DELETE istrina switch 
+
+
 5) delete api/notifications (galiu duot notification id)
+nera dar
 
 // bonus
 Jei turesi laiko preverstu toks kur tik viena diena refresina (nebutina nes get api/reservations tik 6-7 mazi objectai)
