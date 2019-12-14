@@ -6,7 +6,8 @@ const initialState = {
     token: 1,
     loading: {
         loadingSingleUser: true,
-        loadingReservations: true
+        loadingReservations: true,
+        loadingUsers: true
     },
     user: {
         id: 4,
@@ -61,16 +62,31 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 token: null
             }
-        case actionTypes.GET_HOME_USERS_START:
+        case actionTypes.GET_USERS_START:
             return {
                 ...state,
-                loading: true
+                loading: {
+                    ...state.loading,
+                    loadingUsers: true
+                }
             }
-        case actionTypes.GET_HOME_USERS_SUCCESS:
+        case actionTypes.GET_USERS_SUCCESS:
             return {
                 ...state,
                 users: action.users,
-                loading: false
+                loading: {
+                    ...state.loading,
+                    loadingUsers: false
+                }
+            }
+        case actionTypes.GET_USERS_FAIL:
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    loadingUsers: false
+                }
+
             }
         case actionTypes.SAVE_COORDINATES:
             return {

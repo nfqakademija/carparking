@@ -4,7 +4,7 @@ import { getCoordinates } from '../thunk/popup';
 
 export const getSingleUser = () => dispatch => {
     dispatch(actions.getSingleUserStart()) //*
-    axios.get(`/api/single-user/2`) //*
+    axios.get(`/api/single-user/3`) //*
         .then( res => {
             dispatch(actions.getSingleUserSuccess(res.data))
         })
@@ -30,15 +30,10 @@ export const getHomeData = () => dispatch => {
 }
 // home data done
 export const getUsersData = () => dispatch => {
-    dispatch(actions.getHomeUsersStart());
-    const users = []
+    dispatch(actions.getUsersStart());
     axios.get('/api/users')
         .then(res =>{ 
-            const usersData = res.data
-            usersData.map( user => {
-                users.push(user)
-            })
-            dispatch(actions.getHomeUsersSuccess(users));
+            dispatch(actions.getUsersSuccess(res.data));
         })
 }
 
@@ -49,8 +44,10 @@ export const popupAcceptCaseDanger = date => (dispatch, getState) => {
             {"awayStartDate" :date,"awayEndDate":date}
         ]
     }
+    console.log(postData)
     axios.post('/api/useraway',postData)
         .then(res => {
+            console.log(res)
             if(res.data.error){
                 dispatch(actions.popupAcceptFail(res.data.error))
                 
@@ -61,6 +58,7 @@ export const popupAcceptCaseDanger = date => (dispatch, getState) => {
             dispatch(fetchOneDayData(date))
         })
         .catch((err) => {
+            console.log(err)
             dispatch(actions.popupAcceptFail(err))
             dispatch(successTimer())
             dispatch(fetchOneDayData(date))
@@ -160,18 +158,27 @@ export const popupAcceptCaseSuccess = date => (dispatch, getState) => {
     }
 }
 
-export const popupAcceptClicked = (date, actionType) => dispatch => {
+export const popupAcceptCaseSuccessGuest = date => dispatch => {
+
+}
+
+export const popupAcceptClicked = (date, actionType) => (dispatch, getState) => {
     dispatch(actions.popupAcceptStart());
-    const startDate = new Date(date).toISOString().slice(0,-14);
-    switch (actionType) {
-        case 'danger': dispatch(popupAcceptCaseDanger(date))
-            break
-        case 'success': dispatch(popupAcceptCaseSuccess(date))
-            break 
-        case 'neutral':
-                dispatch(actions.popupAcceptSuccess())
-                dispatch(successTimer())
-    }   
+    if(getState().user.role === "user"){
+        switch (actionType) {
+            case 'danger': dispatch(popupAcceptCaseDanger(date))
+                break
+            case 'success': dispatch(popupAcceptCaseSuccess(date))
+                break 
+        }
+    } else {
+        switch (actionType) {
+            case 'danger': dispatch(popupAcceptCaseDangerGuest(date))
+                break
+            case 'success': dispatch(popupAcceptCaseSuccessGuest(date))
+                break 
+        }
+    }
 }
 
 export const buttonClickedMid = (date, buttonType, first, last) => dispatch => {
@@ -193,7 +200,7 @@ const fetchOneDayData = (date) => dispatch => {
 
     dispatch(actions.fetchOneDayDataStart(date))
 
-    axios.get(`/api/single-user/2`) //* find way to do this fetches at the same time
+    axios.get(`/api/single-user/3`) //* find way to do this fetches at the same time
         .then(res => {
             dispatch(actions.getSingleUserSuccess(res.data))
             axios.get(`/api/reservations`)

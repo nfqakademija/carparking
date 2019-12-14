@@ -35,16 +35,23 @@ export const getHomeDataFail = (data, user) => {
     }
 }
 
-export const getHomeUsersStart = () => {
+export const getUsersStart = () => {
     return {
-        type: actionTypes.GET_HOME_USERS_START
+        type: actionTypes.GET_USERS_START
     }
 }
 
-export const getHomeUsersSuccess = (users) => {
+export const getUsersSuccess = users => {
     return {
-        type: actionTypes.GET_HOME_USERS_SUCCESS,
+        type: actionTypes.GET_USERS_SUCCESS,
         users
+    }
+}
+
+export const getUsersFail = err => {
+    return {
+        type: actionTypes.GET_USERS_FAIL,
+        err
     }
 }
 

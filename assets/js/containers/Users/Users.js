@@ -68,8 +68,8 @@ class Users extends Component {
 const mapStateToProps = state => {
     return {
         usersList: state.users,
-        loading: state.loading,
-        reservationStatus: state.reservationStatus,
+        loading: state.loading.loadingUsers,
+        reservationStatus: state.weekStatus,
         mainUser: state.user,
         popup: state.popup,
         user: state.user,
