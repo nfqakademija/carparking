@@ -65,9 +65,13 @@ const popUp = (props) => {
                 </div>
             :   props.uniqueStyle
                 ?   props.type.err
-                    ? <div className='PopUp_container' style={popupType} >
-                        {failText}
-                      </div>
+                    ?  props.type.err === "duplicate"
+                        ? <div className='PopUp_container' style={popupType} >
+                            <div style={{textTransform:'uppercase', fontSize:'1.25rem'}}> You already asked {props.user ?props.user.name:null} to swap parking spaces!</div>
+                          </div>
+                        : <div className='PopUp_container' style={popupType} >
+                            {failText}
+                         </div>
                     : <div className='PopUp_container' style={popupType} >
                         {successText}
                       </div>

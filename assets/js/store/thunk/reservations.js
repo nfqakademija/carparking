@@ -24,9 +24,16 @@ export const getReservations = () => dispatch => {
         })
 }
 
+const getNotifications = () => dispatch =>{
+    axios.get('api/notifications')
+        .then(res => console.log(res))
+}
+
+
 export const getHomeData = () => dispatch => {
     dispatch(getSingleUser());
     dispatch(getReservations()); 
+    dispatch(getNotifications());
 }
 // home data done
 export const getUsersData = () => dispatch => {
@@ -190,15 +197,19 @@ const popupAcceptCaseSuccessGuest = date => (dispatch, getState) => {
 // }
 const popupAcceptCaseNeutralGuest = date => (dispatch, getState) => {
      const myId = getState().user.userId
-     const otherUserId = 3
+     const otherUserId = 6
      const postData = {
         "guestId": myId,
         "userId": otherUserId,
         "requestDate" : date
     }
     axios.post('/api/notifications',postData)
-        .then(() => {
-            dispatch(actions.popupAcceptSuccess())
+        .then(res => {
+            if(res.data.error) {
+                dispatch(actions.popupAcceptFail(res.data.error))
+            } else {
+                dispatch(actions.popupAcceptSuccess())
+            }
             dispatch(successTimer())
             dispatch(fetchOneDayData(date))
         })
