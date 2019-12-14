@@ -15,19 +15,19 @@ class App extends Component {
 
         let routes =
         <Switch>
-            <Route path='/' exact component={Login}/> 
-            <Redirect from='/' to='/'/>
+            <Route path='/app/' exact component={Login}/>
+            <Redirect from='/app/' to='/app/'/>
         </Switch>
 
         if(this.props.token) {
             routes = 
             <Layout user={this.props.user}>
                 <Switch>  
-                    <Route path="/home" component={Home}/>
-                    <Route path='/users' component={Users}/>
-                    <Route path='/logout' component={Logout}/>
-                    <Route path='/away' component={Away}/>
-                    <Redirect from='/' to='/home'/>
+                    <Route path="/app/home" component={Home}/>
+                    <Route path='/app/users' component={Users}/>
+                    <Route path='/app/logout' component={Logout}/>
+                    <Route path='/app/away' component={Away}/>
+                    <Redirect from='/app/' to='/app/home'/>
                 </Switch>
             </Layout>
         }
