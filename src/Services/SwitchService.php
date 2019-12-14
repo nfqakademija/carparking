@@ -15,6 +15,7 @@ class SwitchService
     public function __construct(EntityManagerInterface $entityManager, UserAwayService $userAwayService)
     {
         $this->entityManager = $entityManager;
+        $this->userAwayService = $userAwayService;
     }
 
     public function makeParkSpaceSwitch($notificationId)
