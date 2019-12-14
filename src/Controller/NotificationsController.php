@@ -49,9 +49,21 @@ class NotificationsController extends AbstractController
     public function accept($id)
     {
         $userAwayService = new UserAwayService($this->entityManager);
-        $reservationService = new ReservationService($this->entityManager);
-        $service = new SwitchService($this->entityManager, $userAwayService, $reservationService);
+        $service = new SwitchService($this->entityManager, $userAwayService);
         $response = $service->makeParkSpaceSwitch($id);
+        return new JsonResponse($response);
+    }
+
+    /**
+     * @Rest\Delete("/api/notification-cancel/{id}")
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function cancelSwitch($id)
+    {
+        $userAwayService = new UserAwayService($this->entityManager);
+        $service = new SwitchService($this->entityManager, $userAwayService);
+        $response = $service->cancelParkSpaceSwitch($id);
         return new JsonResponse($response);
     }
 

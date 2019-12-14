@@ -41,6 +41,20 @@ class SwitchService
         $this->entityManager->flush();
     }
 
+    public function cancelParkSpaceSwitch($notificationId)
+    {
+        $data = $this->entityManager->getRepository(Notifications::class)->findNotificationById($notificationId);
+        $userId = $data->getUser()->getId();
+        $guestId = $data->getGuest()->getId();
+        $requestDate = $data->getRequestDate()->format('Y-m-d H:i:s');
+
+        $awayUser = $this->entityManager->getRepository(UserAway::class)->findByUserIdAnDate($userId, $requestDate);
+        $this->entityManager->remove($awayUser);
+        $reservation = $this->getReservationByGuestId($requestDate, $guestId);
+        $reservation->setParkSpace(null);
+        $this->entityManager->flush();
+    }
+
     private function getReservationByGuestId($requestDate, $guestId)
     {
         return $this->entityManager
