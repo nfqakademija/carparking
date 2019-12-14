@@ -39,12 +39,8 @@ class Notifications
     /**
      * @ORM\Column(type="datetime")
      */
-    private $requestStartDate;
+    private $requestDate;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $requestEndDate;
 
     public function getId(): ?int
     {
@@ -99,26 +95,14 @@ class Notifications
         return $this;
     }
 
-    public function getRequestStartDate(): ?\DateTimeInterface
+    public function getRequestDate(): ?\DateTimeInterface
     {
-        return $this->requestStartDate;
+        return $this->requestDate;
     }
 
-    public function setRequestStartDate(\DateTimeInterface $requestStartDate): self
+    public function setRequestDate(\DateTimeInterface $requestDate): self
     {
-        $this->requestStartDate = $requestStartDate;
-
-        return $this;
-    }
-
-    public function getRequestEndDate(): ?\DateTimeInterface
-    {
-        return $this->requestEndDate;
-    }
-
-    public function setRequestEndDate(\DateTimeInterface $requestEndDate): self
-    {
-        $this->requestEndDate = $requestEndDate;
+        $this->requestDate = $requestDate;
 
         return $this;
     }

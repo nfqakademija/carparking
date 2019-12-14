@@ -47,16 +47,8 @@ class NotificationService
             return $array = ['error' => 'not user'];
         }
         $notification->setUser($user);
-
-        $requestStart = $this->dateFromString($data['requestStartDate']);
-        $requestEnd = $this->dateFromString($data['requestEndDate']);
-        $validate = $this->validateProvidedDate($requestStart, $requestEnd);
-
-        if ($validate) {
-            return $array = ['error' => 'not valid date'];
-        }
-        $notification->setRequestStartDate($requestStart);
-        $notification->setRequestEndDate($requestEnd);
+        $requestDate = $this->dateFromString($data['requestDate']);
+        $notification->setRequestDate($requestDate);
         $notification->setAccepted(0);
         $notification->setDelivered(0);
         $this->entityManager->persist($notification);
@@ -75,14 +67,6 @@ class NotificationService
         $format = '!Y-m-d';
         $date = \DateTime::createFromFormat($format, $dateString);
         return $date;
-    }
-
-    private function validateProvidedDate($startDate, $endDate)
-    {
-        if ($startDate > $endDate) {
-            return true;
-        }
-        return false;
     }
 
     private function checkDuplicate($dataArray)
