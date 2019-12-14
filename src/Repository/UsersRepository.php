@@ -117,6 +117,21 @@ class UsersRepository extends ServiceEntityRepository
             ->getArrayResult();
     }
 
+    /**
+     * @param $userId
+     * @return mixed
+     * @throws NonUniqueResultException
+     * @throws \Doctrine\ORM\NoResultException
+     */
+    public function getSingleUser($userId)
+    {
+        return $this->createQueryBuilder('u')
+            ->andWhere('u.id = :id')
+            ->setParameter('id', $userId)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     public function getSingleUserList($userId)
     {
         {
