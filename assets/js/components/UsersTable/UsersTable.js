@@ -25,7 +25,10 @@ const usersTable = React.forwardRef((props, ref) => (
                         {props.reservationStatus.map( dayObj => {
                             const date = new Date(dayObj.date)
                             const reservation = props.mainUser.reservations.find(reservation => reservation.date === dayObj.date)
-                            const guestReservation = props.mainUser.reservations.find(reservation => new Date(reservation.reservationDate.date).getDate() === new Date(dayObj.date).getDate())
+                            let guestReservation
+                            reservation && reservation.reservationDate 
+                                ? guestReservation = props.mainUser.reservations.find(reservation => new Date(reservation.reservationDate.date).getDate() === new Date(dayObj.date).getDate())
+                                : null
                             return(
                                 date.getDay() === 0 // check if sunday
                                 
