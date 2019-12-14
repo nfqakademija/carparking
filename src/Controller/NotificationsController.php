@@ -64,7 +64,6 @@ class NotificationsController extends AbstractController
 
     /**
      * @Rest\Post("/api/notification-accept/{id}")
-     * @param Request $request
      * @return JsonResponse
      */
     public function accept($id)
@@ -77,7 +76,6 @@ class NotificationsController extends AbstractController
 
     /**
      * @Rest\Delete("/api/notification-cancel/{id}")
-     * @param Request $request
      * @return JsonResponse
      */
     public function cancelSwitch($id)
@@ -87,6 +85,4 @@ class NotificationsController extends AbstractController
         $response = $service->cancelParkSpaceSwitch($id);
         return new JsonResponse($response);
     }
-
-
 }

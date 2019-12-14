@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Services;
 
 use App\Entity\Notifications;
@@ -96,5 +95,4 @@ class NotificationService
     {
         return $this->entityManager->getRepository(Notifications::class)->checkDuplicateEntry($dataArray);
     }
-
 }
