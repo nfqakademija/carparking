@@ -27,7 +27,7 @@ class Users extends Component {
                     translate={popup.show} 
                     type={popup} 
                     popupCancel={this.props.onPopupCancel} 
-                    popupAccept={()=>this.props.onPopupAccept(popup.date, this.props.user, 'neutral')}
+                    popupAccept={()=>this.props.onPopupAccept(popup.date, 'neutral')}
                     loading={popup.loading}
                     uniqueStyle={popup.style}
                     successTimer={this.props.onSuccessTimer}
@@ -83,7 +83,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps= dispatch => ({
     onGetUsersData: () => dispatch(getUsersData()),
     onButtonClick: (date, buttonType, ref, switchUser) => {dispatch(getCoordinates(ref ,ref)),dispatch(buttonClicked(date, buttonType, switchUser))},
-    onPopupAccept: (date, user, actionType) => dispatch(popupAcceptClicked(date, user, actionType)),
+    onPopupAccept: (date, actionType) => dispatch(popupAcceptClicked(date, actionType)),
     onPopupCancel: () => dispatch(popupCancel()),
     onPopupOpened: () => dispatch(popupOpened())
 })

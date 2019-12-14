@@ -172,6 +172,11 @@ const popupAcceptCaseSuccessGuest = date => (dispatch, getState) => {
                 dispatch(successTimer())
                 dispatch(fetchOneDayData(date))
         })
+        .catch((err) => {
+            dispatch(actions.popupAcceptFail(err))
+            dispatch(successTimer())
+            dispatch(fetchOneDayData(date))
+        }) 
 }
 
 // const popupAcceptCaseDangerGuest = date => (dispatch, getState) => {
@@ -183,6 +188,27 @@ const popupAcceptCaseSuccessGuest = date => (dispatch, getState) => {
 //     }
 //     axios.delete('api/reservations',{data: deleteData})
 // }
+const popupAcceptCaseNeutralGuest = date => (dispatch, getState) => {
+     const myId = getState().user.userId
+     const otherUserId = 3
+     const postData = {
+        "guestId": myId,
+        "userId": otherUserId,
+        "requestDate" : date
+    }
+    axios.post('/api/notifications',postData)
+        .then(() => {
+            dispatch(actions.popupAcceptSuccess())
+            dispatch(successTimer())
+            dispatch(fetchOneDayData(date))
+        })
+        .catch((err) => {
+            dispatch(actions.popupAcceptFail(err))
+            dispatch(successTimer())
+            dispatch(fetchOneDayData(date))
+        }) 
+ }
+
 
 export const popupAcceptClicked = (date, actionType) => (dispatch, getState) => {
     dispatch(actions.popupAcceptStart());
@@ -199,6 +225,8 @@ export const popupAcceptClicked = (date, actionType) => (dispatch, getState) => 
                 break
             case 'success': dispatch(popupAcceptCaseSuccessGuest(date))
                 break 
+            case 'neutral': dispatch(popupAcceptCaseNeutralGuest(date))
+                break
         }
     }
 }
