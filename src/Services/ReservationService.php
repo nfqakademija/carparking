@@ -45,6 +45,27 @@ class ReservationService
         return $this->entityManager->getRepository(ParkSpaces::class)->countParkSpaces();
     }
 
+    public function deleteGuestReservation($data)
+    {
+        foreach ($data['reservations'] as $datum) {
+            $reservation = $this->entityManager->getRepository(Reservations::class)->findReservationById($datum['id']);
+            if ($reservation->getParkSpace() != null) {
+                $date = $reservation->getReservationDate()->format('Y-m-d H:i:s');
+                $newReservation =
+                    $this->entityManager
+                        ->getRepository(Reservations::class)
+                        ->findReservationWithoutParkSpaceByDate($date);
+                if ($newReservation) {
+                    $newReservation->setParkSpace($reservation->getParkSpace());
+                    $this->entityManager->persist($newReservation);
+                }
+            }
+            $this->entityManager->remove($reservation);
+            $this->entityManager->flush();
+        }
+        return $array = ["success" => "success"];
+    }
+
 
     public function makeGuestReservation($data)
     {

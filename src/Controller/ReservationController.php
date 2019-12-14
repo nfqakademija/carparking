@@ -22,7 +22,6 @@ class ReservationController extends FOSRestBundle
     private $entityManager;
 
     /**
-     * @param TokenAuthenticator $tokenAuthenticator
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
@@ -55,16 +54,14 @@ class ReservationController extends FOSRestBundle
     }
 
     /**
-     * @Rest\Post("/api/reservations")
+     * @Rest\Delete("/api/reservations")
      */
     public function deleteReservation(Request $request)
     {
         $content = $request->getContent();
         $dataArray = json_decode($content, true);
         $service = new ReservationService($this->entityManager);
-        $response = $service->makeGuestReservation($dataArray);
+        $response = $service->deleteGuestReservation($dataArray);
         return new JsonResponse($response);
     }
-
-
 }

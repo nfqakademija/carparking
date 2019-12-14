@@ -30,25 +30,25 @@ class ReservationsRepository extends ServiceEntityRepository
             ->execute();
     }
 
-    public function getReservationsWithoutUserId()
+    public function findReservationById($id)
     {
         $value = null;
         return $this->createQueryBuilder('r')
-            ->andWhere('r.user = :id')
-            ->setParameter('id', ' ')
+            ->andWhere('r.id = :id')
+            ->setParameter('id', $id)
             ->getQuery()
-            ->execute();
+            ->getOneOrNullResult();
     }
 
-    public function getReservationByParkIdAndByUserId($clientId, $parkId)
+    public function findReservationWithoutParkSpaceByDate($date)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.parkSpace = :parkId')
-            ->andWhere('r.user = :id')
-            ->setParameter('id', $clientId)
-            ->setParameter('parkId', $parkId)
+            ->andWhere('r.reservationDate = :reservationDate')
+            ->andWhere('r.parkSpace is NULL')
+            ->setParameter('reservationDate', $date)
+            ->setMaxResults(1)
             ->getQuery()
-            ->execute();
+            ->getOneOrNullResult();
     }
 
     /**
