@@ -31,4 +31,13 @@ class NotificationsRepository extends ServiceEntityRepository
             ->getQuery()
             ->getOneOrNullResult();
     }
+
+    public function findNotificationById($id)
+    {
+        return $this->createQueryBuilder('n')
+            ->andWhere('n.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
