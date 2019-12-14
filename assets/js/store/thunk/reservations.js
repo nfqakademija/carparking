@@ -4,7 +4,7 @@ import { getCoordinates } from '../thunk/popup';
 
 export const getSingleUser = () => dispatch => {
     dispatch(actions.getSingleUserStart()) //*
-    axios.get(`/api/single-user/3`) //*
+    axios.get(`/api/single-user/31`) //*
         .then( res => {
             dispatch(actions.getSingleUserSuccess(res.data))
         })
