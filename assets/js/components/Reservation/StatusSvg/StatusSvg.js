@@ -14,7 +14,7 @@ const statusSvg = props => (
         <text   className='Reservation_text' 
                 style={{fontSize:'2em'}}
                 x="50%" y="45%">
-                    {`${(props.usedSpots/props.lotSize)*100}%`}                      
+                    {`${Math.round((props.usedSpots/props.lotSize)*100)}%`}                      
         </text>
         <text   className='Reservation_text'
                 x="35%" y="77.5%">

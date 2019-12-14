@@ -29,7 +29,6 @@ const initialState = {
     },
     users: [],
     plate: "ABC000",
-    reservationStatus: [],
     popup: {
         width: 'calc(100%+30px)',
         left: '0px'
@@ -61,25 +60,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 token: null
-            }
-        case actionTypes.GET_HOME_DATA_START:
-            return {
-                ...state,
-                loading: true
-            }
-        case actionTypes.GET_HOME_DATA_SUCCESS:
-            return {
-                ...state,
-                reservationStatus: action.data,
-                user: action.user,
-                loading: false
-            }
-        case actionTypes.GET_HOME_DATA_FAIL:
-            return {
-                ...state,
-                reservationStatus: action.data,
-                user: action.user,
-                loading: false
             }
         case actionTypes.GET_HOME_USERS_START:
             return {
@@ -153,6 +133,19 @@ const reducer = (state = initialState, action) => {
                     }
                 }
             }
+        case actionTypes.POPUP_ACCEPT_FAIL:
+            return {
+                ...state,
+                popup: {
+                    ...state.popup,
+                    err: action.err,
+                    loading: false,
+                    style : {
+                        backgroundColor: '#E87C86',
+                        height: '150px'
+                    }
+                }
+            }
         case actionTypes.POPUP_SUCCESS:
             return {
                 ...state,
@@ -200,7 +193,16 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_ONE_DAY_DATA_SUCCESS:
             return {
                 ...state,
-                reservationStatus: action.data,
+                weekStatus: action.data,
+                loadingOneDay: false
+            }
+        case actionTypes.FETCH_ONE_DAY_DATA_FAIL:
+            return {
+                ...state,
+                weekStatus: {
+                    ...state.weekStatus,
+                    err: action.err
+                },
                 loadingOneDay: false
             }
         case actionTypes.SET_NOTIFICATION:
@@ -341,10 +343,10 @@ const reducer = (state = initialState, action) => {
                     loadingReservations: false
                 }
             }
-        case actionTypes.GET_RESERVATIONS_SUCCESS:
+        case actionTypes.GET_RESERVATIONS_FAIL:
             return {
                 ...state,
-                parkingLotStatus: {
+                weekStatus: {
                     ...state.parkingLotStatus,
                     err: action.err
                 },

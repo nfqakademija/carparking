@@ -16,6 +16,7 @@ const popUp = (props) => {
 
     let statusText = null 
     let successText = null 
+    const failText = <div style={{textTransform:'uppercase', fontSize:'1.25rem'}}> Oops something went wrong! Try again later</div>
             
     if(props.type){
         const date = new Date(props.type.date)
@@ -63,9 +64,13 @@ const popUp = (props) => {
                     <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
                 </div>
             :   props.uniqueStyle
-                ?   <div className='PopUp_container' style={popupType} >
+                ?   props.type.err
+                    ? <div className='PopUp_container' style={popupType} >
+                        {failText}
+                      </div>
+                    : <div className='PopUp_container' style={popupType} >
                         {successText}
-                    </div>
+                      </div>
                 :   <div className='PopUp_container' style={popupType} >
                         {statusText}
                         <div style={{display:'flex', justifyContent:'space-around', width:'80%', margin:'auto'}}>

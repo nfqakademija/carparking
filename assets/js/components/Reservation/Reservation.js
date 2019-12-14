@@ -26,6 +26,7 @@ const reservation = React.forwardRef((props, ref) => {
                                     : props.buttonOptions.buttonClass === 'neutral'
                                         ? `You can always ask a colleague to let you in their parking space`
                                         : `You can reserve a parking space for this day`}> 
+                            {console.log(props)}
                             <StatusSvg
                                 graphStatus={props.graphStatus}
                                 lotSize={props.lotSize}

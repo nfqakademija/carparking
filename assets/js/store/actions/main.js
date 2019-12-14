@@ -90,6 +90,13 @@ export const popupAcceptSuccess = () => {
     }
 }
 
+export const popupAcceptFail = (err) => {
+    return {
+        type: actionTypes.POPUP_ACCEPT_FAIL,
+        err
+    }
+}
+
 export const popupSuccess = () => {
     return {
         type: actionTypes.POPUP_SUCCESS
@@ -132,6 +139,13 @@ export const fetchOneDayDataSuccess = (data) => {
     return {
         type: actionTypes.FETCH_ONE_DAY_DATA_SUCCESS,
         data
+    }
+}
+
+export const fetchOneDayDataFail = err => {
+    return {
+        type: actionTypes.FETCH_ONE_DAY_DATA_FAIL,
+        err
     }
 }
 

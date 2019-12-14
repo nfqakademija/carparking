@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { connect } from "react-redux";
 
-import { getHomeData, popupAcceptClicked, successTimer, buttonClickedMid, notificationPopupAccept, getSingleUser } from '../../store/thunk/reservations';
+import { getHomeData, popupAcceptClicked, successTimer, buttonClickedMid, notificationPopupAccept, getSingleUser} from '../../store/thunk/reservations';
 import { getCoordinates, popupOpened } from '../../store/thunk/popup';
 import { popupCancel, setNotification, notificationPopupCancel } from '../../store/actions/index';
 
@@ -31,9 +31,10 @@ class Home extends Component {
         
         // axios.get('/api/make-reservation').then(res => console.log(res))
         // axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
-        // axios.get(`/api/reservations`).then(res => console.log(res))
-        // axios.get(`/api/users`).then(res => console.log(res))
+        axios.get(`/api/reservations`).then(res => console.log(res))
+        axios.get(`/api/useraway/6`).then(res => console.log(res))
         // axios.get(`/api/single-user/21`).then(res => console.log(res))
+        
     }
 
     buttonClickHandler(date, buttonType, first, last) {
@@ -91,7 +92,7 @@ class Home extends Component {
                         translate={popup.show} 
                         type={popup} 
                         popupCancel={this.props.onPopupCancel} 
-                        popupAccept={()=>this.props.onPopupAccept(popup.date, this.props.user, popup.type)}
+                        popupAccept={()=>this.props.onPopupAccept(popup.date, popup.type)}
                         loading={popup.loading}
                         uniqueStyle={popup.style}
                         successTimer={this.props.onSuccessTimer}
@@ -132,7 +133,6 @@ class Home extends Component {
                 {this.notificationPopupHandler(this.props.notificationPopup)}
                 {this.popupHandler(this.props.popup)}
                 <div className='Home_reservationContainer' style={this.reservationContainerStyleHandler()} >
-                    {console.log(this.props.weekStatus)}
                     {this.props.weekStatus.map( (day,index) => (
                         new Date(day.date).getDay() // skip sunday
                             ? <Reservation key={day.date}
@@ -172,7 +172,7 @@ const mapDispatchToProps= dispatch => ({
     onGetHomeData: (first, last) => dispatch(getHomeData(first, last)),
     onButtonClick: (date, buttonType, first, last) => dispatch(buttonClickedMid(date, buttonType, first, last)),
     onPopupCancel: () => dispatch(popupCancel()),
-    onPopupAccept: (date, user, actionType) => dispatch(popupAcceptClicked(date, user, actionType)),
+    onPopupAccept: (date, actionType) => dispatch(popupAcceptClicked(date, actionType)),
     onSuccessTimer: () => dispatch(successTimer()),
     onSetNotification: () => dispatch(setNotification()),
     onNotificationPopupCancel: () => dispatch(notificationPopupCancel()),
