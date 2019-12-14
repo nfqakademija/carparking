@@ -55,8 +55,7 @@ export const popupAcceptCaseDanger = date => (dispatch, getState) => {
                 dispatch(actions.popupAcceptFail(res.data.error))
                 
             } else {
-                dispatch(actions.popupAcceptSuccess())
-                
+                dispatch(actions.popupAcceptSuccess()) 
             }
             dispatch(successTimer())
             dispatch(fetchOneDayData(date))
@@ -68,43 +67,106 @@ export const popupAcceptCaseDanger = date => (dispatch, getState) => {
         })
 }
 
+export const putUserAway = (putData, date) => dispatch => {
+    axios.put('/api/useraway',putData)
+            .then(() => {
+                dispatch(actions.popupAcceptSuccess())
+                dispatch(successTimer())
+                dispatch(fetchOneDayData(date))
+            })
+            .catch((err) => {
+                dispatch(actions.popupAcceptFail(err))
+                dispatch(successTimer())
+                dispatch(fetchOneDayData(date))
+            })
+}
+
+export const popupAcceptCaseSuccess = date => (dispatch, getState) => {
+    const foundAway = getState().user.userAways.find(away => 
+            new Date(away.awayStartDate.date).getDate() <= new Date(date).getDate() 
+        &&  new Date(away.awayEndDate.date).getDate() >= new Date(date).getDate())
+    if(foundAway.awayStartDate.date === foundAway.awayEndDate.date){ // one day case
+        const deleteData = { "awayDate": [ {"id": foundAway.id} ] }
+        axios.delete('/api/useraway', {data: deleteData})
+            .then(() => {
+                dispatch(actions.popupAcceptSuccess())
+                dispatch(successTimer())
+                dispatch(fetchOneDayData(date))
+            })
+            .catch((err) => {
+                dispatch(actions.popupAcceptFail(err))
+                dispatch(successTimer())
+                dispatch(fetchOneDayData(date))
+            })
+    } else { //intrerval case
+        const dateObj = new Date(date) 
+        const endDateObj = new Date(foundAway.awayEndDate.date)
+        const startDateObj = new Date(foundAway.awayStartDate.date)
+        if(new Date(foundAway.awayStartDate.date).getDate() === new Date(date).getDate()) { //interval starts from this date
+            const startDay = new Date(dateObj.setDate(dateObj.getDate()+1)).toISOString().slice(0,-14)
+            const endDay = new Date(endDateObj.setDate(endDateObj.getDate()+1)).toISOString().slice(0,-14)
+            const putData = {
+                        "awayDate": [ { "id": foundAway.id,
+                            "awayStartDate": startDay,
+                            "awayEndDate": endDay} ]
+            } 
+            dispatch(putUserAway(putData, date))
+        } else if(new Date(foundAway.awayEndDate.date).getDate() === new Date(date).getDate()) { // interval ends to this date
+            const startDay = new Date(startDateObj.setDate(startDateObj.getDate()+1)).toISOString().slice(0,-14)
+            const endDay = endDateObj.toISOString().slice(0,-14)
+            const putData = {
+                "awayDate": [ { "id": foundAway.id,
+                    "awayStartDate": startDay,
+                    "awayEndDate": endDay} ]
+            }
+            dispatch(putUserAway(putData, date))
+        } else { // date is in interval
+            const newDateObj = new Date(dateObj)
+            const firstStartDay = new Date(startDateObj.setDate(startDateObj.getDate()+1)).toISOString().slice(0,-14)
+            const firstEndDay = new Date(dateObj.setDate(dateObj.getDate()-1)).toISOString().slice(0,-14)
+            const secondStartDay = new Date(newDateObj.setDate(newDateObj.getDate()+1)).toISOString().slice(0,-14)
+            const secondEndDay = new Date(endDateObj.setDate(endDateObj.getDate()+1)).toISOString().slice(0,-14)
+            const putData = {
+                "awayDate": [{ "id": foundAway.id,
+                    "awayStartDate": firstStartDay, 
+                    "awayEndDate": firstEndDay}]
+            }
+            const postData = {
+                "id": getState().user.userId,
+                "awayDate": [
+                    {"awayStartDate" :secondStartDay,"awayEndDate":secondEndDay}
+                ]
+            }
+            axios.put('/api/useraway',putData)
+            .then(() => {
+                axios.post('/api/useraway',postData)
+                    .then(() => {
+                        dispatch(actions.popupAcceptSuccess())
+                        dispatch(successTimer())
+                        dispatch(fetchOneDayData(date))
+                    })
+                    .catch((err) => {
+                        dispatch(actions.popupAcceptFail(err))
+                        dispatch(successTimer())
+                        dispatch(fetchOneDayData(date))
+                    })
+            })
+            .catch((err) => {
+                dispatch(actions.popupAcceptFail(err))
+                dispatch(successTimer())
+                dispatch(fetchOneDayData(date))
+            })   
+        }  
+    }
+}
+
 export const popupAcceptClicked = (date, actionType) => dispatch => {
     dispatch(actions.popupAcceptStart());
     const startDate = new Date(date).toISOString().slice(0,-14);
-    console.log(date);
-    console.log(actionType);
     switch (actionType) {
         case 'danger': dispatch(popupAcceptCaseDanger(date))
             break
-        case 'success':
-            const found = user.aways.find(away => new Date(away['away_start_date']).getDate() == newDate.getDate())
-            const deleteData = {
-                "away_date": [
-                    {"id": found.id}
-                ]
-            }
-            if(new Date(found['away_end_date']).getDate()!= date.getDate()){
-                axios.delete('/api/useraway', {data:deleteData})
-                    .then( () => {
-                        const newPostData = {
-                            "id": user.id,
-                            "away_date": [
-                                {"away_start_date" :startDate,"away_end_date":found['away_end_date']}
-                            ]
-                        }
-                        axios.post('/api/useraway', newPostData)
-                            .then(()=>{
-                                dispatch(actions.popupAcceptSuccess())
-                                dispatch(successTimer())
-                            })
-                    })
-            } else {
-                axios.delete('/api/useraway', {data:deleteData})
-                .then( () => {
-                    dispatch(actions.popupAcceptSuccess())
-                    dispatch(successTimer())
-                })
-            }
+        case 'success': dispatch(popupAcceptCaseSuccess(date))
             break 
         case 'neutral':
                 dispatch(actions.popupAcceptSuccess())

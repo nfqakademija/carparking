@@ -278,7 +278,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 user: {
                     ...state.user,
-                    aways: [...state.user.aways, ...action.data]
+                    userAways: [...state.user.userAways, ...action.data]
                 }
             }
         case actionTypes.POST_AWAY_STATUS:
