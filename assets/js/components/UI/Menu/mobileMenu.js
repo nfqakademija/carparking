@@ -30,7 +30,7 @@ const mobileMenu = (props) => (
             <div className="position-relative py-3">
                 <span className="ml-4 position-absolute"><i className="fa fa-user-circle "> </i></span>
                 <span style={{ marginLeft: "60px"}}>
-                    {props.userName ? props.userLastname : "Vardenis"} {props.userLastname ? props.userLastname : "Pavardenis"}
+                    {props.userName ? props.userName : "Vardenis"} {props.userLastname ? props.userLastname : "Pavardenis"}
                 </span>
             </div>
 
@@ -54,7 +54,7 @@ const mobileMenu = (props) => (
             <div className="position-relative py-2 linkParent">
                 <span className="ml-4 position-absolute"><i className="fas fa-suitcase-rolling"> </i></span>
                 <div style={{ marginLeft: "60px"}}>
-                    <NavLink to="/users" className="link" onClick={props.closeMobileMenu}>Set Away</NavLink>
+                    <NavLink to="/away" className="link" onClick={props.closeMobileMenu}>Set Away</NavLink>
                 </div>
             </div>
 

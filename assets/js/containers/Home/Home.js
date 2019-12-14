@@ -31,8 +31,8 @@ class Home extends Component {
         
         // axios.get('/api/make-reservation').then(res => console.log(res))
         // axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
-        axios.get(`/api/reservations`).then(res => console.log(res))
-        axios.get(`/api/useraway/6`).then(res => console.log(res))
+        //axios.get(`/api/reservations`).then(res => console.log(res))
+        axios.get(`/api/users`).then(res => console.log(res))
         // axios.get(`/api/single-user/21`).then(res => console.log(res))
         
     }
@@ -64,6 +64,14 @@ class Home extends Component {
                 buttonText: 'reserve'
                 })
         }
+    }
+
+    parkingSpotHandler (date) {
+        const reservation = this.props.user.reservations.find(reservation => 
+            new Date(reservation.date).getDate() === new Date(date).getDate())
+        return (reservation 
+                ? reservation.userSpot 
+                : null)
     }
 
     graphHandler(day) {
@@ -144,6 +152,7 @@ class Home extends Component {
                                 buttonOptions={this.reservationButtonHandler(day.date)}
                                 graphStatus={this.graphHandler(day)}
                                 onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day.date).buttonClass, this.reservationRefFirst, this.reservationRefLast)}
+                                userParkingSpot={this.parkingSpotHandler(day.date)}
                                 history={this.props.history}
                                 loading={this.props.loadingOneDay}
                                 popupShake={this.props.popup.show || this.props.notificationPopup.show ?this.props.onPopupOpened :false}/>

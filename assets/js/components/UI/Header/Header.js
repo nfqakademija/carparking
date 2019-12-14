@@ -65,7 +65,7 @@ const header = (props) => (
 const mapStateToProps = state => {
     return {
         userName: state.user.name,
-        userLastname: state.user.lastname,
+        userLastname: state.user.surname,
         mobileMenu: state.mobileMenu,
         popupShow: state.popup.show,
         notificationPopupShow: state.notificationPopup.show
