@@ -2,7 +2,6 @@ import React from 'react';
 
 import '../../../../css/components/UI/Background/Background.scss';
 
-console.log('aaaa')
 const background = (props) => (
     <div className='Background_container'>
         <div className="car-wrapper">
