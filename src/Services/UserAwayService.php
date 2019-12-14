@@ -101,7 +101,7 @@ class UserAwayService
         return $array = ['success' => "success"];
     }
 
-    private function checkUserAwayDuplicates($startDate, $endDate, $userId)
+    public function checkUserAwayDuplicates($startDate, $endDate, $userId)
     {
 
         $userAway = $this->entityManager

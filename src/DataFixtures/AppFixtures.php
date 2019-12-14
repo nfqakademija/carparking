@@ -85,7 +85,6 @@ class AppFixtures extends Fixture
             $user->setName($name);
             $surname = $this->faker->lastName;
             $user->setSurname($surname);
-            $user->setAwayStatus(0);
 
             if ($i < 10) {
                 $stringNumber = "ABC00" . $i;
@@ -93,7 +92,6 @@ class AppFixtures extends Fixture
                 $stringNumber = "ABC0" . $i;
             }
             $user->setLicencePlate($stringNumber);
-            $user->setStatus(1);
             $user->setEmail($name . $surname . "@mail.com");
             if ($i <= 20) {
                 if ($i == 1) {
@@ -102,16 +100,12 @@ class AppFixtures extends Fixture
                     $user->setUserRole($this->getReference(self::ROLE_USER));
                 }
                 $user->setPermanentSpace($this->getReference(self::PARK_SPACE . $i));
-                $user->setStatus(1);
             } elseif ($i <= 30) {
                 $user->setUserRole($this->getReference(self::ROLE_GUEST));
-                $user->setStatus(1);
             } else {
                 $user->setUserRole($this->getReference(self::ROLE_GUEST));
-                $user->setStatus(0);
             }
             $this->addReference(self::USER . $i, $user);
-            $user->setPermanentParkSpace(1);
             $manager->persist($user);
         }
         $manager->flush();
