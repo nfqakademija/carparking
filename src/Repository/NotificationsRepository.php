@@ -19,32 +19,18 @@ class NotificationsRepository extends ServiceEntityRepository
         parent::__construct($registry, Notifications::class);
     }
 
-    // /**
-    //  * @return Notifications[] Returns an array of Notifications objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function checkDuplicateEntry($data)
     {
         return $this->createQueryBuilder('n')
-            ->andWhere('n.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('n.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('n.requestStartDate = :startDate')
+            ->andWhere('n.requestEndDate = :endDate')
+            ->andWhere('n.user = :user')
+            ->andWhere('n.guest = :guest')
+            ->setParameter('startDate', $data['requestStartDate'])
+            ->setParameter('endDate', $data['requestEndDate'])
+            ->setParameter('user', $data['userId'])
+            ->setParameter('guest', $data['guestId'])
             ->getQuery()
-            ->getResult()
-        ;
+            ->getOneOrNullResult();
     }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Notifications
-    {
-        return $this->createQueryBuilder('n')
-            ->andWhere('n.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }

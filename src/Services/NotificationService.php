@@ -28,6 +28,12 @@ class NotificationService
 
     public function createNotification($data)
     {
+        $checkDuplicate = $this->checkDuplicate($data);
+
+        if ($checkDuplicate) {
+            //TODO checking for date interval
+            return $array = ['error' => 'duplicate'];
+        }
 
         $notification = new Notifications();
         $guest = $this->findUserById($data['guestId']);
@@ -77,6 +83,11 @@ class NotificationService
             return true;
         }
         return false;
+    }
+
+    private function checkDuplicate($dataArray)
+    {
+        return $this->entityManager->getRepository(Notifications::class)->checkDuplicateEntry($dataArray);
     }
 
 }
