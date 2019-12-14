@@ -46,27 +46,26 @@ class ReservationService
     }
 
 
-    public function makeGuestReservation($array)
+    public function makeGuestReservation($data)
     {
-        $guest = $this->checkUserRole($array['id']);
+        $guest = $this->checkUserRole($data['id']);
         if ($guest == null) {
-            echo "not guest";
+            return $array = ["error" => "not guest"];
             //TODO return statement no guest found by entered id
         } else {
-            foreach ($array['reservations'] as $value) {
-                $dateObject = $this->dateFromString($value['reservation_date']);
+            foreach ($data['reservations'] as $value) {
+                $dateObject = $this->dateFromString($value['reservationDate']);
                 $reservationDateString = $dateObject->format('Y-m-d H:i:s');
                 //TODO check if guest are not creating existing reservation
                 $existingReservation = $this
                     ->checkIfGuestNotCreatingExistingReservation($reservationDateString, $guest->getId());
                 if ($existingReservation != null) {
                     //TODO return statement for existing reservations
-                    echo "error user has reservations by entered date";
-                    die;
+                    return $array = ["error" => "user has reservations by entered date"];
                 }
                 $reservation = new Reservations();
                 $reservation->setUser($guest);
-                $dateObject = $this->dateFromString($value['reservation_date']);
+                $dateObject = $this->dateFromString($value['reservationDate']);
                 $reservation->setReservationDate($dateObject);
                 $parkingSpace = $this->checkIfParkSpaceAvailableByDate($reservationDateString);
                 if ($parkingSpace == null) {
@@ -77,6 +76,7 @@ class ReservationService
                 $this->entityManager->persist($reservation);
             }
             $this->entityManager->flush();
+            return $array = ["success" => "success"];
         }
     }
 

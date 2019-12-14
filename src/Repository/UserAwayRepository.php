@@ -34,6 +34,19 @@ class UserAwayRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    public function findByUserIdAnDate($id, $date)
+    {
+
+        return $this->createQueryBuilder('ua')
+            ->andWhere('ua.awayUser = :id')
+            ->andWhere('ua.awayStartDate = :date')
+            ->andWhere('ua.awayEndDate = :date')
+            ->setParameter('date', $date)
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
     /**
      * @param $id
      * @return mixed
@@ -73,7 +86,7 @@ class UserAwayRepository extends ServiceEntityRepository
             ->andWhere('ua.awayEndDate >= :date')
             ->setParameter('date', $date)
             ->getQuery()
-            ->execute();
+            ->getOneOrNullResult();
     }
 
 

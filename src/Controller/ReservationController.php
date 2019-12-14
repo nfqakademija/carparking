@@ -43,19 +43,15 @@ class ReservationController extends FOSRestBundle
 
 
     /**
-     * @param Request $request
-     * @return Response
+     * @Rest\Post("/api/reservations")
      */
     public function createReservation(Request $request)
     {
         $content = $request->getContent();
         $dataArray = json_decode($content, true);
         $service = new ReservationService($this->entityManager);
-        $service->makeGuestReservation($dataArray);
-
-        $response = new Response();
-        $response->setStatusCode(Response::HTTP_OK);
-        return $response;
+        $response = $service->makeGuestReservation($dataArray);
+        return new JsonResponse($response);
     }
 
     /**
