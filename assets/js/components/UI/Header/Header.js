@@ -32,7 +32,7 @@ const header = (props) => (
                                             </i>
                                         </div>
                                         <div>
-                                            <Link to='/logout' style={{color:"#f8f3f0"}}>
+                                            <Link to='/app/logout' style={{color:"#f8f3f0"}}>
                                                 <i className="fas fa-sign-out-alt h3 textLightGrey mx-4">
                                                 </i>
                                             </Link>

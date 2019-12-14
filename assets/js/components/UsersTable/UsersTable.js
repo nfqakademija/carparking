@@ -71,6 +71,7 @@ const usersTable = React.forwardRef((props, ref) => (
                         )})}
                     </div>
                 </div>
+                <div>
                 {props.usersList.map( user =>(
                         props.mainUser.name !== user.name || props.mainUser.surname !== user.surname
                             
@@ -120,6 +121,7 @@ const usersTable = React.forwardRef((props, ref) => (
                             
                             : null    
                     ))}
+                    </div>
             </div>
         </div>      
     )

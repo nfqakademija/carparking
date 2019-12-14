@@ -51,13 +51,15 @@ const mobileMenu = (props) => (
                 </div>
             </div>
 
-            <div className="position-relative py-2 linkParent">
-                <span className="ml-4 position-absolute"><i className="fas fa-suitcase-rolling"> </i></span>
-                <div style={{ marginLeft: "60px"}}>
-                    <NavLink to="/app/away" className="link" onClick={props.closeMobileMenu}>Set Away</NavLink>
-                </div>
-            </div>
-
+            {props.userRole === 'user'
+                ? <div className="position-relative py-2 linkParent">
+                    <span className="ml-4 position-absolute"><i className="fas fa-suitcase-rolling"> </i></span>
+                    <div style={{ marginLeft: "60px"}}>
+                        <NavLink to="/app/away" className="link" onClick={props.closeMobileMenu}>Set Away</NavLink>
+                    </div>
+                  </div>
+                : null}
+        
             <div className="position-relative py-2 linkParent">
                 <span className="ml-4 position-absolute"><i className="fas fa-car-side"> </i></span>
                 <div style={{ marginLeft: "60px"}}>
@@ -75,4 +77,8 @@ const mapDispatchToProps = dispatch => ({
     openModal: () => dispatch(openModal())
 });
 
-export default connect(null, mapDispatchToProps)(mobileMenu);
+const mapStateToProps = state => ({
+    userRole: state.user.role
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(mobileMenu);

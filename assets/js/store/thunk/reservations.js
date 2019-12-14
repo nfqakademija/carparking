@@ -4,7 +4,7 @@ import { getCoordinates } from '../thunk/popup';
 
 export const getSingleUser = () => dispatch => {
     dispatch(actions.getSingleUserStart()) //*
-    axios.get(`/api/single-user/31`) //*
+    axios.get(`/api/single-user/3`) //*
         .then( res => {
             dispatch(actions.getSingleUserSuccess(res.data))
         })
@@ -33,7 +33,7 @@ const getNotifications = () => dispatch =>{
 export const getHomeData = () => dispatch => {
     dispatch(getSingleUser());
     dispatch(getReservations()); 
-    dispatch(getNotifications());
+    // dispatch(getNotifications());  //*
 }
 // home data done
 export const getUsersData = () => dispatch => {
@@ -258,7 +258,7 @@ const fetchOneDayData = (date) => dispatch => {
 
     dispatch(actions.fetchOneDayDataStart(date))
 
-    axios.get(`/api/single-user/31`) //* find way to do this fetches at the same time
+    axios.get(`/api/single-user/3`) //* find way to do this fetches at the same time
         .then(res => {
             dispatch(actions.getSingleUserSuccess(res.data))
             axios.get(`/api/reservations`)

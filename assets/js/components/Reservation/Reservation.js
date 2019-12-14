@@ -49,7 +49,7 @@ const reservation = React.forwardRef((props, ref) => {
                                     classname={`shadow Button_${props.buttonOptions.buttonClass}`}
                                     buttonStyle={{width:'50%', marginBottom:'1em'}}
                                     onclick={props.buttonOptions.buttonClass==='neutral'
-                                                        ? ()=>props.history.push('/users')
+                                                        ? ()=>props.history.push('/app/users')
                                                         : props.onButtonClick}/>
 
                         }
