@@ -17,26 +17,26 @@ class ReservationServiceOld
         $this->entityManager = $entityManager;
     }
 
-    public function updateOrDeleteReservation($clientId, $parkspaceId)
-    {
-        $data = $this->entityManager
-            ->getRepository(Reservations::class)
-            ->getReservationByParkIdAndByUserId($clientId, $parkspaceId);
-        $awayArray = $this->userAwayTimeArray($clientId);
-
-        $user = $this->entityManager->getRepository(Users::class)->findUserById($clientId);
-        foreach ($data as $value) {
-            $check = $value->getReservationDate()->format('Y-m-d');
-            if (in_array($check, $awayArray)) {
-                $value->setUser(null);
-                $value->setParkSpace($user->getUserParkSpace());
-            } else {
-                $value->setUser($user);
-                $value->setParkSpace($user->getUserParkSpace());
-            }
-        }
-        $this->entityManager->flush();
-    }
+//    public function updateOrDeleteReservation($clientId, $parkspaceId)
+//    {
+//        $data = $this->entityManager
+//            ->getRepository(Reservations::class)
+//            ->getReservationByParkIdAndByUserId($clientId, $parkspaceId);
+//        $awayArray = $this->userAwayTimeArray($clientId);
+//
+//        $user = $this->entityManager->getRepository(Users::class)->findUserById($clientId);
+//        foreach ($data as $value) {
+//            $check = $value->getReservationDate()->format('Y-m-d');
+//            if (in_array($check, $awayArray)) {
+//                $value->setUser(null);
+//                $value->setParkSpace($user->getUserParkSpace());
+//            } else {
+//                $value->setUser($user);
+//                $value->setParkSpace($user->getUserParkSpace());
+//            }
+//        }
+//        $this->entityManager->flush();
+//    }
 
     public function make($clientId = null)
     {

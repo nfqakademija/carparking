@@ -44,7 +44,7 @@ class ReservationsRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.parkSpace = :parkId')
-            ->orWhere('r.user = :id')
+            ->andWhere('r.user = :id')
             ->setParameter('id', $clientId)
             ->setParameter('parkId', $parkId)
             ->getQuery()

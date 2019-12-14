@@ -55,13 +55,16 @@ class ReservationController extends FOSRestBundle
     }
 
     /**
-     * @param $data
-     * @return string
+     * @Rest\Post("/api/reservations")
      */
-    private function serialize($data)
+    public function deleteReservation(Request $request)
     {
-        $serializer = SerializerBuilder::create()->build();
-        $json = $serializer->serialize($data, 'json');
-        return $json;
+        $content = $request->getContent();
+        $dataArray = json_decode($content, true);
+        $service = new ReservationService($this->entityManager);
+        $response = $service->makeGuestReservation($dataArray);
+        return new JsonResponse($response);
     }
+
+
 }
