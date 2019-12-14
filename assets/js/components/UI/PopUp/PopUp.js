@@ -59,7 +59,7 @@ const popUp = (props) => {
     return (
         <>
             {props.loading
-            ?   <div className='PopUp_container' style={popupType} >
+            ?   <div className='PopUp_container shadow' style={popupType} >
                     <div className="lds-ring"><div></div><div></div><div></div><div></div></div>
                 </div>
             :   props.uniqueStyle

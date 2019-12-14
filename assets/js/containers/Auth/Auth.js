@@ -12,11 +12,11 @@ const auth = (props) => {
     <>
       <Background/>
       
-      <div className='Auth_container'>
+      <div className='Auth_container bg-white'>
         <div className='Auth_header'>
           LOG IN
         </div>
-            <div className='Auth_body'>
+            <div className='Auth_body shadow'>
               <input className='Auth_input' type="text" placeholder='E-mail' style={{padding:'0.5em'}} onChange={e => inputValue = e.target.value}/>
               <Button classname='Button_success' text='Log in ' onclick={() => props.onLogin(inputValue)} buttonStyle={{width:'50%'}}/>
             </div>
