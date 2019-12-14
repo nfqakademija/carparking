@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Services;
 
 use App\Entity\Notifications;
@@ -12,16 +11,10 @@ class SwitchService
 {
     private $entityManager;
     private $userAwayService;
-    private $reservationService;
 
-    public function __construct(
-        EntityManagerInterface $entityManager,
-        UserAwayService $userAwayService,
-        ReservationService $reservationService)
+    public function __construct(EntityManagerInterface $entityManager, UserAwayService $userAwayService)
     {
-        $this->reservationService = $reservationService;
         $this->entityManager = $entityManager;
-        $this->userAwayService = $userAwayService;
     }
 
     public function makeParkSpaceSwitch($notificationId)
@@ -53,6 +46,4 @@ class SwitchService
             ->getRepository(Reservations::class)
             ->findReservationByDateAndUserId($requestDate, $guestId);
     }
-
-
 }
