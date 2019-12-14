@@ -121,6 +121,13 @@ export const updatePlate = (numbers) => {
     }
 }
 
+export const setPlateNumber = (numbers) => {
+    return {
+        type: actionTypes.SET_PLATE_NUMBER,
+        data: numbers
+    }
+}
+
 export const fetchOneDayDataStart = (date) => {
     return {
         type: actionTypes.FETCH_ONE_DAY_DATA_START,
@@ -183,9 +190,9 @@ export const closeModal = () => {
     }
 }
 
-export const postAway = (data) => {
+export const setAwaysDates = (data) => {
     return {
-        type: actionTypes.POST_AWAY_DATES,
+        type: actionTypes.GET_AWAYS_DATES,
         data: data
     }
 };

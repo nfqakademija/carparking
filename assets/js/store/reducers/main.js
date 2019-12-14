@@ -11,18 +11,7 @@ const initialState = {
         lastname: null,
         activeCar: null,
         aways: [],
-        notifications: [
-            {
-                name: 'Elvis',
-                surname: 'Raynor',
-                date: '2019-12-13'
-            },
-            {
-                name: 'Calista',
-                surname: 'Sipes',
-                date: '2019-12-14'
-            }
-        ]
+        notifications: []
     },
     users: [],
     plate: "ABC000",
@@ -184,10 +173,10 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 mobileMenu: false
             }
-        case actionTypes.UPDATE_PLATE:
+        case actionTypes.SET_PLATE_NUMBER:
             return {
                 ...state,
-                plate: action.numbers
+                plate: action.data
             }
         case actionTypes.FETCH_ONE_DAY_DATA_START:
             return {
@@ -268,12 +257,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 plateModal: false
             }
-        case actionTypes.POST_AWAY_DATES:
+        case actionTypes.GET_AWAYS_DATES:
             return {
                 ...state,
                 user: {
                     ...state.user,
-                    aways: [...state.user.aways, ...action.data]
+                    aways: action.data
                 }
             }
         case actionTypes.POST_AWAY_STATUS:

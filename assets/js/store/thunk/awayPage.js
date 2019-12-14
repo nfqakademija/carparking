@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { postAway, postAwayStatus, postAwayStatusLoading } from '../actions/index';
+import {setAwaysDates, postAwayStatus, postAwayStatusLoading} from '../actions/index';
 
 export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
     let status;
@@ -9,21 +9,61 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
 
     const postData = {
         "id": user,
-        "away_date": [
-            {"away_start_date": startDate, "away_end_date": endDate}
+        "awayDate": [
+            {
+                "awayStartDate": startDate,
+                "awayEndDate": endDate
+            }
         ]
     };
-    axios.post('/api/useraway',postData)
+
+    axios.post('/api/useraway', postData)
         .then((response) => {
 
-            status = "success";
-            dispatch(postAway(postData.away_date));
-            dispatch(postAwayStatus(status));
+            if (response.data.success) {
+
+                dispatch(getDatesAway());
+                status = "success";
+                dispatch(postAwayStatus(status));
+
+            } else {
+                status = "fail";
+                dispatch(postAwayStatus(status));
+            }
 
         }).catch(error => {
 
-            status = "fail";
+        status = "fail";
 
-            dispatch(postAwayStatus(status));
+        dispatch(postAwayStatus(status));
+    });
+}
+
+export const getDatesAway = () => (dispatch, getState) => {
+
+    const user = getState().user.id;
+
+
+    axios.get('/api/single-user/' + user)
+        .then((response) => {
+
+            if(response.status === 200) {
+                let data = response.data.userAways;
+
+                data.forEach(data =>
+                    (
+                        data.awayEndDate = data.awayEndDate.date.slice(0, 10),
+                            data.awayStartDate = data.awayStartDate.date.slice(0, 10),
+                            delete data.id
+                    )
+                );
+
+                dispatch(setAwaysDates(data));
+            }
+
+
+        }).catch(error => {
+
+            console.log(error)
     });
 }

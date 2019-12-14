@@ -18,6 +18,7 @@ class PlateModal extends Component {
 
     componentDidMount() {
         this.setState({plateNumber: "", info: null, color: null});
+        this.props.getPlateNumber;
     }
 
     myChangeHandler(event) {
@@ -52,7 +53,7 @@ class PlateModal extends Component {
                     className={"licenseplate modileWidth " + this.state.color}
                     maxLength="6"
                     id="plate"
-                    placeholder={this.props.plate ?this.props.plate :'ABC000'}
+                    placeholder={this.props.plate}
                     onKeyUp={this.myChangeHandler}
                 />
                 <br/>
@@ -72,6 +73,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
+    getPlateNumber: () => dispatch(getPlateNumber()),
     updatePlate: (data) => dispatch(updatePlate(data)),
 });
 

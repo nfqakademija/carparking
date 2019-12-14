@@ -22,7 +22,7 @@ export {
     notificationPopupAcceptSuccess,
     popupOpenedStart,
     popupOpenedReset,
-    postAway,
+    setAwaysDates,
     postAwayStatus,
     postAwayStatusLoading
 

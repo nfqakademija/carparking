@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import "react-datepicker/dist/react-datepicker.css";
 import '../../../css/containers/Away/away.scss'
-import {postDatesAway} from '../../store/thunk/awayPage';
+import {getDatesAway, postDatesAway} from '../../store/thunk/awayPage';
 
 import '../../../css/components/UI/PopUp/popAway.scss';
 import DatePicker, {registerLocale, setDefaultLocale} from "react-datepicker";
@@ -34,6 +34,7 @@ class Home extends Component {
 
     componentDidMount() {
         this.props.postAwayDefaultStatus();
+        this.props.getDatesAway();
     }
 
     setStartDate(date) {
@@ -138,9 +139,9 @@ class Home extends Component {
                     <table className="table m-0">
                         <tbody>
                         {this.props.history.map((data) =>
-                            (<tr>
-                                <td className="px-0 py-1">From: <b>{data.away_start_date}</b></td>
-                                <td className="px-0 py-1">To: <b>{data.away_end_date}</b></td>
+                            (<tr key={data.awayStartDate}>
+                                <td className="px-0 py-1">From: <b>{data.awayStartDate}</b></td>
+                                <td className="px-0 py-1">To: <b>{data.awayEndDate}</b></td>
                             </tr>))
                         }
                         </tbody>
@@ -231,6 +232,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
+    getDatesAway: () => dispatch(getDatesAway()),
     postDatesAway: (startDate, endDate) => dispatch(postDatesAway(startDate, endDate)),
     postAwayDefaultStatus: () => dispatch(postAwayDefaultStatus()),
 })
