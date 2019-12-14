@@ -159,7 +159,7 @@ const popupAcceptCaseSuccess = date => (dispatch, getState) => { // ther is 3 ca
     }
 }
 
-export const popupAcceptCaseSuccessGuest = date => (dispatch, getState) => {
+const popupAcceptCaseSuccessGuest = date => (dispatch, getState) => {
     const postData = {
         "id": getState().user.userId,
         "reservations": [
@@ -173,6 +173,16 @@ export const popupAcceptCaseSuccessGuest = date => (dispatch, getState) => {
                 dispatch(fetchOneDayData(date))
         })
 }
+
+// const popupAcceptCaseDangerGuest = date => (dispatch, getState) => {
+//     const dateObj = new Date(date)
+//     const reservation = getState().user.reservations.find(reservation => new Date(reservation.reservationDate.date).getDate() === dateObj.getDate())
+//     const reservationId = reservation.id
+//     const deleteData = {
+
+//     }
+//     axios.delete('api/reservations',{data: deleteData})
+// }
 
 export const popupAcceptClicked = (date, actionType) => (dispatch, getState) => {
     dispatch(actions.popupAcceptStart());
