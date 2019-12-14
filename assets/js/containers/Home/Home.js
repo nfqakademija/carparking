@@ -53,7 +53,6 @@ class Home extends Component {
 
     reservationButtonHandler(date) {
         const reservation = this.getReservationByDateHandler(date)
-        console.log(reservation)
         if(reservation) {
             if(this.props.user.role === 'user') {
                 return ({ // user have reservation case
