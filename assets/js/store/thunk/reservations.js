@@ -63,10 +63,8 @@ const popupAcceptCaseDanger = date => (dispatch, getState) => {
     const postData = {
         "id": getState().user.userId,
         "awayDate": [
-            {"awayStartDate" :date,"awayEndDate":date}
-        ]
-    }
-    console.log(postData)
+            {"awayStartDate" :date,"awayEndDate":date}]
+        }
     axios.post('/api/useraway',postData)
         .then(res => {
             console.log(res)
@@ -80,7 +78,6 @@ const popupAcceptCaseDanger = date => (dispatch, getState) => {
             dispatch(fetchOneDayData(date))
         })
         .catch((err) => {
-            console.log(err)
             dispatch(actions.popupAcceptFail(err))
             dispatch(successTimer())
             dispatch(fetchOneDayData(date))
@@ -273,7 +270,7 @@ const fetchOneDayData = (date) => dispatch => {
         .catch( err => { dispatch(actions.getSingleUserFail(err)) })
 }
 
-export const notificationPopupAccept = (date) => (dispatch, getState) => {
+export const notificationPopupAccept = (date) => (dispatch, getState) => { //*
     // fake
     dispatch(actions.notificationPopupAcceptStart());
     const newDate = new Date(date);

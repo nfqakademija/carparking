@@ -8,7 +8,7 @@ import '../../../css/components/Reservation/Reservation.scss';
 const reservation = React.forwardRef((props, ref) => {
     const date = new Date(props.date)
     return (
-        <div className='Reservation_container' 
+        <div className='Reservation_container shadow bg-white'
             style={{height:props.height}}
             ref={ref}>
             <div className='Reservation_header'>
@@ -46,7 +46,7 @@ const reservation = React.forwardRef((props, ref) => {
                               </a>
                             : <Button 
                                     text={props.buttonOptions.buttonText} 
-                                    classname={`Button_${props.buttonOptions.buttonClass}`}
+                                    classname={`shadow Button_${props.buttonOptions.buttonClass}`}
                                     buttonStyle={{width:'50%', marginBottom:'1em'}}
                                     onclick={props.buttonOptions.buttonClass==='neutral'
                                                         ? ()=>props.history.push('/users')

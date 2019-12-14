@@ -40,21 +40,21 @@ const mobileMenu = (props) => (
                 <span className="ml-4 position-absolute">
                     <i className="fa fa-check-square-o"> </i></span>
                 <div style={{ marginLeft: "60px"}}>
-                    <NavLink to='/home' className="link" onClick={ props.closeMobileMenu }>Reserve</NavLink>
+                    <NavLink to='/app/home' className="link" onClick={ props.closeMobileMenu }>Reserve</NavLink>
                 </div>
             </div>
 
             <div className="position-relative py-2 linkParent">
                 <span className="ml-4 position-absolute"><i className="fa fa-users"> </i></span>
                 <div style={{ marginLeft: "60px"}}>
-                    <NavLink to="/users" className="link" onClick={props.closeMobileMenu}>Watch Users</NavLink>
+                    <NavLink to="/app/users" className="link" onClick={props.closeMobileMenu}>Watch Users</NavLink>
                 </div>
             </div>
 
             <div className="position-relative py-2 linkParent">
                 <span className="ml-4 position-absolute"><i className="fas fa-suitcase-rolling"> </i></span>
                 <div style={{ marginLeft: "60px"}}>
-                    <NavLink to="/away" className="link" onClick={props.closeMobileMenu}>Set Away</NavLink>
+                    <NavLink to="/app/away" className="link" onClick={props.closeMobileMenu}>Set Away</NavLink>
                 </div>
             </div>
 

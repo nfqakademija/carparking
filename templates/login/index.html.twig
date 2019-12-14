@@ -3,17 +3,87 @@
 {% block title %}Hello LoginController!{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <style>
+        .google {
+            background-color: #4285F4;
+            color: white;
+        }
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+        .btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            margin: 5px 0;
+            opacity: 0.85;
+            display: inline-block;
+            font-size: 17px;
+            line-height: 20px;
+            text-decoration: none; /* remove underline from anchors */
+        }
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/connect/google'}}">Google</a></code></li>
-    </ul>
-</div>
+        .btn:hover {
+            opacity: 1;
+            color: #ffffff;
+        }
+    </style>
+    {# Back Ground #}
+    <div class='Background_container'>
+        <div class="car-wrapper">
+            <div class="car-wrapper_inner">
+                <div class="car_outter">
+                    <div class="car">
+                        <div class="body">
+                            <div></div>
+                        </div>
+                        <div class="decos">
+                            <div class="line-bot"></div>
+                            <div class="door">
+                                <div class="handle"></div>
+                                <div class="bottom"></div>
+                            </div>
+                            <div class="window"></div>
+                            <div class="light"></div>
+                            <div class="light-front"></div>
+                            <div class="antenna"></div>
+                            <div class="ice-cream">
+                                <div class="text">NFQ</div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="wheel"></div>
+                            <div class="wheel"></div>
+                        </div>
+                        <div class="wind">
+                            <div class="p p1"></div>
+                            <div class="p p2"></div>
+                            <div class="p p3"></div>
+                            <div class="p p4"></div>
+                            <div class="p p5"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='Background_sky'></div>
+        <div class='Background_ground'></div>
+    </div>
+
+    {# Login Form #}
+    <div class='Auth_container bg-white'>
+        <div class='Auth_header'>
+            LOG IN
+        </div>
+        <div class='Auth_body shadow'>
+            <div class="px-5 my-auto">
+                <a class='google btn' href={{ '/app/ ' }} >
+                    <i class="fab fa-google mr-2"> </i>
+                    <b>Login with Google</b>
+                </a>
+            </div>
+            {#
+            <li>Your controller at <code><a href="{{ '/connect/google' }}">Google</a></code></li>
+            #}
+        </div>
+    </div>
 {% endblock %}
