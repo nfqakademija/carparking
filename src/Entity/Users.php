@@ -31,16 +31,6 @@ class Users implements UserInterface
     private $surname;
 
     /**
-     * @ORM\Column(type="smallint", nullable=true)
-     */
-    private $status;
-
-    /**
-     * @ORM\Column(type="smallint", nullable=true)
-     */
-    private $awayStatus;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $email;
@@ -68,25 +58,31 @@ class Users implements UserInterface
     private $userAways;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $permanentParkSpace;
-
-    /**
      * @ORM\OneToOne(targetEntity="App\Entity\ParkSpaces", cascade={"persist", "remove"})
      */
     private $permanentSpace;
-
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $created_at;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Notifications", mappedBy="user")
+     */
+    private $userNotifications;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Notifications", mappedBy="guest")
+     */
+    private $guestNotifications;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
         $this->userAways = new ArrayCollection();
+        $this->userNotifications = new ArrayCollection();
+        $this->guestNotifications = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -118,29 +114,6 @@ class Users implements UserInterface
         return $this;
     }
 
-    public function getStatus(): ?int
-    {
-        return $this->status;
-    }
-
-    public function setStatus(int $status): self
-    {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    public function getAwayStatus(): ?int
-    {
-        return $this->awayStatus;
-    }
-
-    public function setAwayStatus(int $awayStatus): self
-    {
-        $this->awayStatus = $awayStatus;
-
-        return $this;
-    }
 
     public function getEmail(): ?string
     {
@@ -258,18 +231,6 @@ class Users implements UserInterface
         return $this;
     }
 
-    public function getPermanentParkSpace(): ?string
-    {
-        return $this->permanentParkSpace;
-    }
-
-    public function setPermanentParkSpace(string $permanentParkSpace): self
-    {
-        $this->permanentParkSpace = $permanentParkSpace;
-
-        return $this;
-    }
-
     public function getPermanentSpace(): ?ParkSpaces
     {
         return $this->permanentSpace;
@@ -304,11 +265,6 @@ class Users implements UserInterface
     }
 
     /**
-     * Returns the password used to authenticate the user.
-     *
-     * This should be the encoded password. On authentication, a plain-text
-     * password will be salted, encoded, and then compared to this value.
-     *
      * @return string The password
      */
     public function getPassword()
@@ -317,10 +273,6 @@ class Users implements UserInterface
     }
 
     /**
-     * Returns the salt that was originally used to encode the password.
-     *
-     * This can return null if the password was not encoded using a salt.
-     *
      * @return string|null The salt
      */
     public function getSalt()
@@ -329,7 +281,6 @@ class Users implements UserInterface
     }
 
     /**
-     * Returns the username used to authenticate the user.
      *
      * @return string The username
      */
@@ -338,14 +289,68 @@ class Users implements UserInterface
         return $this->email;
     }
 
-    /**
-     * Removes sensitive data from the user.
-     *
-     * This is important if, at any given point, sensitive information like
-     * the plain-text password is stored on this object.
-     */
     public function eraseCredentials()
     {
         return null;
+    }
+
+    /**
+     * @return Collection|Notifications[]
+     */
+    public function getUserNotifications(): Collection
+    {
+        return $this->userNotifications;
+    }
+
+    public function addUserNotification(Notifications $userNotification): self
+    {
+        if (!$this->userNotifications->contains($userNotification)) {
+            $this->userNotifications[] = $userNotification;
+            $userNotification->setUser($this);
+        }
+        return $this;
+    }
+
+    public function addNotification(Notifications $userNotification): self
+    {
+        if ($this->userNotifications->contains($userNotification)) {
+            $this->userNotifications->removeElement($userNotification);
+            // set the owning side to null (unless already changed)
+            if ($userNotification->getUser() === $this) {
+                $userNotification->setUser(null);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * @return Collection|Notifications[]
+     */
+    public function getGuestNotifications(): Collection
+    {
+        return $this->guestNotifications;
+    }
+
+    public function addGuestNotification(Notifications $guestNotification): self
+    {
+        if (!$this->guestNotifications->contains($guestNotification)) {
+            $this->guestNotifications[] = $guestNotification;
+            $guestNotification->setGuest($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGuestNotification(Notifications $guestNotification): self
+    {
+        if ($this->guestNotifications->contains($guestNotification)) {
+            $this->guestNotifications->removeElement($guestNotification);
+            // set the owning side to null (unless already changed)
+            if ($guestNotification->getGuest() === $this) {
+                $guestNotification->setGuest(null);
+            }
+        }
+
+        return $this;
     }
 }
