@@ -18,7 +18,19 @@ class NotificationService
 
     public function notificationList()
     {
-
+        $data = $this->entityManager->getRepository(Notifications::class)->findAll();
+        $array = [];
+        foreach ($data as $datum) {
+            $single = [];
+            $single['guestName'] = $datum->getGuest()->getName();
+            $single['guestSurname'] = $datum->getGuest()->getSurname();
+            $single['guestId'] = $datum->getGuest()->getId();
+            $single['userId'] = $datum->getUser()->getId();
+            $single['date'] = $datum->getRequestDate()->format('Y-m-d');
+            $single['notificationId'] = $datum->getId();
+            array_push($array, $single);
+        }
+        return $array;
     }
 
     public function userNotification($guestId)
@@ -34,7 +46,7 @@ class NotificationService
             $single['notificationId'] = $datum->getId();
             array_push($array, $single);
         }
-      return $array;
+        return $array;
     }
 
     public function createNotification($data)

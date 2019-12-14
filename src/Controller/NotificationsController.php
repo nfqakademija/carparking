@@ -26,6 +26,16 @@ class NotificationsController extends AbstractController
         $this->entityManager = $entityManager;
     }
 
+    /**
+     * @Rest\Get("/api/notifications")
+     * @return JsonResponse
+     */
+    public function all()
+    {
+        $service = new NotificationService($this->entityManager);
+        $response = $service->notificationList();
+        return new JsonResponse($response);
+    }
 
     /**
      * @Rest\Get("/api/notifications/{guestId}")
