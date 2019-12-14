@@ -21,9 +21,20 @@ class NotificationService
 
     }
 
-    public function userNotification()
+    public function userNotification($guestId)
     {
-
+        $data = $this->entityManager->getRepository(Notifications::class)->findNotificationByGuestId($guestId);
+        $array = [];
+        foreach ($data as $datum) {
+            $single = [];
+            $single['guestName'] = $datum->getGuest()->getName();
+            $single['guestSurname'] = $datum->getGuest()->getSurname();
+            $single['guestId'] = $datum->getGuest()->getId();
+            $single['date'] = $datum->getRequestDate()->format('Y-m-d');
+            $single['notificationId'] = $datum->getId();
+            array_push($array, $single);
+        }
+      return $array;
     }
 
     public function createNotification($data)
