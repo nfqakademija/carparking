@@ -3,11 +3,9 @@
 namespace App\Controller;
 
 use App\Services\NotificationService;
-use App\Services\ReservationService;
 use App\Services\SwitchService;
 use App\Services\UserAwayService;
 use Doctrine\ORM\EntityManagerInterface;
-use FOS\RestBundle\Tests\Fixtures\User;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
