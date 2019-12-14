@@ -41,25 +41,40 @@ class Home extends Component {
         this.props.onButtonClick(date, buttonType, first, last)
     }
 
-    reservationButtonHandler(date) {
-        const userReservations = this.props.user.reservations
-        const thisReservation = userReservations.find(reservation => 
-            new Date(reservation.date).getDate() === new Date(date).getDate());
+    getReservationByDateHandler(date) {
+        return this.props.user.reservations.find(reservation => {
+            if(this.props.user.role === 'user'){
+                return new Date(reservation.date).getDate() === new Date(date).getDate()
+            } else {
+                return new Date(reservation.reservationDate.date).getDate() === new Date(date).getDate()
+            }
+        })
+    }
 
-        if(thisReservation) {
-            if(thisReservation.userSpot) {
-                return ({
+    reservationButtonHandler(date) {
+        const reservation = this.getReservationByDateHandler(date)
+        console.log(reservation)
+        if(reservation) {
+            if(this.props.user.role === 'user') {
+                return ({ // user have reservation case
                     buttonClass: 'danger',
                     buttonText: 'cancel'
                     })
             } else {
-                return ({
-                    buttonClass: 'neutral',
-                    buttonText: 'ask'
-                    })
+                if(reservation.parkSpace){
+                    return ({ // guest have reservation case
+                        buttonClass: 'danger',
+                        buttonText: 'cancel'
+                        })
+                } else {
+                    return ({ // guest have not approved reservation
+                        buttonClass: 'neutral',
+                        buttonText: 'ask'
+                        })
+                }
             }
         } else {
-            return ({ 
+            return ({ // dont have reservation case (any user)
                 buttonClass: 'success',
                 buttonText: 'reserve'
                 })
@@ -67,13 +82,7 @@ class Home extends Component {
     }
 
     parkingSpotHandler (date) {
-        const reservation = this.props.user.reservations.find(reservation => {
-            if(this.props.user.role === 'user'){
-                return new Date(reservation.date).getDate() === new Date(date).getDate()
-            } else {
-                return new Date(reservation.reservationDate.date).getDate() === new Date(date).getDate()
-            }
-        })
+        const reservation = this.getReservationByDateHandler(date)
         return  reservation 
                 ? reservation.parkSpace 
                     ? reservation.parkSpace.number
