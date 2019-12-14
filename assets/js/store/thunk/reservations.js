@@ -36,8 +36,23 @@ export const getUsersData = () => dispatch => {
             dispatch(actions.getUsersSuccess(res.data));
         })
 }
+// users data done
 
-export const popupAcceptCaseDanger = date => (dispatch, getState) => {
+const putUserAway = (putData, date) => dispatch => {
+    axios.put('/api/useraway',putData)
+            .then(() => {
+                dispatch(actions.popupAcceptSuccess())
+                dispatch(successTimer())
+                dispatch(fetchOneDayData(date))
+            })
+            .catch((err) => {
+                dispatch(actions.popupAcceptFail(err))
+                dispatch(successTimer())
+                dispatch(fetchOneDayData(date))
+            })
+}
+
+const popupAcceptCaseDanger = date => (dispatch, getState) => {
     const postData = {
         "id": getState().user.userId,
         "awayDate": [
@@ -65,21 +80,7 @@ export const popupAcceptCaseDanger = date => (dispatch, getState) => {
         })
 }
 
-export const putUserAway = (putData, date) => dispatch => {
-    axios.put('/api/useraway',putData)
-            .then(() => {
-                dispatch(actions.popupAcceptSuccess())
-                dispatch(successTimer())
-                dispatch(fetchOneDayData(date))
-            })
-            .catch((err) => {
-                dispatch(actions.popupAcceptFail(err))
-                dispatch(successTimer())
-                dispatch(fetchOneDayData(date))
-            })
-}
-
-export const popupAcceptCaseSuccess = date => (dispatch, getState) => {
+const popupAcceptCaseSuccess = date => (dispatch, getState) => { // ther is 3 cases, latter i will try to split this function
     const foundAway = getState().user.userAways.find(away => 
             new Date(away.awayStartDate.date).getDate() <= new Date(date).getDate() 
         &&  new Date(away.awayEndDate.date).getDate() >= new Date(date).getDate())
@@ -158,8 +159,19 @@ export const popupAcceptCaseSuccess = date => (dispatch, getState) => {
     }
 }
 
-export const popupAcceptCaseSuccessGuest = date => dispatch => {
-
+export const popupAcceptCaseSuccessGuest = date => (dispatch, getState) => {
+    const postData = {
+        "id": getState().user.userId,
+        "reservations": [
+            {"reservationDate" :date}
+        ]
+    }
+    axios.post('api/reservations', postData)
+        .then( () =>{
+                dispatch(actions.popupAcceptSuccess())
+                dispatch(successTimer())
+                dispatch(fetchOneDayData(date))
+        })
 }
 
 export const popupAcceptClicked = (date, actionType) => (dispatch, getState) => {
@@ -200,7 +212,7 @@ const fetchOneDayData = (date) => dispatch => {
 
     dispatch(actions.fetchOneDayDataStart(date))
 
-    axios.get(`/api/single-user/3`) //* find way to do this fetches at the same time
+    axios.get(`/api/single-user/31`) //* find way to do this fetches at the same time
         .then(res => {
             dispatch(actions.getSingleUserSuccess(res.data))
             axios.get(`/api/reservations`)

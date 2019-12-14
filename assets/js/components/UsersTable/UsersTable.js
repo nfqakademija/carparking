@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../../../css/components/UsersTable/UsersTable.scss';
 
-const usersTable = React.forwardRef((props, ref) => (
+const usersTable = React.forwardRef((props, ref) => ( // better solution to make diferent components for user and for guest because there is too much ifs
         <div className='UsersTable_container' ref={ref}> 
         {console.log(props)}
             <div className='UsersTable_header'>

@@ -31,8 +31,8 @@ class Home extends Component {
         
         // axios.get('/api/make-reservation').then(res => console.log(res))
         // axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
-        //axios.get(`/api/reservations`).then(res => console.log(res))
-        axios.get(`/api/users`).then(res => console.log(res))
+        axios.get(`/api/reservations`).then(res => console.log(res))
+        //axios.get(`/api/users`).then(res => console.log(res))
         // axios.get(`/api/single-user/21`).then(res => console.log(res))
         
     }
@@ -67,11 +67,18 @@ class Home extends Component {
     }
 
     parkingSpotHandler (date) {
-        const reservation = this.props.user.reservations.find(reservation => 
-            new Date(reservation.date).getDate() === new Date(date).getDate())
-        return (reservation 
-                ? reservation.userSpot 
-                : null)
+        const reservation = this.props.user.reservations.find(reservation => {
+            if(this.props.user.role === 'user'){
+                return new Date(reservation.date).getDate() === new Date(date).getDate()
+            } else {
+                return new Date(reservation.reservationDate.date).getDate() === new Date(date).getDate()
+            }
+        })
+        return  reservation 
+                ? reservation.parkSpace 
+                    ? reservation.parkSpace.number
+                    : reservation.userSpot 
+                : null
     }
 
     graphHandler(day) {

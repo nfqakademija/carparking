@@ -34,7 +34,7 @@ const reservation = React.forwardRef((props, ref) => {
                         {props.userParkingSpot
                             ? <div className='Reservation_userSpotText'>
                                 {props.userParkingSpot} <br/> 
-                                <div style={{fontSize:'0.375em', marginTop:'-0.5em', color:'#8d8d8d'}}>Your spot</div></div>
+                              <div style={{fontSize:'0.375em', marginTop:'-0.5em', color:'#8d8d8d'}}>Your spot</div></div>
                             : null}
                         {props.popupShake
                             ? <a title='You must first accept or reject notification message'>
