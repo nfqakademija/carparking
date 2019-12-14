@@ -31,6 +31,7 @@ GET api/users : + paduodu token
         {
             "name":"",
             "surname":"",
+            "id":"", // reikia notificationams
             "reservations": [
                 {
                     "date":"",
@@ -39,7 +40,7 @@ GET api/users : + paduodu token
         }  x tiek kiek yra useriu
     ]
 
-GET /api/useraway/{id}"
+GET /api/useraway/{id}
 [
     {
         "awayId": "",
@@ -109,7 +110,7 @@ api/reservations POST
 		{"reservationDate" :"2019-12-15"},
         	{"reservationDate" :"2019-12-18"}
 	]
-}
+} // postinasi gerai. Kai yra vietu prasisuka ir randa spot. Kai nera vietu pasipiostina, bet atlaisvinus vieta nebeprasisuka. Raso kad tiesiog yra laisva vieta, o rezervacija parkSpace:null
 api/reservations DELETE
 nera dar
 
