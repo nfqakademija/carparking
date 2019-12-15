@@ -8,6 +8,7 @@ import Home from './containers/Home/Home';
 import Users from './containers/Users/Users';
 import Logout from './containers/Auth/Logout/Logout';
 import Away from './containers/Away/Away';
+import Notifications from './containers/Notifications/Notifications';
 
 class App extends Component {
 
@@ -27,6 +28,7 @@ class App extends Component {
                     <Route path='/app/users' component={Users}/>
                     <Route path='/app/logout' component={Logout}/>
                     <Route path='/app/away' component={Away}/>
+                    <Route path='/app/notifications' component={Notifications}/>
                     <Redirect from='/app/' to='/app/home'/>
                 </Switch>
             </Layout>
