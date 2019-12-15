@@ -26,6 +26,7 @@ class UsersService
         $single = [];
 
         foreach ($userList as $user) {
+            $single['userId'] = $user['id'];
             $single['name'] = $user['name'];
             $single['surname'] = $user['surname'];
             $single['role'] = $user['userRole']['role'];
