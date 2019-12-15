@@ -27,14 +27,17 @@ const webMeniu = (props) => (
                     </div>
                 </div>
                 <hr className="m-0" />
-                <div className="position-relative py-2 linkParent">
-                    <span className="ml-4 position-absolute"><i className="fas fa-suitcase-rolling"> </i></span>
-                    <div style={{marginLeft: "5rem"}}>
-                        {props.popupOpened
-                            ?<a title='You must first accept or reject notification message' className="link" onClick={props.popupOpened}  style={{cursor: "pointer"}}>Set Away</a>
-                            :<NavLink to="/app/away" className="link" activeClassName='webMenu_activeClass' onClick={props.onclick}>Set Away</NavLink>}
+                {props.userRole === 'user'
+                    ? <div className="position-relative py-2 linkParent">
+                        <span className="ml-4 position-absolute"><i className="fas fa-suitcase-rolling"> </i></span>
+                        <div style={{marginLeft: "5rem"}}>
+                            {props.popupOpened
+                                ?<a title='You must first accept or reject notification message' className="link" onClick={props.popupOpened}  style={{cursor: "pointer"}}>Set Away</a>
+                                :<NavLink to="/app/away" className="link" activeClassName='webMenu_activeClass' onClick={props.onclick}>Set Away</NavLink>}
+                        </div>
                     </div>
-                </div>
+                    : null}
+                
                 <hr className="m-0" />
                 <div className="position-relative py-2 linkParent">
                     <span className="ml-4 position-absolute"><i className="fas fa-car-side"> </i></span>
@@ -51,5 +54,9 @@ const mapDispatchToProps= dispatch => ({
     openModal: () => dispatch(openModal()),
 });
 
-export default connect(null, mapDispatchToProps)(webMeniu);
+const mapStateToProps = state => ({
+    userRole: state.user.role
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(webMeniu);
 

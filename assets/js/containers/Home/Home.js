@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { connect } from "react-redux";
 
-import { getHomeData, popupAcceptClicked, successTimer, buttonClickedMid, notificationPopupAccept } from '../../store/thunk/reservations';
+import { getHomeData, popupAcceptClicked, successTimer, buttonClickedMid, notificationPopupAccept, getSingleUser} from '../../store/thunk/reservations';
 import { getCoordinates, popupOpened } from '../../store/thunk/popup';
 import { popupCancel, setNotification, notificationPopupCancel } from '../../store/actions/index';
 
@@ -23,57 +23,87 @@ class Home extends Component {
 
     componentDidMount(){
         this.props.onGetHomeData();
-        if (this.props.user.notifications[1]) {
-            setTimeout(
-                () => {this.props.onGetCoordinates(this.reservationRefFirst, this.reservationRefLast); this.props.onSetNotification()}, 1000
-            )
-        }
+        // if (this.props.user.notifications[1]) {
+        //     setTimeout(
+        //         () => {this.props.onGetCoordinates(this.reservationRefFirst, this.reservationRefLast); this.props.onSetNotification()}, 1000
+        //     )
+        // }
         
         // axios.get('/api/make-reservation').then(res => console.log(res))
         // axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
-        // axios.get(`/api/reservations`).then(res => console.log(res))
-        // axios.get(`/api/users`).then(res => console.log(res))
+        axios.get(`/api/reservations`).then(res => console.log(res))
+        //axios.get(`/api/users`).then(res => console.log(res))
+        // axios.get(`/api/single-user/21`).then(res => console.log(res))
+        
     }
 
     buttonClickHandler(date, buttonType, first, last) {
         this.props.onButtonClick(date, buttonType, first, last)
     }
 
-    reservationButtonHandler(day) {
-        if(!day.userReservation) {
-            if(day.parkingSpaces > day.usedSpaces){
-                return ({ 
-                    buttonClass: 'success',
-                    buttonText: 'reserve'
+    getReservationByDateHandler(date) {
+        return this.props.user.reservations.find(reservation => {
+            if(this.props.user.role === 'user'){
+                return new Date(reservation.date).getDate() === new Date(date).getDate()
+            } else {
+                return new Date(reservation.reservationDate.date).getDate() === new Date(date).getDate()
+            }
+        })
+    }
+
+    reservationButtonHandler(date) {
+        const reservation = this.getReservationByDateHandler(date)
+        if(reservation) {
+            if(this.props.user.role === 'user') {
+                return ({ // user have reservation case
+                    buttonClass: 'danger',
+                    buttonText: 'cancel'
                     })
             } else {
-                return ({
-                    buttonClass: 'neutral',
-                    buttonText: 'ask'
-                    })
+                if(reservation.parkSpace){
+                    return ({ // guest have reservation case
+                        buttonClass: 'danger',
+                        buttonText: 'cancel'
+                        })
+                } else {
+                    return ({ // guest have not approved reservation
+                        buttonClass: 'neutral',
+                        buttonText: 'ask'
+                        })
+                }
             }
         } else {
-            return ({
-                buttonClass: 'danger',
-                buttonText: 'cancel'
+            return ({ // dont have reservation case (any user)
+                buttonClass: 'success',
+                buttonText: 'reserve'
                 })
         }
-    };
+    }
+
+    parkingSpotHandler (date) {
+        const reservation = this.getReservationByDateHandler(date)
+        return  reservation 
+                ? reservation.parkSpace 
+                    ? reservation.parkSpace.number
+                    : reservation.userSpot 
+                : null
+    }
 
     graphHandler(day) {
-        if (day.usedSpaces === 0){
+        const lotSize = day.usedSpots + day.availableSpots
+        if (day.usedSpots === 0){
             return ( {
                 isVisible:{visibility:'hidden'},
                 status: '0%'
                 } )
-        } else if (day.usedSpaces === day.parkingSpaces) {
+        } else if (day.availableSpots <= 0) {
             return ({
                 status: '110%',
                 fill: "#F1B55C"
                 })
         } else {
             return ({
-                status:`${((day.usedSpaces/day.parkingSpaces)*110)}%`
+                status:`${((day.usedSpots/lotSize)*110)}%`
                 })
         } 
     }
@@ -85,7 +115,7 @@ class Home extends Component {
                         translate={popup.show} 
                         type={popup} 
                         popupCancel={this.props.onPopupCancel} 
-                        popupAccept={()=>this.props.onPopupAccept(popup.date, this.props.user, popup.type)}
+                        popupAccept={()=>this.props.onPopupAccept(popup.date, popup.type)}
                         loading={popup.loading}
                         uniqueStyle={popup.style}
                         successTimer={this.props.onSuccessTimer}
@@ -120,33 +150,28 @@ class Home extends Component {
     render (){
         return (
         <>
-            {this.props.loading
-            ? 'loading...'
+            {this.props.loading.loadingSingleUser || this.props.loading.loadingReservations
+            ? null
             : <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
                 {this.notificationPopupHandler(this.props.notificationPopup)}
                 {this.popupHandler(this.props.popup)}
                 <div className='Home_reservationContainer' style={this.reservationContainerStyleHandler()} >
-                    {this.props.registrationData.map( (day,index) => {
-                        return (
-                        <Reservation
-                            ref={!index 
-                                    ? this.reservationRefFirst
-                                    : index === 5 
-                                        ? this.reservationRefLast
-                                        : null}
-                            index={index}
-                            key={day.date}
-                            date={day.date}
-                            buttonOptions={this.reservationButtonHandler(day)}
-                            parkingSpaces={day.parkingSpaces}
-                            usedSpaces={day.usedSpaces}
-                            userParkingSpot={day.userParkingSpot}
-                            graphStatus={this.graphHandler(day)}
-                            onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day).buttonClass, this.reservationRefFirst, this.reservationRefLast)}
-                            history={this.props.history}
-                            loading={this.props.loadingOneDay}
-                            popupShake={this.props.popup.show || this.props.notificationPopup.show ?this.props.onPopupOpened :false}/>
-                    )})}
+                    {this.props.weekStatus.map( (day,index) => (
+                        new Date(day.date).getDay() // skip sunday
+                            ? <Reservation key={day.date}
+                                ref={!index ? this.reservationRefFirst: index === 6? this.reservationRefLast: null} // need fn for this
+                                date={day.date}
+                                lotSize={day.usedSpots+day.availableSpots} // *
+                                usedSpots={day.usedSpots >20 ?20 :day.usedSpots} // used spots could be bigger than lot size
+                                availableSpots={day.availableSpots > 0 ?day.availableSpots :0} // available spots could be negative
+                                buttonOptions={this.reservationButtonHandler(day.date)}
+                                graphStatus={this.graphHandler(day)}
+                                onButtonClick={()=>this.buttonClickHandler(day.date, this.reservationButtonHandler(day.date).buttonClass, this.reservationRefFirst, this.reservationRefLast)}
+                                userParkingSpot={this.parkingSpotHandler(day.date)}
+                                history={this.props.history}
+                                loading={this.props.loadingOneDay}
+                                popupShake={this.props.popup.show || this.props.notificationPopup.show ?this.props.onPopupOpened :false}/>
+                            : null))}
                 </div>
              </div>
         }
@@ -157,7 +182,7 @@ class Home extends Component {
 
 const mapStateToProps = state => {
     return {
-        registrationData: state.reservationStatus,
+        weekStatus: state.weekStatus,
         loading: state.loading,
         popup: state.popup,
         user: state.user,
@@ -171,7 +196,7 @@ const mapDispatchToProps= dispatch => ({
     onGetHomeData: (first, last) => dispatch(getHomeData(first, last)),
     onButtonClick: (date, buttonType, first, last) => dispatch(buttonClickedMid(date, buttonType, first, last)),
     onPopupCancel: () => dispatch(popupCancel()),
-    onPopupAccept: (date, user, actionType) => dispatch(popupAcceptClicked(date, user, actionType)),
+    onPopupAccept: (date, actionType) => dispatch(popupAcceptClicked(date, actionType)),
     onSuccessTimer: () => dispatch(successTimer()),
     onSetNotification: () => dispatch(setNotification()),
     onNotificationPopupCancel: () => dispatch(notificationPopupCancel()),

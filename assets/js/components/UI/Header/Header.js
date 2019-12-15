@@ -32,7 +32,7 @@ const header = (props) => (
                                             </i>
                                         </div>
                                         <div>
-                                            <Link to='/logout' style={{color:"#f8f3f0"}}>
+                                            <Link to='/app/logout' style={{color:"#f8f3f0"}}>
                                                 <i className="fas fa-sign-out-alt h3 textLightGrey mx-4">
                                                 </i>
                                             </Link>
@@ -65,7 +65,7 @@ const header = (props) => (
 const mapStateToProps = state => {
     return {
         userName: state.user.name,
-        userLastname: state.user.lastname,
+        userLastname: state.user.surname,
         mobileMenu: state.mobileMenu,
         popupShow: state.popup.show,
         notificationPopupShow: state.notificationPopup.show
