@@ -50,24 +50,27 @@ class NotificationService
 
     public function createNotification($data)
     {
-        $checkDuplicate = $this->checkDuplicate($data);
 
+        $guest = $this->findUserById($data['guestId']);
+        //TODO implement token id
+        if ($guest->getUserRole()->getRole() != 'guest') {
+            return $array = ['error' => 'not guest'];
+        }
+
+        $checkDuplicate = $this->checkDuplicate($data);
         if ($checkDuplicate) {
-            //TODO checking for date interval
             return $array = ['error' => 'duplicate'];
         }
 
         $notification = new Notifications();
-        $guest = $this->findUserById($data['guestId']);
-        if ($guest->getUserRole()->getRole() != 'guest') {
-            return $array = ['error' => 'not guest'];
-        }
+
         $notification->setGuest($guest);
 
         $user = $this->findUserById($data['userId']);
         if ($user->getUserRole()->getRole() != 'user') {
             return $array = ['error' => 'not user'];
         }
+
         $notification->setUser($user);
         $requestDate = $this->dateFromString($data['requestDate']);
         $notification->setRequestDate($requestDate);

@@ -63,26 +63,41 @@ class NotificationsController extends AbstractController
     }
 
     /**
-     * @Rest\Post("/api/notification-accept/{id}")
+     * @Rest\Put("/api/notifications")
+     * @param Request $request
      * @return JsonResponse
      */
-    public function accept($id)
+    public function update(Request $request)
     {
-        $userAwayService = new UserAwayService($this->entityManager);
-        $service = new SwitchService($this->entityManager, $userAwayService);
-        $response = $service->makeParkSpaceSwitch($id);
+        $content = $request->getContent();
+        $dataArray = json_decode($content, true);
+
+        $service = new NotificationService($this->entityManager);
+        $response = $service->createNotification($dataArray);
         return new JsonResponse($response);
     }
 
     /**
-     * @Rest\Delete("/api/notification-cancel/{id}")
+     * @Rest\Post("/api/notification-accept/{notificationId}")
      * @return JsonResponse
      */
-    public function cancelSwitch($id)
+    public function accept($notificationId)
     {
         $userAwayService = new UserAwayService($this->entityManager);
         $service = new SwitchService($this->entityManager, $userAwayService);
-        $response = $service->cancelParkSpaceSwitch($id);
+        $response = $service->makeParkSpaceSwitch($notificationId);
+        return new JsonResponse($response);
+    }
+
+    /**
+     * @Rest\Delete("/api/notification-cancel/{notificationId}")
+     * @return JsonResponse
+     */
+    public function cancelSwitch($notificationId)
+    {
+        $userAwayService = new UserAwayService($this->entityManager);
+        $service = new SwitchService($this->entityManager, $userAwayService);
+        $response = $service->cancelParkSpaceSwitch($notificationId);
         return new JsonResponse($response);
     }
 }
