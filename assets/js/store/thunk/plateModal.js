@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {setPlateNumber} from '../actions/index';
+import {setPlateStatus} from "../actions/main";
 
 export const getPlateNumber = () => (dispatch, getState) => {
 
@@ -9,8 +10,7 @@ export const getPlateNumber = () => (dispatch, getState) => {
     axios.get('/api/single-user/' + user)
         .then((response) => {
 
-            if(response.status === 200) {
-                console.log(response.data.licensePlate);
+            if (response.status === 200) {
                 dispatch(setPlateNumber(setPlateNumber(response.data.licensePlate)));
             }
 
@@ -21,28 +21,32 @@ export const getPlateNumber = () => (dispatch, getState) => {
     });
 }
 
-export const updatePlateNumber = () => (dispatch, getState) => {
+export const updatePlateNumber = (numbers) => (dispatch, getState) => {
 
     const user = getState().user.id;
 
-    const plate = 	{
+    const plate = {
         "licensePlate": [
-            {"userId": "41", "licensePlate": "A012456"}
-        ]};
+            {"userId": user, "licensePlate": numbers}
+        ]
+    };
 
+    let status;
 
-    axios.get('/api/single-user/' + user)
+    axios.post('/api/licenseplate', plate)
         .then((response) => {
 
-            if (response.data.success) {
+            if (response.status === 200) {
+
+                dispatch(getPlateNumber());
+                dispatch(setPlateStatus("success"));
 
             } else {
-
+                dispatch(setPlateStatus("fail"));
             }
-
 
         }).catch(error => {
 
-        console.log(error)
+        dispatch(setPlateStatus("fail"));
     });
 }

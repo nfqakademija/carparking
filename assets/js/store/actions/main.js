@@ -121,6 +121,14 @@ export const setPlateNumber = (numbers) => {
     }
 }
 
+export const setPlateStatus = (status) => {
+    console.log(status)
+    return {
+        type: actionTypes.SET_PLATE_STATUS,
+        data: status
+    }
+}
+
 export const fetchOneDayDataStart = (date) => {
     return {
         type: actionTypes.FETCH_ONE_DAY_DATA_START,

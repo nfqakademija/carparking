@@ -28,8 +28,9 @@ const initialState = {
     mobileMenu: false,
     popupShake: false,
     plateModal: false,
+    plateModalStatus: "none",
     postAwayStatus: null,
-    postAwayLoading: false
+    postAwayLoading: false,
 }
 
 const reducer = (state = initialState, action) => {
@@ -174,7 +175,6 @@ const reducer = (state = initialState, action) => {
                 mobileMenu: false
             }
         case actionTypes.SET_PLATE_NUMBER:
-            console.log(action.data.data)
             return {
                 ...state,
                 plate: action.data.data
@@ -252,6 +252,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 plateModal: true
+            }
+        case actionTypes.SET_PLATE_STATUS:
+            return{
+                ...state,
+                plateModalStatus: action.data
             }
         case actionTypes.CLOSE_PLATE_MODAL:
             return {
