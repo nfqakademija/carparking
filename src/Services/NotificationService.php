@@ -32,17 +32,20 @@ class NotificationService
         return $array;
     }
 
+
     public function userNotification($guestId)
     {
         $data = $this->entityManager->getRepository(Notifications::class)->findNotificationByGuestId($guestId);
         $array = [];
         foreach ($data as $datum) {
             $single = [];
-            $single['guestName'] = $datum->getGuest()->getName();
-            $single['guestSurname'] = $datum->getGuest()->getSurname();
+            $single['id'] = $datum->getId();
             $single['guestId'] = $datum->getGuest()->getId();
+            $single['userId'] = $datum->getUser()->getId();
             $single['date'] = $datum->getRequestDate()->format('Y-m-d');
-            $single['notificationId'] = $datum->getId();
+            $single['rejected'] = $datum->getDelivered();
+            $single['accepted'] = $datum->getAccepted();
+            $single['acceptedAndCanceled'] = $datum->getCanceledAfterAccept();
             array_push($array, $single);
         }
         return $array;
@@ -76,6 +79,23 @@ class NotificationService
         $notification->setRequestDate($requestDate);
         $notification->setAccepted(0);
         $notification->setDelivered(0);
+        $notification->setCanceledAfterAccept(0);
+        $this->entityManager->persist($notification);
+        $this->entityManager->flush();
+        return $array = ['success' => 'success'];
+    }
+
+    public function editNotification($data)
+    {
+        //TODO token id check
+        $notification = $this->checkNotification($data['notificationId']);
+
+        if (isset($data['accepted'])) {
+            $notification->setAccepted(1);
+            $notification->setDelivered(1);
+        } else {
+            $notification->setDelivered(1);
+        }
         $this->entityManager->persist($notification);
         $this->entityManager->flush();
         return $array = ['success' => 'success'];
@@ -97,5 +117,10 @@ class NotificationService
     private function checkDuplicate($dataArray)
     {
         return $this->entityManager->getRepository(Notifications::class)->checkDuplicateEntry($dataArray);
+    }
+
+    private function checkNotification($notificationId)
+    {
+        return $this->entityManager->getRepository(Notifications::class)->findNotificationById($notificationId);
     }
 }

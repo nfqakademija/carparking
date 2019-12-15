@@ -73,7 +73,7 @@ class NotificationsController extends AbstractController
         $dataArray = json_decode($content, true);
 
         $service = new NotificationService($this->entityManager);
-        $response = $service->createNotification($dataArray);
+        $response = $service->editNotification($dataArray);
         return new JsonResponse($response);
     }
 
