@@ -7,7 +7,8 @@ const initialState = {
     loading: {
         loadingSingleUser: true,
         loadingReservations: true,
-        loadingUsers: true
+        loadingUsers: true,
+        loadingNotifications:true
     },
     user: {
         id: 4,
@@ -376,16 +377,15 @@ const reducer = (state = initialState, action) => {
         case actionTypes.GET_NOTIFICATIONS:
             return {
                 ...state,
-                user: {
-                    ...state.user,
-                    notifications: [
+                notifications: [
                         {
                             date:'2019-12-16',
                             userId:'3',
                             guestId:'31',
                             accepted:0,
                             acceptedAndCanceled:0,
-                            rejected:0
+                            rejected:0,
+                            id:'1'
                         },
                         {
                             date:'2019-12-19',
@@ -393,10 +393,28 @@ const reducer = (state = initialState, action) => {
                             guestId:'31',
                             accepted:1,
                             acceptedAndCanceled:0,
-                            rejected:0
+                            rejected:0,
+                            id:'2'
+                        },
+                        {
+                            date:'2019-12-22',
+                            userId:'3',
+                            guestId:'31',
+                            accepted:1,
+                            acceptedAndCanceled:1,
+                            rejected:0,
+                            id:'3'
+                        },
+                        {
+                            date:'2019-12-21',
+                            userId:'3',
+                            guestId:'31',
+                            accepted:0,
+                            acceptedAndCanceled:0,
+                            rejected:1,
+                            id:'4'
                         }
                     ]
-                }
             }
         default: return state
     }

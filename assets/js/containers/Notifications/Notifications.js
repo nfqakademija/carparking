@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import { getUsersData, popupAcceptClicked } from '../../store/thunk/reservations';
+import { getUsersData, popupAcceptClicked, getSingleUser, getReservations  } from '../../store/thunk/reservations';
 import { getCoordinates, popupOpened } from '../../store/thunk/popup';
 import { buttonClicked, popupCancel, getNotifications } from '../../store/actions/index';
 
+import UserNotifications from '../../components/NotificationsComponents/UserNotifications';
+import GuestNotifications from '../../components/NotificationsComponents/GuestNotifications';
 import UsersTable from '../../components/UsersTable/UsersTable';
 import PopUp from '../../components/UI/PopUp/PopUp';
-import Button from '../../components/UI/Button/Button';
+
 
 import './Notifications.scss';
 class Notifications extends Component {
@@ -19,6 +21,10 @@ class Notifications extends Component {
 
     componentDidMount() {
         this.props.onGetUsersData()
+        this.props.onGetSingleUser()
+        this.props.onGetReservations()
+        this.props.onGetNotifications()
+        
     }
 
     render (){
@@ -33,29 +39,14 @@ class Notifications extends Component {
                                 <div className='Notifications_header bg-dark text-white rounded-top'>
                                     <div >Notifications</div>
                                 </div>
-                                <div className='Notifications_body'>
-                                    <div className='Notifications_notificationContainer' >
-                                            <div style={{margin:'auto',marginLeft:'2em'}}>
-                                                <div style={{fontWeight:'900'}}>VARDENIS PAVARDENIS</div>
-                                                <div>Asks for spot on <strong>2019-12-20</strong></div>
-                                            </div>
-                                            <div style={{display:'flex',marginRight:'2em'}}>
-                                                <Button classname="Button_success" text='Accept' buttonStyle={{ marginRight:'0.5em'}} onclick={this.props.popupAccept}></Button>
-                                                <Button classname="Button_danger" text='Cancel' buttonStyle={{ marginRight:'0.5em'}} onclick={this.props.popupCancel}></Button>
-                                            </div>   
-                                    </div>
-                                </div>
-                                <div className='Notifications_body'>
-                                    <div className='Notifications_notificationContainer' style={{borderColor:'#95D195'}}>
-                                            <div style={{margin:'auto',marginLeft:'2em'}}>
-                                                <div style={{fontWeight:'900'}}>VARDENIS PAVARDENIS</div>
-                                                <div>Asks for spot on <strong>2019-12-20</strong></div>
-                                            </div>
-                                            <div style={{display:'flex',marginRight:'2em'}}>
-                                                <Button classname="Button_danger" text='Cancel' buttonStyle={{ marginRight:'0.5em'}} onclick={this.props.popupCancel}></Button>
-                                            </div>   
-                                    </div>
-                                </div>
+                                {(this.props.notifications || []).map(notification => (
+                                        this.props.user.role === 'user'
+                                        ? <UserNotifications key={notification.id} notification={notification} usersList={this.props.usersList}/>
+                                        : <GuestNotifications key={notification.id} notification={notification} usersList={this.props.usersList}/>
+                                    ))
+                                }
+                                
+                                
                             </div>
                         </div>
                     } 
@@ -75,13 +66,16 @@ const mapStateToProps = state => {
         user: state.user,
         popupShake: state.popupShake,
         popupShow: state.popup.show,
-        notificationPopupShow: state.notificationPopup.show
+        notificationPopupShow: state.notificationPopup.show,
+        notifications: state.notifications
     }
 }
 
 
 const mapDispatchToProps= dispatch => ({
     onGetUsersData: () => dispatch(getUsersData()),
+    onGetSingleUser: () => dispatch(getSingleUser()),
+    onGetReservations: () => dispatch(getReservations()),
     onButtonClick: (date, buttonType, ref, switchUser) => {dispatch(getCoordinates(ref ,ref)),dispatch(buttonClicked(date, buttonType, switchUser))},
     onPopupAccept: (date, actionType) => dispatch(popupAcceptClicked(date, actionType)),
     onPopupCancel: () => dispatch(popupCancel()),
