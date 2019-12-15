@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Notifications;
 use App\Services\NotificationService;
 use App\Services\SwitchService;
 use App\Services\UserAwayService;
@@ -86,6 +87,11 @@ class NotificationsController extends AbstractController
         $userAwayService = new UserAwayService($this->entityManager);
         $service = new SwitchService($this->entityManager, $userAwayService);
         $response = $service->makeParkSpaceSwitch($notificationId);
+        if ($response = ['success' => 'success']) {
+            $notification = new NotificationService($this->entityManager);
+            $data = ["notificationId" => $notificationId, "accepted" => 1];
+            $notification->editNotification($data);
+        }
         return new JsonResponse($response);
     }
 
@@ -98,6 +104,11 @@ class NotificationsController extends AbstractController
         $userAwayService = new UserAwayService($this->entityManager);
         $service = new SwitchService($this->entityManager, $userAwayService);
         $response = $service->cancelParkSpaceSwitch($notificationId);
+        if ($response = ['success' => 'success']) {
+            $notification = new NotificationService($this->entityManager);
+            $data = ["notificationId" => $notificationId, "acceptedAndCanceled" => 1];
+            $notification->editNotification($data);
+        }
         return new JsonResponse($response);
     }
 }

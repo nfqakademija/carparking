@@ -93,9 +93,12 @@ class NotificationService
         if (isset($data['accepted'])) {
             $notification->setAccepted(1);
             $notification->setDelivered(1);
+        } elseif ($data['acceptedAndCanceled']) {
+            $notification->setCanceledAfterAccept(1);
         } else {
             $notification->setDelivered(1);
         }
+
         $this->entityManager->persist($notification);
         $this->entityManager->flush();
         return $array = ['success' => 'success'];
