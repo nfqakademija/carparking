@@ -2,7 +2,7 @@ import React from 'react';
 
 import '../../../css/components/UsersTable/UsersTable.scss';
 
-const usersTable = React.forwardRef((props, ref) => (
+const usersTable = React.forwardRef((props, ref) => ( // after data structure refactoring this becomes unreadable. We need to separate user case from guest case
         <div className='UsersTable_container shadow' ref={ref}>
             <div className='UsersTable_body'>
                 <div className='UserTable_tableHead bg-dark text-white rounded-top'>
@@ -24,11 +24,11 @@ const usersTable = React.forwardRef((props, ref) => (
                     <div> 
                         {props.reservationStatus.map( dayObj => {
                             const date = new Date(dayObj.date)
-                            const reservation = props.mainUser.reservations.find(reservation => reservation.date === dayObj.date)
-                            let guestReservation
-                            reservation && reservation.reservationDate 
-                                ? guestReservation = props.mainUser.reservations.find(reservation => new Date(reservation.reservationDate.date).getDate() === new Date(dayObj.date).getDate())
-                                : null
+                            const reservation = props.mainUser.role === "user"
+                                                    ? props.mainUser.reservations.find(reservation => reservation.date === dayObj.date)
+                                                    : props.mainUser.reservations.find(reservation => new Date(reservation.reservationDate.date).getDate() === new Date(dayObj.date).getDate())
+                            
+                            console.log(reservation)
                             return(
                                 date.getDay() === 0 // check if sunday
                                 
@@ -50,9 +50,9 @@ const usersTable = React.forwardRef((props, ref) => (
                                                 <i key={date} className="fas fa-parking UserTable_redIcon"></i> 
                                         </a>
                                     
-                                    : guestReservation//check if guest have reservation
+                                    : reservation//check if guest have reservation
                                         
-                                        ? guestReservation.parkSpace //check if guest reservation approved
+                                        ? reservation.parkSpace //check if guest reservation approved
                                             
                                             ? <a data-toggle='tooltip' // reservation approved case
                                                 key={date}
