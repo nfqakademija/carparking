@@ -129,19 +129,22 @@
     }
     .UserTable_userContainerMain{
         font-size:1em;
-        top: 4em;
+        top: 0;
     }
 }
 
-@media(max-width: 350px){
+@media(max-width: 390px){
     .UserTable_tableHead {
         font-size:0.9em;
     }
     .UserTable_userContainer {
         font-size:0.9em;
     }
+    .itemDays {
+        margin-top: 1em;
+    }
     .UserTable_userContainerMain{
         font-size:0.9em;
-        top: 3.6em;
+        top: 0;
     }
 }
