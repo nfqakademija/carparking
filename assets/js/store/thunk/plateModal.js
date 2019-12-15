@@ -5,17 +5,13 @@ export const getPlateNumber = () => (dispatch, getState) => {
 
     const user = getState().user.id;
 
-    const plate = 	{
-        "licensePlate": [
-            {"userId": "41", "licensePlate": "A012456"}
-        ]};
-
 
     axios.get('/api/single-user/' + user)
         .then((response) => {
 
             if(response.status === 200) {
-
+                console.log(response.data.licensePlate);
+                dispatch(setPlateNumber(setPlateNumber(response.data.licensePlate)));
             }
 
 
@@ -25,7 +21,7 @@ export const getPlateNumber = () => (dispatch, getState) => {
     });
 }
 
-export const setPlateNumber = () => (dispatch, getState) => {
+export const updatePlateNumber = () => (dispatch, getState) => {
 
     const user = getState().user.id;
 

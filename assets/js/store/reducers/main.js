@@ -174,9 +174,10 @@ const reducer = (state = initialState, action) => {
                 mobileMenu: false
             }
         case actionTypes.SET_PLATE_NUMBER:
+            console.log(action.data.data)
             return {
                 ...state,
-                plate: action.data
+                plate: action.data.data
             }
         case actionTypes.FETCH_ONE_DAY_DATA_START:
             return {

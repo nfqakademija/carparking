@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {updatePlate} from "../../../store/actions/main";
+import {getPlateNumber} from '../../../store/thunk/plateModal';
 
 
 class PlateModal extends Component {
@@ -18,7 +18,7 @@ class PlateModal extends Component {
 
     componentDidMount() {
         this.setState({plateNumber: "", info: null, color: null});
-        this.props.getPlateNumber;
+        this.props.getPlateNumber();
     }
 
     myChangeHandler(event) {
@@ -41,6 +41,7 @@ class PlateModal extends Component {
     };
 
     render() {
+        console.log(this.props.state.plate);
         return (
 
             <div className="w-100 modalInsade">
@@ -53,7 +54,7 @@ class PlateModal extends Component {
                     className={"licenseplate modileWidth " + this.state.color}
                     maxLength="6"
                     id="plate"
-                    placeholder={this.props.plate}
+                    placeholder={this.props.state.plate}
                     onKeyUp={this.myChangeHandler}
                 />
                 <br/>

@@ -24,6 +24,7 @@ export {
     popupOpenedReset,
     setAwaysDates,
     postAwayStatus,
-    postAwayStatusLoading
+    postAwayStatusLoading,
+    setPlateNumber
 
 } from './main'

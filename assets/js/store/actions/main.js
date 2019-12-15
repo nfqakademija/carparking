@@ -114,13 +114,6 @@ export const closeMobileMenu = () => {
     }
 }
 
-export const updatePlate = (numbers) => {
-    return {
-        type: actionTypes.UPDATE_PLATE,
-        numbers
-    }
-}
-
 export const setPlateNumber = (numbers) => {
     return {
         type: actionTypes.SET_PLATE_NUMBER,
