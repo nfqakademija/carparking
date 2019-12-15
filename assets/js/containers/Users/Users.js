@@ -47,7 +47,6 @@ class Users extends Component {
             <>
                 <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
                     {this.popupHandler(this.props.popup)}
-                    {console.log(this.props.reservationStatus)}
                     {this.props.loading || this.props.usersList.length === 0
                         ? 'loading ...'
                         : <div className='Users_usersTableContainer' style={this.userListContainerStyleHandler()}>

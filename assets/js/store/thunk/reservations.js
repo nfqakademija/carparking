@@ -170,7 +170,7 @@ const popupAcceptCaseSuccessGuest = date => (dispatch, getState) => {
             {"reservationDate" :date}
         ]
     }
-    axios.post('api/reservations', postData)
+    axios.post('/api/reservations', postData)
         .then( () =>{
                 dispatch(actions.popupAcceptSuccess())
                 dispatch(successTimer())
