@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class UserAwayService
 {
     private $entityManager;
+    private $dateArray = [];
 
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -33,7 +34,7 @@ class UserAwayService
     public function post($dataArray)
     {
         $user = $this->entityManager->getRepository(Users::class)->findUserById($dataArray['id']);
-
+        $this->userAwayTimeArray($dataArray['awayDate']);
         if (!$user) {
         } else {
             foreach ($dataArray['awayDate'] as $value) {
@@ -60,6 +61,7 @@ class UserAwayService
                     }
                 }
             }
+            $this->checkReservationsForChange();
             $this->entityManager->flush();
             return $array = ['success' => "success"];
         }
@@ -92,8 +94,7 @@ class UserAwayService
     {
         foreach ($dataArray['awayDate'] as $value) {
             $userAway = $this->entityManager->getRepository(UserAway::class)->findById($value['id']);
-            if (!$userAway) {
-            } else {
+            if ($userAway) {
                 $this->entityManager->remove($userAway);
             }
         }
@@ -113,6 +114,13 @@ class UserAwayService
         return false;
     }
 
+    private function checkReservationsForChange()
+    {
+        $reservations = new ReservationService($this->entityManager);
+        $reservations->checkUserAwayChanges($this->dateArray);
+        die;
+    }
+
     private function validateProvidedDate($startDate, $endDate)
     {
         if ($startDate > $endDate) {
@@ -120,6 +128,21 @@ class UserAwayService
         }
         return false;
     }
+
+    private function userAwayTimeArray($array)
+    {
+        foreach ($array as $value) {
+            $startObject = new \DateTime($value['awayStartDate']);
+            $endObject = new \DateTime($value['awayEndDate']);
+            $endObject->modify("+1 day");
+            $period = new \DatePeriod($startObject, new \DateInterval('P1D'), $endObject);
+
+            foreach ($period as $string) {
+                array_push($this->dateArray, $string->format('Y-m-d H:i:s'));
+            }
+        }
+    }
+
 
     private function dateFromString($dateString)
     {

@@ -40,6 +40,14 @@ class ReservationService
         return $reservationList;
     }
 
+    public function checkUserAwayChanges($dateArray)
+    {
+        var_dump($dateArray);
+        die;
+//        foreach ($dateArray as )
+
+    }
+
     private function countParkSpaces()
     {
         return $this->entityManager->getRepository(ParkSpaces::class)->countParkSpaces();
@@ -65,7 +73,6 @@ class ReservationService
         }
         return $array = ["success" => "success"];
     }
-
 
     public function makeGuestReservation($data)
     {
@@ -119,9 +126,8 @@ class ReservationService
             ->findReservationByDateAndParkSpaceId($dateString, $parkSpaceId);
         if ($reservation) {
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     private function checkUserRole($id)
@@ -164,28 +170,6 @@ class ReservationService
             array_push($reservationDateArray, $date->format('Y-m-d'));
         }
         return $reservationDateArray;
-    }
-
-    private function userAwayTimeArray($id)
-    {
-        $away = $this->entityManager->getRepository(UserAway::class)->getUserAwayByUserId($id);
-        $array = [];
-        foreach ($away as $value) {
-            $awayStart = $value['awayStartDate'];
-            $awayEnd = $value['awayEndDate'];
-
-            $endObject = new \DateTime($awayEnd->format('Y-m-d'));
-            $endObject->modify("+1 day");
-            $period = new \DatePeriod(
-                new \DateTime($awayStart->format('Y-m-d')),
-                new \DateInterval('P1D'),
-                $endObject
-            );
-            foreach ($period as $string) {
-                array_push($array, $string->format('Y-m-d'));
-            }
-        }
-        return $array;
     }
 
     private function dateFromString($dateString)

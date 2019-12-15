@@ -132,27 +132,6 @@ class UsersService
         return $reservationDateArray;
     }
 
-    private function userAwayTimeArray($id)
-    {
-        $away = $this->entityManager->getRepository(UserAway::class)->getUserAwayByUserId($id);
-        $array = [];
-        foreach ($away as $value) {
-            $awayStart = $value['awayStartDate'];
-            $awayEnd = $value['awayEndDate'];
-
-            $endObject = new \DateTime($awayEnd->format('Y-m-d'));
-            $endObject->modify("+1 day");
-            $period = new \DatePeriod(
-                new \DateTime($awayStart->format('Y-m-d')),
-                new \DateInterval('P1D'),
-                $endObject
-            );
-            foreach ($period as $string) {
-                array_push($array, $string->format('Y-m-d'));
-            }
-        }
-        return $array;
-    }
 
     private function dateFromString($dateString)
     {
