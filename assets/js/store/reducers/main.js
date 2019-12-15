@@ -15,21 +15,11 @@ const initialState = {
         lastname: null,
         activeCar: null,
         aways: [],
-        notifications: [
-            {
-                name: 'Elvis',
-                surname: 'Raynor',
-                date: '2019-12-13'
-            },
-            {
-                name: 'Calista',
-                surname: 'Sipes',
-                date: '2019-12-14'
-            }
-        ]
+        notifications: []
     },
     users: [],
     plate: "ABC000",
+    reservationStatus: [],
     popup: {
         width: 'calc(100%+30px)',
         left: '0px'
@@ -42,8 +32,10 @@ const initialState = {
     mobileMenu: false,
     popupShake: false,
     plateModal: false,
+    plateModalStatus: "none",
     postAwayStatus: null,
-    postAwayLoading: false
+    postAwayLoading: false,
+    awayHistoryLoading: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -196,10 +188,10 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 mobileMenu: false
             }
-        case actionTypes.UPDATE_PLATE:
+        case actionTypes.SET_PLATE_NUMBER:
             return {
                 ...state,
-                plate: action.numbers
+                plate: action.data.data
             }
         case actionTypes.FETCH_ONE_DAY_DATA_START:
             return {
@@ -284,17 +276,22 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 plateModal: true
             }
+        case actionTypes.SET_PLATE_STATUS:
+            return{
+                ...state,
+                plateModalStatus: action.data
+            }
         case actionTypes.CLOSE_PLATE_MODAL:
             return {
                 ...state,
                 plateModal: false
             }
-        case actionTypes.POST_AWAY_DATES:
+        case actionTypes.GET_AWAYS_DATES:
             return {
                 ...state,
                 user: {
                     ...state.user,
-                    userAways: [...state.user.userAways, ...action.data]
+                    aways: action.data
                 }
             }
         case actionTypes.POST_AWAY_STATUS:
@@ -302,6 +299,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 postAwayStatus: action.data,
                 postAwayLoading: false
+            }
+        case actionTypes.AWAY_HISTORY_LOADING:
+            return {
+                ...state,
+                awayHistoryLoading: action.data
             }
         case actionTypes.POST_AWAY_DEFAULT_STATUS:
             return {

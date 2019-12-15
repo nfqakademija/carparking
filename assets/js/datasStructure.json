@@ -25,7 +25,6 @@ get api/reservations : + paduodu token
             "usedSpots": ""
         } x6 kiekvienai dienai
     ]
-
 get api/users : + paduodu token
     [
         {

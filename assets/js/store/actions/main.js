@@ -128,10 +128,18 @@ export const closeMobileMenu = () => {
     }
 }
 
-export const updatePlate = (numbers) => {
+export const setPlateNumber = (numbers) => {
     return {
-        type: actionTypes.UPDATE_PLATE,
-        numbers
+        type: actionTypes.SET_PLATE_NUMBER,
+        data: numbers
+    }
+}
+
+export const setPlateStatus = (status) => {
+    console.log(status)
+    return {
+        type: actionTypes.SET_PLATE_STATUS,
+        data: status
     }
 }
 
@@ -204,9 +212,9 @@ export const closeModal = () => {
     }
 }
 
-export const postAway = (data) => {
+export const setAwaysDates = (data) => {
     return {
-        type: actionTypes.POST_AWAY_DATES,
+        type: actionTypes.GET_AWAYS_DATES,
         data: data
     }
 };
@@ -227,6 +235,13 @@ export const postAwayDefaultStatus = () => {
 export const postAwayStatusLoading = () => {
     return {
         type: actionTypes.POST_AWAY_STATUS_LOADING
+    }
+}
+
+export const changeAwayLoadingStatus = (status) => {
+    return {
+        type: actionTypes.AWAY_HISTORY_LOADING,
+        data: status
     }
 }
 
