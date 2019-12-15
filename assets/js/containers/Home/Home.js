@@ -31,7 +31,7 @@ class Home extends Component {
         
         // axios.get('/api/make-reservation').then(res => console.log(res))
         // axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
-        axios.get(`/api/reservations`).then(res => console.log(res))
+        //axios.get(`/api/reservations`).then(res => console.log(res))
         //axios.get(`/api/users`).then(res => console.log(res))
         // axios.get(`/api/single-user/21`).then(res => console.log(res))
         
@@ -156,10 +156,15 @@ class Home extends Component {
                 {this.notificationPopupHandler(this.props.notificationPopup)}
                 {this.popupHandler(this.props.popup)}
                 <div className='Home_reservationContainer' style={this.reservationContainerStyleHandler()} >
-                    {this.props.weekStatus.map( (day,index) => (
+                    {this.props.weekStatus.map( (day,index) => ( 
                         new Date(day.date).getDay() // skip sunday
-                            ? <Reservation key={day.date}
-                                ref={!index ? this.reservationRefFirst: index === 6? this.reservationRefLast: null} // need fn for this
+                            ? <Reservation 
+                                key={day.date}
+                                ref={!index && !new Date(day.date).getDay() || index === 1 && new Date(day.date).getDay() // give index to first elenemt, but also checks if first element sunday or not.
+                                        ? this.reservationRefFirst
+                                        : index === 6
+                                            ? this.reservationRefLast
+                                            : null} // need fn for this
                                 date={day.date}
                                 lotSize={day.usedSpots+day.availableSpots} // *
                                 usedSpots={day.usedSpots >20 ?20 :day.usedSpots} // used spots could be bigger than lot size
