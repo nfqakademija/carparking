@@ -27,7 +27,7 @@ class Users extends Component {
                     translate={popup.show} 
                     type={popup} 
                     popupCancel={this.props.onPopupCancel} 
-                    popupAccept={()=>this.props.onPopupAccept(popup.date, this.props.user, 'neutral')}
+                    popupAccept={()=>this.props.onPopupAccept(popup.date, 'neutral')}
                     loading={popup.loading}
                     uniqueStyle={popup.style}
                     successTimer={this.props.onSuccessTimer}
@@ -47,6 +47,7 @@ class Users extends Component {
             <>
                 <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
                     {this.popupHandler(this.props.popup)}
+                    {console.log(this.props.reservationStatus)}
                     {this.props.loading || this.props.usersList.length === 0
                         ? 'loading ...'
                         : <div className='Users_usersTableContainer' style={this.userListContainerStyleHandler()}>
@@ -68,8 +69,8 @@ class Users extends Component {
 const mapStateToProps = state => {
     return {
         usersList: state.users,
-        loading: state.loading,
-        reservationStatus: state.reservationStatus,
+        loading: state.loading.loadingUsers,
+        reservationStatus: state.weekStatus,
         mainUser: state.user,
         popup: state.popup,
         user: state.user,
@@ -83,7 +84,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps= dispatch => ({
     onGetUsersData: () => dispatch(getUsersData()),
     onButtonClick: (date, buttonType, ref, switchUser) => {dispatch(getCoordinates(ref ,ref)),dispatch(buttonClicked(date, buttonType, switchUser))},
-    onPopupAccept: (date, user, actionType) => dispatch(popupAcceptClicked(date, user, actionType)),
+    onPopupAccept: (date, actionType) => dispatch(popupAcceptClicked(date, actionType)),
     onPopupCancel: () => dispatch(popupCancel()),
     onPopupOpened: () => dispatch(popupOpened())
 })

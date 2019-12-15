@@ -35,16 +35,23 @@ export const getHomeDataFail = (data, user) => {
     }
 }
 
-export const getHomeUsersStart = () => {
+export const getUsersStart = () => {
     return {
-        type: actionTypes.GET_HOME_USERS_START
+        type: actionTypes.GET_USERS_START
     }
 }
 
-export const getHomeUsersSuccess = (users) => {
+export const getUsersSuccess = users => {
     return {
-        type: actionTypes.GET_HOME_USERS_SUCCESS,
+        type: actionTypes.GET_USERS_SUCCESS,
         users
+    }
+}
+
+export const getUsersFail = err => {
+    return {
+        type: actionTypes.GET_USERS_FAIL,
+        err
     }
 }
 
@@ -90,6 +97,13 @@ export const popupAcceptSuccess = () => {
     }
 }
 
+export const popupAcceptFail = (err) => {
+    return {
+        type: actionTypes.POPUP_ACCEPT_FAIL,
+        err
+    }
+}
+
 export const popupSuccess = () => {
     return {
         type: actionTypes.POPUP_SUCCESS
@@ -132,6 +146,13 @@ export const fetchOneDayDataSuccess = (data) => {
     return {
         type: actionTypes.FETCH_ONE_DAY_DATA_SUCCESS,
         data
+    }
+}
+
+export const fetchOneDayDataFail = err => {
+    return {
+        type: actionTypes.FETCH_ONE_DAY_DATA_FAIL,
+        err
     }
 }
 
@@ -206,5 +227,45 @@ export const postAwayDefaultStatus = () => {
 export const postAwayStatusLoading = () => {
     return {
         type: actionTypes.POST_AWAY_STATUS_LOADING
+    }
+}
+
+export const getSingleUserStart = () => {
+    return {
+        type: actionTypes.GET_SINGLE_USER_START
+    }
+}
+
+export const getSingleUserSuccess = user => {
+    return {
+        type: actionTypes.GET_SINGLE_USER_SUCCESS,
+        user
+    }
+}
+
+export const getSingleUserFail = err => {
+    return {
+        type: actionTypes.GET_SINGLE_USER_SUCCESS,
+        err
+    }
+}
+
+export const getReservationsStart = () => {
+    return {
+        type: actionTypes.GET_RESERVATIONS_START
+    }
+}
+
+export const getReservationsSuccess = parkingLotStatus => {
+    return {
+        type: actionTypes.GET_RESERVATIONS_SUCCESS,
+        parkingLotStatus
+    }
+}
+
+export const getReservationsFail = err => {
+    return {
+        type: actionTypes.GET_RESERVATIONS_FAIL,
+        err
     }
 }

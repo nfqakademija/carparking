@@ -3,21 +3,23 @@ import { postAway, postAwayStatus, postAwayStatusLoading } from '../actions/inde
 
 export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
     let status;
-    const user = getState().user.id;
+    const userId = getState().user.userId;
 
     dispatch(postAwayStatusLoading());
 
     const postData = {
-        "id": user,
-        "away_date": [
-            {"away_start_date": startDate, "away_end_date": endDate}
+        "id": userId,
+        "awayDate": [
+            {"awayStartDate": startDate, "awayEndDate": endDate}
         ]
     };
+    console.log(startDate)
+    console.log(endDate)
     axios.post('/api/useraway',postData)
         .then((response) => {
 
             status = "success";
-            dispatch(postAway(postData.away_date));
+            dispatch(postAway(postData.awayDate));
             dispatch(postAwayStatus(status));
 
         }).catch(error => {

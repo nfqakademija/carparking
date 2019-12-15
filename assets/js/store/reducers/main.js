@@ -4,7 +4,11 @@ import registrationData from "../../containers/Home/fakeReservationData.json"
 const initialState = {
     registrationData: registrationData,
     token: 1,
-    loading: false,
+    loading: {
+        loadingSingleUser: true,
+        loadingReservations: true,
+        loadingUsers: true
+    },
     user: {
         id: 4,
         name: null,
@@ -26,7 +30,6 @@ const initialState = {
     },
     users: [],
     plate: "ABC000",
-    reservationStatus: [],
     popup: {
         width: 'calc(100%+30px)',
         left: '0px'
@@ -59,35 +62,31 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 token: null
             }
-        case actionTypes.GET_HOME_DATA_START:
+        case actionTypes.GET_USERS_START:
             return {
                 ...state,
-                loading: true
+                loading: {
+                    ...state.loading,
+                    loadingUsers: true
+                }
             }
-        case actionTypes.GET_HOME_DATA_SUCCESS:
-            return {
-                ...state,
-                reservationStatus: action.data,
-                user: action.user,
-                loading: false
-            }
-        case actionTypes.GET_HOME_DATA_FAIL:
-            return {
-                ...state,
-                reservationStatus: action.data,
-                user: action.user,
-                loading: false
-            }
-        case actionTypes.GET_HOME_USERS_START:
-            return {
-                ...state,
-                loading: true
-            }
-        case actionTypes.GET_HOME_USERS_SUCCESS:
+        case actionTypes.GET_USERS_SUCCESS:
             return {
                 ...state,
                 users: action.users,
-                loading: false
+                loading: {
+                    ...state.loading,
+                    loadingUsers: false
+                }
+            }
+        case actionTypes.GET_USERS_FAIL:
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    loadingUsers: false
+                }
+
             }
         case actionTypes.SAVE_COORDINATES:
             return {
@@ -150,6 +149,19 @@ const reducer = (state = initialState, action) => {
                     }
                 }
             }
+        case actionTypes.POPUP_ACCEPT_FAIL:
+            return {
+                ...state,
+                popup: {
+                    ...state.popup,
+                    err: action.err,
+                    loading: false,
+                    style : {
+                        backgroundColor: '#E87C86',
+                        height: '150px'
+                    }
+                }
+            }
         case actionTypes.POPUP_SUCCESS:
             return {
                 ...state,
@@ -197,7 +209,16 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_ONE_DAY_DATA_SUCCESS:
             return {
                 ...state,
-                reservationStatus: action.data,
+                weekStatus: action.data,
+                loadingOneDay: false
+            }
+        case actionTypes.FETCH_ONE_DAY_DATA_FAIL:
+            return {
+                ...state,
+                weekStatus: {
+                    ...state.weekStatus,
+                    err: action.err
+                },
                 loadingOneDay: false
             }
         case actionTypes.SET_NOTIFICATION:
@@ -273,7 +294,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 user: {
                     ...state.user,
-                    aways: [...state.user.aways, ...action.data]
+                    userAways: [...state.user.userAways, ...action.data]
                 }
             }
         case actionTypes.POST_AWAY_STATUS:
@@ -291,6 +312,64 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 postAwayLoading: true
+            }
+        case actionTypes.GET_SINGLE_USER_START:
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    loadingSingleUser: true
+                }
+            }
+        case actionTypes.GET_SINGLE_USER_SUCCESS:
+            return {
+                ...state,
+                user: action.user,
+                loading: {
+                    ...state.loading,
+                    loadingSingleUser: false
+                }
+            }
+        case actionTypes.GET_SINGLE_USER_FAIL:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    err: action.err
+                },
+                loading: {
+                    ...state.loading,
+                    loadingSingleUser: false
+                }
+            }
+        case actionTypes.GET_RESERVATIONS_START:
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    loadingReservations: true
+                }
+            }
+        case actionTypes.GET_RESERVATIONS_SUCCESS:
+            return {
+                ...state,
+                weekStatus: action.parkingLotStatus,
+                loading: {
+                    ...state.loading,
+                    loadingReservations: false
+                }
+            }
+        case actionTypes.GET_RESERVATIONS_FAIL:
+            return {
+                ...state,
+                weekStatus: {
+                    ...state.parkingLotStatus,
+                    err: action.err
+                },
+                loading: {
+                    ...state.loading,
+                    loadingReservations: false
+                }
             }
         default: return state
     }

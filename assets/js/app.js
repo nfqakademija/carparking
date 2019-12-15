@@ -6,8 +6,8 @@ import Layout from './containers/Layout/Layout';
 import Login from './containers/Auth/Auth';
 import Home from './containers/Home/Home';
 import Users from './containers/Users/Users';
-import Logout from './containers/Auth/Logout/Logout'
-import Away from './containers/Away/Away'
+import Logout from './containers/Auth/Logout/Logout';
+import Away from './containers/Away/Away';
 
 class App extends Component {
 
