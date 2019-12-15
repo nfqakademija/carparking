@@ -45,6 +45,27 @@ class ReservationService
         return $this->entityManager->getRepository(ParkSpaces::class)->countParkSpaces();
     }
 
+    public function deleteGuestReservation($data)
+    {
+        foreach ($data['reservations'] as $datum) {
+            $reservation = $this->entityManager->getRepository(Reservations::class)->findReservationById($datum['id']);
+            if ($reservation->getParkSpace() != null) {
+                $date = $reservation->getReservationDate()->format('Y-m-d H:i:s');
+                $newReservation =
+                    $this->entityManager
+                        ->getRepository(Reservations::class)
+                        ->findReservationWithoutParkSpaceByDate($date);
+                if ($newReservation) {
+                    $newReservation->setParkSpace($reservation->getParkSpace());
+                    $this->entityManager->persist($newReservation);
+                }
+            }
+            $this->entityManager->remove($reservation);
+            $this->entityManager->flush();
+        }
+        return $array = ["success" => "success"];
+    }
+
 
     public function makeGuestReservation($data)
     {
@@ -67,16 +88,39 @@ class ReservationService
                 $reservation->setUser($guest);
                 $dateObject = $this->dateFromString($value['reservationDate']);
                 $reservation->setReservationDate($dateObject);
+
                 $parkingSpace = $this->checkIfParkSpaceAvailableByDate($reservationDateString);
                 if ($parkingSpace == null) {
-                    $reservation->setParkSpace(null);
+                    $space = null;
                 } else {
-                    $reservation->setParkSpace($parkingSpace->getAwayUser()->getUserParkSpace());
+                    $reservedParkSpace = $this->checkReservedParkSpace(
+                        $parkingSpace->getAwayUser()->getUserParkSpace()->getId(),
+                        $reservationDateString
+                    );
+
+                    if ($reservedParkSpace) {
+                        $space = null;
+                    } else {
+                        $space = $parkingSpace->getAwayUser()->getUserParkSpace();
+                    }
+                    $reservation->setParkSpace($space);
                 }
                 $this->entityManager->persist($reservation);
             }
             $this->entityManager->flush();
             return $array = ["success" => "success"];
+        }
+    }
+
+    private function checkReservedParkSpace($parkSpaceId, $dateString)
+    {
+        $reservation = $this->entityManager
+            ->getRepository(Reservations::class)
+            ->findReservationByDateAndParkSpaceId($dateString, $parkSpaceId);
+        if ($reservation) {
+            return true;
+        } else {
+            return false;
         }
     }
 

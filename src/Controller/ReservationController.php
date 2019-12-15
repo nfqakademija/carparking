@@ -2,27 +2,18 @@
 
 namespace App\Controller;
 
-use App\Entity\Reservations;
-use App\Security\TokenAuthenticator;
 use App\Services\ReservationService;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\FOSRestBundle;
-use JMS\Serializer\SerializerBuilder;
-use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
-use Lexik\Bundle\JWTAuthenticationBundle\Encoder\LcobucciJWTEncoder;
-use Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ReservationController extends FOSRestBundle
 {
     private $entityManager;
 
     /**
-     * @param TokenAuthenticator $tokenAuthenticator
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
@@ -55,13 +46,14 @@ class ReservationController extends FOSRestBundle
     }
 
     /**
-     * @param $data
-     * @return string
+     * @Rest\Delete("/api/reservations")
      */
-    private function serialize($data)
+    public function deleteReservation(Request $request)
     {
-        $serializer = SerializerBuilder::create()->build();
-        $json = $serializer->serialize($data, 'json');
-        return $json;
+        $content = $request->getContent();
+        $dataArray = json_decode($content, true);
+        $service = new ReservationService($this->entityManager);
+        $response = $service->deleteGuestReservation($dataArray);
+        return new JsonResponse($response);
     }
 }
