@@ -291,3 +291,4 @@ export const notificationPopupAccept = (date) => (dispatch, getState) => { //*
         , 500
     )
 }
+

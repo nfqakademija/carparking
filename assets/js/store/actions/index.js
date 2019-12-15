@@ -34,6 +34,7 @@ export {
     getSingleUserFail,
     getReservationsStart,
     getReservationsSuccess,
-    getReservationsFail
+    getReservationsFail,
+    getNotifications
 
 } from './main'

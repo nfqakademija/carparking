@@ -373,6 +373,31 @@ const reducer = (state = initialState, action) => {
                     loadingReservations: false
                 }
             }
+        case actionTypes.GET_NOTIFICATIONS:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    notifications: [
+                        {
+                            date:'2019-12-16',
+                            userId:'3',
+                            guestId:'31',
+                            accepted:0,
+                            acceptedAndCanceled:0,
+                            rejected:0
+                        },
+                        {
+                            date:'2019-12-19',
+                            userId:'3',
+                            guestId:'31',
+                            accepted:1,
+                            acceptedAndCanceled:0,
+                            rejected:0
+                        }
+                    ]
+                }
+            }
         default: return state
     }
 }

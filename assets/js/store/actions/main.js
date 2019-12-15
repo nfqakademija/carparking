@@ -284,3 +284,9 @@ export const getReservationsFail = err => {
         err
     }
 }
+
+export const getNotifications = () => {
+    return {
+        type: actionTypes.GET_NOTIFICATIONS
+    }
+}

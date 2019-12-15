@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { getUsersData, popupAcceptClicked } from '../../store/thunk/reservations';
 import { getCoordinates, popupOpened } from '../../store/thunk/popup';
-import { buttonClicked, popupCancel } from '../../store/actions/index';
+import { buttonClicked, popupCancel, getNotifications } from '../../store/actions/index';
 
 import UsersTable from '../../components/UsersTable/UsersTable';
 import PopUp from '../../components/UI/PopUp/PopUp';
@@ -85,7 +85,8 @@ const mapDispatchToProps= dispatch => ({
     onButtonClick: (date, buttonType, ref, switchUser) => {dispatch(getCoordinates(ref ,ref)),dispatch(buttonClicked(date, buttonType, switchUser))},
     onPopupAccept: (date, actionType) => dispatch(popupAcceptClicked(date, actionType)),
     onPopupCancel: () => dispatch(popupCancel()),
-    onPopupOpened: () => dispatch(popupOpened())
+    onPopupOpened: () => dispatch(popupOpened()),
+    onGetNotifications: () => dispatch(getNotifications())
 })
 
 
