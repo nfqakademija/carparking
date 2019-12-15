@@ -31,6 +31,7 @@ const initialState = {
     plateModalStatus: "none",
     postAwayStatus: null,
     postAwayLoading: false,
+    awayHistoryLoading: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -276,6 +277,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 postAwayStatus: action.data,
                 postAwayLoading: false
+            }
+        case actionTypes.AWAY_HISTORY_LOADING:
+            return {
+                ...state,
+                awayHistoryLoading: action.data
             }
         case actionTypes.POST_AWAY_DEFAULT_STATUS:
             return {

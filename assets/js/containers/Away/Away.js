@@ -116,8 +116,11 @@ class Home extends Component {
                     </div>
                     :
                     this.props.status === "success" ?
-                        <div><b>The operation performed successfully</b></div> : this.props.status === "fail" ?
-                        <div><b>Sorry, operation failed please contact the call center.</b></div> : <div>error</div>
+                        <div><b>The operation performed successfully</b></div>
+                        : this.props.status === "fail" ?
+                        <div><b>Sorry, operation failed please contact the call center.</b></div> :
+                        this.props.status === "duplicate" ?
+                            <div><b>Kartojasi</b></div> : null
                 :
                 //if exist post null (success or error)
                 <div>
@@ -153,20 +156,16 @@ class Home extends Component {
         );
 
         return (
-            <div className="p-0 py-2 p-md-4"  style={{ height:'100%', overflow:'scroll'}}>
+            <div className="p-0 py-2 p-md-4" style={{height: '100%', overflow: 'scroll'}}>
 
                 <div
-                    className={`PopUp_away_container shadow mb-2 animation ${this.state.popUp ? 'show' : 'hide'} ${this.props.status === "success" ? "bg-success" : this.props.status === "fail" ? "bg-danger" : null}`}>
+                    className={`PopUp_away_container shadow mb-2 animation ${this.state.popUp ? 'show' : 'hide'} ${this.props.status === "success" ? "bg-success" : this.props.status === "fail" ? "bg-danger" : this.props.status === "duplicate" ? "bg-warning" : null }`}>
                     <Popup/>
                 </div>
 
 
                 <div className="bg-white p-4 shadow rounded">
 
-                    <div className="rounded text-left p-2 my-3" style={{backgroundColor: "#E9ECEF"}}>
-                        <div className="py-2"><b className="h5">History:</b></div>
-                        <History/>
-                    </div>
                     <div className="rounded text-left p-2 my-3" style={{backgroundColor: "#E9ECEF"}}>Welcome please
                         choose
                         dates when you will not use the car park.
@@ -217,6 +216,20 @@ class Home extends Component {
                         <b className="text-white">Enter</b>
                     </button>
                 </div>
+
+                <div className="bg-white p-4 shadow rounded mt-2">
+                    {
+                        this.props.historyLoading ?
+                            <div className="spinner-border text-dark" role="status">
+                                <span className="sr-only">Loading...</span>
+                            </div>
+                            :
+                            <div className="rounded text-left p-2 my-3 fade-in" style={{backgroundColor: "#E9ECEF"}}>
+                                <div className="py-2"><b className="h5">History:</b></div>
+                                <History/>
+                            </div>
+                    }
+                </div>
             </div>
         );
     }
@@ -228,6 +241,7 @@ const mapStateToProps = state => {
         status: state.postAwayStatus,
         user: state.user.aways,
         loading: state.postAwayLoading,
+        historyLoading: state.awayHistoryLoading
     }
 }
 

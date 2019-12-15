@@ -105,7 +105,7 @@ class PlateModal extends Component {
                     onKeyUp={this.myChangeHandler}
                 />
                 <br/>
-                <button className="btn btn-warning btn-lg mt-3 shadow">
+                <button className="btn btn-outline-warning btn-lg mt-3 shadow">
                     <b className="text-white" onClick={this.onSubmit}>Update</b>
                 </button>
             </div>

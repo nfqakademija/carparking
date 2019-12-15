@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {setAwaysDates, postAwayStatus, postAwayStatusLoading} from '../actions/index';
+import {changeAwayLoadingStatus} from "../actions/main";
 
 export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
     let status;
@@ -20,16 +21,19 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
     axios.post('/api/useraway', postData)
         .then((response) => {
 
-            if (response.data.success) {
 
+            if (response.data.error === 'duplicate') {
+                status = "duplicate";
+
+            } else if (response.data.success === 'success') {
                 dispatch(getDatesAway());
                 status = "success";
-                dispatch(postAwayStatus(status));
-
-            } else {
+            }else{
                 status = "fail";
-                dispatch(postAwayStatus(status));
             }
+
+            dispatch(postAwayStatus(status));
+
 
         }).catch(error => {
 
@@ -43,11 +47,13 @@ export const getDatesAway = () => (dispatch, getState) => {
 
     const user = getState().user.id;
 
+    dispatch(changeAwayLoadingStatus(true));
 
     axios.get('/api/single-user/' + user)
         .then((response) => {
 
-            if(response.status === 200) {
+
+            if (response.status === 200) {
                 let data = response.data.userAways;
 
                 data.forEach(data =>
@@ -59,11 +65,13 @@ export const getDatesAway = () => (dispatch, getState) => {
                 );
 
                 dispatch(setAwaysDates(data));
+                dispatch(changeAwayLoadingStatus(false));
             }
 
 
         }).catch(error => {
 
-            console.log(error)
+        console.log(error);
+        dispatch(changeAwayLoadingStatus(false));
     });
 }

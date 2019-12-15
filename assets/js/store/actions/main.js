@@ -216,3 +216,10 @@ export const postAwayStatusLoading = () => {
         type: actionTypes.POST_AWAY_STATUS_LOADING
     }
 }
+
+export const changeAwayLoadingStatus = (status) => {
+    return {
+        type: actionTypes.AWAY_HISTORY_LOADING,
+        data: status
+    }
+}
