@@ -31,6 +31,8 @@ export const updatePlateNumber = (numbers) => (dispatch, getState) => {
         ]
     };
 
+    console.log(user)
+
     let status;
 
     axios.post('/api/licenseplate', plate)
@@ -46,6 +48,8 @@ export const updatePlateNumber = (numbers) => (dispatch, getState) => {
             }
 
         }).catch(error => {
+
+            console.log(error);
 
         dispatch(setPlateStatus("fail"));
     });

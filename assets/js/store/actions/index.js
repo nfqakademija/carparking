@@ -28,8 +28,7 @@ export {
     setAwaysDates,
     postAwayStatus,
     postAwayStatusLoading,
-    setPlateNumber
-    postAwayStatusLoading,
+    setPlateNumber,
     getSingleUserStart,
     getSingleUserSuccess,
     getSingleUserFail,

@@ -55,6 +55,7 @@ export const getDatesAway = () => (dispatch, getState) => {
 
             if (response.status === 200) {
                 let data = response.data.userAways;
+                console.log(response.data)
 
                 data.forEach(data =>
                     (
