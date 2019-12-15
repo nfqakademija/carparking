@@ -39,7 +39,7 @@ class SwitchService
         $this->entityManager->persist($userAway);
 
         $this->entityManager->flush();
-        return $array = ['success => success'];
+        return $array = ['success => switched'];
     }
 
     public function cancelParkSpaceSwitch($notificationId)
@@ -54,7 +54,7 @@ class SwitchService
         $reservation = $this->getReservationByGuestId($requestDate, $guestId);
         $reservation->setParkSpace(null);
         $this->entityManager->flush();
-        return $array = ['success => success'];
+        return $array = ['success => canceled'];
     }
 
     private function getReservationByGuestId($requestDate, $guestId)

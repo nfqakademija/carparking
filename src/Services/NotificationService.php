@@ -82,7 +82,7 @@ class NotificationService
         $notification->setCanceledAfterAccept(0);
         $this->entityManager->persist($notification);
         $this->entityManager->flush();
-        return $array = ['success' => 'success'];
+        return $array = ['success' => 'notification created'];
     }
 
     public function editNotification($data)
@@ -101,7 +101,7 @@ class NotificationService
 
         $this->entityManager->persist($notification);
         $this->entityManager->flush();
-        return $array = ['success' => 'success'];
+        return $array = ['success' => 'notification edited'];
     }
 
     private function findUserById($userId)
