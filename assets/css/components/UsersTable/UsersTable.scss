@@ -15,7 +15,7 @@
     background-color: #ffffff;
     flex-grow: 1;
     overflow: auto;
-    scroll-snap-type: y proximity;
+    scroll-snap-type: y mandatory;
 }
 
 .UserTable_tableHead {
@@ -23,7 +23,6 @@
     grid-template-columns: 50% 50%;
     grid-template-rows: 50% 50%;
     font-size: 1.5em;
-    box-shadow: 0px -5px 10px 0px grey; 
     color: #343a40;
     position: sticky;
     top: 0;
@@ -62,18 +61,17 @@
 }
 
 .UserTable_userContainerMain {
-    margin-bottom:1.5em;
     display:flex;
     flex-direction: row;
     font-size: 1.5em;
     scroll-snap-align: end;
     position: sticky;
-    top: 4em;
+    top: 0;
     background-color: #ffffff;
     color: #343a40;
     z-index: 3;
     padding-top:1em;
-    padding-bottom: 1.5em;
+    padding-bottom: 2em;
     font-weight: 900;
     & div {
         width: 50%;
@@ -131,19 +129,22 @@
     }
     .UserTable_userContainerMain{
         font-size:1em;
-        top: 4em;
+        top: 0;
     }
 }
 
-@media(max-width: 350px){
+@media(max-width: 390px){
     .UserTable_tableHead {
         font-size:0.9em;
     }
     .UserTable_userContainer {
         font-size:0.9em;
     }
+    .itemDays {
+        margin-top: 1em;
+    }
     .UserTable_userContainerMain{
         font-size:0.9em;
-        top: 3.6em;
+        top: 0;
     }
 }

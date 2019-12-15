@@ -32,7 +32,7 @@ class Home extends Component {
         // axios.get('/api/make-reservation').then(res => console.log(res))
         // axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
         //axios.get(`/api/reservations`).then(res => console.log(res))
-        //axios.get(`/api/users`).then(res => console.log(res))
+        axios.get(`/api/users`).then(res => console.log(res))
         // axios.get(`/api/single-user/21`).then(res => console.log(res))
         
     }

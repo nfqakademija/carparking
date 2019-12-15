@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import { getUsersData, popupAcceptClicked } from '../../store/thunk/reservations';
+import { getUsersData, popupAcceptClicked, getSingleUser, getReservations } from '../../store/thunk/reservations';
 import { getCoordinates, popupOpened } from '../../store/thunk/popup';
 import { buttonClicked, popupCancel } from '../../store/actions/index';
 
@@ -18,6 +18,8 @@ class Users extends Component {
 
     componentDidMount() {
         this.props.onGetUsersData()
+        this.props.onGetSingleUser()
+        this.props.onGetReservations()
     }
 
     popupHandler (popup) {
@@ -53,7 +55,7 @@ class Users extends Component {
                             <UsersTable 
                                 ref={this.userTableRef}
                                 usersList={this.props.usersList}
-                                reservationStatus={this.props.reservationStatus}
+                                reservationStatus={this.props.reservationStatus || []}
                                 mainUser={this.props.mainUser}
                                 onclick={(dayObj, switchUser) => this.props.onButtonClick(dayObj.date, 'neutral', this.userTableRef, switchUser)}
                                 popupShake={this.props.popupShow || this.props.notificationPopupShow ?this.props.onPopupOpened :false}/>
@@ -82,6 +84,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps= dispatch => ({
     onGetUsersData: () => dispatch(getUsersData()),
+    onGetSingleUser: () => dispatch(getSingleUser()),
+    onGetReservations: () => dispatch(getReservations()),
     onButtonClick: (date, buttonType, ref, switchUser) => {dispatch(getCoordinates(ref ,ref)),dispatch(buttonClicked(date, buttonType, switchUser))},
     onPopupAccept: (date, actionType) => dispatch(popupAcceptClicked(date, actionType)),
     onPopupCancel: () => dispatch(popupCancel()),
