@@ -4,7 +4,7 @@ import {changeAwayLoadingStatus} from "../actions/main";
 
 export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
     let status;
-    const user = getState().user.id;
+    const user = getState().user.userId;
 
     dispatch(postAwayStatusLoading());
 
@@ -45,7 +45,7 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
 
 export const getDatesAway = () => (dispatch, getState) => {
 
-    const user = getState().user.id;
+    const user = getState().user.userId;
 
     dispatch(changeAwayLoadingStatus(true));
 
