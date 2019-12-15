@@ -32,17 +32,20 @@ class NotificationService
         return $array;
     }
 
+
     public function userNotification($guestId)
     {
         $data = $this->entityManager->getRepository(Notifications::class)->findNotificationByGuestId($guestId);
         $array = [];
         foreach ($data as $datum) {
             $single = [];
-            $single['guestName'] = $datum->getGuest()->getName();
-            $single['guestSurname'] = $datum->getGuest()->getSurname();
+            $single['id'] = $datum->getId();
             $single['guestId'] = $datum->getGuest()->getId();
+            $single['userId'] = $datum->getUser()->getId();
             $single['date'] = $datum->getRequestDate()->format('Y-m-d');
-            $single['notificationId'] = $datum->getId();
+            $single['rejected'] = $datum->getDelivered();
+            $single['accepted'] = $datum->getAccepted();
+            $single['acceptedAndCanceled'] = $datum->getCanceledAfterAccept();
             array_push($array, $single);
         }
         return $array;
@@ -50,32 +53,55 @@ class NotificationService
 
     public function createNotification($data)
     {
-        $checkDuplicate = $this->checkDuplicate($data);
 
+        $guest = $this->findUserById($data['guestId']);
+        //TODO implement token id
+        if ($guest->getUserRole()->getRole() != 'guest') {
+            return $array = ['error' => 'not guest'];
+        }
+
+        $checkDuplicate = $this->checkDuplicate($data);
         if ($checkDuplicate) {
-            //TODO checking for date interval
             return $array = ['error' => 'duplicate'];
         }
 
         $notification = new Notifications();
-        $guest = $this->findUserById($data['guestId']);
-        if ($guest->getUserRole()->getRole() != 'guest') {
-            return $array = ['error' => 'not guest'];
-        }
+
         $notification->setGuest($guest);
 
         $user = $this->findUserById($data['userId']);
         if ($user->getUserRole()->getRole() != 'user') {
             return $array = ['error' => 'not user'];
         }
+
         $notification->setUser($user);
         $requestDate = $this->dateFromString($data['requestDate']);
         $notification->setRequestDate($requestDate);
         $notification->setAccepted(0);
         $notification->setDelivered(0);
+        $notification->setCanceledAfterAccept(0);
         $this->entityManager->persist($notification);
         $this->entityManager->flush();
-        return $array = ['success' => 'success'];
+        return $array = ['success' => 'notification created'];
+    }
+
+    public function editNotification($data)
+    {
+        //TODO token id check
+        $notification = $this->checkNotification($data['notificationId']);
+
+        if (isset($data['accepted'])) {
+            $notification->setAccepted(1);
+            $notification->setDelivered(1);
+        } elseif ($data['acceptedAndCanceled']) {
+            $notification->setCanceledAfterAccept(1);
+        } else {
+            $notification->setDelivered(1);
+        }
+
+        $this->entityManager->persist($notification);
+        $this->entityManager->flush();
+        return $array = ['success' => 'notification edited'];
     }
 
     private function findUserById($userId)
@@ -94,5 +120,10 @@ class NotificationService
     private function checkDuplicate($dataArray)
     {
         return $this->entityManager->getRepository(Notifications::class)->checkDuplicateEntry($dataArray);
+    }
+
+    private function checkNotification($notificationId)
+    {
+        return $this->entityManager->getRepository(Notifications::class)->findNotificationById($notificationId);
     }
 }

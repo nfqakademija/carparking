@@ -27,6 +27,11 @@ class Notifications
     private $delivered;
 
     /**
+     * @ORM\Column(type="smallint")
+     */
+    private $canceledAfterAccept;
+
+    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Users", inversedBy="userNotifications")
      */
     private $user;
@@ -70,6 +75,19 @@ class Notifications
 
         return $this;
     }
+
+    public function getCanceledAfterAccept(): ?int
+    {
+        return $this->delivered;
+    }
+
+    public function setCanceledAfterAccept(int $canceledAfterAccept): self
+    {
+        $this->canceledAfterAccept = $canceledAfterAccept;
+
+        return $this;
+    }
+
 
     public function getUser(): ?Users
     {
