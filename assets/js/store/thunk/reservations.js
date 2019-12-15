@@ -8,8 +8,9 @@ export const getSingleUser = () => dispatch => {
         .then( res => {
             dispatch(actions.getSingleUserSuccess(res.data))
         })
-        .catch( err => {
-            console.log(err)
+        .catch( err => { //*
+            dispatch(actions.popupAcceptFail(err))
+            dispatch(successTimer())
         })
 }
 
@@ -19,8 +20,9 @@ export const getReservations = () => dispatch => {
         .then( res => {
             dispatch(actions.getReservationsSuccess(res.data))
         })
-        .catch( err => {
-            console.log(err)
+        .catch( err => { //*
+            dispatch(actions.popupAcceptFail(err))
+            dispatch(successTimer())
         })
 }
 
@@ -183,15 +185,27 @@ const popupAcceptCaseSuccessGuest = date => (dispatch, getState) => {
         }) 
 }
 
-// const popupAcceptCaseDangerGuest = date => (dispatch, getState) => {
-//     const dateObj = new Date(date)
-//     const reservation = getState().user.reservations.find(reservation => new Date(reservation.reservationDate.date).getDate() === dateObj.getDate())
-//     const reservationId = reservation.id
-//     const deleteData = {
-
-//     }
-//     axios.delete('api/reservations',{data: deleteData})
-// }
+const popupAcceptCaseDangerGuest = date => (dispatch, getState) => {
+    const dateObj = new Date(date)
+    const reservation = getState().user.reservations.find(reservation => new Date(reservation.reservationDate.date).getDate() === dateObj.getDate())
+    const reservationId = reservation.id
+    const deleteData = {
+        "reservations": [
+            {"id": reservationId}
+        ]
+    }
+    axios.delete('/api/reservations',{data: deleteData})
+        .then(() => {
+            dispatch(actions.popupAcceptSuccess())
+            dispatch(successTimer())
+            dispatch(fetchOneDayData(date))
+        })
+        .catch((err) => {
+            dispatch(actions.popupAcceptFail(err))
+            dispatch(successTimer())
+            dispatch(fetchOneDayData(date))
+        }) 
+}
 const popupAcceptCaseNeutralGuest = date => (dispatch, getState) => {
      const myId = getState().user.userId
      const otherUserId = 6
@@ -219,24 +233,26 @@ const popupAcceptCaseNeutralGuest = date => (dispatch, getState) => {
 
 
 export const popupAcceptClicked = (date, actionType) => (dispatch, getState) => {
-    dispatch(actions.popupAcceptStart());
-    if(getState().user.role === "user"){
-        switch (actionType) {
-            case 'danger': dispatch(popupAcceptCaseDanger(date))
-                break
-            case 'success': dispatch(popupAcceptCaseSuccess(date))
-                break 
+    if(getState().user.licensePlate){ // if user already have licence plate
+        dispatch(actions.popupAcceptStart());
+        if(getState().user.role === "user"){
+            switch (actionType) {
+                case 'danger': dispatch(popupAcceptCaseDanger(date))
+                    break
+                case 'success': dispatch(popupAcceptCaseSuccess(date))
+                    break 
+            }
+        } else {
+            switch (actionType) {
+                case 'danger': dispatch(popupAcceptCaseDangerGuest(date))
+                    break
+                case 'success': dispatch(popupAcceptCaseSuccessGuest(date))
+                    break 
+                case 'neutral': dispatch(popupAcceptCaseNeutralGuest(date))
+                    break
+            }
         }
-    } else {
-        switch (actionType) {
-            case 'danger': dispatch(popupAcceptCaseDangerGuest(date))
-                break
-            case 'success': dispatch(popupAcceptCaseSuccessGuest(date))
-                break 
-            case 'neutral': dispatch(popupAcceptCaseNeutralGuest(date))
-                break
-        }
-    }
+    } else {dispatch(actions.openModal())}
 }
 
 export const buttonClickedMid = (date, buttonType, first, last) => dispatch => {
