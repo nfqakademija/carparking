@@ -41,12 +41,16 @@ class NotificationsRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
-    public function findNotificationByGuestId($guestId)
+    public function findNotificationByUserId($userId, $role)
     {
-        return $this->createQueryBuilder('n')
-            ->andWhere('n.guest = :id')
-            ->setParameter('id', $guestId)
-            ->getQuery()
-            ->execute();
+        $qb = $this->createQueryBuilder('n');
+        if ($role == 'guest') {
+            $qb->andWhere('n.guest = :id');
+        } else {
+            $qb->andWhere('n.user = :id');
+        }
+        $qb->setParameter('id', $userId);
+
+        return $qb->getQuery()->execute();
     }
 }

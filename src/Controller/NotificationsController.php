@@ -36,14 +36,15 @@ class NotificationsController extends AbstractController
     }
 
     /**
-     * @Rest\Get("/api/notifications/{guestId}")
-     * @param $guestId
+     * @Rest\Get("/api/notifications/{userId}/{role}")
+     * @param $userId
+     * @param $role
      * @return JsonResponse
      */
-    public function show($guestId)
+    public function show($userId, $role)
     {
         $service = new NotificationService($this->entityManager);
-        $response = $service->userNotification($guestId);
+        $response = $service->userNotification($userId, $role);
         return new JsonResponse($response);
     }
 
@@ -79,6 +80,7 @@ class NotificationsController extends AbstractController
 
     /**
      * @Rest\Post("/api/notification-accept/{notificationId}")
+     * @param $notificationId
      * @return JsonResponse
      */
     public function accept($notificationId)
@@ -96,6 +98,7 @@ class NotificationsController extends AbstractController
 
     /**
      * @Rest\Delete("/api/notification-cancel/{notificationId}")
+     * @param $notificationId
      * @return JsonResponse
      */
     public function cancelSwitch($notificationId)
