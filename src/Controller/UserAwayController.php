@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\UserAway;
+use App\Services\ReservationService;
 use App\Services\UserAwayService;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
@@ -56,8 +57,8 @@ class UserAwayController extends FOSRestBundle
     {
         $content = $request->getContent();
         $dataArray = json_decode($content, true);
-
-        $awayService = new UserAwayService($this->entityManager);
+        $reservationService = new ReservationService($this->entityManager);
+        $awayService = new UserAwayService($this->entityManager, $reservationService);
         $response = $awayService->post($dataArray);
         return new JsonResponse($response);
     }
@@ -71,7 +72,8 @@ class UserAwayController extends FOSRestBundle
     {
         $content = $request->getContent();
         $dataArray = json_decode($content, true);
-        $awayService = new UserAwayService($this->entityManager);
+        $reservationService = new ReservationService($this->entityManager);
+        $awayService = new UserAwayService($this->entityManager, $reservationService);
         $response = $awayService->put($dataArray);
         return new JsonResponse($response);
     }
@@ -85,7 +87,8 @@ class UserAwayController extends FOSRestBundle
     {
         $content = $request->getContent();
         $dataArray = json_decode($content, true);
-        $awayService = new UserAwayService($this->entityManager);
+        $reservationService = new ReservationService($this->entityManager);
+        $awayService = new UserAwayService($this->entityManager, $reservationService);
         $response = $awayService->delete($dataArray);
         return new JsonResponse($response);
     }
