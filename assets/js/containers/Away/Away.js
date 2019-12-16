@@ -241,11 +241,11 @@ class Home extends Component {
 
 const mapStateToProps = state => {
     return {
-        history: state.user.aways,
-        status: state.postAwayStatus,
-        user: state.user.aways,
-        loading: state.postAwayLoading,
-        historyLoading: state.awayHistoryLoading
+        history: state.singleUser.user.aways,
+        status: state.main.postAwayStatus,
+        user: state.singleUser.user.aways,
+        loading: state.main.postAwayLoading,
+        historyLoading: state.main.awayHistoryLoading
     }
 }
 

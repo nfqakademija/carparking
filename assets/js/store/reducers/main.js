@@ -26,10 +26,6 @@ const initialState = {
         width: 'calc(100%+30px)',
         left: '0px'
     },
-    notificationPopup: {
-        width: 'calc(100%+30px)',
-        left: '0px'
-    },
     loadingOneDay: false,
     mobileMenu: false,
     popupShake: false,
@@ -316,35 +312,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 postAwayLoading: true
-            }
-        case actionTypes.FETCH_SINGLE_USER_START:
-            return {
-                ...state,
-                loading: {
-                    ...state.loading,
-                    loadingSingleUser: true
-                }
-            }
-        case actionTypes.FETCH_SINGLE_USER_SUCCESS:
-            return {
-                ...state,
-                user: action.user,
-                loading: {
-                    ...state.loading,
-                    loadingSingleUser: false
-                }
-            }
-        case actionTypes.FETCH_SINGLE_USER_FAIL:
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    err: action.err
-                },
-                loading: {
-                    ...state.loading,
-                    loadingSingleUser: false
-                }
             }
         case actionTypes.GET_RESERVATIONS_START:
             return {

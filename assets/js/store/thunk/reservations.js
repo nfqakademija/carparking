@@ -26,17 +26,7 @@ export const getReservations = () => dispatch => {
 
 
 
-export const getSingleUser = () => dispatch => {
-    dispatch(actions.fetchSingleUserStart()) //*
-    axios.get(`/api/single-user/10`) //*
-        .then( res => {
-            dispatch(actions.fetchSingleUserSuccess(res.data))
-        })
-        .catch( err => { //*
-            dispatch(actions.popupAcceptFail(err))
-            dispatch(successTimer())
-        })
-}
+
 
 // home data done
 export const getUsersData = () => dispatch => {

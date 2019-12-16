@@ -245,26 +245,6 @@ export const changeAwayLoadingStatus = (status) => {
     }
 }
 
-export const fetchSingleUserStart = () => {
-    return {
-        type: actionTypes.FETCH_SINGLE_USER_START
-    }
-}
-
-export const fetchSingleUserSuccess = user => {
-    return {
-        type: actionTypes.FETCH_SINGLE_USER_SUCCESS,
-        user
-    }
-}
-
-export const fetchSingleUserFail = err => {
-    return {
-        type: actionTypes.FETCH_SINGLE_USER_SUCCESS,
-        err
-    }
-}
-
 export const getReservationsStart = () => {
     return {
         type: actionTypes.GET_RESERVATIONS_START

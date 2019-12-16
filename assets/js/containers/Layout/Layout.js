@@ -23,7 +23,7 @@ class Layout extends Component {
 
                 <div className="container-fluid mainheight">
                     <div className="row h-100">
-                        <Menu user={this.props.user} popupOpened={this.props.popup.show || this.props.notificationPopup.show ?this.props.onPopupOpened :false}/>
+                        <Menu user={this.props.user} popupOpened={this.props.popup.show  ?this.props.onPopupOpened :false}/>
                         <div className="col-12 col-md-8 col-lg-9 h-100">
                             <div className="h-100">    
                                 {this.props.children}
@@ -38,8 +38,7 @@ class Layout extends Component {
 
 const mapStateToProps = state => {
     return {
-        popup: state.popup, 
-        notificationPopup: state.notificationPopup
+        popup: state.main.popup
     }
 }
 

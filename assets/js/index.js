@@ -13,13 +13,15 @@ import '../css/modal/plateModal.scss';
 
 import mainReducer from './store/reducers/main';
 import notificationsReducer from './store/reducers/notifications';
+import singleUserReducer from './store/reducers/singleUser';
 
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
 const rootReducer = combineReducers({
     notifications: notificationsReducer,
-    main: mainReducer
+    main: mainReducer,
+    singleUser: singleUserReducer
 })
 
 const store = createStore(rootReducer, composeEnhancers(

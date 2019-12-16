@@ -69,16 +69,16 @@ class Users extends Component {
 
 const mapStateToProps = state => {
     return {
-        usersList: state.users,
-        loading: state.loading.loadingUsers,
-        loadingSingleUser: state.loading.loadingSingleUser,
-        reservationStatus: state.weekStatus,
-        mainUser: state.user,
-        popup: state.popup,
-        user: state.user,
-        popupShake: state.popupShake,
-        popupShow: state.popup.show,
-        notificationPopupShow: state.notificationPopup.show
+        usersList: state.main.users,
+        loading: state.main.loading.loadingUsers,
+        loadingSingleUser: state.main.loading.loadingSingleUser,
+        reservationStatus: state.main.weekStatus,
+        mainUser: state.singleUser.user,
+        popup: state.main.popup,
+        user: state.singleUser.user,
+        popupShake: state.main.popupShake,
+        popupShow: state.main.popup.show,
+        notificationPopupShow: state.main.notificationPopup.show
     }
 }
 

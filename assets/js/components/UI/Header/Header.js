@@ -38,7 +38,7 @@ const header = (props) => (
                                             </Link>
 
                                         </div>
-                                        {props.popupShow || props.notificationPopupShow
+                                        {props.popupShow
                                             ? <a title='You must first accept or reject notification message'>
                                                 <div onClick={props.onPopupOpened} style={{ cursor: "pointer" }}>
                                                         <i className="fa fa-bars h3 text-white d-md-none mr-2"> </i>
@@ -64,11 +64,10 @@ const header = (props) => (
 
 const mapStateToProps = state => {
     return {
-        userName: state.user.name,
-        userLastname: state.user.surname,
-        mobileMenu: state.mobileMenu,
-        popupShow: state.popup.show,
-        notificationPopupShow: state.notificationPopup.show
+        userName: state.singleUser.user.name,
+        userLastname: state.singleUser.user.surname,
+        mobileMenu: state.main.mobileMenu,
+        popupShow: state.main.popup.show
     }
 };
 

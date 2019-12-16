@@ -46,8 +46,7 @@ export const fetchSignleUserAndNotifications = () => dispatch => {
             dispatch(fetchNotifications(res.data.userId))
         })
         .catch( err => { 
-                // dispatch(actions.popupAcceptFail(err))
-                // dispatch(successTimer())
+            dispatch(actions.fetchSingleUserFail(err))
         })
 }
 

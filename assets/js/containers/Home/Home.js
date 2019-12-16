@@ -122,26 +122,16 @@ class Home extends Component {
         
     }
 
-    notificationPopupChainHandler () {
-        setTimeout(
-            () =>   {this.props.user.notifications[0] 
-                        ? this.props.onSetNotification()
-                        : null
-                    }
-        ,1000)
-    }
-
     reservationContainerStyleHandler () {
-        return {transform: this.props.popup.show || this.props.notificationPopup.show ?'translateY(200px)': 'translateY(0)'}
+        return {transform:([] || this.props.popup.show) ?'translateY(200px)': 'translateY(0)'}
     }
     
     render (){
         return (
         <>
-            {this.props.loading.loadingSingleUser || this.props.loading.loadingReservations
+            {this.props.loadingSingleUser || this.props.loading.loadingReservations
             ? null
             : <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
-                {this.notificationPopupHandler(this.props.notificationPopup)}
                 {this.popupHandler(this.props.popup)}
                 <div className='Home_reservationContainer' style={this.reservationContainerStyleHandler()} >
                     {this.props.weekStatus.map( (day,index) => ( 
@@ -163,7 +153,7 @@ class Home extends Component {
                                 userParkingSpot={this.parkingSpotHandler(day.date)}
                                 history={this.props.history}
                                 loading={this.props.loadingOneDay}
-                                popupShake={this.props.popup.show || this.props.notificationPopup.show ?this.props.onPopupOpened :false}/>
+                                popupShake={this.props.popup.show ?this.props.onPopupOpened :false}/>
                             : null))}
                 </div>
              </div>
@@ -177,8 +167,9 @@ const mapStateToProps = state => {
     return {
         weekStatus: state.main.weekStatus,
         loading: state.main.loading,
+        loadingSingleUser: state.singleUser.loading,
         popup: state.main.popup,
-        user: state.main.user,
+        user: state.singleUser.user,
         loadingOneDay: state.main.loadingOneDay,
         popupShake: state.main.popupShake
     }

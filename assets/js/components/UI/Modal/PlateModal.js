@@ -116,8 +116,8 @@ class PlateModal extends Component {
 
 const mapStateToProps = state => {
     return {
-        plate: state.plate,
-        plateStatus: state.plateModalStatus,
+        plate: state.main.plate,
+        plateStatus: state.main.plateModalStatus,
     }
 }
 

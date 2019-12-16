@@ -86,7 +86,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 const mapStateToProps = state => ({
-    userRole: state.user.role
+    userRole: state.singleUser.user.role
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(mobileMenu);

@@ -29,9 +29,6 @@ export {
     postAwayStatus,
     postAwayStatusLoading,
     setPlateNumber,
-    fetchSingleUserStart,
-    fetchSingleUserSuccess,
-    fetchSingleUserFail,
     getReservationsStart,
     getReservationsSuccess,
     getReservationsFail,
@@ -44,3 +41,9 @@ export {
     fetchNotificationsSuccess,
     fetchNotificationsFail
 } from './notifications'
+
+export {
+    fetchSingleUserStart,
+    fetchSingleUserSuccess,
+    fetchSingleUserFail
+} from './singleUser'
