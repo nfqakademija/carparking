@@ -55,7 +55,7 @@ class GoogleAuthenticator extends SocialAuthenticator
             ->findOneBy(['email' => $email]);
 
         if (!$user) {
-            $roleName = 'guest';
+            $roleName = 'user';
             $role = $user = $this->em->getRepository(Roles::class)
                 ->findOneBy(['role' => $roleName]);
             $user = new Users();
@@ -145,7 +145,7 @@ class GoogleAuthenticator extends SocialAuthenticator
         $key = $valueArray['token_type'];
         $value = $valueArray['id_token'];
         $response = new RedirectResponse('/app');
-//        $response->headers->setCookie(Cookie::create($key . '-token', $value));
+        $response->headers->setCookie(Cookie::create($key . '-token', $value));
         return $response;
     }
 }
