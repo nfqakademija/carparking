@@ -4,7 +4,16 @@ import {openModal} from "../../../store/actions/main";
 import {connect} from "react-redux";
 
 
-const webMeniu = (props) => (
+
+const webMeniu = (props) => {
+    const notificationHandler = () => {
+        if(props.notifications.find( notification => !Number(notification.accepted) && !notification.rejected)){
+            return <i className="fas fa-dot-circle" style={{fontSize:'0.25em', color:'#E87C86'}}></i>
+        } else {
+            return <i className="fas fa-bell" style={{fontSize:'0.25em', color:'#E87C86', opacity:'0'}}></i>
+        }
+    }
+return (
     <div className="d-none bg-white d-md-block col-0 col-md-4 col-lg-3 p-0 shadow h-100">
         <div className="d-none d-md-block col-0 col-md-4 col-lg-3 position-fixed p-0 mt-2">
             <div className="text-left webMeniu">
@@ -23,10 +32,10 @@ const webMeniu = (props) => (
                         <i className="fas fa-bell"></i>
                         {props.userRole === 'user'
                             ? props.notifications
-                                    ? props.notifications.find( notification => !Number(notification.accepted) && !notification.rejected)
+                                    ? !!props.notifications.find( notification => !Number(notification.accepted) && !notification.rejected)
                                         ? <i className="fas fa-dot-circle" style={{fontSize:'0.25em', color:'#E87C86'}}></i>
-                                        : null
-                                    : null
+                                        : <i className="fas fa-bell" style={{fontSize:'0.25em', color:'#E87C86', opacity:'0'}}></i>
+                                    : <i className="fas fa-bell" style={{fontSize:'0.25em', color:'#E87C86', opacity:'0'}}></i>
                             : null}
                     </span>
                     <div style={{marginLeft: "5rem"}}>
@@ -66,7 +75,7 @@ const webMeniu = (props) => (
             </div>
         </div>
     </div>
-);
+)};
 
 const mapDispatchToProps= dispatch => ({
     openModal: () => dispatch(openModal()),
