@@ -26,10 +26,10 @@ export const getReservations = () => dispatch => {
         })
 }
 
-const getNotifications = () => dispatch =>{
-    axios.get('api/notifications')
-        .then(res => console.log(res))
-}
+// const getNotifications = () => dispatch =>{
+//     axios.get('api/notifications')
+//         .then(res => console.log(res))
+// }
 
 
 export const getHomeData = () => dispatch => {
@@ -306,5 +306,26 @@ export const notificationPopupAccept = (date) => (dispatch, getState) => { //*
         }
         , 500
     )
+}
+
+export const getNotifications = (userId) => dispatch => {
+    dispatch(actions.getNotificationsStart())
+    dispatch(actions.getSingleUserStart()) //*
+        axios.get(`/api/single-user/31`) //*
+            .then( res => {
+                dispatch(actions.getSingleUserSuccess(res.data))
+                axios.get(`/api/notifications/${res.data.userId}`)
+                    .then( res => {
+                        console.log(res.data)
+                        dispatch(actions.getNotificationsSuccess(res.data))
+                    })
+                    .catch(err => {
+                        dispatch(actions.getNotificationsFail(err))
+                    })
+            })
+            .catch( err => { //*
+                dispatch(actions.popupAcceptFail(err))
+                dispatch(successTimer())
+            })
 }
 

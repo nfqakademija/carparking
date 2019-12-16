@@ -9,7 +9,8 @@ const guestNotification = (props) => {
     let text
     let borderColor = {}
 
-    if(props.notification.accepted) {
+    console.log(props.notification)
+    if(Number(props.notification.accepted)) {
         if(props.notification.acceptedAndCanceled) {
             text = 'Take spot from you for '
             borderColor = {borderColor:'#E87C86'}

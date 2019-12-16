@@ -35,7 +35,9 @@ export {
     getReservationsStart,
     getReservationsSuccess,
     getReservationsFail,
-    getNotifications,
+    getNotificationsStart,
+    getNotificationsSuccess,
+    getNotificationsFail,
     openModal
 
 } from './main'

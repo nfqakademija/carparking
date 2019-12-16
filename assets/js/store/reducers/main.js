@@ -374,47 +374,34 @@ const reducer = (state = initialState, action) => {
                     loadingReservations: false
                 }
             }
-        case actionTypes.GET_NOTIFICATIONS:
+        case actionTypes.GET_NOTIFICATIONS_START:
             return {
                 ...state,
-                notifications: [
-                        {
-                            date:'2019-12-16',
-                            userId:'3',
-                            guestId:'31',
-                            accepted:0,
-                            acceptedAndCanceled:0,
-                            rejected:0,
-                            id:'1'
-                        },
-                        {
-                            date:'2019-12-19',
-                            userId:'3',
-                            guestId:'31',
-                            accepted:1,
-                            acceptedAndCanceled:0,
-                            rejected:0,
-                            id:'2'
-                        },
-                        {
-                            date:'2019-12-22',
-                            userId:'3',
-                            guestId:'31',
-                            accepted:1,
-                            acceptedAndCanceled:1,
-                            rejected:0,
-                            id:'3'
-                        },
-                        {
-                            date:'2019-12-21',
-                            userId:'3',
-                            guestId:'31',
-                            accepted:0,
-                            acceptedAndCanceled:0,
-                            rejected:1,
-                            id:'4'
-                        }
-                    ]
+                loading: {
+                    ...state.loading,
+                    loadingNotifications: true
+                }
+            }
+        case actionTypes.GET_NOTIFICATIONS_SUCCESS:
+            return {
+                ...state,
+                notifications: action.notifications,
+                 loading: {
+                    ...state.loading,
+                    loadingNotifications: false
+                }   
+            }
+        case actionTypes.GET_NOTIFICATIONS_FAIL:
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    loadingNotifications: true
+                },
+                notification: {
+                    ...state.notification,
+                    err: action.err
+                }
             }
         default: return state
     }

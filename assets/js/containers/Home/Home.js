@@ -160,11 +160,11 @@ class Home extends Component {
                         new Date(day.date).getDay() // skip sunday
                             ? <Reservation 
                                 key={day.date}
-                                ref={!index && !new Date(day.date).getDay() || index === 1 && new Date(day.date).getDay() // give index to first elenemt, but also checks if first element sunday or not.
+                                ref={!index && new Date(day.date).getDay() || index === 1 && !new Date(day.date).getDay() // give index to first elenemt, but also checks if first element sunday or not.
                                         ? this.reservationRefFirst
-                                        : index === 6
+                                        : index === 6 && new Date(day.date).getDay() || index === 5 && new Date(day.date).getDay() === 6
                                             ? this.reservationRefLast
-                                            : null} // need fn for this
+                                            : console.log(day, index, !new Date(day.date).getDay())} // need fn for this
                                 date={day.date}
                                 lotSize={day.usedSpots+day.availableSpots} // *
                                 usedSpots={day.usedSpots >20 ?20 :day.usedSpots} // used spots could be bigger than lot size
