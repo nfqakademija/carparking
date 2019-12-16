@@ -10,7 +10,7 @@ class Logout extends Component {
     }
 
     render () {
-        return <Redirect from="/app/logout" to="/"/>
+        return <Redirect from="/app/logout" to="https://accounts.google.com/logout"/>
     }
 }
    
