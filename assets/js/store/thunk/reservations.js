@@ -4,7 +4,7 @@ import { getCoordinates } from '../thunk/popup';
 
 export const getSingleUser = () => dispatch => {
     dispatch(actions.getSingleUserStart()) //*
-    axios.get(`/api/single-user/6`) //*
+    axios.get(`/api/single-user/31`) //*
         .then( res => {
             dispatch(actions.getSingleUserSuccess(res.data))
         })
@@ -206,14 +206,16 @@ const popupAcceptCaseDangerGuest = date => (dispatch, getState) => {
             dispatch(fetchOneDayData(date))
         }) 
 }
-const popupAcceptCaseNeutralGuest = date => (dispatch, getState) => {
+const popupAcceptCaseNeutralGuest = (date, user) => (dispatch, getState) => {
      const myId = getState().user.userId
-     const otherUserId = 6 //*
+     const otherUserId = user.userId //*
+     console.log(user)
      const postData = {
         "guestId": myId,
         "userId": otherUserId,
         "requestDate" : date
     }
+    console.log(postData)
     axios.post('/api/notifications',postData)
         .then(res => {
             if(res.data.error) {
@@ -232,7 +234,8 @@ const popupAcceptCaseNeutralGuest = date => (dispatch, getState) => {
  }
 
 
-export const popupAcceptClicked = (date, actionType) => (dispatch, getState) => {
+export const popupAcceptClicked = (date, actionType, user) => (dispatch, getState) => {
+    console.log(date, actionType, user)
     if(getState().user.licensePlate){ // if user already have licence plate
         dispatch(actions.popupAcceptStart());
         if(getState().user.role === "user"){
@@ -248,7 +251,7 @@ export const popupAcceptClicked = (date, actionType) => (dispatch, getState) => 
                     break
                 case 'success': dispatch(popupAcceptCaseSuccessGuest(date))
                     break 
-                case 'neutral': dispatch(popupAcceptCaseNeutralGuest(date))
+                case 'neutral': dispatch(popupAcceptCaseNeutralGuest(date, user))
                     break
             }
         }
@@ -274,7 +277,7 @@ const fetchOneDayData = (date) => dispatch => {
 
     dispatch(actions.fetchOneDayDataStart(date))
 
-    axios.get(`/api/single-user/6`) //* find way to do this fetches at the same time
+    axios.get(`/api/single-user/31`) //* find way to do this fetches at the same time
         .then(res => {
             dispatch(actions.getSingleUserSuccess(res.data))
             axios.get(`/api/reservations`)
@@ -290,7 +293,7 @@ export const notificationPopupAccept = (date) => (dispatch, getState) => { //*
     // fake
     dispatch(actions.notificationPopupAcceptStart());
     const newDate = new Date(date);
-    console.log(newDate)
+    
     setTimeout(
         () => {
             dispatch(actions.notificationPopupAcceptSuccess())
@@ -311,7 +314,7 @@ export const notificationPopupAccept = (date) => (dispatch, getState) => { //*
 export const getNotifications = () => (dispatch, getState) => {
     dispatch(actions.getNotificationsStart())
     dispatch(actions.getSingleUserStart()) //*
-        axios.get(`/api/single-user/6`) //*
+        axios.get(`/api/single-user/31`) //*
             .then( res => {
                 dispatch(actions.getSingleUserSuccess(res.data))
                 axios.get(`/api/notifications/${res.data.userId}/${getState().user.role}`)

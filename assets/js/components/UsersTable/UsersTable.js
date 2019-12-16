@@ -28,8 +28,6 @@ const usersTable = React.forwardRef((props, ref) => ( // after data structure re
                             const reservation = props.mainUser.role === "user"
                                                     ? props.mainUser.reservations.find(reservation => reservation.date === dayObj.date)
                                                     : props.mainUser.reservations.find(reservation => new Date(reservation.reservationDate.date).getDate() === new Date(dayObj.date).getDate())
-                            
-                            console.log(reservation)
                             return(
                                 date.getDay() === 0 // check if sunday
                                 

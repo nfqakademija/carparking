@@ -29,7 +29,7 @@ class Users extends Component {
                     translate={popup.show} 
                     type={popup} 
                     popupCancel={this.props.onPopupCancel} 
-                    popupAccept={()=>this.props.onPopupAccept(popup.date, 'neutral')}
+                    popupAccept={()=>this.props.onPopupAccept(popup.date, 'neutral', popup.switchUser)}
                     loading={popup.loading}
                     uniqueStyle={popup.style}
                     successTimer={this.props.onSuccessTimer}
@@ -87,7 +87,7 @@ const mapDispatchToProps= dispatch => ({
     onGetSingleUser: () => dispatch(getSingleUser()),
     onGetReservations: () => dispatch(getReservations()),
     onButtonClick: (date, buttonType, ref, switchUser) => {dispatch(getCoordinates(ref ,ref)),dispatch(buttonClicked(date, buttonType, switchUser))},
-    onPopupAccept: (date, actionType) => dispatch(popupAcceptClicked(date, actionType)),
+    onPopupAccept: (date, actionType, switchUser) => dispatch(popupAcceptClicked(date, actionType, switchUser)),
     onPopupCancel: () => dispatch(popupCancel()),
     onPopupOpened: () => dispatch(popupOpened())
 })

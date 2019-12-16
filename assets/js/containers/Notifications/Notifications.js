@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import { getUsersData, popupAcceptClicked, getSingleUser, getReservations, getNotifications  } from '../../store/thunk/reservations';
-import { getCoordinates, popupOpened } from '../../store/thunk/popup';
-import { buttonClicked, popupCancel } from '../../store/actions/index';
+import { getUsersData, getReservations, getNotifications  } from '../../store/thunk/reservations';
 
 import UserNotifications from '../../components/NotificationsComponents/UserNotifications';
 import GuestNotifications from '../../components/NotificationsComponents/GuestNotifications';
-import UsersTable from '../../components/UsersTable/UsersTable';
-import PopUp from '../../components/UI/PopUp/PopUp';
-
 
 import './Notifications.scss';
 class Notifications extends Component {
@@ -79,12 +74,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps= dispatch => ({
     onGetUsersData: () => dispatch(getUsersData()),
-    onGetSingleUser: () => dispatch(getSingleUser()),
     onGetReservations: () => dispatch(getReservations()),
-    onButtonClick: (date, buttonType, ref, switchUser) => {dispatch(getCoordinates(ref ,ref)),dispatch(buttonClicked(date, buttonType, switchUser))},
-    onPopupAccept: (date, actionType) => dispatch(popupAcceptClicked(date, actionType)),
-    onPopupCancel: () => dispatch(popupCancel()),
-    onPopupOpened: () => dispatch(popupOpened()),
     onGetNotifications: (id) => dispatch(getNotifications(id))
 })
 
