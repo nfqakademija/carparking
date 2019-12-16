@@ -34,9 +34,9 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        this.props.onGetSingleUser();
+        // this.props.onGetSingleUser();
         this.props.postAwayDefaultStatus();
-        this.props.getDatesAway();
+        // this.props.getDatesAway();
     }
 
     setStartDate(date) {

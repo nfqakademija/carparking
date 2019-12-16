@@ -17,9 +17,9 @@ class Users extends Component {
     }
 
     componentDidMount() {
-        this.props.onGetUsersData()
-        this.props.onGetReservations()
-        this.props.onGetNotifications()
+        // this.props.onGetUsersData()
+        // this.props.onGetReservations()
+        // this.props.onGetNotifications()
     }
 
     popupHandler (popup) {

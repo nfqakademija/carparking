@@ -22,8 +22,8 @@ class Home extends Component {
     }
 
     componentDidMount(){
-        this.props.onGetHomeData();
-        this.props.onGetNotifications()
+        // this.props.onGetHomeData();
+        // this.props.onGetNotifications()
         // if (this.props.user.notifications[1]) {
         //     setTimeout(
         //         () => {this.props.onGetCoordinates(this.reservationRefFirst, this.reservationRefLast); this.props.onSetNotification()}, 1000

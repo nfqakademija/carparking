@@ -16,14 +16,14 @@ const userNotification = (props) => {
 
     if(Number(props.notification.accepted)) {
         buttons = <div className='Notifications_notificationContainerButtons'>
-                    <Button classname="Button_danger" text='Cancel' buttonStyle={{ marginRight:'0.5em'}} onclick={() => props.onNotificationButtonCancel(props.notification.id)}></Button>
+                    <Button classname="Button_danger" text='Cancel' onclick={() => props.onNotificationButtonCancel(props.notification.id)}></Button>
                   </div>
         text = 'Grab your spot for '
         borderColor = {borderColor:'#95D195'}
     } else {
         buttons = <div className='Notifications_notificationContainerButtons'>
-                    <Button classname="Button_success" text='Accept' buttonStyle={{ marginRight:'0.5em'}} onclick={() => props.onNotificationButtonAccept(props.notification.id)}></Button>
-                    <Button classname="Button_danger" text='Cancel' buttonStyle={{ marginRight:'0.5em'}} onclick={() => props.onNotificationButtonReject(props.notification.id)}></Button>
+                    <Button classname="Button_success" text='Accept'  onclick={() => props.onNotificationButtonAccept(props.notification.id)}></Button>
+                    <Button classname="Button_danger" text='Cancel'  onclick={() => props.onNotificationButtonReject(props.notification.id)}></Button>
                   </div>
         text = 'Asks for spot for '
     }
