@@ -120,7 +120,7 @@ class Home extends Component {
                         : this.props.status === "fail" ?
                         <div><b>Sorry, operation failed please contact the call center.</b></div> :
                         this.props.status === "duplicate" ?
-                            <div><b>Kartojasi</b></div> : null
+                            <div><b>Sorry, this dates duplicate and exist in history. Please select unique dates.</b></div> : null
                 :
                 //if exist post null (success or error)
                 <div>
