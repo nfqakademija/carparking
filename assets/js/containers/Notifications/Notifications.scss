@@ -46,8 +46,20 @@
     justify-content:space-between;
 }
 
+
 .Notifications_notificationContainer > div > button {
     font-size: 1em
+}
+
+.Notifications_notificationContainerButtons {
+    display: flex;
+    margin-right: 2em;
+}
+
+.Notifications_notificationContainerText {
+    margin: 1em auto;
+    margin-left: 2em;
+    text-align: start;
 }
 
 @media(max-width:1400px){
@@ -56,8 +68,23 @@
     }
 }
 
-@media(max-width:900px){
+@media(max-width:990px){
     .Notifications_notificationContainer > div > button {
-        font-size: 0.75em
+        font-size: 0.75em;
+        margin: auto auto;
+    }
+    .Notifications_notificationContainerButtons {
+        margin-right: 0;
+    }
+}
+
+@media(max-width:600px){
+    .Notifications_notificationContainer {
+        flex-direction: column;
+    }
+    .Notifications_notificationContainer > div {
+        margin: 1em 1em;
+        justify-content:space-around;
+        text-align: center;
     }
 }

@@ -26,7 +26,7 @@ const guestNotification = (props) => {
         !props.notification.rejected
             ? <div className='Notifications_body'>
                 <div className='Notifications_notificationContainer shadow' style={borderColor}>
-                    <div style={{margin:'1em auto',marginLeft:'2em', textAlign:'start'}}>
+                    <div className='Notifications_notificationContainerText'>
                         <div style={{fontWeight:'900'}}>{user.name.toUpperCase()} {user.surname.toUpperCase()}</div>
                         <div>{text}<strong>{props.notification.date}</strong></div>
                     </div> 
