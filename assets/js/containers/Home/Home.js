@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { connect } from "react-redux";
 
-import { getHomeData, popupAcceptClicked, successTimer, buttonClickedMid, notificationPopupAccept, getSingleUser} from '../../store/thunk/reservations';
+import { getHomeData, popupAcceptClicked, successTimer, buttonClickedMid, notificationPopupAccept, getNotifications} from '../../store/thunk/reservations';
 import { getCoordinates, popupOpened } from '../../store/thunk/popup';
 import { popupCancel, setNotification, notificationPopupCancel } from '../../store/actions/index';
 
@@ -23,6 +23,7 @@ class Home extends Component {
 
     componentDidMount(){
         this.props.onGetHomeData();
+        this.props.onGetNotifications()
         // if (this.props.user.notifications[1]) {
         //     setTimeout(
         //         () => {this.props.onGetCoordinates(this.reservationRefFirst, this.reservationRefLast); this.props.onSetNotification()}, 1000
@@ -207,7 +208,8 @@ const mapDispatchToProps= dispatch => ({
     onNotificationPopupCancel: () => dispatch(notificationPopupCancel()),
     onNotificationPopupAccept: (date) => dispatch(notificationPopupAccept(date)),
     onGetCoordinates: (first, last) => dispatch(getCoordinates(first, last)),
-    onPopupOpened: () => dispatch(popupOpened())
+    onPopupOpened: () => dispatch(popupOpened()),
+    onGetNotifications: () => dispatch(getNotifications())
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(Home);

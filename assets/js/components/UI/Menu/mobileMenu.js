@@ -46,7 +46,7 @@ const mobileMenu = (props) => (
             </div>
 
             <div className="position-relative py-2 linkParent">
-                <span className="ml-4 position-absolute"><i className="fa fa-users"> </i></span>
+                <span className="ml-4 position-absolute"><i class="fas fa-bell"></i></span>
                 <div style={{ marginLeft: "60px"}}>
                     <NavLink to="/app/notifications" className="link" onClick={props.closeMobileMenu}>Notifications</NavLink>
                 </div>

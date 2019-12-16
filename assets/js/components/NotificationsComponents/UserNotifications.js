@@ -13,7 +13,6 @@ const userNotification = (props) => {
     let buttons
     let text
     let borderColor = {}
-    console.log(props.notification)
 
     if(Number(props.notification.accepted)) {
         buttons = <div className='Notifications_notificationContainerButtons'>

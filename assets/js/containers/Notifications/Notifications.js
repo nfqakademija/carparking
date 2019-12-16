@@ -17,8 +17,7 @@ class Notifications extends Component {
     componentDidMount() {
         this.props.onGetUsersData()
         this.props.onGetReservations()
-        this.props.onGetNotifications(this.props.user.userId)
-        
+        this.props.onGetNotifications() 
     }
 
     render (){
@@ -33,7 +32,7 @@ class Notifications extends Component {
                                 <div className='Notifications_header bg-dark text-white rounded-top'>
                                     <div >Notifications</div>
                                 </div>
-                                {this.props.notifications && this.props.notifications.length > 0
+                                {this.props.notifications && this.props.notifications.find( notification => !Number(notification.accepted) && !notification.rejected)
                                 ? this.props.notifications.map(notification => (
                                             this.props.user.role === 'user'
                                                 ? <UserNotifications key={notification.id} notification={notification} usersList={this.props.usersList}/>
@@ -43,10 +42,7 @@ class Notifications extends Component {
                                 <div style={{textAlign:'center', fontSize:'1.5em', margin:'2em'}}>
                                     You have not received any notifications
                                 </div>
-                            </div>       
-                                }
-                                
-                                
+                            </div>} 
                             </div>
                         </div>
                     } 
@@ -75,7 +71,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps= dispatch => ({
     onGetUsersData: () => dispatch(getUsersData()),
     onGetReservations: () => dispatch(getReservations()),
-    onGetNotifications: (id) => dispatch(getNotifications(id))
+    onGetNotifications: () => dispatch(getNotifications())
 })
 
 
