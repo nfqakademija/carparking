@@ -93,7 +93,7 @@ class NotificationService
         if (isset($data['accepted'])) {
             $notification->setAccepted(1);
             $notification->setDelivered(1);
-        } elseif ($data['acceptedAndCanceled']) {
+        } elseif (isset($data['acceptedAndCanceled'])) {
             $notification->setCanceledAfterAccept(1);
         } else {
             $notification->setDelivered(1);
