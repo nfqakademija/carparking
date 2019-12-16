@@ -10,7 +10,7 @@ const initialState = {
         loadingUsers: true
     },
     user: {
-        id: 4,
+        userId: 4,
         name: null,
         lastname: null,
         activeCar: null,
