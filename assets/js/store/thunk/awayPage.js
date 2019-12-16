@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {setAwaysDates, postAwayStatus, postAwayStatusLoading} from '../actions/index';
 import {changeAwayLoadingStatus} from "../actions/main";
-import { getReservations, getSingleUser } from './reservations';
+import { getReservations } from './reservations';
+import { fetchSingleUser } from './singleUser';
 
 export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
     let status;
@@ -29,7 +30,7 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
             } else if (response.data.success === 'success') {
                 dispatch(getDatesAway());
                 dispatch(getReservations());
-                dispatch(getSingleUser());
+                dispatch(fetchSingleUser());
                 status = "success";
             }else{
                 status = "fail";

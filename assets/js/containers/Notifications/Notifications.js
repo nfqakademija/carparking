@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import { getUsersData } from '../../store/thunk/reservations';
 import { fetchNotifications } from '../../store/thunk/notifications';
 
 import UserNotifications from '../../components/NotificationsComponents/UserNotifications';
@@ -49,7 +48,7 @@ class Notifications extends Component {
 
 const mapStateToProps = state => {
     return {
-        usersList: state.main.users,
+        usersList: state.usersList.users,
         loading: state.main.loading.loadingUsers,
         reservationStatus: state.main.weekStatus,
         mainUser: state.singleUser.user,
@@ -62,11 +61,8 @@ const mapStateToProps = state => {
     }
 }
 
-
 const mapDispatchToProps= dispatch => ({
-    onGetUsersData: () => dispatch(getUsersData()),
     onFetchNotifications: (userId, userRole) => dispatch(fetchNotifications(userId, userRole))
 })
-
 
 export default connect(mapStateToProps,mapDispatchToProps)(Notifications);

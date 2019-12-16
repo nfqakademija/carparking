@@ -35,25 +35,7 @@ export const getHomeDataFail = (data, user) => {
     }
 }
 
-export const fetchUsersStart = () => {
-    return {
-        type: actionTypes.GET_USERS_START
-    }
-}
 
-export const fetchUsersSuccess = users => {
-    return {
-        type: actionTypes.GET_USERS_SUCCESS,
-        users
-    }
-}
-
-export const fetchUsersFail = err => {
-    return {
-        type: actionTypes.GET_USERS_FAIL,
-        err
-    }
-}
 
 
 export const saveCoordinates = (left, width) => {

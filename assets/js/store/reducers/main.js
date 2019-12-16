@@ -52,32 +52,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 token: null
             }
-        case actionTypes.GET_USERS_START:
-            return {
-                ...state,
-                loading: {
-                    ...state.loading,
-                    loadingUsers: true
-                }
-            }
-        case actionTypes.GET_USERS_SUCCESS:
-            return {
-                ...state,
-                users: action.users,
-                loading: {
-                    ...state.loading,
-                    loadingUsers: false
-                }
-            }
-        case actionTypes.GET_USERS_FAIL:
-            return {
-                ...state,
-                loading: {
-                    ...state.loading,
-                    loadingUsers: false
-                }
 
-            }
         case actionTypes.SAVE_COORDINATES:
             return {
                 ...state,

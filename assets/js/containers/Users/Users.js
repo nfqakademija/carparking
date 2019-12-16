@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import { getUsersData, popupAcceptClicked } from '../../store/thunk/reservations';
-
+import { popupAcceptClicked } from '../../store/thunk/reservations';
+import { fetchUsersData } from '../../store/thunk/usersList';
 import { getCoordinates, popupOpened } from '../../store/thunk/popup';
 import { buttonClicked, popupCancel } from '../../store/actions/index';
 
@@ -18,7 +18,7 @@ class Users extends Component {
     }
 
     componentDidMount() {
-        // this.props.onGetUsersData()
+        // this.props.onFetchUsersData()
     }
 
     popupHandler (popup) {
@@ -69,7 +69,7 @@ class Users extends Component {
 
 const mapStateToProps = state => {
     return {
-        usersList: state.main.users,
+        usersList: state.usersList.users,
         loading: state.main.loading.loadingUsers,
         loadingSingleUser: state.main.loading.loadingSingleUser,
         reservationStatus: state.main.weekStatus,
@@ -84,7 +84,7 @@ const mapStateToProps = state => {
 
 
 const mapDispatchToProps= dispatch => ({
-    onGetUsersData: () => dispatch(getUsersData()),
+    onFetchUsersData: () => dispatch(fetchUsersData()),
     onButtonClick: (date, buttonType, ref, switchUser) => {dispatch(getCoordinates(ref ,ref)),dispatch(buttonClicked(date, buttonType, switchUser))},
     onPopupAccept: (date, actionType, switchUser) => dispatch(popupAcceptClicked(date, actionType, switchUser)),
     onPopupCancel: () => dispatch(popupCancel()),

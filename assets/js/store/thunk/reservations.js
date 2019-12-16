@@ -29,13 +29,7 @@ export const getReservations = () => dispatch => {
 
 
 // home data done
-export const getUsersData = () => dispatch => {
-    dispatch(actions.fetchUsersStart());
-    axios.get('/api/users')
-        .then(res =>{ 
-            dispatch(actions.fetchUsersSuccess(res.data));
-        })
-}
+
 // users data done
 
 const putUserAway = (putData, date) => dispatch => {

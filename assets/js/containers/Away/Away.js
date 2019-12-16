@@ -8,7 +8,7 @@ import '../../../css/components/UI/PopUp/popAway.scss';
 import DatePicker, {registerLocale, setDefaultLocale} from "react-datepicker";
 import {enGB} from "date-fns/esm/locale";
 import {postAwayDefaultStatus} from "../../store/actions/main";
-import {getSingleUser} from "../../store/thunk/reservations";
+import { fetchSingleUser } from "../../store/thunk/singleUser";
 
 registerLocale("en-GB", enGB);
 setDefaultLocale("en-GB");
@@ -34,7 +34,6 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        // this.props.onGetSingleUser();
         this.props.postAwayDefaultStatus();
         // this.props.getDatesAway();
     }
@@ -252,8 +251,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
     getDatesAway: () => dispatch(getDatesAway()),
     postDatesAway: (startDate, endDate) => dispatch(postDatesAway(startDate, endDate)),
-    postAwayDefaultStatus: () => dispatch(postAwayDefaultStatus()),
-    onGetSingleUser: () => dispatch(getSingleUser()),
+    postAwayDefaultStatus: () => dispatch(postAwayDefaultStatus())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

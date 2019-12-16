@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Route,  Redirect, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { getUsersData, getReservations } from './store/thunk/reservations';
+import { getReservations } from './store/thunk/reservations';
 import { fetchSignleUserAndNotifications } from './store/thunk/notifications';
+import { fetchUsersData } from './store/thunk/usersList';
 
 import Layout from './containers/Layout/Layout';
 import Login from './containers/Auth/Auth';
@@ -16,7 +17,7 @@ import Notifications from './containers/Notifications/Notifications';
 class App extends Component {
     
     componentDidMount() {
-        this.props.onGetUsersData()
+        this.props.onFetchUsersData()
         this.props.onGetReservations()
         this.props.onFetchNotifications() 
     }
@@ -56,7 +57,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps= dispatch => ({
-    onGetUsersData: () => dispatch(getUsersData()),
+    onFetchUsersData: () => dispatch(fetchUsersData()),
     onGetReservations: () => dispatch(getReservations()),
     onFetchNotifications: () => dispatch(fetchSignleUserAndNotifications())
 })

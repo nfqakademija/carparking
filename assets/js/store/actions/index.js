@@ -4,9 +4,6 @@ export {
     getHomeDataStart,
     getHomeDataSuccess,
     getHomeDataFail,
-    fetchUsersStart,
-    fetchUsersSuccess,
-    fetchUsersFail,
     saveCoordinates,
     noCoordinates,
     buttonClicked,
@@ -47,3 +44,9 @@ export {
     fetchSingleUserSuccess,
     fetchSingleUserFail
 } from './singleUser'
+
+export {
+    fetchUsersStart,
+    fetchUsersSuccess,
+    fetchUsersFail
+} from './usersList'
