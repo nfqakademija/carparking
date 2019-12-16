@@ -19,6 +19,24 @@ const webMeniu = (props) => (
                 </div>
                 <hr className="m-0" />
                 <div className="position-relative py-2 linkParent">
+                    <span className="ml-4 position-absolute">
+                        <i className="fas fa-bell"></i>
+                        {props.userRole === 'user'
+                            ? props.notifications
+                                    ? props.notifications.find( notification => !Number(notification.accepted) && !notification.rejected)
+                                        ? <i className="fas fa-dot-circle" style={{fontSize:'0.25em', color:'red'}}></i>
+                                        : null
+                                    : null
+                            : null}
+                    </span>
+                    <div style={{marginLeft: "5rem"}}>
+                        {props.popupOpened
+                            ?<a title='You must first accept or reject notification message' className="link" onClick={props.popupOpened}  style={{cursor: "pointer"}}>Notifications</a>
+                            :<NavLink to="/app/notifications" className="link" activeClassName='webMenu_activeClass' onClick={props.onclick}>Notifications</NavLink>}
+                    </div>
+                </div>
+                <hr className="m-0" />
+                <div className="position-relative py-2 linkParent">
                     <span className="ml-4 position-absolute"><i className="fa fa-users"> </i></span>
                     <div style={{marginLeft: "5rem"}}>
                         {props.popupOpened
@@ -55,7 +73,8 @@ const mapDispatchToProps= dispatch => ({
 });
 
 const mapStateToProps = state => ({
-    userRole: state.user.role
+    userRole: state.user.role,
+    notifications: state.notifications
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(webMeniu);

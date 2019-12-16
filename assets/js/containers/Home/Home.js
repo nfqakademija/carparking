@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { connect } from "react-redux";
 
-import { getHomeData, popupAcceptClicked, successTimer, buttonClickedMid, notificationPopupAccept, getSingleUser} from '../../store/thunk/reservations';
+import { getHomeData, popupAcceptClicked, successTimer, buttonClickedMid, notificationPopupAccept, getNotifications} from '../../store/thunk/reservations';
 import { getCoordinates, popupOpened } from '../../store/thunk/popup';
 import { popupCancel, setNotification, notificationPopupCancel } from '../../store/actions/index';
 
@@ -23,6 +23,7 @@ class Home extends Component {
 
     componentDidMount(){
         this.props.onGetHomeData();
+        this.props.onGetNotifications()
         // if (this.props.user.notifications[1]) {
         //     setTimeout(
         //         () => {this.props.onGetCoordinates(this.reservationRefFirst, this.reservationRefLast); this.props.onSetNotification()}, 1000
@@ -160,11 +161,11 @@ class Home extends Component {
                         new Date(day.date).getDay() // skip sunday
                             ? <Reservation 
                                 key={day.date}
-                                ref={!index && !new Date(day.date).getDay() || index === 1 && new Date(day.date).getDay() // give index to first elenemt, but also checks if first element sunday or not.
+                                ref={!index && new Date(day.date).getDay() || index === 1 && !new Date(day.date).getDay() // give index to first elenemt, but also checks if first element sunday or not.
                                         ? this.reservationRefFirst
-                                        : index === 6
+                                        : index === 6 && new Date(day.date).getDay() || index === 5 && new Date(day.date).getDay() === 6
                                             ? this.reservationRefLast
-                                            : null} // need fn for this
+                                            : console.log(day, index, !new Date(day.date).getDay())} // need fn for this
                                 date={day.date}
                                 lotSize={day.usedSpots+day.availableSpots} // *
                                 usedSpots={day.usedSpots >20 ?20 :day.usedSpots} // used spots could be bigger than lot size
@@ -207,7 +208,8 @@ const mapDispatchToProps= dispatch => ({
     onNotificationPopupCancel: () => dispatch(notificationPopupCancel()),
     onNotificationPopupAccept: (date) => dispatch(notificationPopupAccept(date)),
     onGetCoordinates: (first, last) => dispatch(getCoordinates(first, last)),
-    onPopupOpened: () => dispatch(popupOpened())
+    onPopupOpened: () => dispatch(popupOpened()),
+    onGetNotifications: () => dispatch(getNotifications())
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(Home);

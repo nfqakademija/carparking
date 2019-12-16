@@ -18,8 +18,9 @@ const mobileMenu = (props) => (
                     <a
                         className="mb-0 h2 text-white"
                         onClick={props.closeMobileMenu}
-                        style={{cursor: "pointer"}}>
-                        ×
+                        style={{cursor: "pointer"}}> 
+                        {/* change this with icon */}
+                        × 
                     </a>
                 </div>
             </div>
@@ -41,6 +42,13 @@ const mobileMenu = (props) => (
                     <i className="fa fa-check-square-o"> </i></span>
                 <div style={{ marginLeft: "60px"}}>
                     <NavLink to='/app/home' className="link" onClick={ props.closeMobileMenu }>Reserve</NavLink>
+                </div>
+            </div>
+
+            <div className="position-relative py-2 linkParent">
+                <span className="ml-4 position-absolute"><i class="fas fa-bell"></i></span>
+                <div style={{ marginLeft: "60px"}}>
+                    <NavLink to="/app/notifications" className="link" onClick={props.closeMobileMenu}>Notifications</NavLink>
                 </div>
             </div>
 

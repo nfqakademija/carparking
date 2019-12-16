@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import { getUsersData, popupAcceptClicked, getSingleUser, getReservations } from '../../store/thunk/reservations';
+import { getUsersData, popupAcceptClicked, getNotifications, getReservations } from '../../store/thunk/reservations';
 import { getCoordinates, popupOpened } from '../../store/thunk/popup';
 import { buttonClicked, popupCancel } from '../../store/actions/index';
 
@@ -18,8 +18,8 @@ class Users extends Component {
 
     componentDidMount() {
         this.props.onGetUsersData()
-        this.props.onGetSingleUser()
         this.props.onGetReservations()
+        this.props.onGetNotifications()
     }
 
     popupHandler (popup) {
@@ -29,7 +29,7 @@ class Users extends Component {
                     translate={popup.show} 
                     type={popup} 
                     popupCancel={this.props.onPopupCancel} 
-                    popupAccept={()=>this.props.onPopupAccept(popup.date, 'neutral')}
+                    popupAccept={()=>this.props.onPopupAccept(popup.date, 'neutral', popup.switchUser)}
                     loading={popup.loading}
                     uniqueStyle={popup.style}
                     successTimer={this.props.onSuccessTimer}
@@ -49,9 +49,9 @@ class Users extends Component {
             <>
                 <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
                     {this.popupHandler(this.props.popup)}
-                    {this.props.loading || this.props.usersList.length === 0
-                        ? 'loading ...'
-                        : <div className='Users_usersTableContainer' style={this.userListContainerStyleHandler()}>
+                    {console.log(!this.props.loadingSingleUser && !this.props.loading)}
+                    {!this.props.loading && !this.props.loadingSingleUser
+                        ? <div className='Users_usersTableContainer' style={this.userListContainerStyleHandler()}>
                             <UsersTable 
                                 ref={this.userTableRef}
                                 usersList={this.props.usersList}
@@ -59,7 +59,8 @@ class Users extends Component {
                                 mainUser={this.props.mainUser}
                                 onclick={(dayObj, switchUser) => this.props.onButtonClick(dayObj.date, 'neutral', this.userTableRef, switchUser)}
                                 popupShake={this.props.popupShow || this.props.notificationPopupShow ?this.props.onPopupOpened :false}/>
-                        </div>
+                         </div>
+                        : console.log('loading ...')
                     } 
                 </div>  
             </>
@@ -71,6 +72,7 @@ const mapStateToProps = state => {
     return {
         usersList: state.users,
         loading: state.loading.loadingUsers,
+        loadingSingleUser: state.loading.loadingSingleUser,
         reservationStatus: state.weekStatus,
         mainUser: state.user,
         popup: state.popup,
@@ -84,10 +86,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps= dispatch => ({
     onGetUsersData: () => dispatch(getUsersData()),
-    onGetSingleUser: () => dispatch(getSingleUser()),
+    onGetNotifications: () => dispatch(getNotifications()),
     onGetReservations: () => dispatch(getReservations()),
     onButtonClick: (date, buttonType, ref, switchUser) => {dispatch(getCoordinates(ref ,ref)),dispatch(buttonClicked(date, buttonType, switchUser))},
-    onPopupAccept: (date, actionType) => dispatch(popupAcceptClicked(date, actionType)),
+    onPopupAccept: (date, actionType, switchUser) => dispatch(popupAcceptClicked(date, actionType, switchUser)),
     onPopupCancel: () => dispatch(popupCancel()),
     onPopupOpened: () => dispatch(popupOpened())
 })

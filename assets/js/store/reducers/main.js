@@ -7,7 +7,8 @@ const initialState = {
     loading: {
         loadingSingleUser: true,
         loadingReservations: true,
-        loadingUsers: true
+        loadingUsers: true,
+        loadingNotifications:true
     },
     user: {
         userId: 4,
@@ -15,7 +16,8 @@ const initialState = {
         lastname: null,
         activeCar: null,
         aways: [],
-        notifications: []
+        notifications: [],
+        role: 'user'
     },
     users: [],
     plate: "ABC000",
@@ -371,6 +373,35 @@ const reducer = (state = initialState, action) => {
                 loading: {
                     ...state.loading,
                     loadingReservations: false
+                }
+            }
+        case actionTypes.GET_NOTIFICATIONS_START:
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    loadingNotifications: true
+                }
+            }
+        case actionTypes.GET_NOTIFICATIONS_SUCCESS:
+            return {
+                ...state,
+                notifications: action.notifications,
+                 loading: {
+                    ...state.loading,
+                    loadingNotifications: false
+                }   
+            }
+        case actionTypes.GET_NOTIFICATIONS_FAIL:
+            return {
+                ...state,
+                loading: {
+                    ...state.loading,
+                    loadingNotifications: true
+                },
+                notification: {
+                    ...state.notification,
+                    err: action.err
                 }
             }
         default: return state
