@@ -2,47 +2,48 @@ import axios from 'axios';
 import * as actions from '../actions/index';
 import { getCoordinates } from '../thunk/popup';
 
-export const getSingleUser = () => dispatch => {
-    dispatch(actions.getSingleUserStart()) //*
-    axios.get(`/api/single-user/10`) //*
-        .then( res => {
-            dispatch(actions.getSingleUserSuccess(res.data))
-        })
-        .catch( err => { //*
-            dispatch(actions.popupAcceptFail(err))
-            dispatch(successTimer())
-        })
-}
-
 export const getReservations = () => dispatch => {
     dispatch(actions.getReservationsStart());
     axios.get(`/api/reservations`)
         .then( res => {
             dispatch(actions.getReservationsSuccess(res.data))
         })
+        .catch( err => {
+            dispatch(actions.getReservationsFail(err))
+        })
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export const getSingleUser = () => dispatch => {
+    dispatch(actions.fetchSingleUserStart()) //*
+    axios.get(`/api/single-user/10`) //*
+        .then( res => {
+            dispatch(actions.fetchSingleUserSuccess(res.data))
+        })
         .catch( err => { //*
             dispatch(actions.popupAcceptFail(err))
             dispatch(successTimer())
         })
 }
 
-// const getNotifications = () => dispatch =>{
-//     axios.get('api/notifications')
-//         .then(res => console.log(res))
-// }
-
-
-export const getHomeData = () => dispatch => {
-    dispatch(getSingleUser());
-    dispatch(getReservations()); 
-    // dispatch(getNotifications());  //*
-}
 // home data done
 export const getUsersData = () => dispatch => {
-    dispatch(actions.getUsersStart());
+    dispatch(actions.fetchUsersStart());
     axios.get('/api/users')
         .then(res =>{ 
-            dispatch(actions.getUsersSuccess(res.data));
+            dispatch(actions.fetchUsersSuccess(res.data));
         })
 }
 // users data done
@@ -276,77 +277,15 @@ const fetchOneDayData = (date) => dispatch => {
 
     axios.get(`/api/single-user/10`) //* find way to do this fetches at the same time
         .then(res => {
-            dispatch(actions.getSingleUserSuccess(res.data))
+            dispatch(actions.fetchSingleUserSuccess(res.data))
             axios.get(`/api/reservations`)
             .then( res => {
                 dispatch(actions.fetchOneDayDataSuccess(res.data))
             })
             .catch( err => { dispatch(actions.fetchOneDayDataFail(err)) })
         })
-        .catch( err => { dispatch(actions.getSingleUserFail(err)) })
+        .catch( err => { dispatch(actions.fetchSingleUserFail(err)) })
 }
 
-export const notificationPopupAccept = (date) => (dispatch, getState) => { //*
-    // fake
-    dispatch(actions.notificationPopupAcceptStart());
-    const newDate = new Date(date);
-    
-    setTimeout(
-        () => {
-            dispatch(actions.notificationPopupAcceptSuccess())
-            dispatch(successTimer())
-            dispatch(fetchOneDayData(newDate))
-            setTimeout(
-                //after success message
-                () =>   {getState().user.notifications[0]
-                            ? dispatch(actions.setNotification())
-                            : null
-                        }
-            ,3000)
-        }
-        , 500
-    )
-}
 
-export const getNotifications = () => (dispatch, getState) => {
-    dispatch(actions.getNotificationsStart())
-    dispatch(actions.getSingleUserStart()) //*
-        axios.get(`/api/single-user/10`) //*
-            .then( res => { 
-                dispatch(actions.getSingleUserSuccess(res.data))
-                axios.get(`/api/notifications/${res.data.userId}/${getState().user.role}`)
-                    .then( res => {
-                        dispatch(actions.getNotificationsSuccess(res.data))
-                    })
-                    .catch(err => {
-                        dispatch(actions.getNotificationsFail(err))
-                    })
-            })
-            .catch( err => { //*
-                dispatch(actions.popupAcceptFail(err))
-                dispatch(successTimer())
-            })
-}
-
-export const notificationCancel = notificationId => dispatch => { 
-    axios.delete(`/api/notification-cancel/${notificationId}`)
-        .then(() => 
-            dispatch(getNotifications()))
-}
-
-export const notificationAccept = notificationId => dispatch => {
-    axios.post(`/api/notification-accept/${notificationId}`)
-        .then(() => 
-            dispatch(getNotifications()))
-}
-
-export const notificationReject = notificationId => dispatch => { //*
-    const putData = {
-        "notificationId": notificationId,
-        "rejected": 1
-    }
-    axios.put(`/api/notifications`,putData)
-        .then(() => 
-            dispatch(getNotifications()))
-}
 

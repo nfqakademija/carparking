@@ -1,23 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import { getUsersData, getReservations, getNotifications  } from '../../store/thunk/reservations';
+import { getUsersData } from '../../store/thunk/reservations';
+import { fetchNotifications } from '../../store/thunk/notifications';
 
 import UserNotifications from '../../components/NotificationsComponents/UserNotifications';
 import GuestNotifications from '../../components/NotificationsComponents/GuestNotifications';
 
 import './Notifications.scss';
+
 class Notifications extends Component {
 
-    constructor(props){
-        super(props);
-        this.userTableRef = React.createRef();
-    }
-
     componentDidMount() {
-        // this.props.onGetUsersData()
-        // this.props.onGetReservations()
-        this.props.onGetNotifications() 
+        this.props.onFetchNotifications(props.user.userId, props.user.role) 
     }
 
     render (){
@@ -59,19 +54,18 @@ const mapStateToProps = state => {
         reservationStatus: state.weekStatus,
         mainUser: state.user,
         popup: state.popup,
-        user: state.user,
+        user: state.user.user,
         popupShake: state.popupShake,
         popupShow: state.popup.show,
         notificationPopupShow: state.notificationPopup.show,
-        notifications: state.notifications
+        notifications: state.notifications.notifications
     }
 }
 
 
 const mapDispatchToProps= dispatch => ({
     onGetUsersData: () => dispatch(getUsersData()),
-    onGetReservations: () => dispatch(getReservations()),
-    onGetNotifications: () => dispatch(getNotifications())
+    onFetchNotifications: (userId, userRole) => dispatch(fetchNotifications(userId, userRole))
 })
 
 

@@ -4,13 +4,12 @@ import axios from 'axios';
 
 import { connect } from "react-redux";
 
-import { getHomeData, popupAcceptClicked, successTimer, buttonClickedMid, notificationPopupAccept, getNotifications} from '../../store/thunk/reservations';
+import { popupAcceptClicked, successTimer, buttonClickedMid } from '../../store/thunk/reservations';
 import { getCoordinates, popupOpened } from '../../store/thunk/popup';
 import { popupCancel, setNotification, notificationPopupCancel } from '../../store/actions/index';
 
 import Reservation from '../../components/Reservation/Reservation';
 import PopUp from '../../components/UI/PopUp/PopUp';
-import NotificationsPopUp from '../../components/UI/PopUp/NotificationPopUp/NotificationPopUp';
 
 import '../../../css/containers/Home/Home.scss';
 
@@ -22,8 +21,6 @@ class Home extends Component {
     }
 
     componentDidMount(){
-        // this.props.onGetHomeData();
-        // this.props.onGetNotifications()
         // if (this.props.user.notifications[1]) {
         //     setTimeout(
         //         () => {this.props.onGetCoordinates(this.reservationRefFirst, this.reservationRefLast); this.props.onSetNotification()}, 1000
@@ -134,16 +131,6 @@ class Home extends Component {
         ,1000)
     }
 
-    notificationPopupHandler (popup) {
-            return <NotificationsPopUp
-                        translate={popup.show}
-                        popup={popup}
-                        shake={this.props.popupShake}
-                        popupCancel={() => {this.props.onNotificationPopupCancel(); this.notificationPopupChainHandler()}}
-                        popupAccept={() => this.props.onNotificationPopupAccept(popup.date)}
-                        successTimer={this.props.onSuccessTimer}/> 
-    }
-
     reservationContainerStyleHandler () {
         return {transform: this.props.popup.show || this.props.notificationPopup.show ?'translateY(200px)': 'translateY(0)'}
     }
@@ -188,28 +175,24 @@ class Home extends Component {
 
 const mapStateToProps = state => {
     return {
-        weekStatus: state.weekStatus,
-        loading: state.loading,
-        popup: state.popup,
-        user: state.user,
-        loadingOneDay: state.loadingOneDay,
-        notificationPopup: state.notificationPopup,
-        popupShake: state.popupShake
+        weekStatus: state.main.weekStatus,
+        loading: state.main.loading,
+        popup: state.main.popup,
+        user: state.main.user,
+        loadingOneDay: state.main.loadingOneDay,
+        popupShake: state.main.popupShake
     }
 }
 
 const mapDispatchToProps= dispatch => ({
-    onGetHomeData: (first, last) => dispatch(getHomeData(first, last)),
     onButtonClick: (date, buttonType, first, last) => dispatch(buttonClickedMid(date, buttonType, first, last)),
     onPopupCancel: () => dispatch(popupCancel()),
     onPopupAccept: (date, actionType) => dispatch(popupAcceptClicked(date, actionType)),
     onSuccessTimer: () => dispatch(successTimer()),
     onSetNotification: () => dispatch(setNotification()),
     onNotificationPopupCancel: () => dispatch(notificationPopupCancel()),
-    onNotificationPopupAccept: (date) => dispatch(notificationPopupAccept(date)),
     onGetCoordinates: (first, last) => dispatch(getCoordinates(first, last)),
-    onPopupOpened: () => dispatch(popupOpened()),
-    onGetNotifications: () => dispatch(getNotifications())
+    onPopupOpened: () => dispatch(popupOpened())
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(Home);

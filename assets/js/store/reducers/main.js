@@ -317,7 +317,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 postAwayLoading: true
             }
-        case actionTypes.GET_SINGLE_USER_START:
+        case actionTypes.FETCH_SINGLE_USER_START:
             return {
                 ...state,
                 loading: {
@@ -325,7 +325,7 @@ const reducer = (state = initialState, action) => {
                     loadingSingleUser: true
                 }
             }
-        case actionTypes.GET_SINGLE_USER_SUCCESS:
+        case actionTypes.FETCH_SINGLE_USER_SUCCESS:
             return {
                 ...state,
                 user: action.user,
@@ -334,7 +334,7 @@ const reducer = (state = initialState, action) => {
                     loadingSingleUser: false
                 }
             }
-        case actionTypes.GET_SINGLE_USER_FAIL:
+        case actionTypes.FETCH_SINGLE_USER_FAIL:
             return {
                 ...state,
                 user: {
@@ -373,35 +373,6 @@ const reducer = (state = initialState, action) => {
                 loading: {
                     ...state.loading,
                     loadingReservations: false
-                }
-            }
-        case actionTypes.GET_NOTIFICATIONS_START:
-            return {
-                ...state,
-                loading: {
-                    ...state.loading,
-                    loadingNotifications: true
-                }
-            }
-        case actionTypes.GET_NOTIFICATIONS_SUCCESS:
-            return {
-                ...state,
-                notifications: action.notifications,
-                 loading: {
-                    ...state.loading,
-                    loadingNotifications: false
-                }   
-            }
-        case actionTypes.GET_NOTIFICATIONS_FAIL:
-            return {
-                ...state,
-                loading: {
-                    ...state.loading,
-                    loadingNotifications: true
-                },
-                notification: {
-                    ...state.notification,
-                    err: action.err
                 }
             }
         default: return state

@@ -4,9 +4,9 @@ export {
     getHomeDataStart,
     getHomeDataSuccess,
     getHomeDataFail,
-    getUsersStart,
-    getUsersSuccess,
-    getUsersFail,
+    fetchUsersStart,
+    fetchUsersSuccess,
+    fetchUsersFail,
     saveCoordinates,
     noCoordinates,
     buttonClicked,
@@ -29,15 +29,18 @@ export {
     postAwayStatus,
     postAwayStatusLoading,
     setPlateNumber,
-    getSingleUserStart,
-    getSingleUserSuccess,
-    getSingleUserFail,
+    fetchSingleUserStart,
+    fetchSingleUserSuccess,
+    fetchSingleUserFail,
     getReservationsStart,
     getReservationsSuccess,
     getReservationsFail,
-    getNotificationsStart,
-    getNotificationsSuccess,
-    getNotificationsFail,
     openModal
 
 } from './main'
+
+export {
+    fetchNotificationsStart,
+    fetchNotificationsSuccess,
+    fetchNotificationsFail
+} from './notifications'

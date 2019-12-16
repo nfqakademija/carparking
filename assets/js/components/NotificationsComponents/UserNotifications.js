@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 
-import { notificationCancel, notificationAccept, notificationReject } from '../../store/thunk/reservations';
+import { notificationCancel, notificationAccept, notificationReject } from '../../store/thunk/notifications';
 
 import Button from '../UI/Button/Button';
 

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import { getUsersData, popupAcceptClicked, getNotifications, getReservations } from '../../store/thunk/reservations';
+import { getUsersData, popupAcceptClicked } from '../../store/thunk/reservations';
+
 import { getCoordinates, popupOpened } from '../../store/thunk/popup';
 import { buttonClicked, popupCancel } from '../../store/actions/index';
 
@@ -18,8 +19,6 @@ class Users extends Component {
 
     componentDidMount() {
         // this.props.onGetUsersData()
-        // this.props.onGetReservations()
-        // this.props.onGetNotifications()
     }
 
     popupHandler (popup) {
@@ -86,8 +85,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps= dispatch => ({
     onGetUsersData: () => dispatch(getUsersData()),
-    onGetNotifications: () => dispatch(getNotifications()),
-    onGetReservations: () => dispatch(getReservations()),
     onButtonClick: (date, buttonType, ref, switchUser) => {dispatch(getCoordinates(ref ,ref)),dispatch(buttonClicked(date, buttonType, switchUser))},
     onPopupAccept: (date, actionType, switchUser) => dispatch(popupAcceptClicked(date, actionType, switchUser)),
     onPopupCancel: () => dispatch(popupCancel()),

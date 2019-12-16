@@ -35,20 +35,20 @@ export const getHomeDataFail = (data, user) => {
     }
 }
 
-export const getUsersStart = () => {
+export const fetchUsersStart = () => {
     return {
         type: actionTypes.GET_USERS_START
     }
 }
 
-export const getUsersSuccess = users => {
+export const fetchUsersSuccess = users => {
     return {
         type: actionTypes.GET_USERS_SUCCESS,
         users
     }
 }
 
-export const getUsersFail = err => {
+export const fetchUsersFail = err => {
     return {
         type: actionTypes.GET_USERS_FAIL,
         err
@@ -245,22 +245,22 @@ export const changeAwayLoadingStatus = (status) => {
     }
 }
 
-export const getSingleUserStart = () => {
+export const fetchSingleUserStart = () => {
     return {
-        type: actionTypes.GET_SINGLE_USER_START
+        type: actionTypes.FETCH_SINGLE_USER_START
     }
 }
 
-export const getSingleUserSuccess = user => {
+export const fetchSingleUserSuccess = user => {
     return {
-        type: actionTypes.GET_SINGLE_USER_SUCCESS,
+        type: actionTypes.FETCH_SINGLE_USER_SUCCESS,
         user
     }
 }
 
-export const getSingleUserFail = err => {
+export const fetchSingleUserFail = err => {
     return {
-        type: actionTypes.GET_SINGLE_USER_SUCCESS,
+        type: actionTypes.FETCH_SINGLE_USER_SUCCESS,
         err
     }
 }
@@ -281,26 +281,6 @@ export const getReservationsSuccess = parkingLotStatus => {
 export const getReservationsFail = err => {
     return {
         type: actionTypes.GET_RESERVATIONS_FAIL,
-        err
-    }
-}
-
-export const getNotificationsStart = () => {
-    return {
-        type: actionTypes.GET_NOTIFICATIONS_START
-    }
-}
-
-export const getNotificationsSuccess = notifications => {
-    return {
-        type: actionTypes.GET_NOTIFICATIONS_SUCCESS,
-        notifications
-    }
-}
-
-export const getNotificationsFail = err => {
-    return {
-        type: actionTypes.GET_NOTIFICATIONS_FAIL,
         err
     }
 }
