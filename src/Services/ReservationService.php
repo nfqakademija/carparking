@@ -97,7 +97,6 @@ class ReservationService
                         $parkingSpace->getAwayUser()->getUserParkSpace()->getId(),
                         $reservationDateString
                     );
-
                     if ($reservedParkSpace) {
                         $space = null;
                     } else {
@@ -137,14 +136,12 @@ class ReservationService
             foreach ($away as $item) {
                 $parkSpaceAtReservation = $this->entityManager
                     ->getRepository(Reservations::class)
-                    ->findReservationByDateAndParkSpaceId($date, $item->getAwayUser()->getPermanentSpace());
-                if ($parkSpaceAtReservation != null) {
-                    $away = null;
-                } else {
-                    continue;
+                    ->findReservationByDateAndParkSpaceId($date, $item->getAwayUser()->getPermanentSpace()->getId());
+                var_dump($item->getAwayUser()->getPermanentSpace()->getId());
+                if ($parkSpaceAtReservation == null) {
+                    return $item;
                 }
             }
-            return $away;
         }
     }
 
