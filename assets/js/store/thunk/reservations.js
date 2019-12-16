@@ -4,7 +4,7 @@ import { getCoordinates } from '../thunk/popup';
 
 export const getSingleUser = () => dispatch => {
     dispatch(actions.getSingleUserStart()) //*
-    axios.get(`/api/single-user/6`) //*
+    axios.get(`/api/single-user/2`) //*
         .then( res => {
             dispatch(actions.getSingleUserSuccess(res.data))
         })
@@ -171,6 +171,7 @@ const popupAcceptCaseSuccessGuest = date => (dispatch, getState) => {
             {"reservationDate" :date}
         ]
     }
+    console.log("laba",postData)
     axios.post('/api/reservations', postData)
         .then( () =>{
                 dispatch(actions.popupAcceptSuccess())
@@ -273,7 +274,7 @@ const fetchOneDayData = (date) => dispatch => {
 
     dispatch(actions.fetchOneDayDataStart(date))
 
-    axios.get(`/api/single-user/6`) //* find way to do this fetches at the same time
+    axios.get(`/api/single-user/2`) //* find way to do this fetches at the same time
         .then(res => {
             dispatch(actions.getSingleUserSuccess(res.data))
             axios.get(`/api/reservations`)
@@ -310,11 +311,12 @@ export const notificationPopupAccept = (date) => (dispatch, getState) => { //*
 export const getNotifications = () => (dispatch, getState) => {
     dispatch(actions.getNotificationsStart())
     dispatch(actions.getSingleUserStart()) //*
-        axios.get(`/api/single-user/6`) //*
-            .then( res => {
+        axios.get(`/api/single-user/2`) //*
+            .then( res => { 
                 dispatch(actions.getSingleUserSuccess(res.data))
                 axios.get(`/api/notifications/${res.data.userId}/${getState().user.role}`)
                     .then( res => {
+                        console.log(res.data)
                         dispatch(actions.getNotificationsSuccess(res.data))
                     })
                     .catch(err => {

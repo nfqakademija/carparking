@@ -49,9 +49,9 @@ class Users extends Component {
             <>
                 <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
                     {this.popupHandler(this.props.popup)}
-                    {this.props.loading || this.props.usersList.length === 0
-                        ? 'loading ...'
-                        : <div className='Users_usersTableContainer' style={this.userListContainerStyleHandler()}>
+                    {console.log(!this.props.loadingSingleUser && !this.props.loading)}
+                    {!this.props.loading && !this.props.loadingSingleUser
+                        ? <div className='Users_usersTableContainer' style={this.userListContainerStyleHandler()}>
                             <UsersTable 
                                 ref={this.userTableRef}
                                 usersList={this.props.usersList}
@@ -59,7 +59,8 @@ class Users extends Component {
                                 mainUser={this.props.mainUser}
                                 onclick={(dayObj, switchUser) => this.props.onButtonClick(dayObj.date, 'neutral', this.userTableRef, switchUser)}
                                 popupShake={this.props.popupShow || this.props.notificationPopupShow ?this.props.onPopupOpened :false}/>
-                        </div>
+                         </div>
+                        : console.log('loading ...')
                     } 
                 </div>  
             </>
@@ -71,6 +72,7 @@ const mapStateToProps = state => {
     return {
         usersList: state.users,
         loading: state.loading.loadingUsers,
+        loadingSingleUser: state.loading.loadingSingleUser,
         reservationStatus: state.weekStatus,
         mainUser: state.user,
         popup: state.popup,

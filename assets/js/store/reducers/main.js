@@ -16,7 +16,8 @@ const initialState = {
         lastname: null,
         activeCar: null,
         aways: [],
-        notifications: []
+        notifications: [],
+        role: 'user'
     },
     users: [],
     plate: "ABC000",
