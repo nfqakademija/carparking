@@ -15,9 +15,9 @@ class Notifications extends Component {
     }
 
     componentDidMount() {
-        this.props.onGetUsersData()
-        this.props.onGetReservations()
-        this.props.onGetNotifications() 
+        // this.props.onGetUsersData()
+        // this.props.onGetReservations()
+        // this.props.onGetNotifications() 
     }
 
     render (){
