@@ -8,6 +8,7 @@ import '../../../css/components/UI/PopUp/popAway.scss';
 import DatePicker, {registerLocale, setDefaultLocale} from "react-datepicker";
 import {enGB} from "date-fns/esm/locale";
 import {postAwayDefaultStatus} from "../../store/actions/main";
+import {getSingleUser} from "../../store/thunk/reservations";
 
 registerLocale("en-GB", enGB);
 setDefaultLocale("en-GB");
@@ -33,6 +34,7 @@ class Home extends Component {
     }
 
     componentDidMount() {
+        this.props.onGetSingleUser();
         this.props.postAwayDefaultStatus();
         this.props.getDatesAway();
     }
@@ -120,7 +122,7 @@ class Home extends Component {
                         : this.props.status === "fail" ?
                         <div><b>Sorry, operation failed please contact the call center.</b></div> :
                         this.props.status === "duplicate" ?
-                            <div><b>Kartojasi</b></div> : null
+                            <div><b>Sorry, this dates duplicate and exist in history. Please select unique dates.</b></div> : null
                 :
                 //if exist post null (success or error)
                 <div>
@@ -154,6 +156,8 @@ class Home extends Component {
             </div>
 
         );
+
+        console.log(this.props.history)
 
         return (
             <div className="p-0 py-2 p-md-4" style={{height: '100%', overflow: 'scroll'}}>
@@ -249,6 +253,7 @@ const mapDispatchToProps = dispatch => ({
     getDatesAway: () => dispatch(getDatesAway()),
     postDatesAway: (startDate, endDate) => dispatch(postDatesAway(startDate, endDate)),
     postAwayDefaultStatus: () => dispatch(postAwayDefaultStatus()),
+    onGetSingleUser: () => dispatch(getSingleUser()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

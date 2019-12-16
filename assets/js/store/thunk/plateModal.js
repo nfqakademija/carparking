@@ -4,7 +4,9 @@ import {setPlateStatus} from "../actions/main";
 
 export const getPlateNumber = () => (dispatch, getState) => {
 
-    const user = getState().user.id;
+    const user = getState().user.userId;
+
+    console.log(user);
 
 
     axios.get('/api/single-user/' + user)
@@ -23,15 +25,13 @@ export const getPlateNumber = () => (dispatch, getState) => {
 
 export const updatePlateNumber = (numbers) => (dispatch, getState) => {
 
-    const user = getState().user.id;
+    const user = getState().user.userId;
 
     const plate = {
         "licensePlate": [
             {"userId": user, "licensePlate": numbers}
         ]
     };
-
-    console.log(user)
 
     let status;
 
