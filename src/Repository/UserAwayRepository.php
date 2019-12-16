@@ -86,7 +86,7 @@ class UserAwayRepository extends ServiceEntityRepository
             ->andWhere('ua.awayEndDate >= :date')
             ->setParameter('date', $date)
             ->getQuery()
-            ->getOneOrNullResult();
+            ->execute();
     }
 
 
