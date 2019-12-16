@@ -150,7 +150,7 @@ class Users implements UserInterface
 
         return $this;
     }
-
+//TODO delete
     public function getUserParkSpace(): ?ParkSpaces
     {
         return $this->permanentSpace;

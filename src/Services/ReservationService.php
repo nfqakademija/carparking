@@ -111,6 +111,22 @@ class ReservationService
         }
     }
 
+    public function changeReservationsByProvidedArray(array $dateArray, ParkSpaces $parkSpace, string $type): void
+    {
+        $reservations = $this->entityManager->getRepository(Reservations::class)->getReservationsByArray($dateArray);
+        foreach ($reservations as $reservation) {
+            if ($type === 'delete' && $reservation->getParkSpace()->getId() === $parkSpace->getId()) {
+                $reservation->setParkSpace(null);
+            } else {
+                if ($reservation->getParkSpace() === null) {
+                    $reservation->setParkSpace($parkSpace);
+                }
+            }
+        }
+        $this->entityManager->flush();
+    }
+
+
     private function checkReservedParkSpace($parkSpaceId, $dateString)
     {
         $reservation = $this->entityManager

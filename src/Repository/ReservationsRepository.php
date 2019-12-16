@@ -19,12 +19,10 @@ class ReservationsRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservations::class);
     }
 
-    public function getReservationsByArrayAndId(array $dateArray, string $id)
+    public function getReservationsByArray($dateArray)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.user = :id')
             ->andWhere('r.reservationDate IN (:dates)')
-            ->setParameter('id', $id)
             ->setParameter('dates', $dateArray)
             ->getQuery()
             ->execute();
