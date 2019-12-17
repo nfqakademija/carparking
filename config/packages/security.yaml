@@ -13,13 +13,13 @@ security:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
 
-#    api:
-#      pattern:   ^/api
-#      stateless: true
-#
-#      guard:
-#        authenticators:
-#          - App\Security\TokenAuthenticator
+    api:
+      pattern:   ^/api
+      stateless: true
+
+      guard:
+        authenticators:
+          - App\Security\TokenAuthenticator
 
     main:
       anonymous: ~
@@ -33,8 +33,8 @@ security:
           - App\Security\GoogleAuthenticator
 
   access_control:
-   # - { path: ^/app, roles: ROLE_USER }
-#    - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+    - { path: ^/app, roles: ROLE_USER }
+    - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
       # - { path: ^/profile, roles: ROLE_USER }
 
 knpu_oauth2_client:
