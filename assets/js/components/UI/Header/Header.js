@@ -32,10 +32,10 @@ const header = (props) => (
                                             </i>
                                         </div>
                                         <div>
-                                            <Link to='/app/logout' style={{color:"#f8f3f0"}}>
+                                            <a  href="/logout" style={{color:"#f8f3f0"}}>
                                                 <i className="fas fa-sign-out-alt h3 textLightGrey mx-4">
                                                 </i>
-                                            </Link>
+                                            </a>
 
                                         </div>
                                         {props.popupShow || props.notificationPopupShow
