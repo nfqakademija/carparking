@@ -1,6 +1,22 @@
 import axios from 'axios';
 import * as actions from '../actions/index';
 
+const getCookie = (cname) => {
+    const name = cname + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
 // accept and give parking space to guest
 export const notificationAccept = notificationId => dispatch => {
     axios.post(`/api/notification-accept/${notificationId}`)
@@ -37,39 +53,21 @@ export const fetchNotifications = (userId, userRole) => dispatch => {
         })
 }
 
-const getCookie = (cname) => {
-    const name = cname + "=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
 
 export const fetchSignleUserAndNotifications = () => dispatch => {
     dispatch(actions.fetchSingleUserStart());
 
-    const token = getCookie('PHPSESSID');
+    const token = getCookie('Bearer-token');
+    const id = getCookie('userId');
 
     var config = {
         headers: {"Authorization": token}
     };
 
-    console.log(token);
 
-    console.log(config)
-
-
-    axios.get(`/api/single-user/13`, config)
+    axios.get(`/api/single-user/`+id, config)
         .then(res => {
-            console.log("Asd");
+            console.log(res);
             dispatch(actions.fetchSingleUserSuccess(res.data))
             dispatch(fetchNotifications(res.data.userId, res.data.role))
         })
