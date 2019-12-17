@@ -19,52 +19,72 @@ class ReservationsRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservations::class);
     }
 
-    public function getReservationsByArrayAndId(array $dateArray, string $id)
+    public function getReservationsByArray($dateArray)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.user = :id')
             ->andWhere('r.reservationDate IN (:dates)')
-            ->setParameter('id', $id)
             ->setParameter('dates', $dateArray)
             ->getQuery()
             ->execute();
     }
 
-    public function getReservationsWithoutUserId()
+    public function findReservationById($id)
     {
         $value = null;
         return $this->createQueryBuilder('r')
-            ->andWhere('r.user = :id')
-            ->setParameter('id', ' ')
+            ->andWhere('r.id = :id')
+            ->setParameter('id', $id)
             ->getQuery()
-            ->execute();
+            ->getOneOrNullResult();
     }
 
-    public function getReservationByParkIdAndByUserId($clientId, $parkId)
+    public function findReservationWithoutParkSpaceByDate($date)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.parkSpace = :parkId')
-            ->orWhere('r.user = :id')
-            ->setParameter('id', $clientId)
-            ->setParameter('parkId', $parkId)
+            ->andWhere('r.reservationDate = :reservationDate')
+            ->andWhere('r.parkSpace is NULL')
+            ->setParameter('reservationDate', $date)
+            ->setMaxResults(1)
             ->getQuery()
-            ->execute();
+            ->getOneOrNullResult();
     }
 
+    /**
+     * @param $date
+     * @param $clientId
+     * @return mixed
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function findReservationByDateAndUserId($date, $clientId)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.reservationDate = :reservationDate')
+            ->andWhere('r.user = :id')
+            ->setParameter('id', $clientId)
+            ->setParameter('reservationDate', $date)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
-//    public function findUsers()
-//    {
-//        $admin = 'admin';
-//        $user = 'user';
-//
-//        return $this->createQueryBuilder('u')
-//            ->andWhere('u.status = :val')
-//            ->leftJoin('u.userRole', 'r')
-//            ->andWhere('r.role = :admin OR r.role = :user')
-//            ->setParameter('admin', $admin)
-//            ->setParameter('user', $user)
-//            ->setParameter('val', 1)
-//            ->getQuery()
-//            ->execute();
-//    }
+    public function findReservationByDateAndParkSpaceId($date, $parkSpaceId)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.reservationDate = :reservationDate')
+            ->andWhere('r.parkSpace = :id')
+            ->setParameter('id', $parkSpaceId)
+            ->setParameter('reservationDate', $date)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
+
+    public function countReservationByDateAndWithParkSpaceId($date)
+    {
+        return $this->createQueryBuilder('r')
+            ->select('count(r.id)')
+            ->andWhere('r.reservationDate = :reservationDate')
+            ->andWhere('r.parkSpace > 0')
+            ->setParameter('reservationDate', $date)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

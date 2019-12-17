@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import { getUsersData, popupAcceptClicked } from '../../store/thunk/reservations';
+import { popupAcceptClicked } from '../../store/thunk/reservations';
+import { fetchUsersData } from '../../store/thunk/usersList';
 import { getCoordinates, popupOpened } from '../../store/thunk/popup';
 import { buttonClicked, popupCancel } from '../../store/actions/index';
 
@@ -16,10 +17,6 @@ class Users extends Component {
         this.userTableRef = React.createRef();
     }
 
-    componentDidMount() {
-        this.props.onGetUsersData()
-    }
-
     popupHandler (popup) {
         return <PopUp 
                     left={popup.left} 
@@ -27,12 +24,10 @@ class Users extends Component {
                     translate={popup.show} 
                     type={popup} 
                     popupCancel={this.props.onPopupCancel} 
-                    popupAccept={()=>this.props.onPopupAccept(popup.date, this.props.user, 'neutral')}
+                    popupAccept={()=>this.props.onPopupAccept(popup.date, 'neutral', popup.switchUser)}
                     loading={popup.loading}
                     uniqueStyle={popup.style}
-                    successTimer={this.props.onSuccessTimer}
                     user={popup.switchUser}
-                    isUser={true}
                     shake={this.props.popupShake}
                 />
     }
@@ -45,20 +40,19 @@ class Users extends Component {
         
         return (
             <>
-                <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
+                <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'hidden'}}>
                     {this.popupHandler(this.props.popup)}
-                    {this.props.loading || this.props.usersList.length === 0
-                        ? 'loading ...'
-                        : <div className='Users_usersTableContainer' style={this.userListContainerStyleHandler()}>
+                    {!this.props.loadingUsersList && !this.props.loadingSingleUser
+                        ? <div className='Users_usersTableContainer' style={this.userListContainerStyleHandler()}>
                             <UsersTable 
                                 ref={this.userTableRef}
                                 usersList={this.props.usersList}
-                                reservationStatus={this.props.reservationStatus}
+                                reservationStatus={this.props.reservationStatus || []}
                                 mainUser={this.props.mainUser}
                                 onclick={(dayObj, switchUser) => this.props.onButtonClick(dayObj.date, 'neutral', this.userTableRef, switchUser)}
-                                popupShake={this.props.popupShow || this.props.notificationPopupShow ?this.props.onPopupOpened :false}/>
-                        </div>
-                    } 
+                                popupShake={(this.props.popupShow || this.props.notificationPopupShow) ?this.props.onPopupOpened :false}/>
+                         </div>
+                        : null} 
                 </div>  
             </>
         )
@@ -67,26 +61,23 @@ class Users extends Component {
 
 const mapStateToProps = state => {
     return {
-        usersList: state.users,
-        loading: state.loading,
-        reservationStatus: state.reservationStatus,
-        mainUser: state.user,
-        popup: state.popup,
-        user: state.user,
-        popupShake: state.popupShake,
-        popupShow: state.popup.show,
-        notificationPopupShow: state.notificationPopup.show
+        usersList: state.usersList.users,
+        loadingUsersList: state.usersList.loading,
+        loadingSingleUser: state.singleUser.loading,
+        reservationStatus: state.reservation.weekStatus,
+        mainUser: state.singleUser.user,
+        popup: state.reservation.popup,
+        popupShake: state.reservation.popupShake,
+        popupShow: state.reservation.popup.show
     }
 }
 
-
 const mapDispatchToProps= dispatch => ({
-    onGetUsersData: () => dispatch(getUsersData()),
+    onFetchUsersData: () => dispatch(fetchUsersData()),
     onButtonClick: (date, buttonType, ref, switchUser) => {dispatch(getCoordinates(ref ,ref)),dispatch(buttonClicked(date, buttonType, switchUser))},
-    onPopupAccept: (date, user, actionType) => dispatch(popupAcceptClicked(date, user, actionType)),
+    onPopupAccept: (date, actionType, switchUser) => dispatch(popupAcceptClicked(date, actionType, switchUser)),
     onPopupCancel: () => dispatch(popupCancel()),
     onPopupOpened: () => dispatch(popupOpened())
 })
-
 
 export default connect(mapStateToProps,mapDispatchToProps)(Users);

@@ -18,7 +18,7 @@ const header = (props) => (
                                 <div className="d-flex justify-content-between">
                                     <div>
 
-                                        <span className="textLightGrey headerText" style={{marginLeft:'2em'}}>
+                                        <span className="textLightGrey headerText ml-1 ml-md-3">
                                             {/* <i className="mr-4 fas fa-car headerText" style={{color: "white", fontSize:'1.25em'}}> </i> */}
                                             NFQ parking
                                         </span>
@@ -32,13 +32,13 @@ const header = (props) => (
                                             </i>
                                         </div>
                                         <div>
-                                            <Link to='/logout' style={{color:"#f8f3f0"}}>
+                                            <a href='/logout' style={{color:"#f8f3f0"}}>
                                                 <i className="fas fa-sign-out-alt h3 textLightGrey mx-4">
                                                 </i>
-                                            </Link>
+                                            </a>
 
                                         </div>
-                                        {props.popupShow || props.notificationPopupShow
+                                        {props.popupShow
                                             ? <a title='You must first accept or reject notification message'>
                                                 <div onClick={props.onPopupOpened} style={{ cursor: "pointer" }}>
                                                         <i className="fa fa-bars h3 text-white d-md-none mr-2"> </i>
@@ -64,11 +64,10 @@ const header = (props) => (
 
 const mapStateToProps = state => {
     return {
-        userName: state.user.name,
-        userLastname: state.user.lastname,
-        mobileMenu: state.mobileMenu,
-        popupShow: state.popup.show,
-        notificationPopupShow: state.notificationPopup.show
+        userName: state.singleUser.user.name,
+        userLastname: state.singleUser.user.surname,
+        mobileMenu: state.main.mobileMenu,
+        popupShow: state.reservation.popup.show
     }
 };
 

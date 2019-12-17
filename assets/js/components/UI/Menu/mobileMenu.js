@@ -18,8 +18,9 @@ const mobileMenu = (props) => (
                     <a
                         className="mb-0 h2 text-white"
                         onClick={props.closeMobileMenu}
-                        style={{cursor: "pointer"}}>
-                        ×
+                        style={{cursor: "pointer"}}> 
+                        {/* change this with icon */}
+                        × 
                     </a>
                 </div>
             </div>
@@ -30,7 +31,7 @@ const mobileMenu = (props) => (
             <div className="position-relative py-3">
                 <span className="ml-4 position-absolute"><i className="fa fa-user-circle "> </i></span>
                 <span style={{ marginLeft: "60px"}}>
-                    {props.userName ? props.userLastname : "Vardenis"} {props.userLastname ? props.userLastname : "Pavardenis"}
+                    {props.userName ? props.userName : "Vardenis"} {props.userLastname ? props.userLastname : "Pavardenis"}
                 </span>
             </div>
 
@@ -40,17 +41,33 @@ const mobileMenu = (props) => (
                 <span className="ml-4 position-absolute">
                     <i className="fa fa-check-square-o"> </i></span>
                 <div style={{ marginLeft: "60px"}}>
-                    <NavLink to='/home' className="link" onClick={ props.closeMobileMenu }>Reserve</NavLink>
+                    <NavLink to='/app/home' className="link" onClick={ props.closeMobileMenu }>Reserve</NavLink>
+                </div>
+            </div>
+
+            <div className="position-relative py-2 linkParent">
+                <span className="ml-4 position-absolute"><i className="fas fa-bell"></i></span>
+                <div style={{ marginLeft: "60px"}}>
+                    <NavLink to="/app/notifications" className="link" onClick={props.closeMobileMenu}>Notifications</NavLink>
                 </div>
             </div>
 
             <div className="position-relative py-2 linkParent">
                 <span className="ml-4 position-absolute"><i className="fa fa-users"> </i></span>
                 <div style={{ marginLeft: "60px"}}>
-                    <NavLink to="/users" className="link" onClick={props.closeMobileMenu}>Watch Users</NavLink>
+                    <NavLink to="/app/users" className="link" onClick={props.closeMobileMenu}>Watch Users</NavLink>
                 </div>
             </div>
 
+            {props.userRole === 'user'
+                ? <div className="position-relative py-2 linkParent">
+                    <span className="ml-4 position-absolute"><i className="fas fa-suitcase-rolling"> </i></span>
+                    <div style={{ marginLeft: "60px"}}>
+                        <NavLink to="/app/away" className="link" onClick={props.closeMobileMenu}>Set Away</NavLink>
+                    </div>
+                  </div>
+                : null}
+        
             <div className="position-relative py-2 linkParent">
                 <span className="ml-4 position-absolute"><i className="fas fa-car-side"> </i></span>
                 <div style={{ marginLeft: "60px"}}>
@@ -68,4 +85,8 @@ const mapDispatchToProps = dispatch => ({
     openModal: () => dispatch(openModal())
 });
 
-export default connect(null, mapDispatchToProps)(mobileMenu);
+const mapStateToProps = state => ({
+    userRole: state.singleUser.user.role
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(mobileMenu);

@@ -6,7 +6,7 @@ import {closeModal, updatePlate} from "../../../store/actions/main";
 const Modal = (props) => {
     return (
         <div className={props.opocity ? "modal-window fullOpicity" : "modal-window noneOpicity"}>
-            <p className="modal-close" onClick={props.closeModal}>Close</p>
+            <button className="btn btn-secondary btn-lg modal-close" onClick={props.closeModal}>Close</button>
             {props.opocity ? <PlateModal/> : null}
         </div>
     );
@@ -14,7 +14,7 @@ const Modal = (props) => {
 
 const mapStateToProps = state => {
     return {
-        opocity: state.plateModal
+        opocity: state.main.plateModal
     }
 }
 

@@ -3,12 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\UserAway;
-use App\Entity\Users;
 use App\Services\ReservationService;
+use App\Services\UserAwayService;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use FOS\RestBundle\FOSRestBundle;
-use JMS\Serializer\SerializerBuilder;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -41,114 +41,55 @@ class UserAwayController extends FOSRestBundle
     /**
      * @Rest\Get("/api/useraway/{id}")
      */
-
     public function getSingleUserAway($id)
     {
-        $data = $this->entityManager->getRepository(UserAway::class)->getByUserId($id);
-        $json = $this->serialize($data);
-        $response = new Response($json);
-        $response->headers->set('Content-Type', 'application/json');
-        $response->getStatusCode();
-        return $response;
+        $awayService = new UserAwayService($this->entityManager);
+        $response = $awayService->getSingle($id);
+        return new JsonResponse($response);
     }
-
 
     /**
      * @Rest\Post("/api/useraway")
      * @param Request $request
+     * @return JsonResponse
      */
     public function postUserAway(Request $request)
     {
-
         $content = $request->getContent();
         $dataArray = json_decode($content, true);
-
-        $user = $this->entityManager->getRepository(Users::class)->findUserById($dataArray['id']);
-
-        if (!$user) {
-        } else {
-            foreach ($dataArray['away_date'] as $value) {
-                $userAway = new UserAway();
-                $format = '!Y-m-d';
-                $dateStart = \DateTime::createFromFormat($format, $value['away_start_date']);
-                $dateEnd = \DateTime::createFromFormat($format, $value['away_end_date']);
-                $userAway->setAwayStartDate($dateStart);
-                $userAway->setAwayEndDate($dateEnd);
-                $userAway->setAwayUser($user);
-                $this->entityManager->persist($userAway);
-            }
-            $this->entityManager->flush();
-        }
-        $service = new ReservationService($this->entityManager);
-        $service->make($dataArray['id']);
-        $response = new Response();
-        $response->setStatusCode(Response::HTTP_OK);
-        return $response;
+        $reservationService = new ReservationService($this->entityManager);
+        $awayService = new UserAwayService($this->entityManager, $reservationService);
+        $response = $awayService->post($dataArray);
+        return new JsonResponse($response);
     }
 
     /**
      * @Rest\Put("/api/useraway")
      * @param Request $request
+     * @return JsonResponse
      */
     public function updateUserAway(Request $request)
     {
         $content = $request->getContent();
         $dataArray = json_decode($content, true);
-        $id = null;
-        foreach ($dataArray['away_date'] as $value) {
-            $userAway = $this->entityManager->getRepository(UserAway::class)->findById($value['id']);
-            if (!$userAway) {
-            } else {
-                $parkId = $userAway->getAwayUser()->getPermanentSpace()->getId();
-                $clientId = $userAway->getAwayUser()->getId();
-                $format = '!Y-m-d';
-                $dateStart = \DateTime::createFromFormat($format, $value['away_start_date']);
-                $dateEnd = \DateTime::createFromFormat($format, $value['away_end_date']);
-                $userAway->setAwayStartDate($dateStart);
-                $userAway->setAwayEndDate($dateEnd);
-                $this->entityManager->persist($userAway); //not needed
-            }
-        }
-        $this->entityManager->flush();
-
-        $service = new ReservationService($this->entityManager);
-        $service->updateOrDeleteReservation($clientId, $parkId);
-        $response = new Response();
-        $response->setStatusCode(Response::HTTP_OK);
-        return $response;
+        $reservationService = new ReservationService($this->entityManager);
+        $awayService = new UserAwayService($this->entityManager, $reservationService);
+        $response = $awayService->put($dataArray);
+        return new JsonResponse($response);
     }
 
     /**
      * @Rest\Delete("/api/useraway")
      * @param Request $request
+     * @return JsonResponse
      */
     public function deleteUserAway(Request $request)
     {
         $content = $request->getContent();
         $dataArray = json_decode($content, true);
-
-        foreach ($dataArray['away_date'] as $value) {
-            $userAway = $this->entityManager->getRepository(UserAway::class)->findById($value['id']);
-            if (!$userAway) {
-            } else {
-                $parkId = $userAway->getAwayUser()->getPermanentSpace()->getId();
-                $clientId = $userAway->getAwayUser()->getId();
-                $this->entityManager->remove($userAway);
-            }
-        }
-        $this->entityManager->flush();
-        $service = new ReservationService($this->entityManager);
-        $service->updateOrDeleteReservation($clientId, $parkId);
-        $response = new Response();
-        $response->setStatusCode(Response::HTTP_OK);
-        return $response;
-    }
-
-
-    private function serialize($data)
-    {
-        $serializer = SerializerBuilder::create()->build();
-        $json = $serializer->serialize($data, 'json');
-        return $json;
+        $reservationService = new ReservationService($this->entityManager);
+        $awayService = new UserAwayService($this->entityManager, $reservationService);
+        $response = $awayService->delete($dataArray);
+        return new JsonResponse($response);
     }
 }

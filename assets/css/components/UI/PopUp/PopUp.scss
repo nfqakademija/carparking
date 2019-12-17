@@ -1,12 +1,18 @@
 .PopUp_container {
     color: #f8f3f0;
     padding: 1em;
-    box-shadow: 5px 5px 10px 0px #343a40;
     top: 1em;
     margin-bottom: 1em;
     border-radius: 0.25em;
     transition: transform 0.5s ease-out;
     z-index:200;
+}
+
+.PopUp_buttonsContainer {
+  display: flex;
+  justify-content:space-around;
+  width:80%;
+  margin:auto;
 }
 
 .lds-ring {
@@ -36,6 +42,14 @@
 .lds-ring div:nth-child(3) {
     animation-delay: -0.15s;
 }
+
+@media(max-width:400px){
+  .PopUp_buttonsContainer {
+    width:100%;
+  }
+}
+
+
 @keyframes lds-ring {
     0% {
       transform: rotate(0deg);
