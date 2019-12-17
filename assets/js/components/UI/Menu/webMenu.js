@@ -33,9 +33,19 @@ const webMeniu = (props) => {
                         <i className="fas fa-bell"></i>
                         {props.userRole === 'user'
                             ? props.notifications
-                                    ? !!props.notifications.find( notification => !Number(notification.accepted) && !notification.rejected)
-                                        ? <i className="fas fa-dot-circle" style={{fontSize:'0.25em', color:'#E87C86'}}></i>
-                                        : <i className="fas fa-bell" style={{fontSize:'0.25em', color:'#E87C86', opacity:'0'}}></i>
+                                    ? <i className="fas fa-dot-circle" 
+                                        style={{
+                                            fontSize:'0.25em', 
+                                            color:'#E87C86',
+                                            opacity:!!props.notifications.find( notification => !Number(notification.accepted) && !notification.rejected)?'1':'0'
+                                        }}></i>
+                                    
+                                    //!!props.notifications.find( notification => !Number(notification.accepted) && !notification.rejected)
+
+                                        // ? console.log('circle',!!props.notifications.find( notification => !Number(notification.accepted) && !notification.rejected))
+                                        // <i className="fas fa-dot-circle" style={{fontSize:'0.25em', color:'#E87C86'}}></i>
+                                        // : console.log('bell bad',!!props.notifications.find( notification => !Number(notification.accepted) && !notification.rejected))
+                                        // <i className="fas fa-bell" style={{fontSize:'0.25em', color:'#E87C86', opacity:'0'}}></i>
                                     : <i className="fas fa-bell" style={{fontSize:'0.25em', color:'#E87C86', opacity:'0'}}></i>
                             : null}
                     </span>

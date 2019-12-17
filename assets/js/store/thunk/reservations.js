@@ -240,7 +240,7 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
 
 const fetchOneDayData = (date) => dispatch => { // helper combination of fetches. Day status after user new reservations fetched
     dispatch(actions.fetchOneDayDataStart(date))
-    axios.get(`/api/single-user/41`)
+    axios.get(`/api/single-user/13`)
         .then(res => {
             dispatch(actions.fetchSingleUserSuccess(res.data))
             axios.get(`/api/reservations`)

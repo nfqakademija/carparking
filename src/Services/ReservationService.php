@@ -115,9 +115,7 @@ class ReservationService
     {
         $reservations = $this->entityManager->getRepository(Reservations::class)->getReservationsByArray($dateArray);
         foreach ($reservations as $reservation) {
-
 //            var_dump($reservation->getParkSpace()->getId());
-
             if ($type === 'delete' && $reservation->getParkSpace() === null) {
                 continue;
             }

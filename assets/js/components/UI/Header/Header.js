@@ -32,7 +32,11 @@ const header = (props) => (
                                             </i>
                                         </div>
                                         <div>
+<<<<<<< HEAD
                                             <a  href="/logout" style={{color:"#f8f3f0"}}>
+=======
+                                            <a href='/logout' style={{color:"#f8f3f0"}}>
+>>>>>>> 092b41bb21f703bf62e01d5fc77ff7b913dba93a
                                                 <i className="fas fa-sign-out-alt h3 textLightGrey mx-4">
                                                 </i>
                                             </a>
