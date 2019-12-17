@@ -3,28 +3,9 @@ import {setAwaysDates, postAwayStatus, postAwayStatusLoading} from '../actions/i
 import {changeAwayLoadingStatus} from "../actions/main";
 import { fetchReservations } from './reservations';
 import { fetchSingleUser } from './singleUser';
+import { getCookie } from './getCookie';
 
-const getCookie = (cname) => {
-    const name = cname + "=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
-
-const token = getCookie('Bearer-token');
-
-const config = {
-    headers: {"Authorization": token}
-};
+const userId = getCookie('userId')
 
 export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
     let status;
@@ -44,7 +25,7 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
 
     console.log((postData))
 
-    axios.post('/api/useraway', postData, config)
+    axios.post('/api/useraway', postData)
         .then((response) => {
 
 
@@ -78,7 +59,7 @@ export const getDatesAway = () => (dispatch, getState) => {
 
     dispatch(changeAwayLoadingStatus(true));
 
-    axios.get('/api/single-user/' + user, config)
+    axios.get(`/api/single-user/${userId}`)
         .then((response) => {
             if (response.status === 200) {
                 dispatch(setAwaysDates(response.data.userAways));

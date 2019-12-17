@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { saveToken } from '../actions/main';
 
 export const getCookie = (cname) => {
     const name = cname + "=";
