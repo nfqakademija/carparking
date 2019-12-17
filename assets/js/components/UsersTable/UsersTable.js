@@ -3,8 +3,8 @@ import React from 'react';
 import '../../../css/components/UsersTable/UsersTable.scss';
 
 const usersTable = React.forwardRef((props, ref) => ( // after data structure refactoring this becomes unreadable. We need to separate user case from guest case
-        <div className='UsersTable_container shadow' ref={ref} key={'1'}>
-            <div className='UserTable_tableHead bg-dark text-white rounded-top' key={'1'}>
+        <div className='UsersTable_container shadow' ref={ref}>
+            <div className='UserTable_tableHead bg-dark text-white rounded-top'>
                     <div className='itemUsers'>User</div>
                     <div className='itemReservation'>Reservation status</div>
                     <div className='itemDays'>
@@ -18,7 +18,7 @@ const usersTable = React.forwardRef((props, ref) => ( // after data structure re
                         ))}
                     </div>
             </div>
-            <div className='UsersTable_body' key={'2'}>
+            <div className='UsersTable_body' >
                 
                 <div className='UserTable_userContainerMain'>
                     <div>{`${props.mainUser.name} ${props.mainUser.surname}`}</div>

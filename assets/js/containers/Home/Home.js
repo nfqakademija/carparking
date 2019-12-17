@@ -126,7 +126,7 @@ class Home extends Component {
         <>
             {this.props.loadingSingleUser || this.props.loading
             ? null
-            : <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
+            : <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'hidden'}}>
                 {this.popupHandler(this.props.popup)}
                 <div className='Home_reservationContainer' style={this.reservationContainerStyleHandler()} >
                     {this.props.weekStatus.map( (day,index) => ( 
