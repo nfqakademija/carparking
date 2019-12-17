@@ -42,6 +42,8 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
         ]
     };
 
+    console.log((postData))
+
     axios.post('/api/useraway', postData, config)
         .then((response) => {
 
