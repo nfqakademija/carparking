@@ -1,7 +1,8 @@
-get api/single-user/{id} : + pakolkas {id} per url paduok
+GET api/single-user/{id} : + pakolkas {id} per url paduok
         "name":"",
         "surname":"",
-        "role": "", // arba padaryt kad guest neturetu userAways is viso
+        "role": "",
+	"licensePlate":" : "",
         "reservations":[
             {
                 "date":"",
@@ -17,7 +18,7 @@ get api/single-user/{id} : + pakolkas {id} per url paduok
         ]
     }
 
-get api/reservations : + paduodu token
+GET api/reservations : + paduodu token
     [
         {
             "date":"",
@@ -25,11 +26,12 @@ get api/reservations : + paduodu token
             "usedSpots": ""
         } x6 kiekvienai dienai
     ]
-get api/users : + paduodu token
+GET api/users : + paduodu token
     [
         {
             "name":"",
             "surname":"",
+            "userId":"", 
             "reservations": [
                 {
                     "date":"",
@@ -38,24 +40,107 @@ get api/users : + paduodu token
         }  x tiek kiek yra useriu
     ]
 
-get api/notifications : + paduodu token
+GET /api/useraway/{id}
+[
+    {
+        "awayId": "",
+        "startDate": "",
+        "endDate": ""
+	"userId": ""
+    } x tiek kiek yra userAways vienam useriui
+]
+
+GET api/notifications : + paduodu token
 [
     {
         "guestName":"",
         "guestSurname":"",
         "date":"",
         "notificationId":"",
-        // guestId: '' // tam kad paduot post api/switch
+        "guestId": '' 
     } x tiek kiek notification
 ]
 
-// parasyk kokia data reikes papostinti
-1) post api/useraway
-2) delete api/useraway
-3) ar bus put api/useraway? 
+post api/useraway: + token (veliau reikes)
+api/useraway POST
 
-4) post api/switch (galiu duot token + guestName + guestSurname)
+{
+	"id": 41,(userId)
+	"awayDate": [
+		{"awayStartDate" :"2019-09-15","awayEndDate":"2019-09-16"}
+                {"awayStartDate" :"2019-09-20","awayEndDate":"2019-09-22"}
+	]
+}
+
+post api/useraway: + token (veliau reikes)
+api/useraway PUT
+
+{
+	"awayDate": [
+		{"id": 25(userAwayId),"awayStartDate" :"2019-09-20","awayEndDate":"2019-09-29"},
+		{"id": 57(userAwayId),"awayStartDate" :"2019-09-11","awayEndDate":"2019-09-12"}
+	]
+}
+
+delete api/useraway:  + token (veliau reikes)
+api/useraway DELETE
+{
+	"awayDate": [
+		{"id": 25(userAwayId)},
+		{"id": 57(userAwayId)}
+	]
+}
+
+api/licenseplate POST ir editui naudot 
+{
+	"licensePlate": [
+		{"userId": "41","licensePlate" : "A012456"}
+	]
+}
+api/licenseplate DELETE 
+{
+	"licensePlate": [
+		{"userId": "41"}
+	]
+}
+
+api/reservations POST
+{
+	"id": 21,
+	"reservations": [
+		{"reservationDate" :"2019-12-15"},
+        	{"reservationDate" :"2019-12-18"}
+	]
+} 
+
+// postinasi gerai. Kai yra vietu prasisuka ir randa spot. 
+Kai nera vietu pasipiostina, bet atlaisvinus vieta nebeprasisuka.
+Raso kad tiesiog yra laisva vieta, o rezervacija parkSpace:null
+
+api/reservations DELETE
+{
+	"reservations": [
+		{"id": 12}
+	]
+}
+
+api/notifications POST
+{
+	"guestId": 21,
+	"userId": 2,
+	"requestDate" :"2019-12-20"
+}
+api/notifications DELETE
+{
+	nera dar 
+}
+
+/api/notification-accept/{notificationId} POST (tuscia paduok) sukuria switch
+/api/notification-cancel/{notificationId} DELETE istrina switch 
+
+
 5) delete api/notifications (galiu duot notification id)
+nera dar
 
 // bonus
 Jei turesi laiko preverstu toks kur tik viena diena refresina (nebutina nes get api/reservations tik 6-7 mazi objectai)
