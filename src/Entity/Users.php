@@ -264,8 +264,10 @@ class Users implements UserInterface
     public function getRoles()
     {
         $role = $this->getUserRole()->getRole();
-        if ($role == 'guest') {
+        if ($role === 'guest') {
             $role = 'user';
+        } else {
+            $role = $this->getUserRole()->getRole();
         }
         return array('ROLE_' . strtoupper($role));
     }
