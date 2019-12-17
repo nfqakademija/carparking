@@ -17,9 +17,15 @@ const getCookie = (cname) => {
     return "";
 }
 
+const token = getCookie('Bearer-token');
+
+const config = {
+    headers: {"Authorization": token}
+};
+
 // accept and give parking space to guest
 export const notificationAccept = notificationId => dispatch => {
-    axios.post(`/api/notification-accept/${notificationId}`)
+    axios.post(`/api/notification-accept/${notificationId}`, config)
         .then(() =>
             dispatch(fetchSignleUserAndNotifications()))
 }
@@ -30,21 +36,21 @@ export const notificationReject = notificationId => dispatch => {
         "notificationId": notificationId,
         "rejected": 1
     }
-    axios.put(`/api/notifications`, putData)
+    axios.put(`/api/notifications`, putData, config)
         .then(() =>
             dispatch(fetchSignleUserAndNotifications()))
 }
 
 // cancel switch. Take back parking spot from guest
 export const notificationCancel = notificationId => dispatch => {
-    axios.delete(`/api/notification-cancel/${notificationId}`)
+    axios.delete(`/api/notification-cancel/${notificationId}`, config)
         .then(() =>
             dispatch(fetchSignleUserAndNotifications()))
 }
 
 export const fetchNotifications = (userId, userRole) => dispatch => {
     dispatch(actions.fetchNotificationsStart())
-    axios.get(`/api/notifications/${userId}/${userRole}`)
+    axios.get(`/api/notifications/${userId}/${userRole}`, config)
         .then(res => {
             dispatch(actions.fetchNotificationsSuccess(res.data))
         })
@@ -57,13 +63,7 @@ export const fetchNotifications = (userId, userRole) => dispatch => {
 export const fetchSignleUserAndNotifications = () => dispatch => {
     dispatch(actions.fetchSingleUserStart());
 
-    const token = getCookie('Bearer-token');
     const id = getCookie('userId');
-
-    var config = {
-        headers: {"Authorization": token}
-    };
-
 
     axios.get(`/api/single-user/`+id, config)
         .then(res => {
