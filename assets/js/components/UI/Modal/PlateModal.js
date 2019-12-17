@@ -53,39 +53,38 @@ class PlateModal extends Component {
 
                 {
                     //if plate number is empty
-                    this.props.plate !== null && this.props.plate.length > 0 ?
+                    this.props.plate !== null
                         //if feedback exist
-                        this.props.plateStatus !== 'none' ?
+                        ? this.props.plateStatus !== 'none' 
                             // check if post success
-                            this.props.plateStatus === 'success' ?
-                                <div className="mb-2 modileWidth mx-auto fade-in">
+                            ? this.props.plateStatus === 'success' 
+                                ? <div className="mb-2 modileWidth mx-auto fade-in">
                                     <div id="info"
                                          className="mb-2 h4 p-2 bg-success text-white rounded transition_color">
                                         Successfully completed!
                                     </div>
                                 </div>
-                                :
+                                
                                 // check if post fail
-                                this.props.plateStatus === 'fail' ?
-                                    <div className="mb-2 modileWidth mx-auto">
+                                : this.props.plateStatus === 'fail' 
+                                    ? <div className="mb-2 modileWidth mx-auto">
                                         <div id="info"
                                              className="mb-2 h4 p-2 bg-danger text-white rounded transition_color">
                                             Sorry, operation failed please contact the call center.
                                         </div>
                                     </div>
                                     : null
-                            :
                             // check if message exist in front validation
-                            this.state.messageExist ?
-                                <div className="mb-2 modileWidth mx-auto fade-in">
+                            : this.state.messageExist 
+                                ? <div className="mb-2 modileWidth mx-auto fade-in">
                                     <div id="info"
                                          className="mb-2 h4 p-2 text-white bg-warning rounded transition_color">
                                         Sorry, plate number format isn't valid! Please check again.
                                     </div>
                                 </div>
                                 : null
-                        :
-                        <div className="mb-2 modileWidth mx-auto fade-in">
+                        
+                        : <div className="mb-2 modileWidth mx-auto fade-in">
                             <div id="info" className="mb-2 h4 p-2 text-black bg-white rounded transition_color">
                                 Please enter your car plate number!
                             </div>
@@ -97,16 +96,14 @@ class PlateModal extends Component {
                     name="licenseplate"
                     className={
                         //status color
-                        this.props.plateStatus !== 'none' ?
-                            this.props.plateStatus === 'success' ?
-                                "licenseplate modileWidth success"
-                                :
-                                this.props.plateStatus === 'licenseplate modileWidth fail' ?
-                                    "licenseplate modileWidth fail"
+                        this.props.plateStatus !== 'none' 
+                            ? this.props.plateStatus === 'success' 
+                                ?"licenseplate modileWidth success"
+                                :this.props.plateStatus === 'licenseplate modileWidth fail' 
+                                    ?"licenseplate modileWidth fail"
                                     : "licenseplate modileWidth"
-                            :
-                            this.state.messageExist ?
-                                "licenseplate modileWidth warning"
+                            :this.state.messageExist 
+                                ?"licenseplate modileWidth warning"
                                 : "licenseplate modileWidth"
                     }
                     maxLength="6"
@@ -126,7 +123,7 @@ class PlateModal extends Component {
 
 const mapStateToProps = state => {
     return {
-        plate: state.main.plate,
+        plate: state.singleUser.user.licensePlate,
         plateStatus: state.main.plateModalStatus,
     }
 }
