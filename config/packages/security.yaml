@@ -25,7 +25,7 @@ security:
       anonymous: ~
       logout:
         path: /logout
-        target: /login
+        target: /
       logout_on_user_change: true
 
       guard:
@@ -33,7 +33,7 @@ security:
           - App\Security\GoogleAuthenticator
 
   access_control:
-#    - { path: ^/hom, roles: ROLE_USER }
+    - { path: ^/app, roles: ROLE_USER }
 #    - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
       # - { path: ^/profile, roles: ROLE_USER }
 
