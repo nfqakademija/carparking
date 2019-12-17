@@ -11,7 +11,7 @@ import './Notifications.scss';
 class Notifications extends Component {
 
     componentDidMount() {
-        this.props.onFetchNotifications(props.user.userId, props.user.role) 
+        this.props.onFetchNotifications(this.props.user.userId, this.props.user.role) 
     }
 
     render (){
@@ -19,7 +19,7 @@ class Notifications extends Component {
         return (
             <>
                 <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
-                    {this.props.loading || this.props.usersList.length === 0
+                    {this.props.usersList === []
                         ? 'loading ...'
                         : <div className='Notifications_container'>
                             <div className='Notifications_table shadow'>
@@ -49,7 +49,6 @@ class Notifications extends Component {
 const mapStateToProps = state => {
     return {
         usersList: state.usersList.users,
-        loading: state.main.loading.loadingUsers,
         reservationStatus: state.reservation.weekStatus,
         mainUser: state.singleUser.user,
         popup: state.reservation.popup,

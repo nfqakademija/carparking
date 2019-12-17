@@ -4,7 +4,7 @@ import {setPlateStatus} from "../actions/main";
 
 export const getPlateNumber = () => (dispatch, getState) => {
 
-    const user = getState().user.userId;
+    const user = getState().singleUser.user.userId;
 
     console.log(user);
 
@@ -25,7 +25,7 @@ export const getPlateNumber = () => (dispatch, getState) => {
 
 export const updatePlateNumber = (numbers) => (dispatch, getState) => {
 
-    const user = getState().user.userId;
+    const user = getState().singleUser.user.userId;
 
     const plate = {
         "licensePlate": [

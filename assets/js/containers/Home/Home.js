@@ -123,13 +123,13 @@ class Home extends Component {
     }
 
     reservationContainerStyleHandler () {
-        return {transform:([] || this.props.popup.show) ?'translateY(200px)': 'translateY(0)'}
+        return {transform:this.props.popup.show ?'translateY(200px)': 'translateY(0)'}
     }
     
     render (){
         return (
         <>
-            {this.props.loadingSingleUser || this.props.loading.loadingReservations
+            {this.props.loadingSingleUser || this.props.loading
             ? null
             : <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
                 {this.popupHandler(this.props.popup)}

@@ -4,31 +4,8 @@ import registrationData from "../../containers/Home/fakeReservationData.json"
 const initialState = {
     registrationData: registrationData,
     token: 1,
-    loading: {
-        loadingSingleUser: true,
-        loadingReservations: true,
-        loadingUsers: true,
-        loadingNotifications:true
-    },
-    user: {
-        userId: 4,
-        name: null,
-        lastname: null,
-        activeCar: null,
-        aways: [],
-        notifications: [],
-        role: 'user'
-    },
-    users: [],
     plate: "ABC000",
-    reservationStatus: [],
-    popup: {
-        width: 'calc(100%+30px)',
-        left: '0px'
-    },
-    loadingOneDay: false,
     mobileMenu: false,
-    popupShake: false,
     plateModal: false,
     plateModalStatus: "none",
     postAwayStatus: null,

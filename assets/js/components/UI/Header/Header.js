@@ -67,7 +67,7 @@ const mapStateToProps = state => {
         userName: state.singleUser.user.name,
         userLastname: state.singleUser.user.surname,
         mobileMenu: state.main.mobileMenu,
-        popupShow: state.main.popup.show
+        popupShow: state.reservation.popup.show
     }
 };
 
