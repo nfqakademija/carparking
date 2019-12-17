@@ -55,7 +55,6 @@ class NotificationService
     {
 
         $guest = $this->findUserById($data['guestId']);
-        //TODO implement token id
         if ($guest->getUserRole()->getRole() != 'guest') {
             return $array = ['error' => 'not guest'];
         }
@@ -87,13 +86,12 @@ class NotificationService
 
     public function editNotification($data)
     {
-        //TODO token id check
-        $notification = $this->checkNotification($data['notificationId']);
 
+        $notification = $this->checkNotification($data['notificationId']);
         if (isset($data['accepted'])) {
             $notification->setAccepted(1);
-            $notification->setDelivered(1);
         } elseif (isset($data['acceptedAndCanceled'])) {
+            $notification->setAccepted(0);
             $notification->setCanceledAfterAccept(1);
         } else {
             $notification->setDelivered(1);
