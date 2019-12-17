@@ -38,7 +38,7 @@ class Layout extends Component {
 
 const mapStateToProps = state => {
     return {
-        popup: state.main.popup
+        popup: state.reservation.popup
     }
 }
 

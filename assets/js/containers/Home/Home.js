@@ -165,13 +165,13 @@ class Home extends Component {
 
 const mapStateToProps = state => {
     return {
-        weekStatus: state.main.weekStatus,
-        loading: state.main.loading,
+        weekStatus: state.reservation.weekStatus,
+        loading: state.reservation.loading,
         loadingSingleUser: state.singleUser.loading,
-        popup: state.main.popup,
+        popup: state.reservation.popup,
         user: state.singleUser.user,
-        loadingOneDay: state.main.loadingOneDay,
-        popupShake: state.main.popupShake
+        loadingOneDay: state.reservation.loadingOneDay,
+        popupShake: state.reservation.popupShake
     }
 }
 
