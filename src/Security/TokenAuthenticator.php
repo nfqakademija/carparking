@@ -46,7 +46,6 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
      */
     public function getCredentials(Request $request)
     {
-        $request->headers->set('Newuser', "111111111111111");
         return [
             'token' => $request->headers->get('Authorization'),
         ];

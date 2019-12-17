@@ -144,8 +144,27 @@ class GoogleAuthenticator extends SocialAuthenticator
         $valueArray = $this->testCred->getValues();
         $key = $valueArray['token_type'];
         $value = $valueArray['id_token'];
+        $userEmail = $this->tokenParser($value);
+        $userId = $this->getUserFromEmail($userEmail);
         $response = new RedirectResponse('/app');
         $response->headers->setCookie(Cookie::create($key . '-token', $value));
+        $response->headers->setCookie(Cookie::create('userId', $userId));
         return $response;
+    }
+
+    private function tokenParser($token)
+    {
+        $tokenParts = explode(".", $token);
+        $tokenHeader = base64_decode($tokenParts[0]);
+        $tokenPayload = base64_decode($tokenParts[1]);
+        $jwtHeader = json_decode($tokenHeader);
+        $jwtPayload = json_decode($tokenPayload);
+        return $jwtPayload->email;
+    }
+
+    private function getUserFromEmail($email)
+    {
+        $user = $this->em->getRepository(Users::class)->findUserByEmail($email);
+        return $user->getId();
     }
 }
