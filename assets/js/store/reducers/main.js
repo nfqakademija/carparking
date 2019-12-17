@@ -4,7 +4,6 @@ import registrationData from "../../containers/Home/fakeReservationData.json"
 const initialState = {
     registrationData: registrationData,
     token: 1,
-    plate: "ABC000",
     mobileMenu: false,
     plateModal: false,
     plateModalStatus: "none",
@@ -38,11 +37,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 mobileMenu: false
-            }
-        case actionTypes.SET_PLATE_NUMBER:
-            return {
-                ...state,
-                plate: action.data.data
             }
         case actionTypes.OPEN_PLATE_MODAL:
             return {
