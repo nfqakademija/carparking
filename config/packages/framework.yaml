@@ -9,6 +9,9 @@ framework:
         handler_id: null
         cookie_secure: auto
         cookie_samesite: lax
+        cookie_httponly: false
+
+
 
     #esi: true
     #fragments: true
