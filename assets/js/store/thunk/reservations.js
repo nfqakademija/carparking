@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as actions from '../actions/index';
 import { getCoordinates } from './popup';
-import { fetchNotifications } from './notifications';
+import { fetchSignleUserAndNotifications } from './notifications';
 
 export const fetchReservations = () => dispatch => {
     dispatch(actions.fetchReservationsStart());
@@ -199,8 +199,11 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
         "userId": otherUserId,
         "requestDate" : date
     }
+    console.log('incoming', date, user)
+    console.log('postdata',postData)
     axios.post('/api/notifications',postData)
         .then(res => {
+            console.log('res', res)
             if(res.data.error) { // if you already asked this person
                 dispatch(actions.popupAcceptFail(res.data.error))
             } else {
@@ -208,7 +211,7 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
             }
             dispatch(successTimer())
             dispatch(fetchOneDayData(date))
-            dispatch(fetchNotifications())
+            dispatch(fetchSignleUserAndNotifications())
         })
         .catch((err) => {
             dispatch(actions.popupAcceptFail(err))
@@ -234,7 +237,7 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
 
 const fetchOneDayData = (date) => dispatch => { // helper combination of fetches. Day status after user new reservations fetched
     dispatch(actions.fetchOneDayDataStart(date))
-    axios.get(`/api/single-user/41`)
+    axios.get(`/api/single-user/2`)
         .then(res => {
             dispatch(actions.fetchSingleUserSuccess(res.data))
             axios.get(`/api/reservations`)
