@@ -35,7 +35,7 @@ export const notificationCancel = notificationId => dispatch => {
 
 export const fetchNotifications = userRole => dispatch => {
     dispatch(actions.fetchNotificationsStart())
-    axios.get(`/api/notifications/${userId}/${userRole}`)
+    axios.get(`/api/notifications/22/${userRole}`)
         .then(res => {
             dispatch(actions.fetchNotificationsSuccess(res.data))
         })
@@ -50,7 +50,7 @@ export const fetchNotifications = userRole => dispatch => {
 export const fetchSignleUserAndNotifications = () => dispatch => {
     dispatch(actions.fetchSingleUserStart());
     
-    axios.get(`/api/single-user/${userId}`)
+    axios.get(`/api/single-user/22`)
         .then(res => {
             const name = nameToFirstUpperLetter(res.data.name)
             const surname = nameToFirstUpperLetter(res.data.surname)

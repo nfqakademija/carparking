@@ -6,7 +6,7 @@ const userId = getCookie('userId')
 
 export const fetchSingleUser = () => dispatch => {
     dispatch(actions.fetchSingleUserStart())
-    axios.get(`/api/single-user/${userId}`) //*
+    axios.get(`/api/single-user/22`) //*
         .then( res => {
             dispatch(actions.fetchSingleUserSuccess(res.data))
         })
