@@ -73,8 +73,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 postAwayLoading: true
-            }
-        
+            } 
         default: return state
     }
 }

@@ -1,21 +1,8 @@
 import axios from 'axios';
 import * as actions from '../actions/index';
+import {getCookie} from './getCookie';
 
-const getCookie = (cname) => {
-    const name = cname + "=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
+const userId = getCookie('userId')
 
 // accept and give parking space to guest
 export const notificationAccept = notificationId => dispatch => {
@@ -56,23 +43,15 @@ export const fetchNotifications = (userId, userRole) => dispatch => {
 
 export const fetchSignleUserAndNotifications = () => dispatch => {
     dispatch(actions.fetchSingleUserStart());
-
-    const token = getCookie('Bearer-token');
-    const id = getCookie('userId');
-
-    var config = {
-        headers: {"Authorization": token}
-    };
-
-
-    axios.get(`/api/single-user/`+id, config)
+    
+    axios.get(`/api/single-user/${userId}`)
         .then(res => {
             console.log(res);
             dispatch(actions.fetchSingleUserSuccess(res.data))
             dispatch(fetchNotifications(res.data.userId, res.data.role))
         })
         .catch(err => {
-            console.log(err);
+            console.log('labas');
             dispatch(actions.fetchSingleUserFail(err))
         })
 }

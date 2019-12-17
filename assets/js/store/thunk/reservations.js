@@ -2,6 +2,9 @@ import axios from 'axios';
 import * as actions from '../actions/index';
 import { getCoordinates } from './popup';
 import { fetchSignleUserAndNotifications } from './notifications';
+import {getCookie} from './getCookie';
+
+const userId = getCookie('userId')
 
 export const fetchReservations = () => dispatch => {
     dispatch(actions.fetchReservationsStart());
@@ -240,7 +243,7 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
 
 const fetchOneDayData = (date) => dispatch => { // helper combination of fetches. Day status after user new reservations fetched
     dispatch(actions.fetchOneDayDataStart(date))
-    axios.get(`/api/single-user/13`)
+    axios.get(`/api/single-user/${userId}`)
         .then(res => {
             dispatch(actions.fetchSingleUserSuccess(res.data))
             axios.get(`/api/reservations`)
