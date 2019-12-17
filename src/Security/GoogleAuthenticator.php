@@ -55,7 +55,7 @@ class GoogleAuthenticator extends SocialAuthenticator
             ->findOneBy(['email' => $email]);
 
         if (!$user) {
-            $roleName = 'guest';
+            $roleName = 'user';
             $role = $user = $this->em->getRepository(Roles::class)
                 ->findOneBy(['role' => $roleName]);
             $user = new Users();

@@ -33,7 +33,11 @@ security:
           - App\Security\GoogleAuthenticator
 
   access_control:
+<<<<<<< HEAD
     - { path: ^/app, roles: ROLE_USER }
+=======
+#    - { path: ^/app, roles: ROLE_USER }
+>>>>>>> 06a060e80999812a90ba95d3e001fb55debe9af1
 #    - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
       # - { path: ^/profile, roles: ROLE_USER }
 
