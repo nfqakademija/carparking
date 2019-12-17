@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Route,  Redirect, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { getUsersData, getReservations, getNotifications  } from './store/thunk/reservations';
+import { fetchReservations } from './store/thunk/reservations';
+import { fetchSignleUserAndNotifications } from './store/thunk/notifications';
+import { fetchUsersData } from './store/thunk/usersList';
 
 import Layout from './containers/Layout/Layout';
 import Login from './containers/Auth/Auth';
@@ -15,9 +17,9 @@ import Notifications from './containers/Notifications/Notifications';
 class App extends Component {
     
     componentDidMount() {
-        this.props.onGetUsersData()
-        this.props.onGetReservations()
-        this.props.onGetNotifications() 
+        this.props.onFetchUsersData()
+        this.props.onFetchReservations()
+        this.props.onFetchNotifications() 
     }
 
     render(){
@@ -49,15 +51,15 @@ class App extends Component {
     
 const mapStateToProps = state => {
     return {
-        token: state.token,
-        user: state.user
+        token: state.main.token,
+        user: state.main.user
     }
 }
 
 const mapDispatchToProps= dispatch => ({
-    onGetUsersData: () => dispatch(getUsersData()),
-    onGetReservations: () => dispatch(getReservations()),
-    onGetNotifications: () => dispatch(getNotifications())
+    onFetchUsersData: () => dispatch(fetchUsersData()),
+    onFetchReservations: () => dispatch(fetchReservations()),
+    onFetchNotifications: () => dispatch(fetchSignleUserAndNotifications())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

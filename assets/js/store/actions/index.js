@@ -1,43 +1,46 @@
 export {
     login,
-    logout,
-    getHomeDataStart,
-    getHomeDataSuccess,
-    getHomeDataFail,
-    getUsersStart,
-    getUsersSuccess,
-    getUsersFail,
-    saveCoordinates,
-    noCoordinates,
-    buttonClicked,
-    popupCancel,
-    popupAcceptStart,
-    popupAcceptSuccess,
-    popupAcceptFail,
-    popupSuccess,
-    popupStyleReset,
-    fetchOneDayDataStart,
-    fetchOneDayDataSuccess,
-    fetchOneDayDataFail,
-    setNotification,
-    notificationPopupCancel,
-    notificationPopupAcceptStart,
-    notificationPopupAcceptSuccess,
-    popupOpenedStart,
-    popupOpenedReset,
-    setAwaysDates,
+    logout, 
     postAwayStatus,
     postAwayStatusLoading,
     setPlateNumber,
-    getSingleUserStart,
-    getSingleUserSuccess,
-    getSingleUserFail,
-    getReservationsStart,
-    getReservationsSuccess,
-    getReservationsFail,
-    getNotificationsStart,
-    getNotificationsSuccess,
-    getNotificationsFail,
     openModal
-
 } from './main'
+
+export {
+    fetchReservationsStart,
+    fetchReservationsSuccess,
+    fetchReservationsFail,
+    popupAcceptStart,
+    popupAcceptSuccess,
+    popupAcceptFail,
+    popupCancel,
+    popupSuccess,
+    popupStyleReset,
+    saveCoordinates,
+    fetchOneDayDataStart,
+    fetchOneDayDataSuccess,
+    fetchOneDayDataFail,
+    buttonClicked,
+    popupOpenedStart,
+    popupOpenedReset
+} from './reservations'
+
+export {
+    fetchNotificationsStart,
+    fetchNotificationsSuccess,
+    fetchNotificationsFail
+} from './notifications'
+
+export {
+    fetchSingleUserStart,
+    fetchSingleUserSuccess,
+    fetchSingleUserFail,
+    setAwaysDates
+} from './singleUser'
+
+export {
+    fetchUsersStart,
+    fetchUsersSuccess,
+    fetchUsersFail
+} from './usersList'

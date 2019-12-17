@@ -14,7 +14,7 @@ const Modal = (props) => {
 
 const mapStateToProps = state => {
     return {
-        opocity: state.plateModal
+        opocity: state.main.plateModal
     }
 }
 

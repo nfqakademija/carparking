@@ -1,11 +1,12 @@
 import axios from 'axios';
 import {setAwaysDates, postAwayStatus, postAwayStatusLoading} from '../actions/index';
 import {changeAwayLoadingStatus} from "../actions/main";
-import { getReservations, getSingleUser } from './reservations';
+import { fetchReservations } from './reservations';
+import { fetchSingleUser } from './singleUser';
 
 export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
     let status;
-    const user = getState().user.userId;
+    const user = getState().singleUser.user.userId;
 
     dispatch(postAwayStatusLoading());
 
@@ -18,18 +19,17 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
             }
         ]
     };
-
     axios.post('/api/useraway', postData)
         .then((response) => {
-
+            
 
             if (response.data.error === 'duplicate') {
                 status = "duplicate";
 
             } else if (response.data.success === 'success') {
                 dispatch(getDatesAway());
-                dispatch(getReservations());
-                dispatch(getSingleUser());
+                dispatch(fetchReservations());
+                dispatch(fetchSingleUser());
                 status = "success";
             }else{
                 status = "fail";

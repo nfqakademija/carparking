@@ -1,23 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import { getUsersData, getReservations, getNotifications  } from '../../store/thunk/reservations';
+import { fetchNotifications } from '../../store/thunk/notifications';
 
 import UserNotifications from '../../components/NotificationsComponents/UserNotifications';
 import GuestNotifications from '../../components/NotificationsComponents/GuestNotifications';
 
 import './Notifications.scss';
+
 class Notifications extends Component {
 
-    constructor(props){
-        super(props);
-        this.userTableRef = React.createRef();
-    }
-
     componentDidMount() {
-        // this.props.onGetUsersData()
-        // this.props.onGetReservations()
-        this.props.onGetNotifications() 
+        this.props.onFetchNotifications(this.props.user.userId, this.props.user.role) 
     }
 
     render (){
@@ -25,7 +19,7 @@ class Notifications extends Component {
         return (
             <>
                 <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
-                    {this.props.loading || this.props.usersList.length === 0
+                    {this.props.usersList === []
                         ? 'loading ...'
                         : <div className='Notifications_container'>
                             <div className='Notifications_table shadow'>
@@ -54,25 +48,19 @@ class Notifications extends Component {
 
 const mapStateToProps = state => {
     return {
-        usersList: state.users,
-        loading: state.loading.loadingUsers,
-        reservationStatus: state.weekStatus,
-        mainUser: state.user,
-        popup: state.popup,
-        user: state.user,
-        popupShake: state.popupShake,
-        popupShow: state.popup.show,
-        notificationPopupShow: state.notificationPopup.show,
-        notifications: state.notifications
+        usersList: state.usersList.users,
+        reservationStatus: state.reservation.weekStatus,
+        mainUser: state.singleUser.user,
+        popup: state.reservation.popup,
+        user: state.singleUser.user,
+        popupShake: state.reservation.popupShake,
+        popupShow: state.reservation.popup.show,
+        notifications: state.notifications.notifications
     }
 }
 
-
 const mapDispatchToProps= dispatch => ({
-    onGetUsersData: () => dispatch(getUsersData()),
-    onGetReservations: () => dispatch(getReservations()),
-    onGetNotifications: () => dispatch(getNotifications())
+    onFetchNotifications: (userId, userRole) => dispatch(fetchNotifications(userId, userRole))
 })
-
 
 export default connect(mapStateToProps,mapDispatchToProps)(Notifications);
