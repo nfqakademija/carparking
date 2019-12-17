@@ -54,7 +54,6 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
         $data = $credentials['token'];
-
         if (null === $data) {
             return;
         }
@@ -111,9 +110,9 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     private function tokenParser($token)
     {
         $tokenParts = explode(".", $token);
-        $tokenHeader = base64_decode($tokenParts[0]);
+       // $tokenHeader = base64_decode($tokenParts[0]);
         $tokenPayload = base64_decode($tokenParts[1]);
-        $jwtHeader = json_decode($tokenHeader);
+      //  $jwtHeader = json_decode($tokenHeader);
         $jwtPayload = json_decode($tokenPayload);
         return $jwtPayload->email;
     }
