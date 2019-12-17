@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Services\NotificationService;
+use App\Services\ReservationService;
 use App\Services\SwitchService;
 use App\Services\UserAwayService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -85,7 +86,8 @@ class NotificationsController extends AbstractController
      */
     public function accept($notificationId)
     {
-        $userAwayService = new UserAwayService($this->entityManager);
+        $reservationService = new ReservationService($this->entityManager);
+        $userAwayService = new UserAwayService($this->entityManager, $reservationService);
         $service = new SwitchService($this->entityManager, $userAwayService);
         $response = $service->makeParkSpaceSwitch($notificationId);
         if ($response = ['success' => 'switched']) {
@@ -103,7 +105,8 @@ class NotificationsController extends AbstractController
      */
     public function cancelSwitch($notificationId)
     {
-        $userAwayService = new UserAwayService($this->entityManager);
+        $reservationService = new ReservationService($this->entityManager);
+        $userAwayService = new UserAwayService($this->entityManager, $reservationService);
         $service = new SwitchService($this->entityManager, $userAwayService);
         $response = $service->cancelParkSpaceSwitch($notificationId);
         if ($response = ['success' => 'canceled']) {

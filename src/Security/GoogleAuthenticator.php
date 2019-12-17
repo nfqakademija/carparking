@@ -100,7 +100,7 @@ class GoogleAuthenticator extends SocialAuthenticator
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
-        return new RedirectResponse('/login');
+        return new RedirectResponse('/');
     }
 
     /**
@@ -144,7 +144,7 @@ class GoogleAuthenticator extends SocialAuthenticator
         $valueArray = $this->testCred->getValues();
         $key = $valueArray['token_type'];
         $value = $valueArray['id_token'];
-        $response = new RedirectResponse('/hom');
+        $response = new RedirectResponse('/app');
         $response->headers->setCookie(Cookie::create($key . '-token', $value));
         return $response;
     }
