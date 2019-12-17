@@ -115,6 +115,12 @@ class ReservationService
     {
         $reservations = $this->entityManager->getRepository(Reservations::class)->getReservationsByArray($dateArray);
         foreach ($reservations as $reservation) {
+
+//            var_dump($reservation->getParkSpace()->getId());
+
+            if ($type === 'delete' && $reservation->getParkSpace() === null) {
+                continue;
+            }
             if ($type === 'delete' && $reservation->getParkSpace()->getId() === $parkSpace->getId()) {
                 $reservation->setParkSpace(null);
             } else {
@@ -123,6 +129,7 @@ class ReservationService
                 }
             }
         }
+
         $this->entityManager->flush();
     }
 
@@ -153,7 +160,6 @@ class ReservationService
                 $parkSpaceAtReservation = $this->entityManager
                     ->getRepository(Reservations::class)
                     ->findReservationByDateAndParkSpaceId($date, $item->getAwayUser()->getPermanentSpace()->getId());
-                var_dump($item->getAwayUser()->getPermanentSpace()->getId());
                 if ($parkSpaceAtReservation == null) {
                     return $item;
                 }
