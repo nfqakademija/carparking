@@ -8,12 +8,13 @@ import {connect} from "react-redux";
 const webMeniu = (props) => {
     const notificationHandler = () => {
         if(props.notifications.find( notification => !Number(notification.accepted) && !notification.rejected)){
-            return <i className="fas fa-dot-circle" style={{fontSize:'0.25em', color:'#E87C86'}}></i>
+            return <i className="fas fa-dot-circle" style={{fontSize:'0.25em', color:'#E87C86'}}> </i>
         } else {
-            return <i className="fas fa-bell" style={{fontSize:'0.25em', color:'#E87C86', opacity:'0'}}></i>
+            return <i className="fas fa-bell" style={{fontSize:'0.25em', color:'#E87C86', opacity:'0'}}> </i>
         }
     }
-return (
+
+    return (
     <div className="d-none bg-white d-md-block col-0 col-md-4 col-lg-3 p-0 shadow h-100">
         <div className="d-none d-md-block col-0 col-md-4 col-lg-3 position-fixed p-0 mt-2">
             <div className="text-left webMeniu">

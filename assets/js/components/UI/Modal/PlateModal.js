@@ -52,34 +52,44 @@ class PlateModal extends Component {
             <div className="w-100 modalInsade">
 
                 {
-                    //if feedback exist
-                    this.props.plateStatus !== 'none' ?
-                        // check if post success
-                        this.props.plateStatus === 'success' ?
-                            <div className="mb-2 modileWidth mx-auto fade-in">
-                                <div id="info" className="mb-2 h4 p-2 bg-success text-white rounded transition_color">
-                                    Successfully completed!
-                                </div>
-                            </div>
-                            :
-                            // check if post fail
-                            this.props.plateStatus === 'fail' ?
-                                <div className="mb-2 modileWidth mx-auto">
+                    //if plate number is empty
+                    this.props.plate !== null && this.props.plate.length > 0 ?
+                        //if feedback exist
+                        this.props.plateStatus !== 'none' ?
+                            // check if post success
+                            this.props.plateStatus === 'success' ?
+                                <div className="mb-2 modileWidth mx-auto fade-in">
                                     <div id="info"
-                                         className="mb-2 h4 p-2 bg-danger text-white rounded transition_color">
-                                        Sorry, operation failed please contact the call center.
+                                         className="mb-2 h4 p-2 bg-success text-white rounded transition_color">
+                                        Successfully completed!
+                                    </div>
+                                </div>
+                                :
+                                // check if post fail
+                                this.props.plateStatus === 'fail' ?
+                                    <div className="mb-2 modileWidth mx-auto">
+                                        <div id="info"
+                                             className="mb-2 h4 p-2 bg-danger text-white rounded transition_color">
+                                            Sorry, operation failed please contact the call center.
+                                        </div>
+                                    </div>
+                                    : null
+                            :
+                            // check if message exist in front validation
+                            this.state.messageExist ?
+                                <div className="mb-2 modileWidth mx-auto fade-in">
+                                    <div id="info"
+                                         className="mb-2 h4 p-2 text-white bg-warning rounded transition_color">
+                                        Sorry, plate number format isn't valid! Please check again.
                                     </div>
                                 </div>
                                 : null
                         :
-                        // check if message exist in front validation
-                        this.state.messageExist ?
-                            <div className="mb-2 modileWidth mx-auto fade-in">
-                                <div id="info" className="mb-2 h4 p-2 text-white bg-warning rounded transition_color">
-                                    Sorry, plate number format isn't valid! Please check again.
-                                </div>
+                        <div className="mb-2 modileWidth mx-auto fade-in">
+                            <div id="info" className="mb-2 h4 p-2 text-black bg-white rounded transition_color">
+                                Please enter your car plate number!
                             </div>
-                            : null
+                        </div>
                 }
 
                 <input

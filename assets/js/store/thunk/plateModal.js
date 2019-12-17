@@ -6,9 +6,6 @@ export const getPlateNumber = () => (dispatch, getState) => {
 
     const user = getState().singleUser.user.userId;
 
-    console.log(user);
-
-
     axios.get('/api/single-user/' + user)
         .then((response) => {
 
