@@ -35,6 +35,7 @@ class Home extends Component {
 
     componentDidMount() {
         this.props.postAwayDefaultStatus();
+        this.props.getDatesAway();
     }
 
     setStartDate(date) {
@@ -99,7 +100,6 @@ class Home extends Component {
 
     render() {
 
-
         const ExampleCustomInput = React.forwardRef((props, ref) => (
             <input {...props} readOnly={true} type="text" className="form-control"
                    placeholder="Click to select a date"/>
@@ -142,8 +142,8 @@ class Home extends Component {
                         <tbody>
                         {this.props.history.map((data) =>
                             (<tr key={data.id}>
-                                <td className="px-0 py-1">From: <b>{data.awayStartDate.date}</b></td>
-                                <td className="px-0 py-1">To: <b>{data.awayEndDate.date}</b></td>
+                                <td className="px-0 py-1">From: <b>{data.awayStartDate.date.slice(0,-16) }</b></td>
+                                <td className="px-0 py-1">To: <b>{data.awayEndDate.date.slice(0,-16) }</b></td>
                             </tr>)
                             )
                         }
@@ -154,8 +154,6 @@ class Home extends Component {
             </div>
 
         );
-
-        console.log(this.props.history)
 
         return (
             <div className="p-0 py-2 p-md-4" style={{height: '100%', overflow: 'scroll'}}>

@@ -19,9 +19,10 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
             }
         ]
     };
+
     axios.post('/api/useraway', postData)
         .then((response) => {
-            
+
 
             if (response.data.error === 'duplicate') {
                 status = "duplicate";
@@ -29,7 +30,7 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
             } else if (response.data.success === 'success') {
                 dispatch(getDatesAway());
                 dispatch(fetchReservations());
-                dispatch(fetchSingleUser());
+                // dispatch(fetchSingleUser());
                 status = "success";
             }else{
                 status = "fail";
@@ -39,7 +40,6 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
 
 
         }).catch(error => {
-
         status = "fail";
 
         dispatch(postAwayStatus(status));
@@ -48,26 +48,14 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
 
 export const getDatesAway = () => (dispatch, getState) => {
 
-    const user = getState().user.userId;
+    const user = getState().singleUser.user.userId;
 
     dispatch(changeAwayLoadingStatus(true));
 
     axios.get('/api/single-user/' + user)
         .then((response) => {
-
-
             if (response.status === 200) {
-                let data = response.data.userAways;
-
-                data.forEach(data =>
-                    (
-                        data.awayEndDate = data.awayEndDate.date.slice(0, 10),
-                            data.awayStartDate = data.awayStartDate.date.slice(0, 10),
-                            delete data.id
-                    )
-                );
-
-                dispatch(setAwaysDates(data));
+                dispatch(setAwaysDates(response.data.userAways));
                 dispatch(changeAwayLoadingStatus(false));
             }
 
