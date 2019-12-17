@@ -59,14 +59,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 plateModal: false
             }
-        case actionTypes.GET_AWAYS_DATES:
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    aways: action.data
-                }
-            }
         case actionTypes.POST_AWAY_STATUS:
             return {
                 ...state,

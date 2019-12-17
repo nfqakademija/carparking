@@ -3,7 +3,7 @@ import * as actions from '../actions/index';
 
 export const fetchSingleUser = () => dispatch => {
     dispatch(actions.fetchSingleUserStart()) 
-    axios.get(`/api/single-user/10`) //*
+    axios.get(`/api/single-user/28`) //*
         .then( res => {
             dispatch(actions.fetchSingleUserSuccess(res.data))
         })

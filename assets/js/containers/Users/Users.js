@@ -17,10 +17,6 @@ class Users extends Component {
         this.userTableRef = React.createRef();
     }
 
-    componentDidMount() {
-        // this.props.onFetchUsersData()
-    }
-
     popupHandler (popup) {
         return <PopUp 
                     left={popup.left} 
@@ -31,9 +27,7 @@ class Users extends Component {
                     popupAccept={()=>this.props.onPopupAccept(popup.date, 'neutral', popup.switchUser)}
                     loading={popup.loading}
                     uniqueStyle={popup.style}
-                    successTimer={this.props.onSuccessTimer}
                     user={popup.switchUser}
-                    isUser={true}
                     shake={this.props.popupShake}
                 />
     }
@@ -48,7 +42,6 @@ class Users extends Component {
             <>
                 <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
                     {this.popupHandler(this.props.popup)}
-                    {console.log(!this.props.loadingSingleUser && !this.props.loading)}
                     {!this.props.loadingUsersList && !this.props.loadingSingleUser
                         ? <div className='Users_usersTableContainer' style={this.userListContainerStyleHandler()}>
                             <UsersTable 
@@ -57,10 +50,9 @@ class Users extends Component {
                                 reservationStatus={this.props.reservationStatus || []}
                                 mainUser={this.props.mainUser}
                                 onclick={(dayObj, switchUser) => this.props.onButtonClick(dayObj.date, 'neutral', this.userTableRef, switchUser)}
-                                popupShake={this.props.popupShow || this.props.notificationPopupShow ?this.props.onPopupOpened :false}/>
+                                popupShake={(this.props.popupShow || this.props.notificationPopupShow) ?this.props.onPopupOpened :false}/>
                          </div>
-                        : console.log('loading ...')
-                    } 
+                        : null} 
                 </div>  
             </>
         )
@@ -75,12 +67,10 @@ const mapStateToProps = state => {
         reservationStatus: state.reservation.weekStatus,
         mainUser: state.singleUser.user,
         popup: state.reservation.popup,
-        user: state.singleUser.user,
         popupShake: state.reservation.popupShake,
         popupShow: state.reservation.popup.show
     }
 }
-
 
 const mapDispatchToProps= dispatch => ({
     onFetchUsersData: () => dispatch(fetchUsersData()),
@@ -89,6 +79,5 @@ const mapDispatchToProps= dispatch => ({
     onPopupCancel: () => dispatch(popupCancel()),
     onPopupOpened: () => dispatch(popupOpened())
 })
-
 
 export default connect(mapStateToProps,mapDispatchToProps)(Users);

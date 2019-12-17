@@ -33,6 +33,14 @@ const reducer = (state = initialState, action) => {
                 err: action.err,
                 loading: false
             }
+        case actionTypes.GET_AWAYS_DATES: 
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    aways: action.data
+                }
+            }
         default: return state
     }
 }

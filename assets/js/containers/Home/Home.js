@@ -1,7 +1,4 @@
 import React, { Component } from 'react';
-
-import axios from 'axios';
-
 import { connect } from "react-redux";
 
 import { popupAcceptClicked, successTimer, buttonClickedMid } from '../../store/thunk/reservations';
@@ -20,24 +17,7 @@ class Home extends Component {
         this.reservationRefLast = React.createRef();  
     }
 
-    componentDidMount(){
-        // if (this.props.user.notifications[1]) {
-        //     setTimeout(
-        //         () => {this.props.onGetCoordinates(this.reservationRefFirst, this.reservationRefLast); this.props.onSetNotification()}, 1000
-        //     )
-        // }
-        
-        // axios.get('/api/make-reservation').then(res => console.log(res))
-        // axios.post('/api/useraway',this.data).then(res => console.log(res)).catch(err => console.log(err))
-        //axios.get(`/api/reservations`).then(res => console.log(res))
-        axios.get(`/api/users`).then(res => console.log(res))
-        // axios.get(`/api/single-user/21`).then(res => console.log(res))
-        
-    }
-
-    buttonClickHandler(date, buttonType, first, last) {
-        this.props.onButtonClick(date, buttonType, first, last)
-    }
+    
 
     getReservationByDateHandler(date) {
         return this.props.user.reservations.find(reservation => {
@@ -80,11 +60,13 @@ class Home extends Component {
 
     parkingSpotHandler (date) {
         const reservation = this.getReservationByDateHandler(date)
-        return  reservation 
-                ? reservation.parkSpace 
-                    ? reservation.parkSpace.number
-                    : reservation.userSpot 
-                : null
+        if(reservation) {
+            if (reservation.parkSpace) {
+                return reservation.parkSpace.number
+            } else {
+                return reservation.userSpot 
+            }
+        }
     }
 
     graphHandler(day) {
@@ -107,7 +89,7 @@ class Home extends Component {
     }
 
     popupHandler (popup) {
-            return <PopUp 
+            return <PopUp // all options passed here, no state dispatches or methods in this component
                         left={popup.left} 
                         width={popup.width} 
                         translate={popup.show} 
@@ -119,11 +101,24 @@ class Home extends Component {
                         successTimer={this.props.onSuccessTimer}
                         shake={this.props.popupShake}
                     />
-        
     }
 
     reservationContainerStyleHandler () {
-        return {transform:this.props.popup.show ?'translateY(200px)': 'translateY(0)'}
+        return { transform: this.props.popup.show 
+                                ?'translateY(200px)'
+                                :'translateY(0)' }
+    }
+
+    buttonClickHandler(date, buttonType, first, last) {
+        this.props.onButtonClick(date, buttonType, first, last)
+    }
+
+    refIndexHandler(index, day) {
+        if(!index && new Date(day.date).getDay() || index === 1 && !new Date(day.date).getDay()){ // if not sunday and first element or if sunday and second element
+            return this.reservationRefFirst
+        } else if (index === 6 && new Date(day.date).getDay() || index === 5 && new Date(day.date).getDay() === 6) { // if last but not sunday or one before last if last is sunday
+            return this.reservationRefLast
+        }
     }
     
     render (){
@@ -136,16 +131,12 @@ class Home extends Component {
                 <div className='Home_reservationContainer' style={this.reservationContainerStyleHandler()} >
                     {this.props.weekStatus.map( (day,index) => ( 
                         new Date(day.date).getDay() // skip sunday
-                            ? <Reservation 
+                            ? <Reservation //pass everything here. There is no methods or dispatches in component.
                                 key={day.date}
-                                ref={!index && new Date(day.date).getDay() || index === 1 && !new Date(day.date).getDay() // give index to first elenemt, but also checks if first element sunday or not.
-                                        ? this.reservationRefFirst
-                                        : index === 6 && new Date(day.date).getDay() || index === 5 && new Date(day.date).getDay() === 6
-                                            ? this.reservationRefLast
-                                            : console.log(day, index, !new Date(day.date).getDay())} // need fn for this
+                                ref={this.refIndexHandler(index, day)} //coordinates
                                 date={day.date}
-                                lotSize={day.usedSpots+day.availableSpots} // *
-                                usedSpots={day.usedSpots >20 ?20 :day.usedSpots} // used spots could be bigger than lot size
+                                lotSize={day.usedSpots+day.availableSpots}
+                                usedSpots={day.usedSpots > 20 ?20 :day.usedSpots} // used spots could be bigger than lot size
                                 availableSpots={day.availableSpots > 0 ?day.availableSpots :0} // available spots could be negative
                                 buttonOptions={this.reservationButtonHandler(day.date)}
                                 graphStatus={this.graphHandler(day)}
@@ -153,7 +144,7 @@ class Home extends Component {
                                 userParkingSpot={this.parkingSpotHandler(day.date)}
                                 history={this.props.history}
                                 loading={this.props.loadingOneDay}
-                                popupShake={this.props.popup.show ?this.props.onPopupOpened :false}/>
+                                popupShake={this.props.popup.show ?this.props.onPopupOpened :null}/>
                             : null))}
                 </div>
              </div>
@@ -180,8 +171,6 @@ const mapDispatchToProps= dispatch => ({
     onPopupCancel: () => dispatch(popupCancel()),
     onPopupAccept: (date, actionType) => dispatch(popupAcceptClicked(date, actionType)),
     onSuccessTimer: () => dispatch(successTimer()),
-    onSetNotification: () => dispatch(setNotification()),
-    onNotificationPopupCancel: () => dispatch(notificationPopupCancel()),
     onGetCoordinates: (first, last) => dispatch(getCoordinates(first, last)),
     onPopupOpened: () => dispatch(popupOpened())
 })

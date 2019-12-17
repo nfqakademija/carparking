@@ -35,7 +35,6 @@ class Home extends Component {
 
     componentDidMount() {
         this.props.postAwayDefaultStatus();
-        // this.props.getDatesAway();
     }
 
     setStartDate(date) {
@@ -83,7 +82,6 @@ class Home extends Component {
                 message: "Sorry,  you didn't select a dates!"
             });
         }
-
     }
 
     closePop() {
@@ -143,10 +141,11 @@ class Home extends Component {
                     <table className="table m-0">
                         <tbody>
                         {this.props.history.map((data) =>
-                            (<tr key={data.awayStartDate}>
-                                <td className="px-0 py-1">From: <b>{data.awayStartDate}</b></td>
-                                <td className="px-0 py-1">To: <b>{data.awayEndDate}</b></td>
-                            </tr>))
+                            (<tr key={data.id}>
+                                <td className="px-0 py-1">From: <b>{data.awayStartDate.date}</b></td>
+                                <td className="px-0 py-1">To: <b>{data.awayEndDate.date}</b></td>
+                            </tr>)
+                            )
                         }
                         </tbody>
                     </table>
@@ -240,9 +239,9 @@ class Home extends Component {
 
 const mapStateToProps = state => {
     return {
-        history: state.singleUser.user.aways,
+        history: state.singleUser.user.userAways,
         status: state.main.postAwayStatus,
-        user: state.singleUser.user.aways,
+        user: state.singleUser.user.userAways,
         loading: state.main.postAwayLoading,
         historyLoading: state.main.awayHistoryLoading
     }

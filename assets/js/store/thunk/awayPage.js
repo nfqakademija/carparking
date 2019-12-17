@@ -6,7 +6,7 @@ import { fetchSingleUser } from './singleUser';
 
 export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
     let status;
-    const user = getState().user.userId;
+    const user = getState().singleUser.user.userId;
 
     dispatch(postAwayStatusLoading());
 
@@ -19,10 +19,9 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
             }
         ]
     };
-
     axios.post('/api/useraway', postData)
         .then((response) => {
-
+            
 
             if (response.data.error === 'duplicate') {
                 status = "duplicate";

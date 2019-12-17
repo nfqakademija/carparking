@@ -19,3 +19,10 @@ export const fetchSingleUserFail = err => {
         err
     }
 }
+
+export const setAwaysDates = data => {
+    return {
+        type: actionTypes.GET_AWAYS_DATES,
+        data
+    }
+}

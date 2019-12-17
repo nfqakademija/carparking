@@ -13,43 +13,6 @@ export const logout = () => {
     }
 }
 
-export const getHomeDataStart = () => {
-    return {
-        type: actionTypes.GET_HOME_DATA_START
-    }
-}
-
-export const getHomeDataSuccess = (data, user) => {
-    return {
-        type: actionTypes.GET_HOME_DATA_SUCCESS,
-        data,
-        user
-    }
-}
-
-export const getHomeDataFail = (data, user) => {
-    return {
-        type: actionTypes.GET_HOME_DATA_FAIL,
-        data,
-        user
-    }
-}
-
-
-
-
-
-
-export const noCoordinates = () => {
-    return {
-        type: actionTypes.NO_COORDINATES
-    }
-}
-
-
-
-
-
 export const openMobileMenu = () => {
     return {
         type: actionTypes.OPEN_MENU
@@ -70,40 +33,17 @@ export const setPlateNumber = (numbers) => {
 }
 
 export const setPlateStatus = (status) => {
-    console.log(status)
     return {
         type: actionTypes.SET_PLATE_STATUS,
         data: status
     }
 }
 
-
-
 export const setNotification = () => {
     return {
         type: actionTypes.SET_NOTIFICATION
     }
 }
-
-export const notificationPopupCancel = () => {
-    return {
-        type: actionTypes.NOTIFICATION_POPUP_CANCEL
-    }
-}
-
-export const notificationPopupAcceptStart = () => {
-    return {
-        type: actionTypes.NOTIFICATION_POPUP_ACCEPT_START
-    }
-}
-
-export const notificationPopupAcceptSuccess = () => {
-    return {
-        type: actionTypes.NOTIFICATION_POPUP_ACCEPT_SUCCESS
-    }
-}
-
-
 
 export const openModal = () => {
     return {
@@ -116,13 +56,6 @@ export const closeModal = () => {
         type: actionTypes.CLOSE_PLATE_MODAL
     }
 }
-
-export const setAwaysDates = (data) => {
-    return {
-        type: actionTypes.GET_AWAYS_DATES,
-        data: data
-    }
-};
 
 export const postAwayStatus = (status) => {
     return {

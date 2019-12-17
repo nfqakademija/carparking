@@ -1,7 +1,6 @@
 export {
     login,
     logout, 
-    setAwaysDates,
     postAwayStatus,
     postAwayStatusLoading,
     setPlateNumber,
@@ -36,7 +35,8 @@ export {
 export {
     fetchSingleUserStart,
     fetchSingleUserSuccess,
-    fetchSingleUserFail
+    fetchSingleUserFail,
+    setAwaysDates
 } from './singleUser'
 
 export {
