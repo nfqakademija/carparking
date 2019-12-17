@@ -40,7 +40,7 @@ export const fetchNotifications = (userId, userRole) => dispatch => {
 
 export const fetchSignleUserAndNotifications = () => dispatch => {
     dispatch(actions.fetchSingleUserStart()) 
-    axios.get(`/api/single-user/2`)
+    axios.get(`/api/single-user/22`)
         .then( res => { 
             dispatch(actions.fetchSingleUserSuccess(res.data))
             dispatch(fetchNotifications(res.data.userId))

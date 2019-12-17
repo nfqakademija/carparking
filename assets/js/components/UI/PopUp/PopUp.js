@@ -72,7 +72,7 @@ const popUp = (props) => {
 
     let popup = <div className='PopUp_container' style={popupType} >
                     {statusText}
-                    <div style={{display:'flex', justifyContent:'space-around', width:'80%', margin:'auto'}}>
+                    <div className='PopUp_buttonsContainer'>
                         <Button classname="Button_success" text='Accept' buttonStyle={{fontSize:'1rem', width:'35%'}} onclick={props.popupAccept}></Button>
                         <Button classname="Button_danger" text='Cancel' buttonStyle={{fontSize:'1rem', width:'35%'}} onclick={props.popupCancel}></Button>
                     </div>    
