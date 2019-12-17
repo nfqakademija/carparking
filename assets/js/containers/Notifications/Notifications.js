@@ -18,7 +18,7 @@ class Notifications extends Component {
         
         return (
             <>
-                <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'scroll'}}>
+                <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'hidden'}}>
                     {this.props.usersList === []
                         ? 'loading ...'
                         : <div className='Notifications_container'>

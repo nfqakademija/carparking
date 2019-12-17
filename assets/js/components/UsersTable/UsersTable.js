@@ -18,7 +18,7 @@ const usersTable = React.forwardRef((props, ref) => ( // after data structure re
                         ))}
                     </div>
             </div>
-            <div className='UsersTable_body'>
+            <div className='UsersTable_body' >
                 
                 <div className='UserTable_userContainerMain'>
                     <div>{`${props.mainUser.name} ${props.mainUser.surname}`}</div>
@@ -38,7 +38,7 @@ const usersTable = React.forwardRef((props, ref) => ( // after data structure re
                                     ? reservation // check if user have spot
                                         
                                         ?  <a data-toggle='tooltip' // have spot case
-                                                key={date}
+                                                key={date.getDay()}
                                                 title={`You already have a parking spot for ${date.toLocaleDateString('en-EN', {weekday:'long'})}`}>
                                                     <i key={date} className="fas fa-parking UserTable_greenIcon" ></i>
                                             </a>

@@ -28,9 +28,9 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
                 status = "duplicate";
 
             } else if (response.data.success === 'success') {
-                dispatch(getDatesAway());
+                // dispatch(getDatesAway());
                 dispatch(fetchReservations());
-                // dispatch(fetchSingleUser());
+                dispatch(fetchSingleUser());
                 status = "success";
             }else{
                 status = "fail";

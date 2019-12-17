@@ -1,7 +1,7 @@
 import axios from 'axios';
 import * as actions from '../actions/index';
 import { getCoordinates } from './popup';
-import { fetchNotifications } from './notifications';
+import { fetchSignleUserAndNotifications } from './notifications';
 
 export const fetchReservations = () => dispatch => {
     dispatch(actions.fetchReservationsStart());
@@ -16,7 +16,7 @@ export const fetchReservations = () => dispatch => {
 
 export const popupAcceptClicked = (date, actionType, user) => (dispatch, getState) => {
     if(getState().singleUser.user.licensePlate){ // check if user have active licencePlate
-
+        console.log(getState().singleUser.user.licensePlate)
         dispatch(actions.popupAcceptStart());
 
         if(getState().singleUser.user.role === "user"){
@@ -36,10 +36,13 @@ export const popupAcceptClicked = (date, actionType, user) => (dispatch, getStat
                     break
             }
         }
-    } else {dispatch(actions.openModal())}
+    } else {
+        console.log(getState().singleUser.user.licensePlate)
+        dispatch(actions.openModal())
+    }
 }
 
-const userReserve = date => (dispatch, getState) => { // ther is 3 cases, latter i will try to split this function
+const userReserve = date => (dispatch, getState) => { 
     const userAways = getState().singleUser.user.userAways
     const getMonthDay = date => new Date(date).getDate()
     const foundAway = userAways.find(away => 
@@ -199,8 +202,11 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
         "userId": otherUserId,
         "requestDate" : date
     }
+    console.log('incoming', date, user)
+    console.log('postdata',postData)
     axios.post('/api/notifications',postData)
         .then(res => {
+            console.log('res', res)
             if(res.data.error) { // if you already asked this person
                 dispatch(actions.popupAcceptFail(res.data.error))
             } else {
@@ -208,7 +214,7 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
             }
             dispatch(successTimer())
             dispatch(fetchOneDayData(date))
-            dispatch(fetchNotifications())
+            dispatch(fetchSignleUserAndNotifications())
         })
         .catch((err) => {
             dispatch(actions.popupAcceptFail(err))
@@ -234,7 +240,7 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
 
 const fetchOneDayData = (date) => dispatch => { // helper combination of fetches. Day status after user new reservations fetched
     dispatch(actions.fetchOneDayDataStart(date))
-    axios.get(`/api/single-user/28`)
+    axios.get(`/api/single-user/13`)
         .then(res => {
             dispatch(actions.fetchSingleUserSuccess(res.data))
             axios.get(`/api/reservations`)

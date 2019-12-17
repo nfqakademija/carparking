@@ -41,6 +41,14 @@ const reducer = (state = initialState, action) => {
                     userAways: action.data
                 }
             }
+        case actionTypes.SET_PLATE_NUMBER:
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    licensePlate: action.data.data
+                }
+            }
         default: return state
     }
 }

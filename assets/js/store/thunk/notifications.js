@@ -5,7 +5,7 @@ import * as actions from '../actions/index';
 export const notificationAccept = notificationId => dispatch => {
     axios.post(`/api/notification-accept/${notificationId}`)
         .then(() => 
-            dispatch(fetchNotifications()))
+            dispatch(fetchSignleUserAndNotifications()))
 }
 
 // cancel and dont give parking space to guest
@@ -16,14 +16,14 @@ export const notificationReject = notificationId => dispatch => {
     }
     axios.put(`/api/notifications`,putData)
         .then(() => 
-            dispatch(fetchNotifications()))
+            dispatch(fetchSignleUserAndNotifications()))
 }
 
 // cancel switch. Take back parking spot from guest
 export const notificationCancel = notificationId => dispatch => { 
     axios.delete(`/api/notification-cancel/${notificationId}`)
         .then(() => 
-            dispatch(fetchNotifications()))
+            dispatch(fetchSignleUserAndNotifications()))
 }
 
 export const fetchNotifications = (userId, userRole) => dispatch => {
@@ -40,10 +40,11 @@ export const fetchNotifications = (userId, userRole) => dispatch => {
 
 export const fetchSignleUserAndNotifications = () => dispatch => {
     dispatch(actions.fetchSingleUserStart()) 
-    axios.get(`/api/single-user/40`)
+    axios.get(`/api/single-user/13`)
         .then( res => { 
+            
             dispatch(actions.fetchSingleUserSuccess(res.data))
-            dispatch(fetchNotifications(res.data.userId))
+            dispatch(fetchNotifications(res.data.userId, res.data.role))
         })
         .catch( err => { 
             dispatch(actions.fetchSingleUserFail(err))
