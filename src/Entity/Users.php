@@ -39,7 +39,7 @@ class Users implements UserInterface
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $licencePlate;
-    
+
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Roles")
      * @ORM\JoinColumn()
@@ -150,11 +150,13 @@ class Users implements UserInterface
 
         return $this;
     }
+
 //TODO delete
     public function getUserParkSpace(): ?ParkSpaces
     {
         return $this->permanentSpace;
     }
+
     public function setUserParkSpace(?ParkSpaces $userParkSpace): self
     {
         $this->permanentSpace = $userParkSpace;
@@ -242,6 +244,7 @@ class Users implements UserInterface
 
         return $this;
     }
+
     /**
      * Returns the roles granted to the user.
      *
@@ -261,6 +264,9 @@ class Users implements UserInterface
     public function getRoles()
     {
         $role = $this->getUserRole()->getRole();
+        if ($role == 'guest') {
+            $role = 'user';
+        }
         return array('ROLE_' . strtoupper($role));
     }
 
