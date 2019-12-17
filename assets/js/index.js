@@ -15,7 +15,7 @@ import mainReducer from './store/reducers/main';
 import notificationsReducer from './store/reducers/notifications';
 import singleUserReducer from './store/reducers/singleUser';
 import usersListReducer from './store/reducers/usersList';
-
+import reservationReducer from './store/reducers/reservations';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -23,7 +23,8 @@ const rootReducer = combineReducers({
     notifications: notificationsReducer,
     main: mainReducer,
     singleUser: singleUserReducer,
-    usersList: usersListReducer
+    usersList: usersListReducer,
+    reservation: reservationReducer
 })
 
 const store = createStore(rootReducer, composeEnhancers(

@@ -83,7 +83,7 @@ const mapDispatchToProps= dispatch => ({
 
 const mapStateToProps = state => ({
     userRole: state.singleUser.user.role,
-    notifications: state.main.notifications
+    notifications: state.notifications.notifications
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(webMeniu);

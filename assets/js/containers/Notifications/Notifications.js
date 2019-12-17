@@ -50,13 +50,12 @@ const mapStateToProps = state => {
     return {
         usersList: state.usersList.users,
         loading: state.main.loading.loadingUsers,
-        reservationStatus: state.main.weekStatus,
+        reservationStatus: state.reservation.weekStatus,
         mainUser: state.singleUser.user,
-        popup: state.main.popup,
+        popup: state.reservation.popup,
         user: state.singleUser.user,
-        popupShake: state.main.popupShake,
-        popupShow: state.main.popup.show,
-        notificationPopupShow: state.main.notificationPopup.show,
+        popupShake: state.reservation.popupShake,
+        popupShow: state.reservation.popup.show,
         notifications: state.notifications.notifications
     }
 }

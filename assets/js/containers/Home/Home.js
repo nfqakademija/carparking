@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 
 import { popupAcceptClicked, successTimer, buttonClickedMid } from '../../store/thunk/reservations';
 import { getCoordinates, popupOpened } from '../../store/thunk/popup';
-import { popupCancel, setNotification, notificationPopupCancel } from '../../store/actions/index';
+import { popupCancel } from '../../store/actions/index';
 
 import Reservation from '../../components/Reservation/Reservation';
 import PopUp from '../../components/UI/PopUp/PopUp';

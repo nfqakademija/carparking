@@ -38,13 +38,7 @@ export const getHomeDataFail = (data, user) => {
 
 
 
-export const saveCoordinates = (left, width) => {
-    return {
-        type: actionTypes.SAVE_COORDINATES,
-        left,
-        width
-    }
-}
+
 
 export const noCoordinates = () => {
     return {
@@ -52,51 +46,9 @@ export const noCoordinates = () => {
     }
 }
 
-export const buttonClicked = (date, buttonType, switchUser) => {
-    return {
-        type: actionTypes.BUTTON_CLICKED,
-        date,
-        buttonType,
-        switchUser
-    }
-}
 
-export const popupCancel = () => {
-    return {
-        type: actionTypes.POPUP_CANCEL
-    }
-}
 
-export const popupAcceptStart = () => {
-    return {
-        type: actionTypes.POPUP_ACCEPT_START
-    }
-}
 
-export const popupAcceptSuccess = () => {
-    return {
-        type: actionTypes.POPUP_ACCEPT_SUCCESS
-    }
-}
-
-export const popupAcceptFail = (err) => {
-    return {
-        type: actionTypes.POPUP_ACCEPT_FAIL,
-        err
-    }
-}
-
-export const popupSuccess = () => {
-    return {
-        type: actionTypes.POPUP_SUCCESS
-    }
-}
-
-export const popupStyleReset = () => {
-    return {
-        type: actionTypes.POPUP_STYLE_RESET
-    }
-}
 
 export const openMobileMenu = () => {
     return {
@@ -125,26 +77,7 @@ export const setPlateStatus = (status) => {
     }
 }
 
-export const fetchOneDayDataStart = (date) => {
-    return {
-        type: actionTypes.FETCH_ONE_DAY_DATA_START,
-        date
-    }
-}
 
-export const fetchOneDayDataSuccess = (data) => {
-    return {
-        type: actionTypes.FETCH_ONE_DAY_DATA_SUCCESS,
-        data
-    }
-}
-
-export const fetchOneDayDataFail = err => {
-    return {
-        type: actionTypes.FETCH_ONE_DAY_DATA_FAIL,
-        err
-    }
-}
 
 export const setNotification = () => {
     return {
@@ -170,17 +103,7 @@ export const notificationPopupAcceptSuccess = () => {
     }
 }
 
-export const popupOpenedStart = () => {
-    return {
-        type: actionTypes.POPUP_OPENED_START
-    }
-}
 
-export const popupOpenedReset = () => {
-    return {
-        type: actionTypes.POPUP_OPENED_RESET
-    }
-}
 
 export const openModal = () => {
     return {
@@ -224,25 +147,5 @@ export const changeAwayLoadingStatus = (status) => {
     return {
         type: actionTypes.AWAY_HISTORY_LOADING,
         data: status
-    }
-}
-
-export const getReservationsStart = () => {
-    return {
-        type: actionTypes.GET_RESERVATIONS_START
-    }
-}
-
-export const getReservationsSuccess = parkingLotStatus => {
-    return {
-        type: actionTypes.GET_RESERVATIONS_SUCCESS,
-        parkingLotStatus
-    }
-}
-
-export const getReservationsFail = err => {
-    return {
-        type: actionTypes.GET_RESERVATIONS_FAIL,
-        err
     }
 }
