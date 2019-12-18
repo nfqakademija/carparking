@@ -3,7 +3,6 @@ import React from 'react';
 
 const guestHeader = props => {
 
-    console.log(props)
     const getMonthDay = date => (
         new Date(date).getDate()
      )
@@ -55,8 +54,6 @@ const guestHeader = props => {
                         {props.reservationStatus.map( dayObj => {
                             const date = new Date(dayObj.date)
                             const reservation = props.mainUser.reservations.find(reservation => getMonthDay(reservation.reservationDate.date) === getMonthDay(dayObj.date))
-                            console.log('reservation',reservation)
-                            console.log('date', dayObj.date, getMonthDay(dayObj.date))
                             return (
                                 iconHandler(date,reservation) 
                             )

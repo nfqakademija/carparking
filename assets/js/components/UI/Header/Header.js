@@ -19,7 +19,6 @@ const header = (props) => (
                                     <div>
 
                                         <span className="textLightGrey headerText ml-1 ml-md-3">
-                                            {/* <i className="mr-4 fas fa-car headerText" style={{color: "white", fontSize:'1.25em'}}> </i> */}
                                             NFQ parking
                                         </span>
                                     </div>

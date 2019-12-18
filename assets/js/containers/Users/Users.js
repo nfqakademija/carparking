@@ -42,7 +42,6 @@ class Users extends Component {
             <>
                 <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'hidden'}}>
                     {this.popupHandler(this.props.popup)}
-                    {console.log(!this.props.loadingUsersList && !this.props.loadingSingleUser && !this.props.loadingReservations)}
                     {!this.props.loadingUsersList && !this.props.loadingSingleUser && !this.props.loadingReservations
                         ? <div className='Users_usersTableContainer' style={this.userListContainerStyleHandler()}>
                             <UsersTable 
