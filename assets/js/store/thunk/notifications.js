@@ -30,7 +30,6 @@ export const notificationReject = notificationId => dispatch => {
 export const notificationCancel = notificationId => dispatch => {
     axios.delete(`/api/notification-cancel/${notificationId}`)
         .then((res) =>{
-            console.log(res)
             dispatch( fetchSignleUserAndNotifications() )})
 }
 
@@ -59,11 +58,9 @@ export const fetchSignleUserAndNotifications = () => dispatch => {
             user.name = name
             user.surname = surname
             dispatch(actions.fetchSingleUserSuccess(user))
-            console.log(res.data.userId, res.data.role)
             dispatch(fetchNotifications(res.data.userId, res.data.role))
         })
         .catch(err => {
-            console.log('labas');
             dispatch(actions.fetchSingleUserFail(err))
         })
 }

@@ -19,7 +19,6 @@ export const fetchReservations = () => dispatch => {
 
 export const popupAcceptClicked = (date, actionType, user) => (dispatch, getState) => {
     if(getState().singleUser.user.licensePlate){ // check if user have active licencePlate
-        console.log(getState().singleUser.user.licensePlate)
         dispatch(actions.popupAcceptStart());
 
         if(getState().singleUser.user.role === "user"){
@@ -40,7 +39,6 @@ export const popupAcceptClicked = (date, actionType, user) => (dispatch, getStat
             }
         }
     } else {
-        console.log(getState().singleUser.user.licensePlate)
         dispatch(actions.openModal())
     }
 }
@@ -205,11 +203,10 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
         "userId": otherUserId,
         "requestDate" : date
     }
-    console.log('incoming', date, user)
-    console.log('postdata',postData)
+
     axios.post('/api/notifications',postData)
         .then(res => {
-            console.log('res', res)
+
             if(res.data.error) { // if you already asked this person
                 dispatch(actions.popupAcceptFail(res.data.error))
             } else {
