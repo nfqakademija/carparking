@@ -4,6 +4,11 @@ import {getCookie} from './getCookie';
 
 const userId = getCookie('userId')
 
+const token = getCookie('Bearer-token')
+console.log('notif token', token)
+
+axios.defaults.headers.common = {'Authorization': token}
+
 const nameToFirstUpperLetter = (name) => {
     return name.charAt(0).toUpperCase() + name.substring(1)
 }
@@ -29,11 +34,12 @@ export const notificationReject = notificationId => dispatch => {
 // cancel switch. Take back parking spot from guest
 export const notificationCancel = notificationId => dispatch => {
     axios.delete(`/api/notification-cancel/${notificationId}`)
-        .then(() =>
-            dispatch(fetchSignleUserAndNotifications()))
+        .then((res) =>{
+            console.log(res)
+            dispatch( fetchSignleUserAndNotifications() )})
 }
 
-export const fetchNotifications = userRole => dispatch => {
+export const fetchNotifications = (userId,userRole) => dispatch => {
     dispatch(actions.fetchNotificationsStart())
     axios.get(`/api/notifications/${userId}/${userRole}`)
         .then(res => {
@@ -44,20 +50,14 @@ export const fetchNotifications = userRole => dispatch => {
         })
 }
 
-
-
-
 export const fetchSignleUserAndNotifications = () => dispatch => {
     dispatch(actions.fetchSingleUserStart());
-    
+    console.log('notif userId', userId)
     axios.get(`/api/single-user/${userId}`)
         .then(res => {
-            const name = nameToFirstUpperLetter(res.data.name)
-            const surname = nameToFirstUpperLetter(res.data.surname)
-            let user = res.data
-            user.name = name
-            user.surname = surname
-            dispatch(actions.fetchSingleUserSuccess(user))
+            
+            dispatch(actions.fetchSingleUserSuccess(res.data))
+            console.log(res.data.userId, res.data.role)
             dispatch(fetchNotifications(res.data.userId, res.data.role))
         })
         .catch(err => {
