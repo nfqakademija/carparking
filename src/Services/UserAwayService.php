@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Entity\Reservations;
 use App\Entity\UserAway;
 use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
