@@ -8,6 +8,8 @@ const userId = getCookie('userId')
 
 const token = getCookie('Bearer-token')
 
+console.log('res token', token)
+
 axios.defaults.headers.common = {'Authorization': token}
 
 export const fetchReservations = () => dispatch => {

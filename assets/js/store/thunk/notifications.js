@@ -5,6 +5,7 @@ import {getCookie} from './getCookie';
 const userId = getCookie('userId')
 
 const token = getCookie('Bearer-token')
+console.log('notif token', token)
 
 axios.defaults.headers.common = {'Authorization': token}
 
@@ -49,19 +50,18 @@ export const fetchNotifications = (userId,userRole) => dispatch => {
         })
 }
 
-
-
-
 export const fetchSignleUserAndNotifications = () => dispatch => {
     dispatch(actions.fetchSingleUserStart());
     console.log('notif userId', userId)
     axios.get(`/api/single-user/${userId}`)
         .then(res => {
+
             const name = nameToFirstUpperLetter(res.data.name)
             const surname = nameToFirstUpperLetter(res.data.surname)
             let user = res.data
             user.name = name
             user.surname = surname
+            
             dispatch(actions.fetchSingleUserSuccess(user))
             console.log(res.data.userId, res.data.role)
             dispatch(fetchNotifications(res.data.userId, res.data.role))
