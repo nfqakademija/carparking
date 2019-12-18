@@ -19,7 +19,6 @@ const header = (props) => (
                                     <div>
 
                                         <span className="textLightGrey headerText ml-1 ml-md-3">
-                                            {/* <i className="mr-4 fas fa-car headerText" style={{color: "white", fontSize:'1.25em'}}> </i> */}
                                             NFQ parking
                                         </span>
                                     </div>
@@ -27,7 +26,8 @@ const header = (props) => (
                                         <div className="d-none d-md-block align-self-center">
                                             <i className="textLightGrey h4 align-middle m-0">
                                                 {props.userName
-                                                ?`${props.userName} ${props.userLastname}`
+                                                ?`${props.userName.charAt(0).toUpperCase() + props.userName.substring(1)} 
+                                                ${props.userLastname.charAt(0).toUpperCase() + props.userLastname.substring(1)}`
                                                 :null}
                                             </i>
                                         </div>

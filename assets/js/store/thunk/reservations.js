@@ -8,8 +8,6 @@ const userId = getCookie('userId')
 
 const token = getCookie('Bearer-token')
 
-console.log('res token', token)
-
 axios.defaults.headers.common = {'Authorization': token}
 
 export const fetchReservations = () => dispatch => {
@@ -25,7 +23,7 @@ export const fetchReservations = () => dispatch => {
 
 export const popupAcceptClicked = (date, actionType, user) => (dispatch, getState) => {
     if(getState().singleUser.user.licensePlate){ // check if user have active licencePlate
-        console.log(getState().singleUser.user.licensePlate)
+
         dispatch(actions.popupAcceptStart());
 
         if(getState().singleUser.user.role === "user"){
@@ -46,7 +44,7 @@ export const popupAcceptClicked = (date, actionType, user) => (dispatch, getStat
             }
         }
     } else {
-        console.log(getState().singleUser.user.licensePlate)
+
         dispatch(actions.openModal())
     }
 }
@@ -211,11 +209,10 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
         "userId": otherUserId,
         "requestDate" : date
     }
-    console.log('incoming', date, user)
-    console.log('postdata',postData)
+
     axios.post('/api/notifications',postData)
         .then(res => {
-            console.log('res', res)
+
             if(res.data.error) { // if you already asked this person
                 dispatch(actions.popupAcceptFail(res.data.error))
             } else {
@@ -249,7 +246,7 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
 
 const fetchOneDayData = (date) => dispatch => { // helper combination of fetches. Day status after user new reservations fetched
     dispatch(actions.fetchOneDayDataStart(date))
-    console.log('reser userId', userId)
+
     axios.get(`/api/single-user/${userId}`)
         .then(res => {
             dispatch(actions.fetchSingleUserSuccess(res.data))

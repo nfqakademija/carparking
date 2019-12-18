@@ -5,7 +5,7 @@ import {getCookie} from './getCookie';
 const userId = getCookie('userId')
 
 const token = getCookie('Bearer-token')
-console.log('notif token', token)
+
 
 axios.defaults.headers.common = {'Authorization': token}
 
@@ -35,7 +35,7 @@ export const notificationReject = notificationId => dispatch => {
 export const notificationCancel = notificationId => dispatch => {
     axios.delete(`/api/notification-cancel/${notificationId}`)
         .then((res) =>{
-            console.log(res)
+
             dispatch( fetchSignleUserAndNotifications() )})
 }
 
@@ -52,16 +52,16 @@ export const fetchNotifications = (userId,userRole) => dispatch => {
 
 export const fetchSignleUserAndNotifications = () => dispatch => {
     dispatch(actions.fetchSingleUserStart());
-    console.log('notif userId', userId)
+
     axios.get(`/api/single-user/${userId}`)
         .then(res => {
             
             dispatch(actions.fetchSingleUserSuccess(res.data))
-            console.log(res.data.userId, res.data.role)
+
             dispatch(fetchNotifications(res.data.userId, res.data.role))
         })
         .catch(err => {
-            console.log('labas');
+
             dispatch(actions.fetchSingleUserFail(err))
         })
 }
