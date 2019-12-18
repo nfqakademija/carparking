@@ -13,8 +13,8 @@ const userNotification = (props) => {
     let buttons
     let text
     let borderColor = {}
-
     if(Number(props.notification.accepted)) {
+        console.log('accepted')
         buttons = <div className='Notifications_notificationContainerButtons'>
                     <Button classname="Button_danger" text='Cancel' onclick={() => props.onNotificationButtonCancel(props.notification.id)}></Button>
                   </div>

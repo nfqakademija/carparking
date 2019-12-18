@@ -2,32 +2,13 @@ import axios from 'axios';
 import * as actions from '../actions/index';
 import { getCoordinates } from './popup';
 import { fetchSignleUserAndNotifications } from './notifications';
+import {getCookie} from './getCookie';
 
-const getCookie = (cname) => {
-    const name = cname + "=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
-
-const token = getCookie('Bearer-token');
-
-const config = {
-    headers: {"Authorization": token}
-};
+const userId = getCookie('userId')
 
 export const fetchReservations = () => dispatch => {
     dispatch(actions.fetchReservationsStart());
-    axios.get(`/api/reservations`, config)
+    axios.get(`/api/reservations`)
         .then( res => {
             dispatch(actions.fetchReservationsSuccess(res.data))
         })
@@ -160,7 +141,7 @@ const userCancel = date => (dispatch, getState) => {
         "awayDate": [
             {"awayStartDate" :date,"awayEndDate":date}]
         }
-    axios.post('/api/useraway',postData, config)
+    axios.post('/api/useraway',postData)
         .then(() => {
             dispatch(actions.popupAcceptSuccess()) 
             dispatch(successTimer())
@@ -180,7 +161,7 @@ const guestReserve = date => (dispatch, getState) => {
             {"reservationDate" :date}
         ]
     }
-    axios.post('/api/reservations', postData, config)
+    axios.post('/api/reservations', postData)
         .then( () =>{
                 dispatch(actions.popupAcceptSuccess())
                 dispatch(successTimer())
@@ -203,7 +184,7 @@ const guestCancel = date => (dispatch, getState) => {
             {"id": reservationId}
         ]
     }
-    axios.delete('/api/reservations',{data: deleteData}, config)
+    axios.delete('/api/reservations',{data: deleteData})
         .then(() => {
             dispatch(actions.popupAcceptSuccess())
             dispatch(successTimer())
@@ -226,7 +207,7 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
     }
     console.log('incoming', date, user)
     console.log('postdata',postData)
-    axios.post('/api/notifications',postData, config)
+    axios.post('/api/notifications',postData)
         .then(res => {
             console.log('res', res)
             if(res.data.error) { // if you already asked this person
@@ -247,7 +228,7 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
 
 
  const putUserAway = (putData, date) => dispatch => { // helper used couple of times
-    axios.put('/api/useraway',putData, config)
+    axios.put('/api/useraway',putData)
             .then(() => {
                 dispatch(actions.popupAcceptSuccess())
                 dispatch(successTimer())
@@ -262,11 +243,7 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
 
 const fetchOneDayData = (date) => dispatch => { // helper combination of fetches. Day status after user new reservations fetched
     dispatch(actions.fetchOneDayDataStart(date))
-
-    const id = getCookie('userId');
-
-
-    axios.get(`/api/single-user/`+id, config)
+    axios.get(`/api/single-user/${userId}`)
         .then(res => {
             dispatch(actions.fetchSingleUserSuccess(res.data))
             axios.get(`/api/reservations`)

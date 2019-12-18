@@ -156,7 +156,7 @@ class Home extends Component {
         );
 
         return (
-            <div className="p-0 py-2 p-md-4" style={{height: '100%', overflow: 'hidden'}}>
+            <div className="p-0 py-2 p-md-4 scrollnone" style={{height: '100%', overflow: 'scroll'}}>
 
                 <div
                     className={`PopUp_away_container shadow mb-2 animation ${this.state.popUp ? 'show' : 'hide'} ${this.props.status === "success" ? "bg-success" : this.props.status === "fail" ? "bg-danger" : this.props.status === "duplicate" ? "bg-warning" : null }`}>

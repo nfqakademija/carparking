@@ -3,6 +3,9 @@ import {setAwaysDates, postAwayStatus, postAwayStatusLoading} from '../actions/i
 import {changeAwayLoadingStatus} from "../actions/main";
 import { fetchReservations } from './reservations';
 import { fetchSingleUser } from './singleUser';
+import { getCookie } from './getCookie';
+
+const userId = getCookie('userId')
 
 export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
     let status;
@@ -20,6 +23,8 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
         ]
     };
 
+    console.log((postData))
+
     axios.post('/api/useraway', postData)
         .then((response) => {
 
@@ -33,6 +38,7 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
                 dispatch(fetchSingleUser());
                 status = "success";
             }else{
+
                 status = "fail";
             }
 
@@ -40,6 +46,7 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
 
 
         }).catch(error => {
+        console.log(error)
         status = "fail";
 
         dispatch(postAwayStatus(status));
@@ -52,7 +59,7 @@ export const getDatesAway = () => (dispatch, getState) => {
 
     dispatch(changeAwayLoadingStatus(true));
 
-    axios.get('/api/single-user/' + user)
+    axios.get(`/api/single-user/${userId}`)
         .then((response) => {
             if (response.status === 200) {
                 dispatch(setAwaysDates(response.data.userAways));

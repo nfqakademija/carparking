@@ -1,31 +1,16 @@
 import axios from 'axios';
 import * as actions from '../actions/index';
+import {getCookie} from './getCookie';
 
-const getCookie = (cname) => {
-    const name = cname + "=";
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
+const userId = getCookie('userId')
+
+const nameToFirstUpperLetter = (name) => {
+    return name.charAt(0).toUpperCase() + name.substring(1)
 }
-
-const token = getCookie('Bearer-token');
-
-const config = {
-    headers: {"Authorization": token}
-};
 
 // accept and give parking space to guest
 export const notificationAccept = notificationId => dispatch => {
-    axios.post(`/api/notification-accept/${notificationId}`, config)
+    axios.post(`/api/notification-accept/${notificationId}`)
         .then(() =>
             dispatch(fetchSignleUserAndNotifications()))
 }
@@ -36,21 +21,22 @@ export const notificationReject = notificationId => dispatch => {
         "notificationId": notificationId,
         "rejected": 1
     }
-    axios.put(`/api/notifications`, putData, config)
+    axios.put(`/api/notifications`, putData)
         .then(() =>
             dispatch(fetchSignleUserAndNotifications()))
 }
 
 // cancel switch. Take back parking spot from guest
 export const notificationCancel = notificationId => dispatch => {
-    axios.delete(`/api/notification-cancel/${notificationId}`, config)
-        .then(() =>
-            dispatch(fetchSignleUserAndNotifications()))
+    axios.delete(`/api/notification-cancel/${notificationId}`)
+        .then((res) =>{
+            console.log(res)
+            dispatch( fetchSignleUserAndNotifications() )})
 }
 
-export const fetchNotifications = (userId, userRole) => dispatch => {
+export const fetchNotifications = (userId,userRole) => dispatch => {
     dispatch(actions.fetchNotificationsStart())
-    axios.get(`/api/notifications/${userId}/${userRole}`, config)
+    axios.get(`/api/notifications/${userId}/${userRole}`)
         .then(res => {
             dispatch(actions.fetchNotificationsSuccess(res.data))
         })
@@ -60,19 +46,24 @@ export const fetchNotifications = (userId, userRole) => dispatch => {
 }
 
 
+
+
 export const fetchSignleUserAndNotifications = () => dispatch => {
     dispatch(actions.fetchSingleUserStart());
-
-    const id = getCookie('userId');
-
-    axios.get(`/api/single-user/`+id, config)
+    
+    axios.get(`/api/single-user/${userId}`)
         .then(res => {
-            console.log(res);
-            dispatch(actions.fetchSingleUserSuccess(res.data))
+            const name = nameToFirstUpperLetter(res.data.name)
+            const surname = nameToFirstUpperLetter(res.data.surname)
+            let user = res.data
+            user.name = name
+            user.surname = surname
+            dispatch(actions.fetchSingleUserSuccess(user))
+            console.log(res.data.userId, res.data.role)
             dispatch(fetchNotifications(res.data.userId, res.data.role))
         })
         .catch(err => {
-            console.log(err);
+            console.log('labas');
             dispatch(actions.fetchSingleUserFail(err))
         })
 }
