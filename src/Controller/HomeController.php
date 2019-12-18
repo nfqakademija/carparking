@@ -9,10 +9,19 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/{reactRouting}", name="index", defaults={"reactRouting": null})
+     * @Route("app/{reactRouting}", name="index", defaults={"reactRouting": null})
      */
     public function dashboard(): Response
     {
         return $this->render('home/index.html.twig');
     }
+
+    /**
+     * @Route("/logout", name="logout")
+     */
+    public function logout(): Response
+    {
+        return $this->render('home/index.html.twig');
+    }
+
 }

@@ -13,27 +13,27 @@ security:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
 
-#    api:
-#      pattern:   ^/api
-#      stateless: true
-#
-#      guard:
-#        authenticators:
-#          - App\Security\TokenAuthenticator
+    api:
+      pattern:   ^/api
+      stateless: true
 
-#    main:
-#      anonymous: ~
-#      logout:
-#        path: /logout
-#        target: /
-#      logout_on_user_change: true
-#
-#      guard:
-#        authenticators:
-#          - App\Security\GoogleAuthenticator
+      guard:
+        authenticators:
+          - App\Security\TokenAuthenticator
+
+    main:
+      anonymous: ~
+      logout:
+        path: /logout
+        target: /
+      logout_on_user_change: true
+
+      guard:
+        authenticators:
+          - App\Security\GoogleAuthenticator
 
   access_control:
-#    - { path: ^/app, roles: ROLE_USER }
+    - { path: ^/app, roles: ROLE_USER }
 #    - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
       # - { path: ^/profile, roles: ROLE_USER }
 
