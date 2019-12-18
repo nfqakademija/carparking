@@ -19,7 +19,6 @@ const mobileMenu = (props) => (
                         className="mb-0 h2 text-white"
                         onClick={props.closeMobileMenu}
                         style={{cursor: "pointer"}}> 
-                        {/* change this with icon */}
                         × 
                     </a>
                 </div>

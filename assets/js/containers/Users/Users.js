@@ -42,7 +42,7 @@ class Users extends Component {
             <>
                 <div style={{display:"flex", flexDirection:'column',  height:'100%', overflow:'hidden'}}>
                     {this.popupHandler(this.props.popup)}
-                    {!this.props.loadingUsersList && !this.props.loadingSingleUser
+                    {!this.props.loadingUsersList && !this.props.loadingSingleUser && !this.props.loadingReservations
                         ? <div className='Users_usersTableContainer' style={this.userListContainerStyleHandler()}>
                             <UsersTable 
                                 ref={this.userTableRef}
@@ -64,6 +64,7 @@ const mapStateToProps = state => {
         usersList: state.usersList.users,
         loadingUsersList: state.usersList.loading,
         loadingSingleUser: state.singleUser.loading,
+        loadingReservations: state.reservation.loading,
         reservationStatus: state.reservation.weekStatus,
         mainUser: state.singleUser.user,
         popup: state.reservation.popup,

@@ -14,9 +14,6 @@ import Logout from './containers/Auth/Logout/Logout';
 import Away from './containers/Away/Away';
 import Notifications from './containers/Notifications/Notifications';
 
-
-
-
 class App extends Component {
 
     componentDidMount() {
