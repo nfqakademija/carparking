@@ -59,7 +59,7 @@ export const getDatesAway = () => (dispatch, getState) => {
 
     dispatch(changeAwayLoadingStatus(true));
 
-    axios.get(`/api/single-user/22`)
+    axios.get(`/api/single-user/${userId}`)
         .then((response) => {
             if (response.status === 200) {
                 dispatch(setAwaysDates(response.data.userAways));
