@@ -21,7 +21,9 @@ const usersTable = React.forwardRef((props, ref) => ( // after data structure re
             <div className='UsersTable_body' >
                 
                 <div className='UserTable_userContainerMain'>
-                    <div>{`${props.mainUser.name} ${props.mainUser.surname}`}</div>
+                    <div>{`${props.mainUser.name.charAt(0).toUpperCase() + props.mainUser.name.substring(1)} 
+                            ${props.mainUser.surname.charAt(0).toUpperCase() + props.mainUser.surname.substring(1)}`}
+                    </div>
                     <div> 
                         {props.reservationStatus.map( dayObj => {
                             const date = new Date(dayObj.date)

@@ -27,7 +27,8 @@ const header = (props) => (
                                         <div className="d-none d-md-block align-self-center">
                                             <i className="textLightGrey h4 align-middle m-0">
                                                 {props.userName
-                                                ?`${props.userName} ${props.userLastname}`
+                                                ?`${props.userName.charAt(0).toUpperCase() + props.userName.substring(1)} 
+                                                ${props.userLastname.charAt(0).toUpperCase() + props.userLastname.substring(1)}`
                                                 :null}
                                             </i>
                                         </div>
