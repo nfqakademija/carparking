@@ -1,10 +1,11 @@
 import * as actionTypes from './actionTypes';
 
 export const login = (id, token) => {
+    console.log(id)
     return {
         type: actionTypes.LOGIN,
-        token,
-        id
+        id,
+        token
     }
 }
 

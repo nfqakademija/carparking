@@ -57,8 +57,10 @@ export const fetchNotifications = (userId,userRole) => (dispatch, getState) => {
         headers: {"Authorization": getState().main.token}
     };
 
+    const user = getState().singleUser.user.userId;
+
     dispatch(actions.fetchNotificationsStart())
-    axios.get(`/api/notifications/${userId}/${userRole}`,config)
+    axios.get(`/api/notifications/${user}/${userRole}`,config)
         .then(res => {
             dispatch(actions.fetchNotificationsSuccess(res.data))
         })
@@ -73,9 +75,11 @@ export const fetchSignleUserAndNotifications = () => (dispatch,getState) => {
         headers: {"Authorization": getState().main.token}
      };
 
+    const user = getState().singleUser.user.userId;
+
     dispatch(actions.fetchSingleUserStart());
 
-    axios.get(`/api/single-user/${userId}`,config)
+    axios.get(`/api/single-user/`+user,config)
         .then(res => {
             
             dispatch(actions.fetchSingleUserSuccess(res.data))

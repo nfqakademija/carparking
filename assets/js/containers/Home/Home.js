@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 
 import { popupAcceptClicked, successTimer, buttonClickedMid, fetchReservations } from '../../store/thunk/reservations';
 import { fetchUsersData } from '../../store/thunk/usersList';
-import { onFetchNotifications } from '../../store/thunk/notifications';
+import {fetchSignleUserAndNotifications, onFetchNotifications} from '../../store/thunk/notifications';
 import { getCoordinates, popupOpened } from '../../store/thunk/popup';
 import { popupCancel } from '../../store/actions/index';
 

@@ -50,11 +50,12 @@ const reducer = (state = initialState, action) => {
                 }
             }
         case actionTypes.LOGIN:
+            console.log(action.id)
             return { 
                 ...state,
-                user: {
+                userId: {
                     ...state.user,
-                    userId: action.userId
+                    userId: action.id,
                 }
             }
         default: return state
