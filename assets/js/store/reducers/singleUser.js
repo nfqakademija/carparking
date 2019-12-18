@@ -53,7 +53,7 @@ const reducer = (state = initialState, action) => {
             console.log(action.id)
             return { 
                 ...state,
-                userId: {
+                user: {
                     ...state.user,
                     userId: action.id,
                 }
