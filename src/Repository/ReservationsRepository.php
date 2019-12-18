@@ -28,6 +28,15 @@ class ReservationsRepository extends ServiceEntityRepository
             ->execute();
     }
 
+    public function getReservationsByDate($date)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.reservationDate = :dates')
+            ->setParameter('dates', $date)
+            ->getQuery()
+            ->execute();
+    }
+
     public function findReservationById($id)
     {
         $value = null;

@@ -129,6 +129,19 @@ class ReservationService
         }
         $this->entityManager->flush();
     }
+
+    public function changeReservationsByDate(string $dateString, ParkSpaces $parkSpace): void
+    {
+        $reservations = $this->entityManager->getRepository(Reservations::class)->getReservationsByDate($dateString);
+        foreach ($reservations as $reservation) {
+            if ($reservation->getParkSpace() === null) {
+                $reservation->setParkSpace($parkSpace);
+            }
+            $this->entityManager->flush();
+        }
+    }
+
+
     public function checkSpacesAtGivenDay(string $date, string $parkSpaceId)
     {
         return $this->entityManager

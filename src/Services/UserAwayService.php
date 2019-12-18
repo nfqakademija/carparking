@@ -137,12 +137,10 @@ class UserAwayService
                 $this->entityManager->remove($userAway);
             }
         }
-        $this->checkUserAwaysForReservations($dateArray);
+
         $this->reservationService
             ->changeReservationsByProvidedArray($dateArray, $userAway->getAwayUser()->getPermanentSpace(), 'delete');
-
-        // $this->reservationService->checkSpacesForReservations($dateArray);
-        $this->reservationService->
+        $this->checkUserAwaysForReservations($dateArray);
         $this->entityManager->flush();
         return $array = ['success' => "success"];
     }
@@ -167,19 +165,14 @@ class UserAwayService
                 foreach ($userAway as $user) {
                     $parkSpaceId = $user->getAwayUser()->getPermanentSpace()->getId();
                     $available = $this->reservationService->checkSpacesAtGivenDay($date, $parkSpaceId);
-                    if ($available) {
-                        $day = [$date];
-                        $this->reservationService
-                            ->changeReservationsByProvidedArray(
-                                $day,
-                                $user->getAwayUser()->getPermanentSpace(),
-                                'add'
-                            );
+
+                    if ($available == null) {
+                        $parkSpace = $user->getAwayUser()->getPermanentSpace();
+                        $this->reservationService->changeReservationsByDate($date, $parkSpace);
                     }
                 }
             }
         }
-        die;
     }
 
 
