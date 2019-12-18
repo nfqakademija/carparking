@@ -6,6 +6,8 @@ import {getCookie} from './getCookie';
 
 const userId = getCookie('userId')
 
+console.log('res ' ,token)
+
 export const fetchReservations = () => dispatch => {
     dispatch(actions.fetchReservationsStart());
     axios.get(`/api/reservations`)
@@ -243,6 +245,7 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
 
 const fetchOneDayData = (date) => dispatch => { // helper combination of fetches. Day status after user new reservations fetched
     dispatch(actions.fetchOneDayDataStart(date))
+    console.log('reser userId', userId)
     axios.get(`/api/single-user/${userId}`)
         .then(res => {
             dispatch(actions.fetchSingleUserSuccess(res.data))

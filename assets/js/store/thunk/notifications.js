@@ -4,6 +4,8 @@ import {getCookie} from './getCookie';
 
 const userId = getCookie('userId')
 
+console.log('notif ' ,token)
+
 const nameToFirstUpperLetter = (name) => {
     return name.charAt(0).toUpperCase() + name.substring(1)
 }
@@ -50,7 +52,7 @@ export const fetchNotifications = (userId,userRole) => dispatch => {
 
 export const fetchSignleUserAndNotifications = () => dispatch => {
     dispatch(actions.fetchSingleUserStart());
-    
+    console.log('notif userId', userId)
     axios.get(`/api/single-user/${userId}`)
         .then(res => {
             const name = nameToFirstUpperLetter(res.data.name)

@@ -14,7 +14,6 @@ const userNotification = (props) => {
     let text
     let borderColor = {}
     if(Number(props.notification.accepted)) {
-        console.log('accepted')
         buttons = <div className='Notifications_notificationContainerButtons'>
                     <Button classname="Button_danger" text='Cancel' onclick={() => props.onNotificationButtonCancel(props.notification.id)}></Button>
                   </div>
@@ -29,7 +28,7 @@ const userNotification = (props) => {
     }
 
     return(
-        !props.notification.rejected && !props.notification.acceptedAndCanceled
+        !props.notification.acceptedAndCanceled && !props.notification.rejected
             ? <div className='Notifications_body'>
                 <div className='Notifications_notificationContainer shadow' style={borderColor}>
                     <div className='Notifications_notificationContainerText'>

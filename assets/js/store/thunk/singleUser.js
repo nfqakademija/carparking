@@ -4,9 +4,12 @@ import {getCookie} from './getCookie';
 
 const userId = getCookie('userId')
 
+console.log('single ' ,token)
+
 export const fetchSingleUser = () => dispatch => {
     dispatch(actions.fetchSingleUserStart())
-    axios.get(`/api/single-user/${userId}`) //*
+    console.log('single userId', userId)
+    axios.get(`/api/single-user/${userId}`)
         .then( res => {
             dispatch(actions.fetchSingleUserSuccess(res.data))
         })
