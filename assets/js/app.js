@@ -16,30 +16,24 @@ import Notifications from './containers/Notifications/Notifications';
 
 class App extends Component {
 
-    componentDidMount() {
-        this.props.onFetchNotifications()
-        this.props.onFetchUsersData()
-        this.props.onFetchReservations()
-    }
-
     render() {
 
         let routes =
             <Switch>
-                <Route path='/app/' exact component={Login}/>
-                <Redirect from='/app/' to='/app/'/>
+                <Route path='/login' exact component={Login}/>
+                <Redirect from='/' to='/login'/>
             </Switch>
 
         if (this.props.token) {
             routes =
                 <Layout user={this.props.user}>
                     <Switch>
-                        <Route path="/app/home" component={Home}/>
-                        <Route path='/app/users' component={Users}/>
-                        <Route path='/app/logout' component={Logout}/>
-                        <Route path='/app/away' component={Away}/> :
-                        <Route path='/app/notifications' component={Notifications}/>
-                        <Redirect from='/app/' to='/app/home'/>
+                        <Route path="/home" component={Home}/>
+                        <Route path='/users' component={Users}/>
+                        <Route path='/logout' component={Logout}/>
+                        <Route path='/away' component={Away}/> :
+                        <Route path='/notifications' component={Notifications}/>
+                        <Redirect from='/' to='/home'/>
                     </Switch>
                 </Layout>
         }
@@ -56,10 +50,5 @@ const mapStateToProps = state => {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    onFetchUsersData: () => dispatch(fetchUsersData()),
-    onFetchReservations: () => dispatch(fetchReservations()),
-    onFetchNotifications: () => dispatch(fetchSignleUserAndNotifications())
-})
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);

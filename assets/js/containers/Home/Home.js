@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from "react-redux";
 
-import { popupAcceptClicked, successTimer, buttonClickedMid } from '../../store/thunk/reservations';
+import { popupAcceptClicked, successTimer, buttonClickedMid, fetchReservations } from '../../store/thunk/reservations';
+import { fetchUsersData } from '../../store/thunk/usersList';
+import { onFetchNotifications } from '../../store/thunk/notifications';
 import { getCoordinates, popupOpened } from '../../store/thunk/popup';
 import { popupCancel } from '../../store/actions/index';
 
@@ -17,7 +19,11 @@ class Home extends Component {
         this.reservationRefLast = React.createRef();  
     }
 
-    
+    componentDidMount() {
+        this.props.onFetchNotifications()
+        this.props.onFetchUsersData()
+        this.props.onFetchReservations()
+    }
 
     getReservationByDateHandler(date) {
         return this.props.user.reservations.find(reservation => {
@@ -172,7 +178,11 @@ const mapDispatchToProps= dispatch => ({
     onPopupAccept: (date, actionType) => dispatch(popupAcceptClicked(date, actionType)),
     onSuccessTimer: () => dispatch(successTimer()),
     onGetCoordinates: (first, last) => dispatch(getCoordinates(first, last)),
-    onPopupOpened: () => dispatch(popupOpened())
+    onPopupOpened: () => dispatch(popupOpened()),
+    onSetDefaultHeader: () => dispatch(setDefaultHeader()),
+    onFetchUsersData: () => dispatch(fetchUsersData()),
+    onFetchReservations: () => dispatch(fetchReservations()),
+    onFetchNotifications: () => dispatch(fetchSignleUserAndNotifications())
 })
 
 export default connect( mapStateToProps, mapDispatchToProps )(Home);

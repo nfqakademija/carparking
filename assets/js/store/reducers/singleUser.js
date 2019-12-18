@@ -49,6 +49,14 @@ const reducer = (state = initialState, action) => {
                     licensePlate: action.data.data
                 }
             }
+        case actionTypes.LOGIN:
+            return { 
+                ...state,
+                user: {
+                    ...state.user,
+                    userId: action.userId
+                }
+            }
         default: return state
     }
 }
