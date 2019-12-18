@@ -115,20 +115,25 @@ class ReservationService
     {
         $reservations = $this->entityManager->getRepository(Reservations::class)->getReservationsByArray($dateArray);
         foreach ($reservations as $reservation) {
-//            var_dump($reservation->getParkSpace()->getId());
-            if ($type === 'delete' && $reservation->getParkSpace() === null) {
-                continue;
-            }
-            if ($type === 'delete' && $reservation->getParkSpace()->getId() === $parkSpace->getId()) {
-                $reservation->setParkSpace(null);
-            } else {
-                if ($reservation->getParkSpace() === null) {
-                    $reservation->setParkSpace($parkSpace);
+            $date = $reservation->getReservationDate()->format('Y-m-d');
+            $pos = array_search($date, $dateArray);
+            if (($pos || $pos === 0) && $type === 'delete' && $reservation->getParkSpace() !== null) {
+                if ($reservation->getParkSpace() === $parkSpace) {
+                    $reservation->setParkSpace(null);
+                    unset($dateArray[$pos]);
                 }
+            } elseif (($pos || $pos === 0) && $type === 'add' && $reservation->getParkSpace() === null) {
+                $reservation->setParkSpace($parkSpace);
+                unset($dateArray[$pos]);
             }
         }
-
         $this->entityManager->flush();
+    }
+    public function checkSpacesAtGivenDay(string $date, string $parkSpaceId)
+    {
+        return $this->entityManager
+            ->getRepository(Reservations::class)
+            ->findReservationByDateAndParkSpaceId($date, $parkSpaceId);
     }
 
 
