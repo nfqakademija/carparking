@@ -11,7 +11,11 @@ import './Notifications.scss';
 class Notifications extends Component {
 
     componentDidMount() {
-        this.props.onFetchNotifications(this.props.user.userId, this.props.user.role) 
+        this.props.onFetchNotifications(this.props.user.userId, this.props.user.role) ,
+        this.props.onFetchNotifications()
+        this.props.onFetchUsersData()
+        this.props.onFetchReservations()
+        
     }
 
     render (){
