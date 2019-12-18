@@ -16,6 +16,6 @@ export const getCookie = (cname) => {
     return "";
 }
 
-const token = getCookie('Bearer-token')
+const token = getCookie('Bearer')
 
 axios.defaults.headers.common = {'Authorization': token}
