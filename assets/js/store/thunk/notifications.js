@@ -29,11 +29,12 @@ export const notificationReject = notificationId => dispatch => {
 // cancel switch. Take back parking spot from guest
 export const notificationCancel = notificationId => dispatch => {
     axios.delete(`/api/notification-cancel/${notificationId}`)
-        .then(() =>
-            dispatch(fetchSignleUserAndNotifications()))
+        .then((res) =>{
+            console.log(res)
+            dispatch( fetchSignleUserAndNotifications() )})
 }
 
-export const fetchNotifications = userRole => dispatch => {
+export const fetchNotifications = (userId,userRole) => dispatch => {
     dispatch(actions.fetchNotificationsStart())
     axios.get(`/api/notifications/${userId}/${userRole}`)
         .then(res => {
@@ -58,6 +59,7 @@ export const fetchSignleUserAndNotifications = () => dispatch => {
             user.name = name
             user.surname = surname
             dispatch(actions.fetchSingleUserSuccess(user))
+            console.log(res.data.userId, res.data.role)
             dispatch(fetchNotifications(res.data.userId, res.data.role))
         })
         .catch(err => {
