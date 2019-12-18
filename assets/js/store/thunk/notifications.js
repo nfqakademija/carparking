@@ -55,14 +55,8 @@ export const fetchSignleUserAndNotifications = () => dispatch => {
     console.log('notif userId', userId)
     axios.get(`/api/single-user/${userId}`)
         .then(res => {
-
-            const name = nameToFirstUpperLetter(res.data.name)
-            const surname = nameToFirstUpperLetter(res.data.surname)
-            let user = res.data
-            user.name = name
-            user.surname = surname
             
-            dispatch(actions.fetchSingleUserSuccess(user))
+            dispatch(actions.fetchSingleUserSuccess(res.data))
             console.log(res.data.userId, res.data.role)
             dispatch(fetchNotifications(res.data.userId, res.data.role))
         })
