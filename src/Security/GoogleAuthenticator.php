@@ -149,8 +149,8 @@ class GoogleAuthenticator extends SocialAuthenticator
         $userEmail = $this->tokenParser($value);
         $userId = $this->getUserFromEmail($userEmail);
         $response = new RedirectResponse('/app');
-        $response->headers->setCookie(Cookie::create($key . '-token', $value, 0, '/', '127.0.0.1', false, false));
-        $response->headers->setCookie(Cookie::create('userId', $userId, 0, '/', '127.0.0.1', false, false));
+        $response->headers->setCookie(Cookie::create($key . '-token', $value, 0, '/', '127.0.0.1', false, true));
+        $response->headers->setCookie(Cookie::create('userId', $userId, 0, '/', '127.0.0.1', false, true));
         return $response;
     }
 

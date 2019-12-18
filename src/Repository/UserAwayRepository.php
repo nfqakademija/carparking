@@ -6,6 +6,7 @@ use App\Entity\UserAway;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\Query;
 
 /**
  * @method UserAway|null find($id, $lockMode = null, $lockVersion = null)
@@ -71,7 +72,7 @@ class UserAwayRepository extends ServiceEntityRepository
             ->andWhere('ua.awayUser = :id')
             ->setParameter('id', $id)
             ->getQuery()
-            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            ->getResult(Query::HYDRATE_ARRAY);
     }
 
     /**
@@ -117,6 +118,6 @@ class UserAwayRepository extends ServiceEntityRepository
             ->setParameter('endDate', $endDate)
             ->setParameter('id', $userId)
             ->getQuery()
-            ->getResult(\Doctrine\ORM\Query::HYDRATE_ARRAY);
+            ->getResult(Query::HYDRATE_ARRAY);
     }
 }
