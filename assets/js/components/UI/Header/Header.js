@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 
 import Menu from '../Menu/mobileMenu';
 
-import { openMobileMenu } from "../../../store/actions/main";
+import { openMobileMenu, logout } from "../../../store/actions/main";
 import { popupOpened } from '../../../store/thunk/popup';
 
 
@@ -32,8 +31,8 @@ const header = (props) => (
                                             </i>
                                         </div>
                                         <div>
-                                            <a href='/logout' style={{color:"#f8f3f0"}}>
-                                                <i className="fas fa-sign-out-alt h3 textLightGrey mx-4">
+                                            <a style={{color:"#f8f3f0"}} onClick={props.onLogout}>
+                                                <i className="fas fa-sign-out-alt h3 textLightGrey mx-4" >
                                                 </i>
                                             </a>
 
@@ -73,7 +72,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps= dispatch => ({
     openMobileMenu: () => dispatch(openMobileMenu()),
-    onPopupOpened: () => dispatch(popupOpened())
+    onPopupOpened: () => dispatch(popupOpened()),
+    onLogout: () => dispatch(logout())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(header);

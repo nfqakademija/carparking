@@ -4,15 +4,18 @@ import { getCoordinates } from './popup';
 import { fetchSignleUserAndNotifications } from './notifications';
 import {getCookie} from './getCookie';
 
-const userId = getCookie('userId')
+// const userId = getCookie('userId')
 
-const token = getCookie('Bearer-token')
+// const token = getCookie('Bearer-token')
 
-axios.defaults.headers.common = {'Authorization': token}
 
-export const fetchReservations = () => dispatch => {
+export const fetchReservations = () => (dispatch, getState) => {
+    const config = {
+        headers: {"Authorization": getState().main.token}
+     };
+
     dispatch(actions.fetchReservationsStart());
-    axios.get(`/api/reservations`)
+    axios.get(`/api/reservations`,config)
         .then( res => {
             dispatch(actions.fetchReservationsSuccess(res.data))
         })
@@ -22,6 +25,7 @@ export const fetchReservations = () => dispatch => {
 }
 
 export const popupAcceptClicked = (date, actionType, user) => (dispatch, getState) => {
+
     if(getState().singleUser.user.licensePlate){ // check if user have active licencePlate
 
         dispatch(actions.popupAcceptStart());
@@ -50,6 +54,11 @@ export const popupAcceptClicked = (date, actionType, user) => (dispatch, getStat
 }
 
 const userReserve = date => (dispatch, getState) => { 
+
+    const config = {
+        headers: {"Authorization": getState().main.token}
+     };
+
     const userAways = getState().singleUser.user.userAways
     const getMonthDay = date => new Date(date).getDate()
     const foundAway = userAways.find(away => 
@@ -63,7 +72,7 @@ const userReserve = date => (dispatch, getState) => {
     
     if(startDate === endDate){ // interval is one day
         const deleteData = { "awayDate": [ {"id": foundAway.id} ] }
-        axios.delete('/api/useraway', {data: deleteData})
+        axios.delete('/api/useraway', {data: deleteData}, config)
             .then(() => {
                 dispatch(actions.popupAcceptSuccess())
                 dispatch(successTimer())
@@ -116,9 +125,9 @@ const userReserve = date => (dispatch, getState) => {
                 ]
             }
 
-            axios.put('/api/useraway',putData) // change away from start to given day
+            axios.put('/api/useraway',putData, config) // change away from start to given day
             .then(() => {
-                axios.post('/api/useraway',postData) // post other away from given day to old away end day
+                axios.post('/api/useraway',postData, config) // post other away from given day to old away end day
                     .then(() => {
                         dispatch(actions.popupAcceptSuccess())
                         dispatch(successTimer())
@@ -140,12 +149,17 @@ const userReserve = date => (dispatch, getState) => {
 }
 
 const userCancel = date => (dispatch, getState) => {
+
+    const config = {
+        headers: {"Authorization": getState().main.token}
+     };
+
     const postData = {
         "id": getState().singleUser.user.userId,
         "awayDate": [
             {"awayStartDate" :date,"awayEndDate":date}]
         }
-    axios.post('/api/useraway',postData)
+    axios.post('/api/useraway',postData, config)
         .then(() => {
             dispatch(actions.popupAcceptSuccess()) 
             dispatch(successTimer())
@@ -159,13 +173,18 @@ const userCancel = date => (dispatch, getState) => {
 }
 
 const guestReserve = date => (dispatch, getState) => {
+
+    const config = {
+        headers: {"Authorization": getState().main.token}
+     };
+
     const postData = {
         "id": getState().singleUser.user.userId,
         "reservations": [
             {"reservationDate" :date}
         ]
     }
-    axios.post('/api/reservations', postData)
+    axios.post('/api/reservations', postData,config)
         .then( () =>{
                 dispatch(actions.popupAcceptSuccess())
                 dispatch(successTimer())
@@ -179,6 +198,11 @@ const guestReserve = date => (dispatch, getState) => {
 }
 
 const guestCancel = date => (dispatch, getState) => {
+
+    const config = {
+        headers: {"Authorization": getState().main.token}
+     };
+
     const dateObj = new Date(date)
     const userReservations = getState().singleUser.user.reservations
     const reservation = userReservations.find(reservation => new Date(reservation.reservationDate.date).getDate() === dateObj.getDate())
@@ -188,7 +212,7 @@ const guestCancel = date => (dispatch, getState) => {
             {"id": reservationId}
         ]
     }
-    axios.delete('/api/reservations',{data: deleteData})
+    axios.delete('/api/reservations',{data: deleteData}, config)
         .then(() => {
             dispatch(actions.popupAcceptSuccess())
             dispatch(successTimer())
@@ -202,6 +226,11 @@ const guestCancel = date => (dispatch, getState) => {
 }
 
 const guestAskForSwitch = (date, user) => (dispatch, getState) => {
+
+    const config = {
+        headers: {"Authorization": getState().main.token}
+     };
+
      const myId = getState().singleUser.user.userId
      const otherUserId = user.userId //*
      const postData = {
@@ -210,7 +239,7 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
         "requestDate" : date
     }
 
-    axios.post('/api/notifications',postData)
+    axios.post('/api/notifications',postData, config)
         .then(res => {
 
             if(res.data.error) { // if you already asked this person
@@ -230,8 +259,13 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
  }
 
 
- const putUserAway = (putData, date) => dispatch => { // helper used couple of times
-    axios.put('/api/useraway',putData)
+ const putUserAway = (putData, date) => (dispatch, getState) => { // helper used couple of times
+
+    const config = {
+        headers: {"Authorization": getState().main.token}
+     };
+
+    axios.put('/api/useraway',putData, config)
             .then(() => {
                 dispatch(actions.popupAcceptSuccess())
                 dispatch(successTimer())
@@ -247,7 +281,11 @@ const guestAskForSwitch = (date, user) => (dispatch, getState) => {
 const fetchOneDayData = (date) => dispatch => { // helper combination of fetches. Day status after user new reservations fetched
     dispatch(actions.fetchOneDayDataStart(date))
 
-    axios.get(`/api/single-user/${userId}`)
+    const config = {
+        headers: {"Authorization": getState().main.token}
+     };
+
+    axios.get(`/api/single-user/${userId}`,config)
         .then(res => {
             dispatch(actions.fetchSingleUserSuccess(res.data))
             axios.get(`/api/reservations`)

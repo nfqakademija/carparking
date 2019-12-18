@@ -21,7 +21,6 @@ class ReservationController extends FOSRestBundle
         $this->entityManager = $entityManager;
     }
 
-
     /**
      * @Rest\Get("/api/reservations")
      */
@@ -32,9 +31,10 @@ class ReservationController extends FOSRestBundle
         return new JsonResponse($service->reservationList());
     }
 
-
     /**
      * @Rest\Post("/api/reservations")
+     * @param Request $request
+     * @return JsonResponse
      */
     public function createReservation(Request $request)
     {
@@ -47,6 +47,8 @@ class ReservationController extends FOSRestBundle
 
     /**
      * @Rest\Delete("/api/reservations")
+     * @param Request $request
+     * @return JsonResponse
      */
     public function deleteReservation(Request $request)
     {

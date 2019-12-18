@@ -3,17 +3,18 @@ import {setAwaysDates, postAwayStatus, postAwayStatusLoading} from '../actions/i
 import {changeAwayLoadingStatus} from "../actions/main";
 import { fetchReservations } from './reservations';
 import { fetchSingleUser } from './singleUser';
-import { getCookie } from './getCookie';
 
-const userId = getCookie('userId')
+// const userId = getCookie('userId')
 
-const token = getCookie('Bearer-token')
-
-axios.defaults.headers.common = {'Authorization': token}
+// const token = getCookie('Bearer-token')
 
 export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
     let status;
     const user = getState().singleUser.user.userId;
+
+    const config = {
+        headers: {"Authorization": getState().main.token}
+     };
 
     dispatch(postAwayStatusLoading());
 
@@ -27,7 +28,7 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
         ]
     };
 
-    axios.post('/api/useraway', postData)
+    axios.post('/api/useraway', postData, config)
         .then((response) => {
 
 
@@ -57,13 +58,15 @@ export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
 
 export const getDatesAway = () => (dispatch, getState) => {
 
+    const config = {
+        headers: {"Authorization": getState().main.token}
+    };
+
     const user = getState().singleUser.user.userId;
 
     dispatch(changeAwayLoadingStatus(true));
 
-    console.log('away userId', userId)
-
-    axios.get(`/api/single-user/${userId}`)
+    axios.get(`/api/single-user/${userId}`,config)
         .then((response) => {
             if (response.status === 200) {
                 dispatch(setAwaysDates(response.data.userAways));

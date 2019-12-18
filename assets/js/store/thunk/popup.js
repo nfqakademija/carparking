@@ -1,4 +1,4 @@
-import { saveCoordinates, noCoordinates, popupOpenedStart, popupOpenedReset } from '../actions/index';
+import { saveCoordinates, popupOpenedStart, popupOpenedReset } from '../actions/index';
 
 export const getCoordinates = (first, last) => dispatch => {
     const left = `${first.current.offsetLeft}px`;

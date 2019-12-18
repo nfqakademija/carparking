@@ -2,8 +2,6 @@
 
 namespace App\Services;
 
-use App\Entity\ParkSpaces;
-use App\Entity\Reservations;
 use App\Entity\UserAway;
 use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,7 +17,6 @@ class UsersService
 
     public function userList()
     {
-        //TODO date dynamic provider
         $days = $this->dateTimeProvider(7);
         $userList = $this->entityManager->getRepository(Users::class)->getUsersList();
         $userArray = [];
@@ -75,7 +72,7 @@ class UsersService
             ->getSingleUser($data['licensePlate'][0]['userId']);
         $user->setLicencePlate($data['licensePlate'][0]['licensePlate']);
         $this->entityManager->flush();
-        return $array = ['success' => 'success'];
+        return ['success' => 'created'];
     }
 
     public function deleteLicensePlate($data)
@@ -85,7 +82,7 @@ class UsersService
             ->getSingleUser($data['licensePlate'][0]['userId']);
         $user->setLicencePlate(null);
         $this->entityManager->flush();
-        return $array = ['success' => 'success'];
+        return ['success' => 'created'];
     }
 
     private function reservationBuilder($user)
@@ -131,34 +128,5 @@ class UsersService
             array_push($reservationDateArray, $date->format('Y-m-d'));
         }
         return $reservationDateArray;
-    }
-
-    private function userAwayTimeArray($id)
-    {
-        $away = $this->entityManager->getRepository(UserAway::class)->getUserAwayByUserId($id);
-        $array = [];
-        foreach ($away as $value) {
-            $awayStart = $value['awayStartDate'];
-            $awayEnd = $value['awayEndDate'];
-
-            $endObject = new \DateTime($awayEnd->format('Y-m-d'));
-            $endObject->modify("+1 day");
-            $period = new \DatePeriod(
-                new \DateTime($awayStart->format('Y-m-d')),
-                new \DateInterval('P1D'),
-                $endObject
-            );
-            foreach ($period as $string) {
-                array_push($array, $string->format('Y-m-d'));
-            }
-        }
-        return $array;
-    }
-
-    private function dateFromString($dateString)
-    {
-        $format = '!Y-m-d';
-        $date = \DateTime::createFromFormat($format, $dateString);
-        return $date;
     }
 }

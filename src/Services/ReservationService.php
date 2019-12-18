@@ -63,7 +63,7 @@ class ReservationService
             $this->entityManager->remove($reservation);
             $this->entityManager->flush();
         }
-        return $array = ["success" => "success"];
+        return $array = ["success" => "created"];
     }
 
 
@@ -104,7 +104,7 @@ class ReservationService
                 $this->entityManager->persist($reservation);
             }
             $this->entityManager->flush();
-            return $array = ["success" => "success"];
+            return $array = ["success" => "created"];
         }
     }
 
@@ -138,14 +138,12 @@ class ReservationService
         }
     }
 
-
     public function checkSpacesAtGivenDay(string $date, string $parkSpaceId)
     {
         return $this->entityManager
             ->getRepository(Reservations::class)
             ->findReservationByDateAndParkSpaceId($date, $parkSpaceId);
     }
-
 
     private function checkReservedParkSpace($parkSpaceId, $dateString)
     {

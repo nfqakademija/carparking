@@ -16,13 +16,16 @@ class UserAwayController extends FOSRestBundle
 {
 
     private $entityManager;
+    private $reservationService;
 
     /**
      * @param EntityManagerInterface $entityManager
+     * @param ReservationService $reservationService
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, ReservationService $reservationService)
     {
         $this->entityManager = $entityManager;
+        $this->reservationService = $reservationService;
     }
 
     /**
@@ -43,7 +46,7 @@ class UserAwayController extends FOSRestBundle
      */
     public function getSingleUserAway($id)
     {
-        $awayService = new UserAwayService($this->entityManager);
+        $awayService = new UserAwayService($this->entityManager, $this->reservationService);
         $response = $awayService->getSingle($id);
         return new JsonResponse($response);
     }

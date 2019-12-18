@@ -4,15 +4,9 @@ namespace App\Security;
 
 use App\Entity\Users;
 use Doctrine\ORM\EntityManagerInterface;
-use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
-use KnpU\OAuth2ClientBundle\Client\OAuth2ClientInterface;
-use KnpU\OAuth2ClientBundle\Security\Authenticator\SocialAuthenticator;
-use League\OAuth2\Client\Provider\GoogleUser;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -32,17 +26,19 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
      * Called on every request to decide if this authenticator should be
      * used for the request. Returning false will cause this authenticator
      * to be skipped.
+     * @param Request $request
+     * @return bool
      */
     public function supports(Request $request)
     {
-//    var_dump($request->headers->get('Userid'));
-//    die;
         return $request->headers->has('Authorization');
     }
 
     /**
      * Called on every request. Return whatever credentials you want to
      * be passed to getUser() as $credentials.
+     * @param Request $request
+     * @return array
      */
     public function getCredentials(Request $request)
     {
@@ -65,15 +61,11 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        // check credentials - e.g. make sure the password is valid
-        // no credential check is needed in this case
-        // return true to cause authentication success
         return true;
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        // on success, let the request continue
         return null;
     }
 
@@ -81,16 +73,15 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     {
         $data = [
             'message' => strtr($exception->getMessageKey(), $exception->getMessageData())
-
-            // or to translate this message
-            // $this->translator->trans($exception->getMessageKey(), $exception->getMessageData())
         ];
 
         return new JsonResponse($data, Response::HTTP_FORBIDDEN);
     }
 
     /**
-     * Called when authentication is needed, but it's not sent
+     * @param Request $request
+     * @param AuthenticationException|null $authException
+     * @return JsonResponse
      */
     public function start(Request $request, AuthenticationException $authException = null)
     {
@@ -110,9 +101,9 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
     private function tokenParser($token)
     {
         $tokenParts = explode(".", $token);
-       // $tokenHeader = base64_decode($tokenParts[0]);
+        $tokenHeader = base64_decode($tokenParts[0]);
         $tokenPayload = base64_decode($tokenParts[1]);
-      //  $jwtHeader = json_decode($tokenHeader);
+        $jwtHeader = json_decode($tokenHeader);
         $jwtPayload = json_decode($tokenPayload);
         return $jwtPayload->email;
     }

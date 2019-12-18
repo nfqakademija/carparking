@@ -35,6 +35,12 @@ class UserAwayRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * @param $id
+     * @param $date
+     * @return mixed
+     * @throws NonUniqueResultException
+     */
     public function findByUserIdAnDate($id, $date)
     {
 
@@ -51,7 +57,6 @@ class UserAwayRepository extends ServiceEntityRepository
     /**
      * @param $id
      * @return mixed
-     * @throws NonUniqueResultException
      */
     public function getByUserId($id)
     {
@@ -78,7 +83,6 @@ class UserAwayRepository extends ServiceEntityRepository
     /**
      * @param $date
      * @return mixed
-     * @throws NonUniqueResultException
      */
     public function findUserAwayByDate($date)
     {
@@ -89,7 +93,6 @@ class UserAwayRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
     }
-
 
     public function findSingleUserAwayByDate($startDate, $endDate, $userId)
     {

@@ -36,7 +36,6 @@ class UsersController extends FOSRestBundle
      */
     public function getOneUser($id)
     {
-        //TODO implement user id addition in guard
         $service = new UsersService($this->entityManager);
         $list = $service->singleUserList($id);
         return new JsonResponse($list);
