@@ -18,6 +18,4 @@ export const getCookie = (cname) => {
 
 const token = getCookie('Bearer')
 
-console.log(token)
-
 axios.defaults.headers.common = {'Authorization': token}
