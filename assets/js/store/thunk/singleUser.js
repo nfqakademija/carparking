@@ -7,6 +7,8 @@ const userId = getCookie('userId')
 
 const token = getCookie('Bearer-token')
 
+console.log('sing token', token)
+
 axios.defaults.headers.common = {'Authorization': token}
 
 export const fetchSingleUser = () => dispatch => {

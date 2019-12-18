@@ -5,6 +5,7 @@ import {getCookie} from './getCookie';
 const userId = getCookie('userId')
 
 const token = getCookie('Bearer-token')
+console.log('notif token', token)
 
 axios.defaults.headers.common = {'Authorization': token}
 
