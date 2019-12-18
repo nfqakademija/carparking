@@ -19,4 +19,3 @@ class RolesRepository extends ServiceEntityRepository
         parent::__construct($registry, Roles::class);
     }
 }
-

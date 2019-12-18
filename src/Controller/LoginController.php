@@ -23,5 +23,4 @@ class LoginController extends AbstractController
             'controller_name' => 'LoginController',
         ]);
     }
-
 }

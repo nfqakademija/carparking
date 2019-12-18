@@ -130,4 +130,3 @@ class UsersService
         return $reservationDateArray;
     }
 }
-
