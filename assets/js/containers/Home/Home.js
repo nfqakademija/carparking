@@ -136,7 +136,7 @@ class Home extends Component {
                                 ref={this.refIndexHandler(index, day)} //coordinates
                                 date={day.date}
                                 lotSize={day.usedSpots+day.availableSpots}
-                                usedSpots={day.usedSpots > 20 ?20 :day.usedSpots} // used spots could be bigger than lot size
+                                usedSpots={day.usedSpots > 21 ?21 :day.usedSpots} // used spots could be bigger than lot size
                                 availableSpots={day.availableSpots > 0 ?day.availableSpots :0} // available spots could be negative
                                 buttonOptions={this.reservationButtonHandler(day.date)}
                                 graphStatus={this.graphHandler(day)}
