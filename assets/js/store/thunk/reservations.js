@@ -6,7 +6,9 @@ import {getCookie} from './getCookie';
 
 const userId = getCookie('userId')
 
-console.log('res ' ,token)
+const token = getCookie('Bearer-token')
+
+axios.defaults.headers.common = {'Authorization': token}
 
 export const fetchReservations = () => dispatch => {
     dispatch(actions.fetchReservationsStart());
