@@ -13,6 +13,7 @@ export const fetchSingleUser = () => dispatch => {
     dispatch(actions.fetchSingleUserStart())
     console.log('single userId', userId)
     axios.get(`/api/single-user/${userId}`)
+            
         .then( res => {
             dispatch(actions.fetchSingleUserSuccess(res.data))
         })

@@ -40,11 +40,7 @@ class App extends Component {
                         <Route path="/app/home" component={Home}/>
                         <Route path='/app/users' component={Users}/>
                         <Route path='/app/logout' component={Logout}/>
-                        {
-                            this.props.userRole === 'user' ?
-                                <Route path='/app/away' component={Away}/> :
-                                null
-                        }
+                        <Route path='/app/away' component={Away}/> :
                         <Route path='/app/notifications' component={Notifications}/>
                         <Redirect from='/app/' to='/app/home'/>
                     </Switch>
@@ -58,9 +54,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
     return {
-        userRole: state.singleUser.user.role,
         token: state.main.token,
-        user: state.main.user
+        user: state.singleUser.user
     }
 }
 
