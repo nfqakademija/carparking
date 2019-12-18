@@ -24,15 +24,4 @@ class LoginController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/logout", name="logout")
-     */
-    public function logout()
-    {
-//        var_dump($request->cookies);
-//        die;
-//        foreach ($_COOKIE as $cookieName => $cookieData) {
-//            $response->headers->clearCookie($cookieName, $cookieData['path'], $cookieData['domain']);
-//        }
-    }
 }

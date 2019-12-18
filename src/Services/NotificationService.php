@@ -56,12 +56,12 @@ class NotificationService
 
         $guest = $this->findUserById($data['guestId']);
         if ($guest->getUserRole()->getRole() != 'guest') {
-            return $array = ['error' => 'not guest'];
+            return ['error' => 'not guest'];
         }
 
         $checkDuplicate = $this->checkDuplicate($data);
         if ($checkDuplicate) {
-            return $array = ['error' => 'duplicate'];
+            return ['error' => 'duplicate'];
         }
 
         $notification = new Notifications();
@@ -70,7 +70,7 @@ class NotificationService
 
         $user = $this->findUserById($data['userId']);
         if ($user->getUserRole()->getRole() != 'user') {
-            return $array = ['error' => 'not user'];
+            return ['error' => 'not user'];
         }
 
         $notification->setUser($user);
@@ -81,7 +81,7 @@ class NotificationService
         $notification->setCanceledAfterAccept(0);
         $this->entityManager->persist($notification);
         $this->entityManager->flush();
-        return $array = ['success' => 'notification created'];
+        return ['success' => 'notification created'];
     }
 
     public function editNotification($data)
@@ -99,7 +99,7 @@ class NotificationService
 
         $this->entityManager->persist($notification);
         $this->entityManager->flush();
-        return $array = ['success' => 'notification edited'];
+        return ['success' => 'notification edited'];
     }
 
     private function findUserById($userId)

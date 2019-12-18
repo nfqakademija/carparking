@@ -26,7 +26,7 @@ class SwitchService
         $requestDate = $data->getRequestDate()->format('Y-m-d');
         $check = $this->userAwayService->checkUserAwayDuplicates($requestDate, $requestDate, $userId);
         if ($check) {
-            return $array = ['error => duplicate'];
+            return ['error => duplicate'];
         }
         $parkSpace = $data->getUser()->getUserParkSpace();
         $reservation = $this->getReservationByGuestId($requestDate, $guestId);
@@ -39,7 +39,7 @@ class SwitchService
         $this->entityManager->persist($userAway);
 
         $this->entityManager->flush();
-        return $array = ['success => switched'];
+        return ['success => switched'];
     }
 
     public function cancelParkSpaceSwitch($notificationId)
@@ -54,7 +54,7 @@ class SwitchService
         $reservation = $this->getReservationByGuestId($requestDate, $guestId);
         $reservation->setParkSpace(null);
         $this->entityManager->flush();
-        return $array = ['success => canceled'];
+        return ['success => canceled'];
     }
 
     private function getReservationByGuestId($requestDate, $guestId)

@@ -23,7 +23,7 @@ class UsersRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param $id
+     * @param $email
      * @return mixed
      * @throws NonUniqueResultException
      */

@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\ParkSpaces;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 
 /**
  * @method ParkSpaces|null find($id, $lockMode = null, $lockVersion = null)
@@ -21,8 +23,8 @@ class ParkSpacesRepository extends ServiceEntityRepository
 
     /**
      * @return mixed
-     * @throws \Doctrine\ORM\NoResultException
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NoResultException
+     * @throws NonUniqueResultException
      */
     public function countParkSpaces()
     {

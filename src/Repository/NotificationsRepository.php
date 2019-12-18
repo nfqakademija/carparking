@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Notifications;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * @method Notifications|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,6 +20,11 @@ class NotificationsRepository extends ServiceEntityRepository
         parent::__construct($registry, Notifications::class);
     }
 
+    /**
+     * @param $data
+     * @return mixed
+     * @throws NonUniqueResultException
+     */
     public function checkDuplicateEntry($data)
     {
         return $this->createQueryBuilder('n')
@@ -32,6 +38,11 @@ class NotificationsRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     * @throws NonUniqueResultException
+     */
     public function findNotificationById($id)
     {
         return $this->createQueryBuilder('n')
@@ -41,6 +52,11 @@ class NotificationsRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * @param $userId
+     * @param $role
+     * @return mixed
+     */
     public function findNotificationByUserId($userId, $role)
     {
         $qb = $this->createQueryBuilder('n');
