@@ -112,11 +112,13 @@ class GoogleAuthenticator extends SocialAuthenticator
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
+
         $valueArray = $this->testCred->getValues();
         $key = $valueArray['token_type'];
         $value = $valueArray['id_token'];
         $userEmail = $this->tokenParser($value);
         $userId = $this->getUserFromEmail($userEmail);
+
         $response = new RedirectResponse('/app');
         $response->headers->setCookie(Cookie::create($key . '-token', $value, 0, '/', '127.0.0.1', false, false));
         $response->headers->setCookie(Cookie::create('userId', $userId, 0, '/', '127.0.0.1', false, false));
