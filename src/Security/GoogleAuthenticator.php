@@ -143,11 +143,15 @@ class GoogleAuthenticator extends SocialAuthenticator
     {
 
 
+
         $valueArray = $this->testCred->getValues();
         $key = $valueArray['token_type'];
         $value = $valueArray['id_token'];
         $userEmail = $this->tokenParser($value);
         $userId = $this->getUserFromEmail($userEmail);
+
+        setcookie($key.'asd', $value, time() + (86400 * 30), "/");
+
         $response = new RedirectResponse('/app');
         $response->headers->setCookie(Cookie::create($key . '-token', $value, 0, '/', '127.0.0.1', false, false));
         $response->headers->setCookie(Cookie::create('userId', $userId, 0, '/', '127.0.0.1', false, false));
