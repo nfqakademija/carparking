@@ -19,7 +19,7 @@ const reducer = (state = initialState, action) => {
         case actionTypes.FETCH_SINGLE_USER_START:
             return {
                 ...state,
-                loading: false
+                loading: true
             }
         case actionTypes.FETCH_SINGLE_USER_SUCCESS:
             return {

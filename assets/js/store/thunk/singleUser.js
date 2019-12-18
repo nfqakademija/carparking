@@ -12,6 +12,7 @@ console.log('sing token', token)
 axios.defaults.headers.common = {'Authorization': token}
 
 export const fetchSingleUser = () => dispatch => {
+
     dispatch(actions.fetchSingleUserStart())
     console.log('single userId', userId)
     axios.get(`/api/single-user/${userId}`)
