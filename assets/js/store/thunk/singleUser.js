@@ -4,7 +4,10 @@ import {getCookie} from './getCookie';
 
 const userId = getCookie('userId')
 
-console.log('single ' ,token)
+
+const token = getCookie('Bearer-token')
+
+axios.defaults.headers.common = {'Authorization': token}
 
 export const fetchSingleUser = () => dispatch => {
     dispatch(actions.fetchSingleUserStart())

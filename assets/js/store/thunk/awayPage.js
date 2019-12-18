@@ -7,7 +7,9 @@ import { getCookie } from './getCookie';
 
 const userId = getCookie('userId')
 
-console.log('away ' ,token)
+const token = getCookie('Bearer-token')
+
+axios.defaults.headers.common = {'Authorization': token}
 
 export const postDatesAway = (startDate, endDate) => (dispatch, getState) => {
     let status;

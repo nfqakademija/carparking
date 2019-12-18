@@ -4,7 +4,9 @@ import {getCookie} from './getCookie';
 
 const userId = getCookie('userId')
 
-console.log('notif ' ,token)
+const token = getCookie('Bearer-token')
+
+axios.defaults.headers.common = {'Authorization': token}
 
 const nameToFirstUpperLetter = (name) => {
     return name.charAt(0).toUpperCase() + name.substring(1)
