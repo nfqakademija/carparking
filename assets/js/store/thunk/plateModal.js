@@ -18,17 +18,12 @@ const getCookie = (cname) => {
     return "";
 }
 
-const token = getCookie('Bearer-token');
-
-const config = {
-    headers: {"Authorization": token}
-};
 
 export const getPlateNumber = () => (dispatch, getState) => {
 
     const user = getState().singleUser.user.userId;
 
-    axios.get('/api/single-user/' + user, config)
+    axios.get('/api/single-user/' + user)
         .then((response) => {
 
             if (response.status === 200) {
@@ -54,7 +49,7 @@ export const updatePlateNumber = (numbers) => (dispatch, getState) => {
 
     let status;
 
-    axios.post('/api/licenseplate', plate, config)
+    axios.post('/api/licenseplate', plate)
         .then((response) => {
 
             if (response.status === 200) {
