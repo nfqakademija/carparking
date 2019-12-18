@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Reservations;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\ORM\NonUniqueResultException;
 
 /**
  * @method Reservations|null find($id, $lockMode = null, $lockVersion = null)
@@ -28,9 +29,22 @@ class ReservationsRepository extends ServiceEntityRepository
             ->execute();
     }
 
+    public function getReservationsByDate($date)
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.reservationDate = :dates')
+            ->setParameter('dates', $date)
+            ->getQuery()
+            ->execute();
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * @throws NonUniqueResultException
+     */
     public function findReservationById($id)
     {
-        $value = null;
         return $this->createQueryBuilder('r')
             ->andWhere('r.id = :id')
             ->setParameter('id', $id)
@@ -38,6 +52,11 @@ class ReservationsRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * @param $date
+     * @return mixed
+     * @throws NonUniqueResultException
+     */
     public function findReservationWithoutParkSpaceByDate($date)
     {
         return $this->createQueryBuilder('r')
@@ -53,7 +72,7 @@ class ReservationsRepository extends ServiceEntityRepository
      * @param $date
      * @param $clientId
      * @return mixed
-     * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws NonUniqueResultException
      */
     public function findReservationByDateAndUserId($date, $clientId)
     {
@@ -66,6 +85,12 @@ class ReservationsRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * @param $date
+     * @param $parkSpaceId
+     * @return mixed
+     * @throws NonUniqueResultException
+     */
     public function findReservationByDateAndParkSpaceId($date, $parkSpaceId)
     {
         return $this->createQueryBuilder('r')
@@ -77,6 +102,12 @@ class ReservationsRepository extends ServiceEntityRepository
             ->getOneOrNullResult();
     }
 
+    /**
+     * @param $date
+     * @return mixed
+     * @throws NonUniqueResultException
+     * @throws \Doctrine\ORM\NoResultException
+     */
     public function countReservationByDateAndWithParkSpaceId($date)
     {
         return $this->createQueryBuilder('r')

@@ -51,13 +51,6 @@ class UserProvider implements UserProviderInterface
     }
 
     /**
-     * Refreshes the user.
-     *
-     * It is up to the implementation to decide if the user data should be
-     * totally reloaded (e.g. from the database), or if the UserInterface
-     * object can just be merged into some internal array of users / identity
-     * map.
-     *
      * @param UserInterface $user
      * @return UserInterface
      *

@@ -1,11 +1,8 @@
 <?php
-
 namespace App\DataFixtures;
 
 use App\Entity\ParkSpaces;
-use App\Entity\Reservations;
 use App\Entity\Roles;
-use App\Entity\UserAway;
 use App\Entity\Users;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -29,11 +26,10 @@ class AppFixtures extends Fixture
 
     public function load(ObjectManager $manager)
     {
+        $this->makeFake($manager);
         $this->makeParkSpaces(20, $manager);
         $this->makeRoles($manager);
         $this->makeUsers(40, $manager);
-        //$this->makeUserAwayPeriods(5, $manager);
-       // $this->makeReservations(20, 5, $manager);
     }
 
     private function makeParkSpaces($number, ObjectManager $manager)
@@ -58,19 +54,14 @@ class AppFixtures extends Fixture
             $user = new Roles();
             switch ($i) {
                 case 1:
-                    $user->setRole('admin');
+                    $user->setRole('guest');
                     $manager->persist($user);
-                    $this->addReference(self::ROLE_ADMIN, $user);
+                    $this->addReference(self::ROLE_GUEST, $user);
                     break;
                 case 2:
                     $user->setRole('user');
                     $manager->persist($user);
                     $this->addReference(self::ROLE_USER, $user);
-                    break;
-                case 3:
-                    $user->setRole('guest');
-                    $manager->persist($user);
-                    $this->addReference(self::ROLE_GUEST, $user);
                     break;
             }
         }
@@ -94,14 +85,8 @@ class AppFixtures extends Fixture
             $user->setLicencePlate($stringNumber);
             $user->setEmail($name . $surname . "@mail.com");
             if ($i <= 20) {
-                if ($i == 1) {
-                    $user->setUserRole($this->getReference(self::ROLE_ADMIN));
-                } else {
-                    $user->setUserRole($this->getReference(self::ROLE_USER));
-                }
+                $user->setUserRole($this->getReference(self::ROLE_USER));
                 $user->setPermanentSpace($this->getReference(self::PARK_SPACE . $i));
-            } elseif ($i <= 30) {
-                $user->setUserRole($this->getReference(self::ROLE_GUEST));
             } else {
                 $user->setUserRole($this->getReference(self::ROLE_GUEST));
             }
@@ -111,39 +96,36 @@ class AppFixtures extends Fixture
         $manager->flush();
     }
 
-    private function makeReservations($number, $daysPerUser, ObjectManager $manager)
+    private function makeFake(ObjectManager $manager)
     {
-        for ($i = 1; $i <= $number; $i++) {
-            for ($j = 0; $j < $daysPerUser; $j++) {
-                $date = new \DateTime('now');
-                $reservations = new Reservations();
-                $reservations->setUser($this->getReference(self::USER . $i));
-                $date->modify("+" . $j . " day");
-                $reservations->setReservationDate($date);
-                $manager->persist($reservations);
-            }
-        }
-        $manager->flush();
-    }
+        $guest = new Roles();
+        $guest->setRole('guest');
+        $manager->persist($guest);
 
-    private function makeUserAwayPeriods($number, ObjectManager $manager)
-    {
-        for ($i = 1; $i <= $number; $i++) {
-            $reservations = new UserAway();
-            $userNumber = rand(1, $number);
-            $reservations->setAwayUser($this->getReference(self::USER . $userNumber));
-            $reservations->setAwayStartDate($this->dateModifier(1, 4));
-            $reservations->setAwayEndDate($this->dateModifier(5, 7));
-            $manager->persist($reservations);
-        }
-        $manager->flush();
-    }
+        $user = new Roles();
+        $user->setRole('user');
+        $manager->persist($user);
 
-    private function dateModifier($start, $end): \DateTime
-    {
-        $date = new \DateTime(date('Y-m-d H:i:s'));
-        $rand = rand($start, $end);
-        $date->modify("+" . $rand . " day");
-        return $date;
+        $parkSpace = new ParkSpaces();
+        $parkSpace->setNumber('P021');
+        $manager->persist($parkSpace);
+
+        $userClient = new Users();
+        $userClient->setName('Petras');
+        $userClient->setSurname('Petraitis');
+        $userClient->setUserRole($user);
+        $userClient->setLicencePlate('UUU042');
+        $userClient->setEmail("carparkingvardenis@gmail.com");
+        $userClient->setPermanentSpace($parkSpace);
+        $manager->persist($userClient);
+
+        $userGuest = new Users();
+        $userGuest->setName('Jonas');
+        $userGuest->setSurname('Jonaitis');
+        $userGuest->setUserRole($guest);
+        $userGuest->setLicencePlate('GGG001');
+        $userGuest->setEmail("johndoeguest080@gmail.com");
+        $manager->persist($userGuest);
+        $manager->flush();
     }
 }
