@@ -18,4 +18,4 @@ export const getCookie = (cname) => {
 
 const token = getCookie('Bearer')
 
-axios.defaults.headers.common = {'Authorization': token}
+//axios.defaults.headers.common = {'Authorization': token}
